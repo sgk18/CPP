@@ -4,6 +4,8 @@
 # Allow HTML & CSS
 !*.html
 !*.css
+# Allow images
+!*.png
 
 # Allow folders (needed so html/css inside folders work)
 !*/
