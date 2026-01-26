@@ -1,0 +1,12 @@
+# Ignore everything by default
+*
+
+# Allow HTML & CSS
+!*.html
+!*.css
+
+# Allow folders (needed so html/css inside folders work)
+!*/
+
+# Always keep gitignore
+!.gitignore
