@@ -1,255 +1,559 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dares You to Be Different</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Dares You to Be Different | Centre for Peace Praxis</title>
+    <link rel="icon" type="icon" href="icon.ico">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Tailwind CSS (CDN for compatibility) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css">
+    
     <style>
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.3);
-            --glass-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --primary: #1a5f7a;
+            --primary-dark: #12465a;
+            --secondary: #2a9d8f;
+            --accent: #e76f51;
+            --light: #f8f9fa;
+            --dark: #264653;
+            --gray: #6c757d;
+            --light-blue: #a8dadc;
         }
-        @media (max-width: 768px) {
-  h1 {
-    font-size: 2rem;
-  }
-  h2 {
-    font-size: 1.25rem;
-  }
-  .img {
-    width: 200 px;
-    padding: 10px;
-  }
-}
-
 
         body {
             font-family: 'Open Sans', sans-serif;
-            background-color: #fcfcfc;
             color: #333;
-            line-height: 1.6;
+            background-color: #fcfcfc;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
-            color: #264653;
-            text-align: center;
+            color: var(--dark);
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
+        /* Navigation */
         header {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 15px 0;
-            border-radius: 10px;
-            text-align: center;
         }
 
-        header a {
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
             text-decoration: none;
-            color: #e76f51;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            padding: 2px;
+        }
+        
+        .logo-img img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .logo-text span {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
             font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
             transition: color 0.3s;
         }
 
-        header a:hover {
-            color: #1a5f7a;
+        nav a:hover, nav a.active {
+            color: var(--primary);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            font-size: 24px;
+            color: var(--primary);
+            background: none;
+            border: none;
+            cursor: pointer;
         }
 
-        section {
-            padding: 50px 20px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(15px);
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-            border-radius: 20px;
-            margin-bottom: 20px;
-            text-align: justify;
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: block; }
+            nav {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 100%;
+                background: white;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                transition: 0.3s ease;
+                padding: 20px;
+            }
+            nav.active { right: 0; }
+            nav ul { flex-direction: column; text-align: center; }
         }
 
-        footer {
-            background-color: #264653;
+        /* Hero Section */
+        .event-hero {
+            background-image: linear-gradient(rgba(26, 95, 122, 0.85), rgba(42, 157, 143, 0.8)), url('hero_bg.png');
+            background-size: cover;
+            background-position: center;
             color: white;
-            padding: 20px 0;
+            padding: 120px 20px;
             text-align: center;
+            position: relative;
+        }
+
+        .event-hero h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .event-tag {
+            background-color: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .event-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
             border-radius: 10px;
+            backdrop-filter: blur(5px);
         }
 
-        .glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            box-shadow: var(--glass-shadow);
-            border: 1px solid var(--glass-border);
+        /* Speakers Grid */
+        .speaker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .speaker-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s ease;
+            border-top: 4px solid var(--secondary);
+        }
+
+        .speaker-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .speaker-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--light-blue);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .speaker-card h4 {
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+
+        .speaker-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .speaker-org {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        /* Impact Section */
+        .impact-section {
+            background: var(--primary);
+            color: white;
+            padding: 60px 0;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .impact-item h3 {
+            font-size: 3rem;
+            color: var(--light-blue);
+            margin-bottom: 0;
+        }
+
+        .impact-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Content Layout */
+        .content-section {
+            max-width: 900px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+        
+        .section-heading {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .report-image-container {
+            max-width: 800px;
+            margin: 40px auto;
             border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
-        /* Report Image Styling */
-.image-section {
-  text-align: center;
-}
+        
+        .report-image {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .report-image:hover {
+            transform: scale(1.02);
+        }
 
-.report-image {
-  max-width: 90%;
-  width: 700px;        /* desktop ideal size */
-  height: auto;        /* maintains aspect ratio */
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
+        .highlight-box {
+            background: #f0f9ff;
+            border-left: 5px solid var(--primary);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+        }
 
-/* Mobile optimization */
-@media (max-width: 768px) {
-  .report-image {
-    width: 100%;
-    max-width: 100%;
-  }
-}
-.image-caption {
-  margin-top: 10px;
-  font-size: 0.9rem;
-  color: #555;
-  font-style: italic;
-}
-
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+        
+        /* Mobile */
+        @media(max-width: 768px) {
+            .event-hero h1 { font-size: 2.5rem; }
+            .impact-grid { grid-template-columns: 1fr; gap: 40px; }
+            .meta-item { width: 100%; justify-content: center; }
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-open-sans">
-    <div class="container mx-auto py-10 glass">
-        <header class="text-center mb-10">
-            <h1 class="text-4xl font-bold text-primary mb-4">CHRIST (Deemed to be University), Bangalore</h1>
-            <h2 class="text-2xl font-semibold text-secondary">Department of Media Studies and Centre for Peace Praxis</h2>
-            <h3 class="text-xl font-medium text-gray-600">Activity Report – 2025</h3>
-            <a href="center_for_peace.html" class="text-lg text-accent hover:text-primary underline">Visit Centre for Peace Praxis</a>
-        </header>
-        <br>
-        <main>
-            <section>
-                <h2 class="text-xl font-semibold text-primary mb-4">General Information</h2>
-                <p><strong>Type of Activity:</strong> Panel Discussion</p>
-                <p><strong>Title of the Activity:</strong> Dares You to Be Different</p>
-                <p><strong>Date:</strong> 25 July 2025</p>
-                <p><strong>Time:</strong> 11:45 A.M. – 1:00 P.M.</p>
-                <p><strong>Venue:</strong> PU Block, 4th Floor, Seminar Hall</p>
-                <p><strong>Collaboration/Sponsorship:</strong> N/A</p>
-            </section>
 
-            <section>
-                <h2 class="text-xl font-semibold text-primary mb-4">Speaker / Guest / Panelist Details</h2>
-                <div style="overflow-x: auto;">
-                    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
-                        <thead>
-                            <tr style="background-color: #264653; color: white;">
-                                <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Name</th>
-                                <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Title / Position</th>
-                                <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Organization</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="background-color: #f9f9f9;">
-                                <td style="padding: 12px; border: 1px solid #ddd;">Mrs. Priti Salian</td>
-                                <td style="padding: 12px; border: 1px solid #ddd;">Journalist</td>
-                                <td style="padding: 12px; border: 1px solid #ddd;">Freelancer</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 12px; border: 1px solid #ddd;">Mrs. Kaavyasri D. A</td>
-                                <td style="padding: 12px; border: 1px solid #ddd;">Social Worker</td>
-                                <td style="padding: 12px; border: 1px solid #ddd;">Enable India</td>
-                            </tr>
-                            <tr style="background-color: #f9f9f9;">
-                                <td style="padding: 12px; border: 1px solid #ddd;">Dr. Abilash Chandran</td>
-                                <td style="padding: 12px; border: 1px solid #ddd;">Assistant Professor</td>
-                                <td style="padding: 12px; border: 1px solid #ddd;">CHRIST University – BCC</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 12px; border: 1px solid #ddd;">Mr. Abishek Chetty</td>
-                                <td style="padding: 12px; border: 1px solid #ddd;">Student</td>
-                                <td style="padding: 12px; border: 1px solid #ddd;">CHRIST University – BCC</td>
-                            </tr>
-                        </tbody>
-                    </table>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="center_for_peace.html" class="logo">
+                <div class="logo-img">
+                    <img src="peaceaxixlogo.png" alt="CPP Logo">
                 </div>
-                <p style="margin-top: 15px;"><strong>Theme / Title of Presentation:</strong> Not Less, Different</p>
-            </section>
+                <div class="logo-text">Centre for <span>Peace Praxis</span></div>
+            </a>
+            
+            <button class="mobile-menu-btn" onclick="document.querySelector('nav').classList.toggle('active')">
+                <i class="fas fa-bars"></i>
+            </button>
 
-            <section>
-                <h2 class="text-xl font-semibold text-primary mb-4">Participants' Profile</h2>
-                <p><strong>Type of Participants:</strong> Students and Others</p>
-                <p><strong>Number of Participants:</strong> 50</p>
-            </section>
-
-            <section>
-                <h2 class="text-xl font-semibold text-primary mb-4">Objectives of the Activity</h2>
-                <ul class="list-disc pl-5">
-                    <li>To create awareness about disability and inclusion through multiple perspectives.</li>
-                    <li>To encourage dialogue on representation, accessibility, and dignity for differently abled individuals.</li>
-                    <li>To highlight the role of media, educational institutions, and individuals in shaping inclusive attitudes.</li>
-                    <li>To provide a platform for lived experiences that challenge stereotypes and promote empathy.</li>
+            <nav>
+                <ul>
+                    <li><a href="center_for_peace.html#home">Home</a></li>
+                    <li><a href="center_for_peace.html#about">About</a></li>
+                    <li><a href="center_for_peace.html#workshops" class="active">Events</a></li>
+                    <li><a href="center_for_peace.html#contact">Contact</a></li>
                 </ul>
-            </section>
+            </nav>
+        </div>
+    </header>
 
-            <section>
-                <h2 class="text-xl font-semibold text-primary mb-4">Synopsis of the Activity</h2>
-                <p>The panel discussion brought together voices that do not often share the same stage—journalism, academia, social work, and student experience—each offering distinct yet interconnected perspectives on disability and inclusion. The session opened with contextual remarks that introduced the theme "Not Less, Different", emphasizing difference as diversity rather than deficit.</p>
-                <p>Mrs. Priti Salian, a journalist, spoke on the influential role of media in shaping public perception. She highlighted how disability is often portrayed through narratives of pity or inspiration, rather than authenticity. She emphasized responsible storytelling as a powerful tool to build empathy, awareness, and dignity.</p>
-                <p>Dr. Abilash Chandran offered an academic perspective on inclusion within higher education. He stressed that inclusivity must move beyond infrastructure and symbolic gestures, and be embedded in institutional policies, teaching practices, and campus culture. His reflections brought attention to the often-unseen challenges faced by differently abled students in academic spaces.</p>
-                <p>Mr. Abishek Chetty, a student panelist, shared his lived experiences of navigating university life as a differently abled individual. Speaking with honesty and confidence, he reflected on agency, acceptance, and resilience within systems not originally designed for inclusivity. His contribution added authenticity and emotional depth to the discussion.</p>
-                <p>The session concluded as a reflective call to action, encouraging participants to reconsider attitudes, language, and everyday practices that shape inclusion within the university and beyond.</p>
-            </section>
+    <!-- Hero Section -->
+    <section class="event-hero">
+        <div class="container mx-auto" data-aos="fade-up">
+            <span class="event-tag">Panel Discussion</span>
+            <h1>Dares You to Be Different</h1>
+            <p class="text-xl max-w-2xl mx-auto opacity-90">A conversation on disability, inclusion, and the courage to redefine normality.</p>
+            
+            <div class="event-meta">
+                <div class="meta-item">
+                    <i class="fas fa-calendar-alt text-yellow-400"></i>
+                    <span>25 July 2025</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-clock text-yellow-400"></i>
+                    <span>11:45 A.M. – 1:00 P.M.</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-map-marker-alt text-yellow-400"></i>
+                    <span>PU block, 4th floor, seminar hall</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <section>
-                <h2 class="text-xl font-semibold text-primary mb-4">Highlights of the Activity</h2>
-                <ul class="list-disc pl-5">
-                    <li>Diverse panel representing media, academia, social work, and student experience</li>
-                    <li>Honest discussions on disability, representation, and accessibility</li>
-                    <li>Strong engagement from participants through reflective listening</li>
-                    <li>Emphasis on lived experiences as a source of learning</li>
-                    <li>Creation of a thoughtful and inclusive dialogue space</li>
-                </ul>
-            </section>
+    <!-- Main Content -->
+    <main class="py-16">
+        
+        <!-- Synopsis -->
+        <div class="content-section" data-aos="fade-up">
+            <h2 class="section-heading">Summary of the Activity</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                The panel discussion titled “Not Less, Different” was hosted by the Centre for Peace Praxis at CHRIST (Deemed to be University) on 25 July 2025. The session focused on the challenges faced by the differently abled, aiming to foster awareness, empathy, and advocacy within the university community. Featuring voices from journalism, academia, and student experience, the event encouraged participants to rethink inclusivity, representation, and accessibility in everyday life.
+            </p>
 
-            <section>
-                <h2 class="text-xl font-semibold text-primary mb-4">Key Takeaways</h2>
-                <p>The panel discussion reinforced that disability is not a limitation but a difference that deserves recognition with dignity and respect. A major takeaway was the importance of inclusive and empowering language, moving away from labels that marginalize. The discussion highlighted that accessibility goes beyond physical infrastructure and includes attitude, awareness, and agency.</p>
-                <p>The role of media in shaping public narratives was emphasized as crucial in transforming perceptions—from sympathy-driven portrayals to stories of autonomy and value. Institutional responsibility emerged as another key theme, with a strong call for universities to create learning environments that are inclusive both structurally and socially. Overall, the session inspired participants to become active allies in fostering inclusion.</p>
-            </section>
+            <h2 class="section-heading">Highlights of the Activity</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                The panel discussion brought together voices that don’t often share the same stage—an academic, a journalist, and a student—each offering unique yet intersecting perspectives on disability. Mrs. Priti Salian spoke about how the media has the power to shape public attitudes and narratives, but often misses the mark when it comes to nuanced coverage of disability. She emphasized that storytelling, when done right, can build empathy instead of pity.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                Dr. Abilash Chandran provided insights into how higher education institutions must go beyond tokenism. He pointed out that inclusion should be embedded in policy, pedagogy, and campus culture—not limited to infrastructure alone. His observations sparked conversation about the silent struggles that are overlooked in academic spaces.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                Abhishek Chetty, a student panelist from the 3rd year of the BA Economics and Sociology program, spoke candidly about his lived experiences. He reflected on navigating campus life as a differently abled individual—not as a victim, but as someone who is constantly negotiating agency and acceptance in a system not designed with him in mind. His words resonated deeply with the audience and brought authenticity to the theme: “Not Less, Different.”
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                The session wasn't just about discussion—it was a quiet call to action. Participants left the seminar hall reflecting on their role in building an inclusive community that embraces difference without diminishing individuality.
+            </p>
+        </div>
 
-            <section>
-                <h2 class="text-xl font-semibold text-primary mb-4">Summary of the Activity</h2>
-                <p>The panel discussion "Not Less, Different" organized by the Centre for Peace Praxis at CHRIST (Deemed to be University) on 25 July 2025 focused on disability, inclusion, and representation. Featuring perspectives from journalism, academia, social work, and student experience, the session encouraged participants to rethink accessibility, language, and empathy in everyday life. The event successfully fostered awareness, reflection, and a shared commitment to inclusive community building.</p>
-            </section>
+        <!-- Speakers -->
+        <div class="bg-gray-50 py-16 mb-16">
+            <div class="container mx-auto px-4 max-w-6xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="text-3xl font-bold text-gray-800">Meet Our Panelists</h2>
+                    <p class="text-gray-600 mt-2">The voices that shaped the conversation</p>
+                </div>
+                
+                <div class="speaker-grid" data-aos="fade-up" data-aos-delay="100">
+                    <!-- Speaker 1 -->
+                    <div class="speaker-card">
+                        <div class="speaker-avatar">PS</div>
+                        <h4>Mrs. Priti Salian</h4>
+                        <p>Journalist</p>
+                        <p class="speaker-org">Freelancer</p>
+                    </div>
+                    
+                    <!-- Speaker 2 -->
+                    <div class="speaker-card">
+                        <div class="speaker-avatar">KD</div>
+                        <h4>Mrs. Kaavyasri D. A</h4>
+                        <p>Social Worker</p>
+                        <p class="speaker-org">Enable India</p>
+                    </div>
+                    
+                    <!-- Speaker 3 -->
+                    <div class="speaker-card">
+                        <div class="speaker-avatar">Dr. A</div>
+                        <h4>Dr. Abilash Chandran</h4>
+                        <p>Assistant Professor</p>
+                        <p class="speaker-org">CHRIST University – BCC</p>
+                    </div>
+                    
+                    <!-- Speaker 4 -->
+                    <div class="speaker-card">
+                        <div class="speaker-avatar">AC</div>
+                        <h4>Mr. Abishek Chetty</h4>
+                        <p>Student Speaker</p>
+                        <p class="speaker-org">CHRIST University – BCC</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            <section>
-                <h2 class="text-xl font-semibold text-primary mb-4">Follow-up Plan</h2>
-                <p>N/A</p>
-            </section>
+        <!-- Impact Counter -->
+        <div class="impact-section">
+            <div class="impact-grid" data-aos="zoom-in">
+                <div class="impact-item">
+                    <h3>50+</h3>
+                    <p>Active Participants</p>
+                </div>
+                <div class="impact-item">
+                    <h3>4</h3>
+                    <p>Expert Perspectives</p>
+                </div>
+                <div class="impact-item">
+                    <h3>1</h3>
+                    <p>Shared Mission</p>
+                </div>
+            </div>
+        </div>
 
-            <section>
-                <h2 class="text-xl font-semibold text-primary mb-4">Alignment with Sustainable Development Goals (SDGs)</h2>
-                <p><strong>SDG 10:</strong> Reduced Inequalities</p>
-            </section>
+        <!-- Key Takeaways -->
+        <div class="content-section" data-aos="fade-up">
+            <h2 class="section-heading">Key Takeaways</h2>
+            
+            <p class="text-lg text-gray-700 leading-relaxed">
+                The panel discussion emphasized that disability is not a limitation but a difference that society must recognize with dignity and respect. A central takeaway was the importance of shifting language from terms that marginalize to expressions that empower—moving away from outdated labels and embracing inclusive terminology like “differently abled.” The session also highlighted how lived experiences offer powerful insights that challenge stereotypes; Abhishek Chetty’s reflections made it evident that accessibility is not just about ramps and elevators, but about attitude, awareness, and agency. The role of the media, as discussed by Mrs. Priti Salian, was seen as crucial in transforming public perception—portraying persons with disabilities not as subjects of sympathy but as individuals with autonomy and value. Dr. Abilash Chandran’s academic lens brought attention to institutional responsibilities, urging universities to create inclusive learning spaces that support students both structurally and socially. Ultimately, the discussion inspired participants to become allies in action—committed to listening, learning, and making inclusion a lived reality in every sphere of life.
+            </p>
+        </div>
+        
+        <!-- Gallery -->
+        <div class="content-section" data-aos="fade-up">
+            <h2 class="section-heading text-center">Event Gallery</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto mt-8">
+                <div class="report-image-container m-0">
+                    <img src="dares_diff_1.jpg" alt="Panel Discussion - Event Photo 1" class="report-image h-full object-cover">
+                </div>
+                <div class="report-image-container m-0">
+                    <img src="dares_diff_2.jpg" alt="Panel Discussion - Event Photo 2" class="report-image h-full object-cover">
+                </div>
+            </div>
+            <p class="text-center text-gray-500 italic mt-4">Snapshots from the "Dares You to Be Different" session at CHRIST University.</p>
+        </div>
 
-            <section class="image-section">
-  <img src="Dares_you_to_be_different.png" class="report-image" alt="Dares You to Be Different panel discussion">
-  <p class="image-caption">Panel discussion "Dares You to Be Different" conducted at CHRIST University</p>
-</section>
+        <!-- SDG Section -->
+        <div class="container mx-auto text-center py-10" data-aos="fade-in">
+             <div class="inline-block bg-white p-6 rounded-xl shadow-lg border-2 border-dashed border-gray-200">
+                <p class="uppercase tracking-widest text-xs font-bold text-gray-500 mb-2">Aligned with UN SDG</p>
+                <div class="flex items-center gap-3 justify-center">
+                    <span class="text-4xl font-black text-pink-600">10</span>
+                    <span class="text-xl font-bold text-gray-800">Reduced Inequalities</span>
+                </div>
+             </div>
+        </div>
 
-        </main>
+    </main>
 
-        <footer class="text-center mt-10 text-sm opacity-80">
-            <p><strong>Report Prepared By:</strong> Abishek Chetty A</p>
-            <p style="margin-top: 10px;"><strong>Attendance:</strong> N/A</p>
-        </footer>
-    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="header-container" style="display:block;"> <!-- Reusing container with block display -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10 text-center md:text-left">
+                <div>
+                    <h3 class="text-xl text-white mb-4">Department of Media Studies &<br>Centre for Peace Praxis</h3>
+                    <p class="text-gray-400 text-sm">Building communities of hope, healing, and resilience through peace literacy and intercultural dialogue.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl text-white mb-4">Contact</h3>
+                    <p class="text-gray-400 text-sm">CHRIST (Deemed to be University)</p>
+                    <p class="text-gray-400 text-sm">Bangalore, India</p>
+                    <p class="text-gray-400 text-sm mt-2">info@peacepraxis.org</p>
+                </div>
+                <div>
+                    <h3 class="text-xl text-white mb-4">Connect</h3>
+                    <div class="flex justify-center md:justify-start gap-4">
+                        <a href="#" class="text-white hover:text-teal-400"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-white hover:text-teal-400"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-white hover:text-teal-400"><i class="fab fa-linkedin fa-lg"></i></a>
+                    </div>
+                    <p class="text-gray-500 text-xs mt-4">Report Prepared By: Abishek Chetty A</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-6 text-center text-gray-500 text-sm">
+                &copy; 2025 Centre for Peace Praxis. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+    </script>
 </body>
 </html>
