@@ -1,205 +1,532 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bridging Hearts</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Bridging Hearts | Centre for Peace Praxis</title>
+    <link rel="icon" type="icon" href="icon.ico">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Tailwind CSS (CDN for compatibility) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css">
+    
     <style>
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.3);
-            --glass-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --primary: #1a5f7a;
+            --primary-dark: #12465a;
+            --secondary: #2a9d8f;
+            --accent: #e76f51;
+            --light: #f8f9fa;
+            --dark: #264653;
+            --gray: #6c757d;
+            --light-blue: #a8dadc;
         }
-        @media (max-width: 768px) {
-  h1 {
-    font-size: 2rem;
-  }
-  h2 {
-    font-size: 1.25rem;
-  }
-  .img {
-    width: 200 px;
-    padding: 10px;
-  }
-}
-
 
         body {
             font-family: 'Open Sans', sans-serif;
-            background-color: #fcfcfc;
             color: #333;
-            line-height: 1.6;
+            background-color: #fcfcfc;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
-            color: #264653;
-            text-align: center;
+            color: var(--dark);
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
+        /* Navigation */
         header {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 15px 0;
-            border-radius: 10px;
-            text-align: center;
         }
 
-        header a {
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
             text-decoration: none;
-            color: #e76f51;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            padding: 2px;
+        }
+        
+        .logo-img img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .logo-text span {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
             font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
             transition: color 0.3s;
         }
 
-        header a:hover {
-            color: #1a5f7a;
+        nav a:hover, nav a.active {
+            color: var(--primary);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            font-size: 24px;
+            color: var(--primary);
+            background: none;
+            border: none;
+            cursor: pointer;
         }
 
-        section {
-            padding: 50px 20px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(15px);
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-            border-radius: 20px;
-            margin-bottom: 20px;
-            text-align: justify;
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: block; }
+            nav {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 100%;
+                background: white;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                transition: 0.3s ease;
+                padding: 20px;
+            }
+            nav.active { right: 0; }
+            nav ul { flex-direction: column; text-align: center; }
         }
 
-        footer {
-            background-color: #264653;
+        /* Hero Section */
+        .event-hero {
+            background-image: linear-gradient(rgba(26, 95, 122, 0.85), rgba(42, 157, 143, 0.8)), url('hero_bg.png');
+            background-size: cover;
+            background-position: center;
             color: white;
-            padding: 20px 0;
+            padding: 120px 20px;
             text-align: center;
+            position: relative;
+        }
+
+        .event-hero h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .event-tag {
+            background-color: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .event-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
             border-radius: 10px;
+            backdrop-filter: blur(5px);
         }
 
-        .glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            box-shadow: var(--glass-shadow);
-            border: 1px solid var(--glass-border);
+        /* Speakers Grid */
+        .speaker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            justify-content: center;
+        }
+
+        .speaker-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s ease;
+            border-top: 4px solid var(--secondary);
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .speaker-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .speaker-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--light-blue);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .speaker-card h4 {
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+
+        .speaker-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .speaker-org {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        /* Impact Section */
+        .impact-section {
+            background: var(--primary);
+            color: white;
+            padding: 60px 0;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            justify-items: center;
+        }
+
+        .impact-item h3 {
+            font-size: 3rem;
+            color: var(--light-blue);
+            margin-bottom: 0;
+        }
+
+        .impact-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Content Layout */
+        .content-section {
+            max-width: 900px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+        
+        .section-heading {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .report-image-container {
+            max-width: 800px;
+            margin: 40px auto;
             border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
-        /* Report Image Styling */
-.image-section {
-  text-align: center;
-}
+        
+        .report-image {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .report-image:hover {
+            transform: scale(1.02);
+        }
 
-.report-image {
-  max-width: 90%;
-  width: 700px;        /* desktop ideal size */
-  height: auto;        /* maintains aspect ratio */
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
+        .highlight-box {
+            background: #f0f9ff;
+            border-left: 5px solid var(--primary);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+        }
 
-/* Mobile optimization */
-@media (max-width: 768px) {
-  .report-image {
-    width: 100%;
-    max-width: 100%;
-  }
-}
-.image-caption {
-  margin-top: 10px;
-  font-size: 0.9rem;
-  color: #555;
-  font-style: italic;
-}
-
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+        
+        /* Mobile */
+        @media(max-width: 768px) {
+            .event-hero h1 { font-size: 2.5rem; }
+            .impact-grid { grid-template-columns: 1fr; gap: 40px; }
+            .meta-item { width: 100%; justify-content: center; }
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-open-sans">
-    <div class="container mx-auto py-10 glass">
-        <header class="text-center mb-10">
-            <h1 class="text-4xl font-bold text-primary mb-4">CHRIST (Deemed to be University), Bangalore</h1>
-            <h2 class="text-2xl font-semibold text-secondary">Department of Media Studies and Centre for Peace Praxis</h2>
-            <h3 class="text-xl font-medium text-gray-600">Bridging Hearts</h3>
-            <a href="center_for_peace.html" class="text-lg text-accent hover:text-primary underline">Visit Centre for Peace Praxis</a>
-        </header>
-        <br>
-        <main>
-            <section>
-                <h2 class="text-xl font-semibold text-primary mb-4">General Information</h2>
-                <p><strong>Type of Activity:</strong> Workshop</p>
-                <p><strong>Title of the Activity:</strong> Bridging Hearts Workshop</p>
-                <p><strong>Date:</strong> 18 July 2025</p>
-                <p><strong>Time:</strong> 10:30 A.M - 03:30 P.M</p>
-                <p><strong>Venue:</strong> Audi Block, Room no.802</p>
-                <p><strong>Collaboration/Sponsor:</strong> N/A</p>
-            </section>
 
-            <section>
-                <h2 class="text-xl font-semibold text-primary mb-4">Speaker/Guest/Presenter Details</h2>
-                <p><strong>Name:</strong> Dr. Padmakumar M M</p>
-                <p><strong>Title/Position:</strong> Media Studies</p>
-                <p><strong>Organization:</strong> Christ University, BCC</p>
-                <p><strong>Title of Presentation:</strong> Bridging Hearts: The Heart and Science of Peacebuilding</p>
-            </section>
+<body>
 
-            <section>
-                <h2 class="text-xl font-semibold text-primary mb-4">Participants Profile</h2>
-                <p><strong>Type of Participants:</strong> Students and Others</p>
-                <p><strong>Number of Participants:</strong> 80</p>
-            </section>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="center_for_peace.html" class="logo">
+                <div class="logo-img">
+                    <img src="peaceaxixlogo.png" alt="CPP Logo">
+                </div>
+                <div class="logo-text">Centre for <span>Peace Praxis</span></div>
+            </a>
+            
+            <button class="mobile-menu-btn" onclick="document.querySelector('nav').classList.toggle('active')">
+                <i class="fas fa-bars"></i>
+            </button>
 
-            <section>
-                <h2 class="text-xl font-semibold text-primary mb-4">Objectives of the Activity</h2>
-                <ul class="list-disc pl-5">
-                    <li>To introduce participants to the multi-dimensional understanding of peace.</li>
-                    <li>To engage youth in reflective, interactive, and experiential learning related to peacebuilding.</li>
-                    <li>To foster empathy, dialogue, and critical thinking through participatory activities.</li>
-                    <li>To encourage students to recognize their role as active contributors to peaceful and inclusive communities.</li>
+            <nav>
+                <ul>
+                    <li><a href="center_for_peace.html#home">Home</a></li>
+                    <li><a href="center_for_peace.html#about">About</a></li>
+                    <li><a href="center_for_peace.html#workshops" class="active">Events</a></li>
+                    <li><a href="center_for_peace.html#contact">Contact</a></li>
                 </ul>
-            </section>
+            </nav>
+        </div>
+    </header>
 
-            <section>
-                <h2 class="text-xl font-semibold text-primary mb-4">Synopsis of the Activity</h2>
-                <p>The Bridging Hearts Workshop was a day-long experiential learning program designed to explore peace as a holistic and dynamic concept. The workshop began with an inaugural session and welcoming remarks, setting the context and purpose of the program. The speaker emphasized the importance of peacebuilding in contemporary society and highlighted the role of youth in creating sustainable and just communities.</p>
-                <p>The first major activity, Four Corners of Peace, encouraged participants to explore peace through four interconnected dimensions—personal, interpersonal, structural, and ecological. Participants engaged in small-group discussions, shared personal reflections, and developed a deeper awareness of how peace operates at different levels of human experience.</p>
-                <p>This was followed by the Silent Line-Up, a non-verbal activity that required participants to arrange themselves based on specific prompts without speaking. This exercise highlighted the power of non-verbal communication, empathy, and collective understanding, allowing participants to reflect on presence, patience, and emotional awareness.</p>
-                <p>The Spectrum Walk: Perspectives on Peace was another engaging activity where participants physically positioned themselves along a spectrum in response to statements related to peace, justice, and social responsibility. This visual representation of opinions sparked meaningful discussions and helped participants appreciate the diversity of perspectives within the group.</p>
-                <p>To build connection and foster a sense of community, the Peace Mixer Bingo activity provided a light-hearted and interactive platform for participants to engage with one another. Through this activity, participants shared personal stories, identified common values, and strengthened interpersonal bonds in an informal setting.</p>
-                <p>The workshop concluded with a Closing Ceremony and Feedback Round, during which participants reflected on their learning experiences, shared insights, and offered constructive feedback. This segment reinforced the sense of unity, accomplishment, and shared responsibility toward peacebuilding.</p>
-            </section>
+    <!-- Hero Section -->
+    <section class="event-hero">
+        <div class="container mx-auto" data-aos="fade-up">
+            <span class="event-tag">Workshop</span>
+            <h1>Bridging Hearts</h1>
+            <p class="text-xl max-w-2xl mx-auto opacity-90">The Heart and Science of Peacebuilding.</p>
+            
+            <div class="event-meta">
+                <div class="meta-item">
+                    <i class="fas fa-calendar-alt text-yellow-400"></i>
+                    <span>18 July 2025</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-clock text-yellow-400"></i>
+                    <span>10:30 A.M - 03:30 P.M</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-map-marker-alt text-yellow-400"></i>
+                    <span>Audi Block, Room no.802</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <section>
-                <h2 class="text-xl font-semibold text-primary mb-4">Key Takeaways</h2>
-                <p>The workshop reinforced that peace is not merely the absence of conflict, but a holistic concept involving emotional well-being, social justice, equality, and ecological balance. Participants recognized the multi-dimensional nature of peace through activities that engaged both the mind and body.</p>
-                <p>The discussions and reflections revealed that differing perspectives, when approached with openness and respect, can enrich our understanding and foster collaborative thinking. The silent and verbal exercises emphasized the value of empathy, listening, and the power of shared human experience in building peaceful communities.</p>
-                <p>Youth participants felt a renewed sense of agency, realizing their potential as change agents in their communities. Overall, the workshop encouraged critical thinking, emotional connection, and the importance of building inclusive environments where diverse voices can coexist peacefully.</p>
-            </section>
+    <!-- Main Content -->
+    <main class="py-16">
+        
+        <!-- Synopsis -->
+        <div class="content-section" data-aos="fade-up">
+            <h2 class="section-heading">Summary of the Activity</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                The peace workshop was a thoughtfully designed event aimed at engaging participants in meaningful conversations and experiences around the concept of peace. It began with an inaugural ceremony and opening remarks that introduced the theme and purpose of the workshop, emphasizing the role of youth in promoting peaceful communities. The first session, Four Corners of Peace, helped participants explore four interconnected dimensions of peace—personal, interpersonal, structural, and ecological—through interactive discussions.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                This was followed by the Silent Line-Up, a powerful non-verbal activity that encouraged reflection, empathy, and awareness of how communication can occur without words. In the Spectrum Walk: Perspectives on Peace, participants responded physically to various statements about peace and justice, standing along a spectrum to visually represent their opinions. This sparked thought-provoking conversations and revealed the diversity of perspectives within the group.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                To promote interaction and build a sense of community, the Peace Mixer Bingo activity encouraged participants to meet new people, share stories, and discover shared values in a fun and engaging way. The workshop concluded with a Closing Ceremony and Feedback Round, where participants reflected on their learning experiences and provided suggestions for future improvements. The entire program fostered a safe, inclusive, and dynamic environment for learning, connection, and self-discovery around the theme of peace.
+            </p>
 
-            <section>
-                <h2 class="text-xl font-semibold text-primary mb-4">Sustainable Development Goal</h2>
-                <p>SDG16 - Peace, justice and strong institutions</p>
-            </section>
+            <h2 class="section-heading mt-12">Highlights of the Activity</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                The peace workshop opened with an inaugural ceremony and welcoming remarks that introduced the purpose of the session — to explore peace from multiple angles and engage youth in meaningful dialogue and reflection. The first activity, Four Corners of Peace, allowed participants to engage with four key dimensions of peace: personal, interpersonal, structural, and ecological. This activity created space for open discussions and self-awareness.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                Next, the Silent Line-Up offered a powerful experience in non-verbal communication. Participants lined up silently based on prompts, fostering a sense of collective empathy, presence, and introspection. The Spectrum Walk: Perspectives on Peace followed, where participants physically took positions on a spectrum in response to statements on peace and justice. This exercise sparked rich discussions and helped participants understand the diversity of thought present in the group.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                To build connection and community, the Peace Mixer Bingo offered an interactive and light-hearted way for participants to engage with one another. It encouraged sharing personal stories and discovering common interests related to peace. The workshop concluded with a Closing Ceremony and Feedback Round, during which participants shared reflections, acknowledged learning outcomes, and offered suggestions for future sessions. The closing segment created a strong sense of accomplishment and unity among all attendees.
+            </p>
+        </div>
 
-            <section class="image-section">
-  <img src="Bridging_hearts.png" class="report-image" alt="Bridging Hearts workshop session">
-  <p class="image-caption">Bridging Hearts workshop session conducted at CHRIST University</p>
-</section>
+        <!-- Speakers -->
+        <div class="bg-gray-50 py-16 mb-16">
+            <div class="container mx-auto px-4 max-w-6xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="text-3xl font-bold text-gray-800">Our Speaker</h2>
+                    <p class="text-gray-600 mt-2">Guiding the conversation on peacebuilding</p>
+                </div>
+                
+                <div class="speaker-grid" data-aos="fade-up" data-aos-delay="100">
+                    <!-- Speaker 1 -->
+                    <div class="speaker-card">
+                        <div class="speaker-avatar">PM</div>
+                        <h4>Dr. Padmakumar M M</h4>
+                        <p>Department of Media Studies</p>
+                        <p class="speaker-org">Christ University, BCC</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        </main>
+        <!-- Impact Counter -->
+        <div class="impact-section">
+            <div class="impact-grid" data-aos="zoom-in">
+                <div class="impact-item">
+                    <h3>80</h3>
+                    <p>Participants</p>
+                </div>
+            </div>
+        </div>
 
-        <footer class="text-center mt-10 text-sm opacity-80">
-            <p><strong>Report prepared by:</strong> ABISHEK CHETTY A</p>
-        </footer>
-    </div>
+        <!-- Key Takeaways -->
+        <div class="content-section" data-aos="fade-up">
+            <h2 class="section-heading">Key Takeaways</h2>
+            
+            <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                The workshop reinforced that peace is not merely the absence of conflict, but a holistic concept involving emotional well-being, social justice, equality, and ecological balance. Participants recognized the multi-dimensional nature of peace through activities that engaged both the mind and body. The discussions and reflections revealed that differing perspectives, when approached with openness and respect, can enrich our understanding and foster collaborative thinking.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                The silent and verbal exercises emphasized the value of empathy, listening, and the power of shared human experience in building peaceful communities. Youth participants felt a renewed sense of agency, realizing their potential as change agents in their communities. Overall, the workshop encouraged critical thinking, emotional connection, and the importance of building inclusive environments where diverse voices can coexist peacefully.
+            </p>
+        </div>
+        
+        <!-- Gallery -->
+        <div class="content-section" data-aos="fade-up">
+            <h2 class="section-heading text-center">Event Gallery</h2>
+            <div class="report-image-container">
+                <img src="Bridging_hearts.png" alt="Bridging Hearts workshop session" class="report-image">
+            </div>
+            <p class="text-center text-gray-500 italic mt-4">Bridging Hearts workshop session conducted at CHRIST University</p>
+        </div>
+
+        <!-- SDG Section -->
+        <div class="container mx-auto text-center py-10" data-aos="fade-in">
+             <div class="inline-block bg-white p-6 rounded-xl shadow-lg border-2 border-dashed border-gray-200">
+                <p class="uppercase tracking-widest text-xs font-bold text-gray-500 mb-2">Aligned with UN SDG</p>
+                <div class="flex items-center gap-3 justify-center">
+                    <span class="text-4xl font-black text-blue-600">16</span>
+                    <span class="text-xl font-bold text-gray-800">Peace, Justice and Strong Institutions</span>
+                </div>
+             </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="header-container" style="display:block;"> <!-- Reusing container with block display -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10 text-center md:text-left">
+                <div>
+                    <h3 class="text-xl text-white mb-4">Department of Media Studies &<br>Centre for Peace Praxis</h3>
+                    <p class="text-gray-400 text-sm">Building communities of hope, healing, and resilience through peace literacy and intercultural dialogue.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl text-white mb-4">Contact</h3>
+                    <p class="text-gray-400 text-sm">CHRIST (Deemed to be University)</p>
+                    <p class="text-gray-400 text-sm">Bangalore, India</p>
+                    <p class="text-gray-400 text-sm mt-2">info@peacepraxis.org</p>
+                </div>
+                <div>
+                    <h3 class="text-xl text-white mb-4">Connect</h3>
+                    <div class="flex justify-center md:justify-start gap-4">
+                        <a href="#" class="text-white hover:text-teal-400"><i class="fab fa-instagram fa-lg"></i></a>
+
+                        <a href="#" class="text-white hover:text-teal-400"><i class="fab fa-linkedin fa-lg"></i></a>
+                    </div>
+                    <p class="text-gray-500 text-xs mt-4">Report Prepared By: ABISHEK CHETTY A</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-6 text-center text-gray-500 text-sm">
+                &copy; 2025 Centre for Peace Praxis. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+    </script>
 </body>
 </html>

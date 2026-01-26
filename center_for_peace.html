@@ -197,7 +197,7 @@
             .hero {
                 height: 100vh;
                 min-height: 600px;
-                background: linear-gradient(135deg, rgba(26, 95, 122, 0.9), rgba(42, 157, 143, 0.85)), url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+                background: linear-gradient(135deg, rgba(26, 95, 122, 0.9), rgba(42, 157, 143, 0.85)), url('volunteer_bg.jpg');
                 background-size: cover;
                 background-position: center;
                 background-attachment: fixed;
@@ -676,7 +676,7 @@
 
             /* Volunteer Section */
             .volunteer {
-                background: linear-gradient(rgba(26, 95, 122, 0.8), rgba(26, 95, 122, 0.8)), url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+                background: linear-gradient(rgba(26, 95, 122, 0.8), rgba(26, 95, 122, 0.8)), url('hero_bg_new.jpg');
                 background-size: cover;
                 background-position: center;
                 padding: 100px 0;
@@ -727,8 +727,8 @@
             }
 
             .team-avatar {
-                width: 50px;
-                height: 50px;
+                width: 90px;
+                height: 90px;
                 background: var(--light-blue);
                 border-radius: 50%;
                 display: flex;
@@ -736,6 +736,15 @@
                 justify-content: center;
                 color: var(--primary);
                 font-weight: bold;
+                overflow: hidden;
+                flex-shrink: 0;
+            }
+
+            .team-avatar img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: top center;
             }
 
             .team-info h4 {
@@ -1243,10 +1252,22 @@
                         <p>"Peace doesn't mean everyone sitting quietly in agreement—it's more like a chaotic family dinner
                             where no one flips the table."</p>
                         <div class="team-member">
-                            <div class="team-avatar">VP</div>
+                            <div class="team-avatar">
+                                <img src="director.jpg" alt="Dr. Padmakumar M M">
+                            </div>
                             <div class="team-info">
-                                <h4>Dr. Viki Padmakumar</h4>
+                                <h4>Dr. Padmakumar M M</h4>
                                 <p>Director, Centre for Peace Praxis</p>
+                            </div>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-avatar">
+                                <img src="student_coordinator.jpg" alt="Ravi Ranjan">
+                            </div>
+                            <div class="team-info">
+                                <h4 style="margin-top: 10px;">RAVI RANJAN SHARMA</h4>
+                                <p style="font-size: 0.9rem; color: var(--gray);">Student Coordinator, Centre for Peace Praxis</p>
+                                <p class="text-sm italic mt-1" style="font-size: 0.85rem; color: var(--accent);">"Driven by the idea that meaningful conversations can create lasting peace"</p>
                             </div>
                         </div>
                     </div>
@@ -1270,10 +1291,8 @@
                         <p>Building communities of hope, healing, and resilience through peace literacy and intercultural
                             dialogue.</p>
                         <div class="social-links">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.instagram.com/centreforpeacepraxis?igsh=MXdqNnhoMzM5eWZ4dQ==" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.linkedin.com/company/centre-for-peace-praxis/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
 
