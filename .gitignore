@@ -8,7 +8,7 @@
 !*.png
 !*.jpg
 !*.ico
-
+!*.jpeg
 # Allow folders (needed so html/css inside folders work)
 !*/
 
