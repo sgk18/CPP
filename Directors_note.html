@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Director's Note | Centre for Peace Praxis</title>
+    <link rel="icon" type="icon" href="icon.ico">
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Library for Scroll Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css">
+
+    <style>
+        :root {
+            --primary: #1a5f7a;
+            --primary-dark: #12465a;
+            --secondary: #2a9d8f;
+            --accent: #e76f51;
+            --accent-hover: #d65c3e;
+            --light: #f8f9fa;
+            --dark: #264653;
+            --gray: #6c757d;
+            --light-blue: #a8dadc;
+
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fcfcfc;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Glassmorphism Header */
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 5px 0;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            transition: padding 0.3s ease;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 75px;
+            height: 75px;
+            border-radius: 70%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid var(--primary);
+            padding: 2px;
+            background: white;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-img {
+            transform: rotate(10deg);
+        }
+
+        .logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        nav a:before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            bottom: 0;
+            left: 50%;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover:before,
+        nav a.active:before {
+            width: 100%;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        /* Director Image */
+        .director-photo {
+            float: right;
+            margin-left: 30px;
+            margin-bottom: 20px;
+            width: 300px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .director-photo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Note Section Styles */
+        .note-section {
+            padding: 120px 0 100px;
+            background-color: #fcfcfc;
+        }
+
+        .note-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .note-header {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .note-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .note-header h2 {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            font-weight: 600;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .note-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            color: #4a4a4a;
+            text-align: justify;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .director-photo {
+                float: none;
+                display: block;
+                margin: 0 auto 30px;
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+
+        .pillars-list {
+            list-style: none;
+            margin: 30px 0;
+            padding: 30px;
+            background-color: #effcfb;
+            border-radius: 15px;
+            border-left: 5px solid var(--secondary);
+        }
+
+        .pillars-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            color: var(--dark);
+        }
+
+        .pillars-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .pillars-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .pillars-list strong {
+            color: var(--primary);
+        }
+
+        .author-signature {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 2px solid #eee;
+            text-align: right;
+        }
+
+        .author-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .author-title {
+            font-size: 1rem;
+            color: var(--gray);
+            font-style: italic;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 80px 0 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--accent), var(--secondary), var(--primary));
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-logo .logo-text {
+            color: white;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .footer-logo p {
+            margin-top: 15px;
+            opacity: 0.7;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .footer-column h3 {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column a {
+            color: #d1d1d1;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .footer-column a:hover {
+            color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: white;
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+                padding: 80px 30px;
+                transition: 0.4s ease;
+                z-index: 1001;
+                display: flex;
+                flex-direction: column;
+            }
+
+            nav.active {
+                right: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                z-index: 1002;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-img">
+                    <img src="cpp_logo_final.png" alt="CPP Logo">
+                </div>
+                <div class="logo-text">Centre for <span>Peace Praxis</span></div>
+            </a>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#why">Why CPP?</a></li>
+                    <li><a href="index.html#workshops">Workshops</a></li>
+                    <li><a href="index.html#volunteer">Volunteer</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Director's Note Section -->
+    <section class="note-section" data-aos="fade-up">
+        <div class="container note-container">
+            <div class="note-header">
+                <h1>Director’s Note</h1>
+                <h2>The Hard Road to Peace: Necessary and Possible</h2>
+            </div>
+            
+            <div class="note-content">
+                <img src="directors_photo.jpg" alt="Dr. M. M. Padmakumar" class="director-photo">
+                <p>Peace is rarely accidental—it is most often hard-earned. While it may appear quiet or effortless from a distance, peace is the result of conscious choices made in moments of uncertainty, conflict, and moral testing. In contrast, it is far easier to bypass life’s deeper complexities: to seek unfair advantage, surrender to impulsive emotions, assert dominance over dialogue, neglect ethical reflection, and gradually normalize cultures of exclusion and violence.</p>
+                
+                <p>Violence, in many forms, is reactive and instinctive. It thrives on fear, anger, and unresolved pain. Peace, however, is deliberate. It demands intention, courage, and sustained commitment. It requires the ability to listen deeply—especially to voices that challenge us—engage in difficult conversations without retreating into hostility, and confront wounds that demand healing rather than denial. Peacebuilding is not passive; it is an active process of creating just, inclusive, and resilient systems. Above all, it requires the audacity to hope for a shared future rooted in dignity, even in the face of adversity.</p>
+                
+                <p>The Centre for Peace Praxis at CHRIST University is grounded in the belief that peace is not merely an emotion, a slogan, or an abstract ideal. Peace is a skill to be learned, a practice to be cultivated, and a culture to be consciously nurtured. Good intentions alone are insufficient. Peacebuilding calls for critical knowledge, practical tools, ethical clarity, and wisdom drawn from lived experiences and global practices committed to collective well-being.</p>
+                
+                <p>The Centre’s work is anchored in four interrelated pillars:</p>
+                
+                <ul class="pillars-list">
+                    <li><strong>Intercultural Dialogue</strong>, which fosters mutual understanding across differences;</li>
+                    <li><strong>Psycho-social Well-being</strong>, which recognizes healing and mental resilience as foundations of peace;</li>
+                    <li><strong>Media Literacy</strong>, which equips individuals to engage critically with information and resist manipulation; and</li>
+                    <li><strong>Eco-consciousness</strong>, which affirms that peace with one another is inseparable from peace with the planet.</li>
+                </ul>
+                
+                <p>Through capacity-building initiatives, research, and sustained community engagement, the Centre seeks to embed peace within both personal and public spheres—transforming attitudes, practices, and institutions alike.</p>
+                
+                <p>Peace cannot be pursued in isolation. It flourishes when constructive forces converge. The Centre therefore actively collaborates with a wide network of stakeholders, including educational institutions, civil society organizations, government bodies, policymakers, media and creative communities, the private sector, and international development partners. Together, we strive to co-create pathways toward a future grounded in empathy, equity, responsibility, and shared humanity.</p>
+                
+                <p>As peacebuilders, we are reminded that peace does not mean uniform agreement or the absence of disagreement. Rather, peace resembles a shared table—sometimes noisy, sometimes tense—where patience, humility, humor, and mutual respect prevent conflict from turning destructive. It is the courage to stay present, to keep the conversation alive, and to pass the bread even to those with whom we disagree. In that persistence lies the true work—and promise—of peace.</p>
+            
+                <div class="author-signature">
+                    <div class="author-name">Dr. M. M. Padmakumar</div>
+                    <div class="author-title">Director, Centre for Peace Praxis</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo-text">Centre for <span>Peace Praxis</span></div>
+                    <p>Building communities of hope, healing, and resilience through peace literacy and intercultural
+                        dialogue.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/centreforpeacepraxis?igsh=MXdqNnhoMzM5eWZ4dQ==" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/centre-for-peace-praxis/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#pillars">Our Pillars</a></li>
+                        <li><a href="index.html#workshops">Workshops</a></li>
+                        <li><a href="index.html#volunteer">Volunteer</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i><a href="https://www.christuniversity.in/"> CHRIST
+                                University</a></li>
+                        <li><i class="fas fa-phone"></i> +1 (234) 567-8900</li>
+                        <li><i class="fas fa-envelope"></i><a href="mailto:info@peacepraxis.org" target="_blank">
+                                info@peacepraxis.org</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Our Partners</h3>
+                    <ul>
+                        <li>Educational Institutions</li>
+                        <li>Civil Society Groups</li>
+                        <li>Government Bodies</li>
+                        <li>International Partners</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2023 Centre for Peace Praxis. All rights reserved. | <i class="fas fa-heart"
+                        style="color: #e76f51;"></i> for peacebuilding</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Animation Library JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            once: true,
+            offset: 100,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        const header = document.getElementById('header');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+
+            if (mainNav.classList.contains('active')) {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+                mobileMenuBtn.style.color = 'var(--dark)';
+            } else {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                mobileMenuBtn.style.color = 'var(--primary)';
+            }
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Sticky Header Effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+
+</html>
