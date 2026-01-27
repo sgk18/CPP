@@ -7,6 +7,7 @@
 # Allow images
 !*.png
 !*.jpg
+!*.ico
 
 # Allow folders (needed so html/css inside folders work)
 !*/
