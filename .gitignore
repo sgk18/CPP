@@ -6,6 +6,7 @@
 !*.css
 # Allow images
 !*.png
+!*.jpg
 
 # Allow folders (needed so html/css inside folders work)
 !*/
