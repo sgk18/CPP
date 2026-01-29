@@ -81,12 +81,12 @@ header.scrolled {
 .logo-img {
     width: 55px;
     height: 55px;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    border: 2px solid var(--primary);
+    /* border: 2px solid var(--primary); */
     transition: transform 0.3s ease;
 }
 
