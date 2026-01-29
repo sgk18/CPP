@@ -6,19 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bridging Hearts | Centre for Peace Praxis</title>
     <link rel="icon" type="icon" href="icon.ico">
-    
+
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- AOS Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+
     <!-- Tailwind CSS (CDN for compatibility) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css">
-    
+
     <style>
         :root {
             --primary: #1a5f7a;
@@ -39,7 +41,12 @@
             line-height: 1.6;
         }
 
-        h1, h2, h3, h4, h5, h6 {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
             color: var(--dark);
@@ -78,7 +85,7 @@
             border: 2px solid var(--primary);
             padding: 2px;
         }
-        
+
         .logo-img img {
             width: 100%;
             height: 100%;
@@ -111,10 +118,11 @@
             transition: color 0.3s;
         }
 
-        nav a:hover, nav a.active {
+        nav a:hover,
+        nav a.active {
             color: var(--primary);
         }
-        
+
         /* Mobile Menu */
         .mobile-menu-btn {
             display: none;
@@ -126,19 +134,29 @@
         }
 
         @media (max-width: 768px) {
-            .mobile-menu-btn { display: block; }
+            .mobile-menu-btn {
+                display: block;
+            }
+
             nav {
                 position: fixed;
                 top: 80px;
                 right: -100%;
                 width: 100%;
                 background: white;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
                 transition: 0.3s ease;
                 padding: 20px;
             }
-            nav.active { right: 0; }
-            nav ul { flex-direction: column; text-align: center; }
+
+            nav.active {
+                right: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
         }
 
         /* Hero Section */
@@ -156,7 +174,7 @@
             color: white;
             font-size: 3.5rem;
             margin-bottom: 15px;
-            text-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
         .event-tag {
@@ -185,7 +203,7 @@
             align-items: center;
             gap: 10px;
             font-size: 1.1rem;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             padding: 10px 20px;
             border-radius: 10px;
             backdrop-filter: blur(5px);
@@ -204,7 +222,7 @@
             background: white;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             text-align: center;
             transition: transform 0.3s ease;
             border-top: 4px solid var(--secondary);
@@ -276,14 +294,14 @@
             font-size: 1.1rem;
             opacity: 0.9;
         }
-        
+
         /* Content Layout */
         .content-section {
             max-width: 900px;
             margin: 0 auto 60px;
             padding: 0 20px;
         }
-        
+
         .section-heading {
             color: var(--primary);
             font-size: 2rem;
@@ -291,7 +309,7 @@
             position: relative;
             padding-bottom: 10px;
         }
-        
+
         .section-heading::after {
             content: '';
             position: absolute;
@@ -308,15 +326,15 @@
             margin: 40px auto;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
-        
+
         .report-image {
             width: 100%;
             display: block;
             transition: transform 0.5s;
         }
-        
+
         .report-image:hover {
             transform: scale(1.02);
         }
@@ -336,12 +354,22 @@
             padding: 60px 0 30px;
             margin-top: 80px;
         }
-        
+
         /* Mobile */
         @media(max-width: 768px) {
-            .event-hero h1 { font-size: 2.5rem; }
-            .impact-grid { grid-template-columns: 1fr; gap: 40px; }
-            .meta-item { width: 100%; justify-content: center; }
+            .event-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .impact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .meta-item {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -357,7 +385,7 @@
                 </div>
                 <div class="logo-text">Centre for <span>Peace Praxis</span></div>
             </a>
-            
+
             <button class="mobile-menu-btn" onclick="document.querySelector('nav').classList.toggle('active')">
                 <i class="fas fa-bars"></i>
             </button>
@@ -380,7 +408,7 @@
             <span class="event-tag">Workshop</span>
             <h1>Bridging Hearts</h1>
             <p class="text-xl max-w-2xl mx-auto opacity-90">The Heart and Science of Peacebuilding.</p>
-            
+
             <div class="event-meta">
                 <div class="meta-item">
                     <i class="fas fa-calendar-alt text-yellow-400"></i>
@@ -400,29 +428,56 @@
 
     <!-- Main Content -->
     <main class="py-16">
-        
+
         <!-- Synopsis -->
         <div class="content-section" data-aos="fade-up">
             <h2 class="section-heading">Summary of the Activity</h2>
             <p class="text-lg text-gray-700 leading-relaxed mb-8">
-                The peace workshop was a thoughtfully designed event aimed at engaging participants in meaningful conversations and experiences around the concept of peace. It began with an inaugural ceremony and opening remarks that introduced the theme and purpose of the workshop, emphasizing the role of youth in promoting peaceful communities. The first session, Four Corners of Peace, helped participants explore four interconnected dimensions of peace—personal, interpersonal, structural, and ecological—through interactive discussions.
+                The peace workshop was a thoughtfully designed event aimed at engaging participants in meaningful
+                conversations and experiences around the concept of peace. It began with an inaugural ceremony and
+                opening remarks that introduced the theme and purpose of the workshop, emphasizing the role of youth in
+                promoting peaceful communities. The first session, Four Corners of Peace, helped participants explore
+                four interconnected dimensions of peace—personal, interpersonal, structural, and ecological—through
+                interactive discussions.
             </p>
             <p class="text-lg text-gray-700 leading-relaxed mb-8">
-                This was followed by the Silent Line-Up, a powerful non-verbal activity that encouraged reflection, empathy, and awareness of how communication can occur without words. In the Spectrum Walk: Perspectives on Peace, participants responded physically to various statements about peace and justice, standing along a spectrum to visually represent their opinions. This sparked thought-provoking conversations and revealed the diversity of perspectives within the group.
+                This was followed by the Silent Line-Up, a powerful non-verbal activity that encouraged reflection,
+                empathy, and awareness of how communication can occur without words. In the Spectrum Walk: Perspectives
+                on Peace, participants responded physically to various statements about peace and justice, standing
+                along a spectrum to visually represent their opinions. This sparked thought-provoking conversations and
+                revealed the diversity of perspectives within the group.
             </p>
             <p class="text-lg text-gray-700 leading-relaxed">
-                To promote interaction and build a sense of community, the Peace Mixer Bingo activity encouraged participants to meet new people, share stories, and discover shared values in a fun and engaging way. The workshop concluded with a Closing Ceremony and Feedback Round, where participants reflected on their learning experiences and provided suggestions for future improvements. The entire program fostered a safe, inclusive, and dynamic environment for learning, connection, and self-discovery around the theme of peace.
+                To promote interaction and build a sense of community, the Peace Mixer Bingo activity encouraged
+                participants to meet new people, share stories, and discover shared values in a fun and engaging way.
+                The workshop concluded with a Closing Ceremony and Feedback Round, where participants reflected on their
+                learning experiences and provided suggestions for future improvements. The entire program fostered a
+                safe, inclusive, and dynamic environment for learning, connection, and self-discovery around the theme
+                of peace.
             </p>
 
             <h2 class="section-heading mt-12">Highlights of the Activity</h2>
             <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                The peace workshop opened with an inaugural ceremony and welcoming remarks that introduced the purpose of the session — to explore peace from multiple angles and engage youth in meaningful dialogue and reflection. The first activity, Four Corners of Peace, allowed participants to engage with four key dimensions of peace: personal, interpersonal, structural, and ecological. This activity created space for open discussions and self-awareness.
+                The peace workshop opened with an inaugural ceremony and welcoming remarks that introduced the purpose
+                of the session — to explore peace from multiple angles and engage youth in meaningful dialogue and
+                reflection. The first activity, Four Corners of Peace, allowed participants to engage with four key
+                dimensions of peace: personal, interpersonal, structural, and ecological. This activity created space
+                for open discussions and self-awareness.
             </p>
             <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                Next, the Silent Line-Up offered a powerful experience in non-verbal communication. Participants lined up silently based on prompts, fostering a sense of collective empathy, presence, and introspection. The Spectrum Walk: Perspectives on Peace followed, where participants physically took positions on a spectrum in response to statements on peace and justice. This exercise sparked rich discussions and helped participants understand the diversity of thought present in the group.
+                Next, the Silent Line-Up offered a powerful experience in non-verbal communication. Participants lined
+                up silently based on prompts, fostering a sense of collective empathy, presence, and introspection. The
+                Spectrum Walk: Perspectives on Peace followed, where participants physically took positions on a
+                spectrum in response to statements on peace and justice. This exercise sparked rich discussions and
+                helped participants understand the diversity of thought present in the group.
             </p>
             <p class="text-lg text-gray-700 leading-relaxed">
-                To build connection and community, the Peace Mixer Bingo offered an interactive and light-hearted way for participants to engage with one another. It encouraged sharing personal stories and discovering common interests related to peace. The workshop concluded with a Closing Ceremony and Feedback Round, during which participants shared reflections, acknowledged learning outcomes, and offered suggestions for future sessions. The closing segment created a strong sense of accomplishment and unity among all attendees.
+                To build connection and community, the Peace Mixer Bingo offered an interactive and light-hearted way
+                for participants to engage with one another. It encouraged sharing personal stories and discovering
+                common interests related to peace. The workshop concluded with a Closing Ceremony and Feedback Round,
+                during which participants shared reflections, acknowledged learning outcomes, and offered suggestions
+                for future sessions. The closing segment created a strong sense of accomplishment and unity among all
+                attendees.
             </p>
         </div>
 
@@ -433,7 +488,7 @@
                     <h2 class="text-3xl font-bold text-gray-800">Our Speaker</h2>
                     <p class="text-gray-600 mt-2">Guiding the conversation on peacebuilding</p>
                 </div>
-                
+
                 <div class="speaker-grid" data-aos="fade-up" data-aos-delay="100">
                     <!-- Speaker 1 -->
                     <div class="speaker-card">
@@ -459,33 +514,42 @@
         <!-- Key Takeaways -->
         <div class="content-section" data-aos="fade-up">
             <h2 class="section-heading">Key Takeaways</h2>
-            
+
             <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                The workshop reinforced that peace is not merely the absence of conflict, but a holistic concept involving emotional well-being, social justice, equality, and ecological balance. Participants recognized the multi-dimensional nature of peace through activities that engaged both the mind and body. The discussions and reflections revealed that differing perspectives, when approached with openness and respect, can enrich our understanding and foster collaborative thinking.
+                The workshop reinforced that peace is not merely the absence of conflict, but a holistic concept
+                involving emotional well-being, social justice, equality, and ecological balance. Participants
+                recognized the multi-dimensional nature of peace through activities that engaged both the mind and body.
+                The discussions and reflections revealed that differing perspectives, when approached with openness and
+                respect, can enrich our understanding and foster collaborative thinking.
             </p>
             <p class="text-lg text-gray-700 leading-relaxed">
-                The silent and verbal exercises emphasized the value of empathy, listening, and the power of shared human experience in building peaceful communities. Youth participants felt a renewed sense of agency, realizing their potential as change agents in their communities. Overall, the workshop encouraged critical thinking, emotional connection, and the importance of building inclusive environments where diverse voices can coexist peacefully.
+                The silent and verbal exercises emphasized the value of empathy, listening, and the power of shared
+                human experience in building peaceful communities. Youth participants felt a renewed sense of agency,
+                realizing their potential as change agents in their communities. Overall, the workshop encouraged
+                critical thinking, emotional connection, and the importance of building inclusive environments where
+                diverse voices can coexist peacefully.
             </p>
         </div>
-        
+
         <!-- Gallery -->
         <div class="content-section" data-aos="fade-up">
             <h2 class="section-heading text-center">Event Gallery</h2>
             <div class="report-image-container">
                 <img src="Bridging_hearts.png" alt="Bridging Hearts workshop session" class="report-image">
             </div>
-            <p class="text-center text-gray-500 italic mt-4">Bridging Hearts workshop session conducted at CHRIST University</p>
+            <p class="text-center text-gray-500 italic mt-4">Bridging Hearts workshop session conducted at CHRIST
+                University</p>
         </div>
 
         <!-- SDG Section -->
         <div class="container mx-auto text-center py-10" data-aos="fade-in">
-             <div class="inline-block bg-white p-6 rounded-xl shadow-lg border-2 border-dashed border-gray-200">
+            <div class="inline-block bg-white p-6 rounded-xl shadow-lg border-2 border-dashed border-gray-200">
                 <p class="uppercase tracking-widest text-xs font-bold text-gray-500 mb-2">Aligned with UN SDG</p>
                 <div class="flex items-center gap-3 justify-center">
                     <span class="text-4xl font-black text-blue-600">16</span>
                     <span class="text-xl font-bold text-gray-800">Peace, Justice and Strong Institutions</span>
                 </div>
-             </div>
+            </div>
         </div>
 
     </main>
@@ -496,20 +560,26 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10 text-center md:text-left">
                 <div>
                     <h3 class="text-xl text-white mb-4">Department of Media Studies &<br>Centre for Peace Praxis</h3>
-                    <p class="text-gray-400 text-sm">Building communities of hope, healing, and resilience through peace literacy and intercultural dialogue.</p>
+                    <p class="text-gray-400 text-sm">Building communities of hope, healing, and resilience through peace
+                        literacy and intercultural dialogue.</p>
                 </div>
                 <div>
                     <h3 class="text-xl text-white mb-4">Contact</h3>
                     <p class="text-gray-400 text-sm">CHRIST (Deemed to be University)</p>
                     <p class="text-gray-400 text-sm">Bangalore, India</p>
-                    <p class="text-gray-400 text-sm mt-2"><a href="mailto:peace.praxis@christuniversity.in" class="hover:text-teal-400 transition-colors">peace.praxis@christuniversity.in</a></p>
+                    <p class="text-gray-400 text-sm mt-2"><a href="mailto:peace.praxis@christuniversity.in"
+                            class="hover:text-teal-400 transition-colors">peace.praxis@christuniversity.in</a></p>
                 </div>
                 <div>
                     <h3 class="text-xl text-white mb-4">Connect</h3>
                     <div class="flex justify-center md:justify-start gap-4">
-                        <a href="https://www.instagram.com/centreforpeacepraxis?igsh=MXdqNnhoMzM5eWZ4dQ==" class="text-white hover:text-teal-400" target="_blank"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="https://www.instagram.com/centreforpeacepraxis?igsh=MXdqNnhoMzM5eWZ4dQ=="
+                            class="text-white hover:text-teal-400" target="_blank"><i
+                                class="fab fa-instagram fa-lg"></i></a>
 
-                        <a href="https://www.linkedin.com/company/centre-for-peace-praxis/" class="text-white hover:text-teal-400" target="_blank"><i class="fab fa-linkedin-in fa-lg"></i></a>
+                        <a href="https://www.linkedin.com/company/centre-for-peace-praxis/"
+                            class="text-white hover:text-teal-400" target="_blank"><i
+                                class="fab fa-linkedin-in fa-lg"></i></a>
                     </div>
                     <p class="text-gray-500 text-xs mt-4">Report Prepared By: ABISHEK CHETTY A</p>
                 </div>
@@ -518,7 +588,7 @@
                 &copy; 2025 Centre for Peace Praxis. All rights reserved.
             </div>
         </div>
-    </footer>
+    </footer>gjjy
 
     <!-- AOS Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -530,4 +600,5 @@
         });
     </script>
 </body>
+
 </html>
