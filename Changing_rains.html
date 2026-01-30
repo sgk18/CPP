@@ -19,19 +19,11 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- Tailwind CSS (CDN for compatibility) -->
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css">
 
     <style>
-        :root {
-            --primary: #1a5f7a;
-            --primary-dark: #12465a;
-            --secondary: #2a9d8f;
-            --accent: #e76f51;
-            --light: #f8f9fa;
-            --dark: #264653;
-            --gray: #6c757d;
-            --light-blue: #a8dadc;
-        }
+        /* :root variables removed as they are in style.css */
 
         body {
             font-family: 'Open Sans', sans-serif;
@@ -119,41 +111,9 @@
             color: var(--primary);
         }
 
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            font-size: 24px;
-            color: var(--primary);
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
+        /* Footer styles removed - using style.css */
 
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
 
-            nav {
-                position: fixed;
-                top: 80px;
-                right: -100%;
-                width: 100%;
-                background: white;
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-                transition: 0.3s ease;
-                padding: 20px;
-            }
-
-            nav.active {
-                right: 0;
-            }
-
-            nav ul {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
 
         /* Hero Section */
         .event-hero {

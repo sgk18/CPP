@@ -19,145 +19,11 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- Tailwind CSS (CDN for compatibility) -->
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css">
 
     <style>
-        :root {
-            --primary: #1a5f7a;
-            --primary-dark: #12465a;
-            --secondary: #2a9d8f;
-            --accent: #e76f51;
-            --light: #f8f9fa;
-            --dark: #264653;
-            --gray: #6c757d;
-            --light-blue: #a8dadc;
-        }
-
-        body {
-            font-family: 'Open Sans', sans-serif;
-            color: #333;
-            background-color: #fcfcfc;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            color: var(--dark);
-        }
-
-        /* Navigation */
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-        }
-
-        .logo-img {
-            width: 75px;
-            height: 75px;
-            /* border-radius: 70%; */
-            /* border: 2px solid var(--primary); */
-            /* padding: 2px; */
-        }
-
-        .logo-img img {
-            width: 100%;
-            height: 100%;
-            /* border-radius: 50%; */
-            object-fit: cover;
-        }
-
-        .logo-text {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--primary);
-        }
-
-        .logo-text span {
-            color: var(--secondary);
-        }
-
-        nav ul {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 600;
-            font-size: 14px;
-            text-transform: uppercase;
-            transition: color 0.3s;
-        }
-
-        nav a:hover,
-        nav a.active {
-            color: var(--primary);
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            font-size: 24px;
-            color: var(--primary);
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            nav {
-                position: fixed;
-                top: 80px;
-                right: -100%;
-                width: 100%;
-                background: white;
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-                transition: 0.3s ease;
-                padding: 20px;
-            }
-
-            nav.active {
-                right: 0;
-            }
-
-            nav ul {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
+        /* :root, body, nav, mobile menu styles removed - using style.css */
 
         /* Hero Section */
         .event-hero {
@@ -347,13 +213,7 @@
             border-radius: 0 10px 10px 0;
         }
 
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 60px 0 30px;
-            margin-top: 80px;
-        }
+        /* Footer styles removed - using style.css */
 
         /* Mobile */
         @media(max-width: 768px) {

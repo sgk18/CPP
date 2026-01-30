@@ -136,46 +136,7 @@
             color: var(--secondary);
         }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 600;
-            font-size: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: color 0.3s;
-            position: relative;
-            padding-bottom: 5px;
-        }
-
-        nav a:before {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent);
-            bottom: 0;
-            left: 50%;
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        nav a:hover:before,
-        nav a.active:before {
-            width: 100%;
-        }
-
-        nav a:hover,
-        nav a.active {
-            color: var(--primary);
-        }
-        
+        /* Nav and Mobile Menu styles removed - using style.css */
         /* Dropdown Styles */
         .dropdown {
             position: relative;
@@ -226,16 +187,6 @@
         .dropdown:hover .dropbtn {
             color: var(--primary);
         }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: var(--primary);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
         
         /* Hero Section */
         .faculties-hero {
@@ -265,119 +216,7 @@
             opacity: 0.9;
         }
 
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 80px 0 30px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        footer:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(to right, var(--accent), var(--secondary), var(--primary));
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1fr;
-            gap: 50px;
-            margin-bottom: 60px;
-        }
-
-        .footer-logo .logo-text {
-            color: white;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .footer-logo p {
-            margin-top: 15px;
-            opacity: 0.7;
-            line-height: 1.8;
-            font-size: 0.95rem;
-        }
-
-        .footer-column h3 {
-            color: white;
-            font-size: 1.3rem;
-            margin-bottom: 25px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3:after {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 3px;
-            background-color: var(--secondary);
-            bottom: 0;
-            left: 0;
-        }
-
-        .footer-column ul {
-            list-style: none;
-        }
-
-        .footer-column ul li {
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .footer-column a {
-            color: #d1d1d1;
-            text-decoration: none;
-            transition: all 0.3s;
-            display: inline-block;
-        }
-
-        .footer-column a:hover {
-            color: var(--secondary);
-            transform: translateX(5px);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
-            color: white;
-            transition: all 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .social-links a:hover {
-            background-color: var(--accent);
-            transform: translateY(-5px);
-            border-color: var(--accent);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: #888;
-            font-size: 0.9rem;
-        }
-
+        /* Footer styles removed - using style.css */
         /* Faculty/Workshop Grid */
     .workshop-grid {
         display: grid;
