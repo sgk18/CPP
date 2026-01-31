@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changing Rains: A Climate Colloquium</title>
+    <link rel="icon" type="icon" href="current_logo.png">
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Tailwind CSS (CDN for compatibility) -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css">
+
+    <style>
+        /* :root variables removed as they are in style.css */
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: #333;
+            background-color: #fcfcfc;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        /* Navigation */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 75px;
+            height: 75px;
+        }
+
+        .logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .logo-text span {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--primary);
+        }
+
+        /* Footer styles removed - using style.css */
+
+
+
+        /* Hero Section */
+        .event-hero {
+            background-image: linear-gradient(rgba(26, 95, 122, 0.85), rgba(42, 157, 143, 0.8)), url('changing_rains_poster.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 200px 20px;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .event-hero h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .event-tag {
+            background-color: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .event-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Speakers Grid */
+        .speaker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            justify-content: center;
+        }
+
+        .speaker-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s ease;
+            border-top: 4px solid var(--secondary);
+            max-width: 350px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .speaker-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .speaker-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--light-blue);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--primary);
+            font-weight: bold;
+            overflow: hidden;
+        }
+        
+        .speaker-avatar img {
+             width: 100%;
+             height: 100%;
+             object-fit: cover;
+        }
+
+        .speaker-card h4 {
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+
+        .speaker-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .speaker-org {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-top: auto;
+        }
+
+        /* Impact Section */
+        .impact-section {
+            background: var(--primary);
+            color: white;
+            padding: 60px 0;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            justify-items: center;
+        }
+
+        .impact-item h3 {
+            font-size: 3rem;
+            color: var(--light-blue);
+            margin-bottom: 0;
+        }
+
+        .impact-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Content Layout */
+        .content-section {
+            max-width: 900px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .section-heading {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+       /* Card */
+    .workshop-card {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(245, 247, 250, 0.9));
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        transition: all 0.45s ease;
+        position: relative;
+    }
+
+    /* Gallery Styles */
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .gallery-item {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover {
+        transform: translateY(-5px);
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        display: block;
+    }
+        .report-image:hover {
+            transform: scale(1.02);
+        }
+
+        .highlight-box {
+            background: #f0f9ff;
+            border-left: 5px solid var(--primary);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+
+        /* Mobile */
+        @media(max-width: 768px) {
+            .event-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .impact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .meta-item {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-img">
+                    <img src="current_logo.png" alt="CPP Logo">
+                </div>
+                <div class="logo-text">Centre for <span>Peace Praxis</span></div>
+            </a>
+
+            <button class="mobile-menu-btn" onclick="document.querySelector('nav').classList.toggle('active')">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav>
+                <ul>
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#workshops" class="active">Events</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="event-hero">
+        <div class="container mx-auto" data-aos="fade-up">
+            <span class="event-tag">Panel Discussion</span>
+            <h1>Changing Rains</h1>
+            <h2 class="text-2xl text-white mb-6 font-light">A Climate Colloquium</h2>
+            <p class="text-xl max-w-2xl mx-auto opacity-90 my-6">
+            <blockquote>Changing Rains: prediction and impacts for southwestern India</blockquote>
+            </p>
+
+            <div class="event-meta">
+                <div class="meta-item">
+                    <span><i class="fas fa-calendar-alt text-yellow-400"></i>
+                        29 January 2026</span>
+                </div>
+                <div class="meta-item">
+                    <span><i class="fas fa-clock text-yellow-400"></i>
+                        09:30 AM – 11:45 AM</span>
+                </div>
+                <div class="meta-item">
+                    <span><i class="fas fa-map-marker-alt text-yellow-400"></i>
+                        KE Audi, Block-4</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="py-16">
+
+        <!-- Summary -->
+        <div class="content-section" data-aos="fade-up">
+            <h2 class="section-heading">Summary of the Activity</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                The Changing Rains – A Climate Colloquium brought together experts, students, and faculty to discuss
+                evolving rainfall patterns and their impacts on Southwestern India. Through a keynote address and an
+                expert discussion, the event explored climate prediction, urban vulnerability, and community-level
+                implications of changing rains. The colloquium encouraged interdisciplinary dialogue and raised
+                awareness about the need for sustainable planning and climate-resilient strategies to address the
+                challenges posed by climate change.
+            </p>
+        </div>
+
+        <!-- Highlights -->
+        <div class="content-section mt-16" data-aos="fade-up">
+            <h2 class="section-heading">Highlights of the Activity</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                The Changing Rains – A Climate Colloquium was an interdisciplinary academic event that examined shifting
+                rainfall patterns and their impacts on Southwestern India. The keynote address by Dr. Rajeevan Madhavan
+                Nair focused on scientific approaches to rainfall prediction and emerging climate trends, while the
+                discussion by Mr. Vishwanath Srikantaiah highlighted the implications of changing rains for urban areas,
+                water management, and local communities. Moderated by Dr. Padmakumar MM, the colloquium encouraged
+                meaningful interaction among students, scholars, and faculty, and emphasized the importance of
+                integrating climate science with urban planning and sustainable development.
+            </p>
+        </div>
+
+        <!-- Speakers -->
+        <div class="bg-gray-50 py-16 mb-16">
+            <div class="container mx-auto px-4 max-w-6xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="text-3xl font-bold text-gray-800">Distinguished Speakers</h2>
+                </div>
+
+                <div class="speaker-grid" data-aos="fade-up" data-aos-delay="100">
+                    <!-- Speaker 1 -->
+                    <div class="speaker-card">
+                        <div class="speaker-avatar">
+                             <img src="Speaker.jpeg" alt="Dr. Rajeevan Madhavan Nair">
+                        </div>
+                        <h4>Dr. Rajeevan Madhavan Nair</h4>
+                        <p class="text-sm font-semibold text-blue-600">Vice Chancellor</p>
+                        <p class="speaker-org text-gray-500">Atria University, Bengaluru</p>
+                        <div class="mt-4 pt-4 border-t border-gray-100 w-full">
+                             <p class="text-xs text-gray-400 uppercase">Presentation</p>
+                             <p class="text-sm italic">Changing Rains: prediction and impacts for southwestern India</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Speaker 2 -->
+                    <div class="speaker-card">
+                        <div class="speaker-avatar">
+                             <img src="Speaker.jpeg" alt="Mr. Viswanath Srikanth">
+                        </div>
+                        <h4>Mr. Viswanath Srikanth</h4>
+                        <p class="text-sm font-semibold text-blue-600">Advisor</p>
+                        <p class="speaker-org text-gray-500">Biome Environmental Trust, Bengaluru</p>
+                         <div class="mt-4 pt-4 border-t border-gray-100 w-full">
+                             <p class="text-xs text-gray-400 uppercase">Presentation</p>
+                             <p class="text-sm italic">Implication of changing rains for cities and communities</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Speaker 3 -->
+                    <div class="speaker-card">
+                        <div class="speaker-avatar">
+                             <img src="dr_padmakumar_mm.jpg" alt="Dr. Padmakumar MM">
+                        </div>
+                        <h4>Dr. Padmakumar MM</h4>
+                        <p class="text-sm font-semibold text-blue-600">Associate Professor</p>
+                        <p class="speaker-org text-gray-500">Christ University - BCC</p>
+                         <div class="mt-4 pt-4 border-t border-gray-100 w-full">
+                             <p class="text-xs text-gray-400 uppercase">Role</p>
+                             <p class="text-sm italic">Moderator</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+
+        <!-- Key Takeaways -->
+        <div class="content-section" data-aos="fade-up">
+            <h2 class="section-heading">Key Takeaways</h2>
+
+            <div class="highlight-box">
+                <ul class="list-disc pl-6 space-y-4 text-gray-700">
+                    <li>Rainfall in Southwestern India is becoming more irregular and intense, increasing risks to agriculture, urban infrastructure, and water security.</li>
+                    <li>While climate science offers tools to predict these changing patterns, uncertainty makes adaptive and resilient planning essential.</li>
+                    <li>The discussions stressed that unplanned urbanisation and the neglect of natural water systems worsen the impact of changing rains.</li>
+                    <li>Emphasized the need for sustainable urban planning, community-based water conservation, and interdisciplinary collaboration to effectively respond to climate change.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Impact Counter -->
+        <div class="impact-section">
+            <div class="impact-grid" data-aos="zoom-in">
+                <div class="impact-item">
+                    <h3>150</h3>
+                    <p>Participants (Students and Others)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gallery -->
+        <div class="content-section" data-aos="fade-up">
+            <h2 class="section-heading text-center">Event Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="changing_rains_event_photo.jpg" alt="Event Photo 1" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="changing_rains_1.jpg" alt="Event Photo 2" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="changing_rains_2.jpg" alt="Event Photo 3" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="changing_rains_3.jpg" alt="Event Photo 4" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="changing_rains_4.jpg" alt="Event Photo 5" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="changing_rains_5.jpg" alt="Event Photo 6" loading="lazy">
+                </div>
+            </div>
+        </div>
+
+         <!-- SDG Section -->
+        <div class="container mx-auto text-center py-10" data-aos="fade-in">
+            <div class="bg-white p-8 rounded-xl shadow-lg border-2 border-dashed border-gray-200 inline-flex flex-col md:flex-row gap-8 items-center justify-center max-w-4xl mx-auto">
+                <div>
+                     <p class="uppercase tracking-widest text-xs font-bold text-gray-500 mb-2">Sustainable Development Goal</p>
+                     <div class="flex items-center gap-3 justify-center">
+                        <span class="text-4xl font-black text-green-600">13</span>
+                        <span class="text-xl font-bold text-gray-800">Climate Action</span>
+                    </div>
+                </div>
+                <div class="hidden md:block w-px h-16 bg-gray-200"></div>
+                <div>
+                     <p class="uppercase tracking-widest text-xs font-bold text-gray-500 mb-2">Sustainable Development Goal</p>
+                     <div class="flex items-center gap-3 justify-center">
+                        <span class="text-4xl font-black text-yellow-500">11</span>
+                        <span class="text-xl font-bold text-gray-800">Sustainable Cities and Communities</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="header-container" style="display:block;">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10 text-center md:text-left">
+                <div>
+                    <h3 class="text-xl text-white mb-4">Department of Media Studies &<br>Centre for Peace Praxis</h3>
+                    <p class="text-gray-400 text-sm">Building communities of hope, healing, and resilience through peace
+                        literacy and intercultural dialogue.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl text-white mb-4">Contact</h3>
+                    <p class="text-gray-400 text-sm">CHRIST (Deemed to be University)</p>
+                    <p class="text-gray-400 text-sm">Bangalore, India</p>
+                    <p class="text-gray-400 text-sm mt-2"><a href="mailto:peace.praxis@christuniversity.in"
+                            class="text-white hover:text-[#e76f51] transition-colors">peace.praxis@christuniversity.in</a></p>
+                </div>
+                <div>
+                    <h3 class="text-xl text-white mb-4">Connect</h3>
+                    <div class="flex justify-center md:justify-start gap-4">
+                        <a href="https://www.instagram.com/centreforpeacepraxis?igsh=MXdqNnhoMzM5eWZ4dQ==" target="_blank" 
+                           class="w-[45px] h-[45px] flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white hover:bg-[#e76f51] hover:border-[#e76f51] transition-all duration-300">
+                           <i class="fab fa-instagram fa-lg"></i>
+                        </a>
+
+                        <a href="https://www.linkedin.com/company/centre-for-peace-praxis/" target="_blank"
+                           class="w-[45px] h-[45px] flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white hover:bg-[#e76f51] hover:border-[#e76f51] transition-all duration-300">
+                           <i class="fab fa-linkedin fa-lg"></i>
+                        </a>
+                    </div>
+                    <p class="text-gray-500 text-xs mt-4">Report Prepared By: ABISHEK CHETTY A</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-6 text-center text-gray-500 text-sm">
+                &copy; 2026 Centre for Peace Praxis. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+    </script>
+</body>
+
+</html>

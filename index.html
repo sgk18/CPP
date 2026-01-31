@@ -1,3 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centre for Peace Praxis | Hope, Healing and Resilience</title>
+    <link rel="icon" type="icon" href="current_logo.png">
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
     <!DOCTYPE html>
     <html lang="en">
 
@@ -5,7 +17,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Centre for Peace Praxis | Hope, Healing and Resilience</title>
-    <link rel="icon" type="icon" href="current_logo.png" >
+        <link rel="icon" type="icon" href="current_logo.png">
         <!-- Fonts -->
         <link
             href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap"
@@ -16,6 +28,7 @@
 
         <!-- AOS Library for Scroll Animations -->
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <!-- Tailwind CSS (CDN for compatibility) -->
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css">
 
@@ -80,13 +93,12 @@
                 z-index: 1000;
                 transition: all 0.3s ease;
             }
+
             #bridging-hearts {
-        background: linear-gradient(
-            135deg,
-            rgba(168, 218, 220, 0.15),
-            rgba(255, 255, 255, 0.6)
-        );
-    }
+                background: linear-gradient(135deg,
+                        rgba(168, 218, 220, 0.15),
+                        rgba(255, 255, 255, 0.6));
+            }
 
 
             header.scrolled {
@@ -109,17 +121,42 @@
                 text-decoration: none;
             }
 
+            .footer-logo-wrapper {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                margin-top: 16px;
+            }
+
+            .footer-logo {
+                height: 122px;
+                object-fit: contain;
+                opacity: 0.8
+            }
+
+            @media (min-width: 768px) {
+                .footer-logo {
+                    height: 122px;
+                }
+            }
+
+
+
             .logo-img {
                 width: 75px;
                 height: 75px;
-                border-radius: 70%;
+                /* border-radius: 70%; */
+                /* Removed circle border */
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 overflow: hidden;
-                border: 2px solid var(--primary);
-                padding: 2px;
-                background: white;
+                /* border: 2px solid var(--primary); */
+                /* Removed border */
+                /* padding: 2px; */
+                /* Removed padding */
+                /* background: white; */
+                /* Removed background */
                 transition: transform 0.3s ease;
             }
 
@@ -151,37 +188,57 @@
                 gap: 30px;
             }
 
-            nav a {
-                text-decoration: none;
-                color: var(--dark);
-                font-weight: 600;
-                font-size: 15px;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-                transition: color 0.3s;
+            /* Nav Styles removed - using style.css */
+            /* Dropdown Styles */
+            .dropdown {
                 position: relative;
-                padding-bottom: 5px;
+                display: inline-block;
             }
 
-            nav a:before {
-                content: '';
+            .dropdown-content {
+                display: none;
                 position: absolute;
-                width: 0;
-                height: 2px;
-                background-color: var(--accent);
-                bottom: 0;
-                left: 50%;
-                transition: all 0.3s ease;
-                transform: translateX(-50%);
+                background-color: #ffffff;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+                border-radius: 8px;
+                top: 100%;
+                left: 0;
+                overflow: hidden;
+                border-top: 3px solid var(--accent);
             }
 
-            nav a:hover:before,
-            nav a.active:before {
-                width: 100%;
+            .dropdown-content a {
+                color: var(--dark);
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                font-size: 14px;
+                text-transform: none;
+                text-align: left;
+                border-bottom: 1px solid #f1f1f1;
             }
 
-            nav a:hover,
-            nav a.active {
+            .dropdown-content a:last-child {
+                border-bottom: none;
+            }
+
+            .dropdown-content a:hover {
+                background-color: #f1f1f1;
+                color: var(--primary);
+            }
+
+            .dropdown-content a:before {
+                display: none;
+                /* Remove the underline effect from main nav links */
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+
+            .dropdown:hover .dropbtn {
                 color: var(--primary);
             }
 
@@ -536,136 +593,133 @@
                 color: var(--gray);
                 font-size: 1rem;
             }
-    /* Workshops Section */
-    .workshop-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-        gap: 36px;
-    }
 
-    /* Card */
-    .workshop-card {
-        background: linear-gradient(
-            135deg,
-            rgba(255, 255, 255, 0.95),
-            rgba(245, 247, 250, 0.9)
-        );
-        border-radius: 22px;
-        overflow: hidden;
-        box-shadow: 
-            0 12px 30px rgba(0, 0, 0, 0.08),
-            inset 0 1px 0 rgba(255, 255, 255, 0.6);
-        border: 1px solid rgba(0, 0, 0, 0.04);
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        transition: all 0.45s ease;
-        position: relative;
-    }
+            /* Workshops Section */
+            .workshop-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+                gap: 36px;
+            }
 
-    /* Hover effect */
-    .workshop-card:hover {
-        transform: translateY(-12px);
-        box-shadow: 
-            0 30px 60px rgba(0, 0, 0, 0.18);
-    }
+            /* Card */
+            .workshop-card {
+                background: linear-gradient(135deg,
+                        rgba(255, 255, 255, 0.95),
+                        rgba(245, 247, 250, 0.9));
+                border-radius: 22px;
+                overflow: hidden;
+                box-shadow:
+                    0 12px 30px rgba(0, 0, 0, 0.08),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+                border: 1px solid rgba(0, 0, 0, 0.04);
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                transition: all 0.45s ease;
+                position: relative;
+            }
 
-    /* Image */
-    .workshop-img {
-        height: 230px;
-        overflow: hidden;
-        position: relative;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
-    }
+            /* Hover effect */
+            .workshop-card:hover {
+                transform: translateY(-12px);
+                box-shadow:
+                    0 30px 60px rgba(0, 0, 0, 0.18);
+            }
 
-    .workshop-img img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.8s ease, filter 0.8s ease;
-    }
+            /* Image */
+            .workshop-img {
+                height: 230px;
+                overflow: hidden;
+                position: relative;
+                background: linear-gradient(135deg, var(--primary), var(--secondary));
+            }
 
-    .workshop-card:hover .workshop-img img {
-        transform: scale(1.12);
-        filter: brightness(0.9);
-    }
+            .workshop-img img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.8s ease, filter 0.8s ease;
+            }
 
-    /* Badge */
-    .badge {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        background: linear-gradient(135deg, var(--accent), var(--secondary));
-        color: #fff;
-        padding: 6px 14px;
-        border-radius: 999px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
-    }
+            .workshop-card:hover .workshop-img img {
+                transform: scale(1.12);
+                filter: brightness(0.9);
+            }
 
-    /* Content */
-    .workshop-content {
-        padding: 28px 30px 30px;
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-    }
+            /* Badge */
+            .badge {
+                position: absolute;
+                top: 16px;
+                right: 16px;
+                background: linear-gradient(135deg, var(--accent), var(--secondary));
+                color: #fff;
+                padding: 6px 14px;
+                border-radius: 999px;
+                font-size: 0.75rem;
+                font-weight: 700;
+                letter-spacing: 0.5px;
+                box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+            }
 
-    /* Title */
-    .workshop-content h4 {
-        font-size: 1.35rem;
-        font-weight: 800;
-        color: var(--primary);
-        margin-bottom: 14px;
-        line-height: 1.35;
-    }
+            /* Content */
+            .workshop-content {
+                padding: 28px 30px 30px;
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+            }
 
-    /* Description */
-    .workshop-content p {
-        color: #555;
-        font-size: 0.98rem;
-        line-height: 1.65;
-        margin-bottom: 28px;
-        flex-grow: 1;
-    }
+            /* Title */
+            .workshop-content h4 {
+                font-size: 1.35rem;
+                font-weight: 800;
+                color: var(--primary);
+                margin-bottom: 14px;
+                line-height: 1.35;
+            }
 
-    /* Button */
-    .workshop-btn {
-        margin-top: auto;
-        padding: 14px 0;
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 0.95rem;
-        color: var(--primary);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        border-top: 1px solid rgba(0, 0, 0, 0.06);
-        transition: all 0.35s ease;
-        position: relative;
-    }
+            /* Description */
+            .workshop-content p {
+                color: #555;
+                font-size: 0.98rem;
+                line-height: 1.65;
+                margin-bottom: 28px;
+                flex-grow: 1;
+            }
 
-    /* Button hover */
-    .workshop-btn::after {
-        content: "→";
-        transition: transform 0.3s ease;
-    }
+            /* Button */
+            .workshop-btn {
+                margin-top: auto;
+                padding: 14px 0;
+                text-decoration: none;
+                font-weight: 700;
+                font-size: 0.95rem;
+                color: var(--primary);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                border-top: 1px solid rgba(0, 0, 0, 0.06);
+                transition: all 0.35s ease;
+                position: relative;
+            }
 
-    .workshop-btn:hover {
-        color: var(--secondary);
-        background: linear-gradient(
-            90deg,
-            rgba(0, 0, 0, 0.02),
-            rgba(0, 0, 0, 0)
-        );
-    }
+            /* Button hover */
+            .workshop-btn::after {
+                content: "→";
+                transition: transform 0.3s ease;
+            }
 
-    .workshop-btn:hover::after {
-        transform: translateX(6px);
-    }
+            .workshop-btn:hover {
+                color: var(--secondary);
+                background: linear-gradient(90deg,
+                        rgba(0, 0, 0, 0.02),
+                        rgba(0, 0, 0, 0));
+            }
+
+            .workshop-btn:hover::after {
+                transform: translateX(6px);
+            }
 
 
             /* Volunteer Section */
@@ -675,7 +729,7 @@
                 background-position: center;
                 padding: 100px 0;
                 background-attachment: fixed;
-                
+
             }
 
             .volunteer-content {
@@ -753,137 +807,9 @@
                 color: var(--gray);
             }
 
-            /* Footer */
-            footer {
-                background-color: var(--dark);
-                color: white;
-                padding: 80px 0 30px;
-                position: relative;
-                overflow: hidden;
-            }
+            /* Footer and Social Links styles removed - using style.css */
 
-            footer:before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 5px;
-                background: linear-gradient(to right, var(--accent), var(--secondary), var(--primary));
-            }
 
-            .footer-content {
-                display: grid;
-                grid-template-columns: 1.5fr 1fr 1fr 1fr;
-                gap: 50px;
-                margin-bottom: 60px;
-            }
-
-            .footer-logo .logo-text {
-                color: white;
-                margin-bottom: 20px;
-                display: block;
-            }
-
-            .footer-logo p {
-                margin-top: 15px;
-                opacity: 0.7;
-                line-height: 1.8;
-                font-size: 0.95rem;
-            }
-
-            .footer-column h3 {
-                color: white;
-                font-size: 1.3rem;
-                margin-bottom: 25px;
-                position: relative;
-                padding-bottom: 10px;
-            }
-
-            .footer-column h3:after {
-                content: '';
-                position: absolute;
-                width: 40px;
-                height: 3px;
-                background-color: var(--secondary);
-                bottom: 0;
-                left: 0;
-            }
-
-            .footer-column ul {
-                list-style: none;
-            }
-
-            .footer-column ul li {
-                margin-bottom: 12px;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-
-            .footer-column a {
-                color: #d1d1d1;
-                text-decoration: none;
-                transition: all 0.3s;
-                display: inline-block;
-            }
-
-            .footer-column a:hover {
-                color: var(--secondary);
-                transform: translateX(5px);
-            }
-
-            .read-more-link {
-                display: inline-block;
-                margin-top: 5px;
-                font-size: 0.85rem;
-                font-weight: 600;
-                color: var(--accent);
-                text-decoration: none;
-                transition: transform 0.3s ease;
-            }
-
-            .read-more-link:hover {
-                transform: translateX(5px);
-                color: var(--accent-hover);
-            }
-
-            .social-links {
-                display: flex;
-                gap: 15px;
-                margin-top: 25px;
-            }
-
-            .social-links a {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                width: 45px;
-                height: 45px;
-                background-color: rgba(255, 255, 255, 0.05);
-                border-radius: 50%;
-                color: white;
-                transition: all 0.3s;
-                border: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            .social-links a:hover {
-                background-color: var(--accent);
-                transform: translateY(-5px);
-                border-color: var(--accent);
-            }
-
-            .copyright {
-                text-align: center;
-                padding-top: 30px;
-                border-top: 1px solid rgba(255, 255, 255, 0.05);
-                color: #888;
-                font-size: 0.9rem;
-            }
-            
-            .special{
-                animate__flipInX
-            }
             /* Mobile Responsive */
             @media (max-width: 992px) {
 
@@ -915,34 +841,7 @@
                     gap: 15px;
                 }
 
-                nav {
-                    position: fixed;
-                    top: 0;
-                    right: -100%;
-                    width: 70%;
-                    height: 100vh;
-                    background: white;
-                    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
-                    padding: 80px 30px;
-                    transition: 0.4s ease;
-                    z-index: 1001;
-                    display: flex;
-                    flex-direction: column;
-                }
-
-                nav.active {
-                    right: 0;
-                }
-
-                nav ul {
-                    flex-direction: column;
-                    gap: 25px;
-                }
-
-                nav a {
-                    font-size: 1.2rem;
-                }
-
+                /* Mobile Nav styles removed - using style.css */
                 .mobile-menu-btn {
                     display: block;
                     position: absolute;
@@ -966,6 +865,15 @@
                     grid-template-columns: 1fr;
                 }
 
+
+
+                .features,
+                .pillar-grid,
+                .footer-content,
+                .stats-grid {
+                    grid-template-columns: 1fr;
+                }
+
                 .section-title h2 {
                     font-size: 2.2rem;
                 }
@@ -973,547 +881,621 @@
         </style>
     </head>
 
-    <body>
+<body>
 
-        <!-- Preloader can be added here if needed, keeping it simple for now -->
+    <!-- Preloader can be added here if needed, keeping it simple for now -->
 
-        <!-- Header & Navigation -->
-        <header id="header">
-            <div class="container header-container">
-                <a href="#home" class="logo" target="_blank">
-                    <div class="logo-img">
-                        <img src="current_logo.png" alt="CPP Logo">
-                    </div>
-                    <div class="logo-text">Centre for <span>Peace Praxis</span></div>
-                </a>
-
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-
-                <nav id="mainNav">
-                    <ul>
-                        <li><a href="#home" class="active" target="_blank">Home</a></li>
-                        <li><a href="#about" target="_blank">About</a></li>
-                        <li><a href="#why" target="_blank">Why CPP?</a></li>
-                        <li><a href="#workshops" target="_blank">Workshops</a></li>
-                        <li><a href="#volunteer" target="_blank">Volunteer</a></li>
-                        <li><a href="gallery.html">Gallery</a></li>
-                        
-                        <li><a href="#contact" target="_blank">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
-
-        <!-- Hero Section -->
-        <section class="hero" id="home">
-            <div class="hero-content" data-aos="zoom-in" data-aos-duration="1000">
-                <h1><span>Welcome To</span>Hope, Healing <br>& Resilience</h1>
-                <p>Building communities through peace literacy, intercultural dialogue, and collective well-being since
-                    2023.</p>
-                <div class="hero-buttons">
-                    <a href="https://forms.google.com/your-form-link-here" target="_blank" class="cta-button">Join Our
-                        Mission</a>
-                    <a href="#workshops" class="cta-button secondary" target="_blank">View Workshops</a>
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="#home" class="logo" target="_blank">
+                <div class="logo-img">
+                    <img src="current_logo.png" alt="CPP Logo">
                 </div>
-            </div>
-            <a href="#why" class="scroll-down" target="_blank">
-                <i class="fas fa-chevron-down"></i>
+                <div class="logo-text">Centre for <span>Peace Praxis</span></div>
             </a>
-        </section>
 
-        <!-- Why Section -->
-        <section id="why">
-            <div class="container">
-                <div class="section-title" data-aos="fade-up">
-                    <h2>Why Centre for Peace Praxis?</h2>
-                    <p>Empowering individuals <span style="letter-spacing: 2px;">to become a</span>gents of positive change.</p>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#home" class="active" target="_blank">Home</a></li>
+                    <li><a href="#about" target="_blank">About</a></li>
+
+                    <li><a href="#workshops" target="_blank">Workshops</a></li>
+                    <li><a href="#volunteer" target="_blank">Volunteer</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Community <i class="fas fa-caret-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="Faculties.html">Faculties</a>
+                            <a href="students.html">Students</a>
+                        </div>
+                    </li>
+
+                    <li><a href="#contact" target="_blank">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content" data-aos="zoom-in" data-aos-duration="1000">
+            <h1><span>Welcome To</span>Hope, Healing <br>& Resilience</h1>
+            <p>Building communities through peace literacy, intercultural dialogue, and collective well-being since
+                2023.</p>
+            <div class="hero-buttons">
+                <a href="#volunteer" target="_blank" class="cta-button">Join Our
+                    Mission</a>
+                <a href="#workshops" class="cta-button secondary" target="_blank">View Workshops</a>
+            </div>
+        </div>
+        <a href="#why" class="scroll-down" target="_blank">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </section>
+
+    <!-- Why Section -->
+    <section id="why">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Why Centre for Peace Praxis?</h2>
+                <p>Empowering individuals <span style="letter-spacing: 2px;">to become a</span>gents of positive change.
+                </p>
+            </div>
+
+            <div class="features">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>Make a Real Difference!</h3>
+                    <p>Contribute to meaningful peacebuilding initiatives that create lasting impact locally and
+                        globally.</p>
                 </div>
-                
-                <div class="features">
-                    <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="feature-icon">
-                            <i class="fas fa-hands-helping"></i>
-                        </div>
-                        <h3>Make a Real Difference!</h3>
-                        <p>Contribute to meaningful peacebuilding initiatives that create lasting impact locally and
-                            globally.</p>
-                    </div>
 
-                    <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-                        <div class="feature-icon">
-                            <i class="fas fa-user-graduate"></i>
-                        </div>
-                        <h3>Build Capacity!</h3>
-                        <p>Develop essential skills in communication, teamwork, creativity, and conflict resolution.</p>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-graduate"></i>
                     </div>
+                    <h3>Build Capacity!</h3>
+                    <p>Develop essential skills in communication, teamwork, creativity, and conflict resolution.</p>
+                </div>
 
-                    <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
-                        <div class="feature-icon">
-                            <i class="fas fa-laugh-beam"></i>
-                        </div>
-                        <h3>Have Fun!</h3>
-                        <p>Connect with like-minded people, work on creative projects, and be part of a vibrant community.
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="fas fa-laugh-beam"></i>
+                    </div>
+                    <h3>Have Fun!</h3>
+                    <p>Connect with like-minded people, work on creative projects, and be part of a vibrant community.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <div class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item" data-aos="zoom-in">
+                    <h3>20+</h3>
+                    <p>Workshops Conducted</p>
+                </div>
+                <div class="stat-item" data-aos="zoom-in" data-aos-delay="100">
+                    <h3>500+</h3>
+                    <p>Participants</p>
+                </div>
+                <div class="stat-item" data-aos="zoom-in" data-aos-delay="200">
+                    <h3>15+</h3>
+                    <p>Partner Organizations</p>
+                </div>
+                <div class="stat-item" data-aos="zoom-in" data-aos-delay="300">
+                    <h3>4</h3>
+                    <p>Core Pillars</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>About Us</h2>
+                <p>Our journey towards a more peaceful world.</p>
+            </div>
+
+            <div class="about-content">
+                <div class="about-text" data-aos="fade-right">
+                    <p>Established in 2023, the <strong style="color: var(--primary);">Centre for Peace Praxis</strong>
+                        aims at building communities of hope, healing, and resilience.</p>
+                    <p>We believe that peace is not just the absence of conflict, but the presence of justice,
+                        understanding, and active cooperation. To achieve this, we organize regular workshops,
+                        dialogues, and events that spread peace literacy.</p>
+                    <p>Aligned with our pillars—Media Literacy, Psychosocial Support, Intercultural Dialogue, and
+                        Ecological Wellbeing—we create environments where diversity is embraced as a strength.</p>
+                    <a href="#volunteer" class="workshop-btn" target="_blank"
+                        style="justify-content: flex-start; border:none; padding-left:0; font-size:1.1rem;">Read Our
+                        Full Story <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="about-img" data-aos="fade-left">
+                    <img src="peaceaxis_image1.jpg" alt="Community building and dialogue">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pillars Section -->
+    <section class="pillars" id="pillars">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Our Core Pillars</h2>
+                <p>The foundation of our approach to peacebuilding.</p>
+            </div>
+
+            <div class="pillar-grid">
+                <div class="pillar-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="pillar-icon"><i class="fas fa-globe-americas"></i></div>
+                    <div>
+                        <h3>Intercultural Dialogue</h3>
+                        <p>Fostering understanding and respect across diverse cultures, beliefs, and backgrounds through
+                            open conversations.</p>
+                    </div>
+                </div>
+
+                <div class="pillar-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="pillar-icon"><i class="fas fa-heart"></i></div>
+                    <div>
+                        <h3>Psycho-social Well-being</h3>
+                        <p>Supporting mental and emotional health through community-based approaches to healing and
+                            resilience.</p>
+                    </div>
+                </div>
+
+                <div class="pillar-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="pillar-icon"><i class="fas fa-newspaper"></i></div>
+                    <div>
+                        <h3>Media Literacy</h3>
+                        <p>Developing critical thinking skills to navigate today's complex media landscape and counter
+                            misinformation.</p>
+                    </div>
+                </div>
+
+                <div class="pillar-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="pillar-icon"><i class="fas fa-leaf"></i></div>
+                    <div>
+                        <h3>Eco-consciousness</h3>
+                        <p>Promoting environmental awareness and sustainable practices as integral components of peace.
                         </p>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Stats Section -->
-        <div class="stats-section">
-            <div class="container">
-                <div class="stats-grid">
-                    <div class="stat-item" data-aos="zoom-in">
-                        <h3>20+</h3>
-                        <p>Workshops Conducted</p>
+    <!-- Upcoming Events Section -->
+    <section id="upcoming">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Upcoming Events</h2>
+                <p>Mark your calendars and join us!</p>
+            </div>
+
+            <div class="workshop-grid">
+                <!-- Event 1 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="workshop-img">
+                        <span class="badge" style="background: var(--primary);">13 Feb 2026</span>
+                        <img src="peaceaxis_image11.jpg" alt="Inter-Religious Visit" loading="lazy">
                     </div>
-                    <div class="stat-item" data-aos="zoom-in" data-aos-delay="100">
-                        <h3>500+</h3>
-                        <p>Participants</p>
+                    <div class="workshop-content">
+                        <h4>Inter-Religious Visit</h4>
+                        <p>A one-day visit to multiple religious institutions including Gurudwara, Mahabodhi, and
+                            Dharmaram. Participation from students and faculty.</p>
+                        <a href="#" class="workshop-btn" target="_blank">Register Now <i
+                                class="fas fa-arrow-right"></i></a>
                     </div>
-                    <div class="stat-item" data-aos="zoom-in" data-aos-delay="200">
-                        <h3>15+</h3>
-                        <p>Partner Organizations</p>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="workshop-img">
+                        <span class="badge" style="background: var(--primary);">Feb 2026</span>
+                        <img src="peaceaxis_image9.jpg" alt="Film Festival" loading="lazy">
                     </div>
-                    <div class="stat-item" data-aos="zoom-in" data-aos-delay="300">
-                        <h3>4</h3>
-                        <p>Core Pillars</p>
+                    <div class="workshop-content">
+                        <h4>Film Festival & Panel Discussion</h4>
+                        <p>A one-day film screening followed by a panel discussion, planned for the 4th week of February
+                            2026.</p>
+                        <a href="#" class="workshop-btn" target="_blank">Register Now <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Event 3 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="workshop-img">
+                        <span class="badge" style="background: var(--primary);">19 Feb 2026</span>
+                        <img src="peaceaxis_image12.jpg" alt="Well-being Workshop" loading="lazy">
+                    </div>
+                    <div class="workshop-content">
+                        <h4>Psychological Well-being Workshop</h4>
+                        <p>A 3-hour workshop on “Resilience and Recovery” with e-certificates and student coordinators
+                            from each campus.</p>
+                        <a href="#" class="workshop-btn" target="_blank">Register Now <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Event 4 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="workshop-img">
+                        <span class="badge" style="background: var(--primary);">SDG Week</span>
+                        <img src="peaceaxis_image6.jpg" alt="SDG Week" loading="lazy">
+                    </div>
+                    <div class="workshop-content">
+                        <h4>SDG Week – NGO Stalls</h4>
+                        <p>NGO stalls to be set up during SDG Week in the second week of February 2026 to promote
+                            sustainable development goals.</p>
+                        <a href="#" class="workshop-btn" target="_blank">Register Now <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Event 5 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="workshop-img">
+                        <span class="badge" style="background: var(--primary);">May 2026</span>
+                        <img src="volunteer_philippines.jpg" alt="Volunteer in Philippines" loading="lazy">
+                    </div>
+                    <div class="workshop-content">
+                        <h4>Volunteer in Philippines</h4>
+                        <p>International volunteering opportunity from May 12-31, 2026 at Mindanao Peacebuilding
+                            Institute.</p>
+                        <a href="#" class="workshop-btn" target="_blank">Register Now <i
+                                class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- About Section -->
-        <section id="about">
-            <div class="container">
-                <div class="section-title" data-aos="fade-up">
-                    <h2>About Us</h2>
-                    <p>Our journey towards a more peaceful world.</p>
+    <!-- Workshops Section -->
+    <section id="workshops">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Our Workshops</h2>
+                <p>Engaging, educational, and transformative experiences.</p>
+            </div>
+
+            <div class="workshop-grid">
+                <!-- Card New -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="workshop-img">
+                        <span class="badge">New</span>
+                        <img src="changing_rains_poster.jpg" alt="Changing Rains" loading="lazy">
+                    </div>
+                    <div class="workshop-content">
+                        <h4>Changing Rains</h4>
+                        <p>An interdisciplinary academic event that examined shifting rainfall patterns and their
+                            impacts on Southwestern India, featuring experts discussing climate prediction and urban
+                            vulnerability.</p>
+                        <a href="Changing_rains.html" class="workshop-btn" target="_blank">View Workshop Details <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <!-- Card 1 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="workshop-img">
+                        <span class="badge">Popular</span>
+                        <img src="peaceaxis_image2.jpg" alt="Foundations of Peace" loading="lazy">
+                    </div>
+                    <div class="workshop-content">
+                        <h4>Bridging Hearts</h4>
+                        <p>The Bridging Hearts workshop engaged students in interactive activities and dialogue to
+                            explore the emotional, social, and structural dimensions of peace, fostering empathy,
+                            critical thinking, and youth leadership in peacebuilding.</p>
+                        <a href="Bridging_Hearts.html" class="workshop-btn" target="_blank">View Workshop Details <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
 
-                <div class="about-content">
-                    <div class="about-text" data-aos="fade-right">
-                        <p>Established in 2023, the <strong style="color: var(--primary);">Centre for Peace Praxis</strong>
-                            aims at building communities of hope, healing, and resilience.</p>
-                        <p>We believe that peace is not just the absence of conflict, but the presence of justice,
-                            understanding, and active cooperation. To achieve this, we organize regular workshops,
-                            dialogues, and events that spread peace literacy.</p>
-                        <p>Aligned with our pillars—Media Literacy, Psychosocial Support, Intercultural Dialogue, and
-                            Ecological Wellbeing—we create environments where diversity is embraced as a strength.</p>
-                        <a href="#volunteer" class="workshop-btn" target="_blank"
-                            style="justify-content: flex-start; border:none; padding-left:0; font-size:1.1rem;">Read Our
-                            Full Story <i class="fas fa-arrow-right"></i></a>
+                <!-- Card 2 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="workshop-img">
+                        <img src="peaceaxis_image3.jpg" alt="Forgiveness Across Faiths" loading="lazy">
                     </div>
+                    <div class="workshop-content">
+                        <h4>Dares you to be different</h4>
+                        <p>The panel discussion ‘Not Less, Different’ brought together voices from media, academia, and
+                            student experience to discuss disability, inclusion, and accessibility. The session
+                            highlighted inclusive language, lived experiences, and the responsibility of institutions
+                            and media in creating an empathetic and inclusive society.
+                        </p>
+                        <a href="Dares_you_to_be_different.html" class="workshop-btn" target="_blank">View Workshop
+                            Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
 
-                    <div class="about-img" data-aos="fade-left">
-                        <img src="peaceaxis_image1.jpg" alt="Community building and dialogue">
+                <!-- Card 3 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="workshop-img">
+                        <img src="hero_bg_new.jpg" alt="Orientation Workshop" loading="lazy">
+                    </div>
+                    <div class="workshop-content">
+                        <h4>Orientation Workshop</h4>
+                        <p>Introducing Peace Practices to new students. The session explored how peacebuilding extends
+                            beyond conflict resolution to include personal, social, and ecological well-being.</p>
+                        <a href="Oreintation.html" class="workshop-btn" target="_blank">View Workshop Details <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="workshop-img">
+                        <span class="badge">New</span>
+                        <img src="role_of_religous.jpeg" alt="role of religious" loading="lazy">
+                    </div>
+                    <div class="workshop-content">
+                        <h4>Role of Religious</h4>
+                        <p>The guest lecture on the role of religious leaders in climate action explored how faith-based
+                            values of stewardship and compassion can inspire ethical responsibility, interfaith
+                            collaboration, and community-driven environmental sustainability.</p>
+                        <a href="role_of_religous.html" class="workshop-btn" target="_blank">View Workshop Details <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="workshop-img">
+                        <img src="Poster.jpeg" alt="sdg week" loading="lazy">
+                    </div>
+                    <div class="workshop-content">
+                        <h4>sdg week</h4>
+                        <p>The two-day SDG Week activity engaged participants in discussions on co-existence and urban
+                            biodiversity, highlighting the impact of human encroachment on ecosystems and the need for
+                            sustainable conservation practices.</p>
+                        <a href="sdg_week.html" class="workshop-btn" target="_blank">View Workshop Details <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="workshop-img">
+                        <img src="peaceaxis_image7.jpg" alt="Capacity Building" loading="lazy">
+                    </div>
+                    <div class="workshop-content">
+                        <h4>CAPACITY BUILDING</h4>
+                        <p>Strengthening organizational and community capabilities for sustainable peace initiatives.
+                        </p>
+                        <a href="#" class="workshop-btn" target="_blank">View Workshop Details <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <!-- Card 7 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="workshop-img">
+                        <img src="peaceaxis_image8.jpg" alt="story wheel" loading="lazy">
+                    </div>
+                    <div class="workshop-content">
+                        <h4>STORY WHEEL</h4>
+                        <p>A participatory storytelling process that brings communities together to share experiences,
+                            build empathy, and explore pathways to peace through dialogue.
+                        </p>
+                        <a href="#" class="workshop-btn" target="_blank">View Workshop Details <i
+                                class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Pillars Section -->
-        <section class="pillars" id="pillars">
-            <div class="container">
-                <div class="section-title" data-aos="fade-up">
-                    <h2>Our Core Pillars</h2>
-                    <p>The foundation of our approach to peacebuilding.</p>
+    <!-- Volunteer Section -->
+    <section class="volunteer" id="volunteer">
+        <div class="container">
+            <div class="volunteer-content" data-aos="zoom-in">
+                <div class="section-title">
+                    <h2 class="special">Volunteer With Us</h2>
                 </div>
 
-                <div class="pillar-grid">
-                    <div class="pillar-item" data-aos="fade-up" data-aos-delay="100">
-                        <div class="pillar-icon"><i class="fas fa-globe-americas"></i></div>
-                        <div>
-                            <h3>Intercultural Dialogue</h3>
-                            <p>Fostering understanding and respect across diverse cultures, beliefs, and backgrounds through
-                                open conversations.</p>
-                        </div>
-                    </div>
+                <p>Volunteering at the Centre for Peace Praxis is your chance to make a real difference. You'll level up
+                    your skills—communication, teamwork, creativity—while connecting with an awesome network.</p>
 
-                    <div class="pillar-item" data-aos="fade-up" data-aos-delay="200">
-                        <div class="pillar-icon"><i class="fas fa-heart"></i></div>
-                        <div>
-                            <h3>Psycho-social Well-being</h3>
-                            <p>Supporting mental and emotional health through community-based approaches to healing and
-                                resilience.</p>
+                <div class="quote">
+                    <p>“Peace is hard-earned, intentional, and sustained through listening, inclusion, and hope.”</p>
+                    <div class="team-member">
+                        <div class="team-avatar">
+                            <img src="peaceaxis_image5.jpg" alt="Dr. Padmakumar MM" loading="lazy">
+                        </div>
+                        <div class="team-info">
+                            <h4>Dr. Padmakumar MM</h4>
+                            <p>Director, Centre for Peace Praxis</p>
+                            <a href="Directors_note.html" class="read-more-link" target="_blank">Read More <i
+                                    class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
+                    <div class="team-member">
+                        <div class="team-avatar">
+                            <img src="Ravi ranjan.jpeg" alt="Ravi Ranjan" loading="lazy">
+                        </div>
+                        <div class="team-info">
+                            <h4 style="margin-top: 10px;">RAVI RANJAN SHARMA</h4>
+                            <p style="font-size: 0.9rem; color: var(--gray);">Student Coordinator, Centre for Peace
+                                Praxis</p>
+                            <p class="text-sm italic mt-1" style="font-size: 0.85rem; color: var(--accent);">"Driven by
+                                the idea that meaningful conversations can create lasting peace"</p>
+                        </div>
+                    </div>
+                </div>
 
-                    <div class="pillar-item" data-aos="fade-up" data-aos-delay="300">
-                        <div class="pillar-icon"><i class="fas fa-newspaper"></i></div>
-                        <div>
-                            <h3>Media Literacy</h3>
-                            <p>Developing critical thinking skills to navigate today's complex media landscape and counter
-                                misinformation.</p>
-                        </div>
-                    </div>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScmjweCQfwquN_aHSy9Tz_DkvodQwyqULN-3AQ19-SfWxP2Lw/viewform?usp=sf_link"
+                    target="_blank" class="cta-button">Become a
+                    Volunteer</a>
+            </div>
+        </div>
+    </section>
 
-                    <div class="pillar-item" data-aos="fade-up" data-aos-delay="400">
-                        <div class="pillar-icon"><i class="fas fa-leaf"></i></div>
-                        <div>
-                            <h3>Eco-consciousness</h3>
-                            <p>Promoting environmental awareness and sustainable practices as integral components of peace.
-                            </p>
-                        </div>
+
+
+
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo-text">Centre for <span>Peace Praxis</span></div>
+                    <p>Building communities of hope, healing, and resilience through peace literacy and intercultural
+                        dialogue.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/centreforpeacepraxis?igsh=MXdqNnhoMzM5eWZ4dQ=="
+                            target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/centre-for-peace-praxis/" target="_blank"><i
+                                class="fab fa-linkedin-in"></i></a>
                     </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home" target="_blank">Home</a></li>
+                        <li><a href="#about" target="_blank">About Us</a></li>
+                        <li><a href="#pillars" target="_blank">Our Pillars</a></li>
+                        <li><a href="#workshops" target="_blank">Workshops</a></li>
+                        <li><a href="#volunteer" target="_blank">Volunteer</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i><a href="https://www.christuniversity.in/"
+                                target="_blank"> CHRIST
+                                University</a></li>
+                        <li><i class="fas fa-phone"></i> 080 4012 9361</li>
+                        <li><i class="fas fa-envelope"></i><a href="mailto:peace.praxis@christuniversity.in"
+                                target="_blank">peace.praxis@christuniversity.in</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Our Partners</h3>
+                    <ul>
+                        <li>Educational Institutions</li>
+                        <li>Civil Society Groups</li>
+                        <li>Government Bodies</li>
+                        <li>International Partners</li>
+                    </ul>
                 </div>
             </div>
-        </section>
-
-        <!-- Upcoming Events Section -->
-        <section id="upcoming">
-            <div class="container">
-                <div class="section-title" data-aos="fade-up">
-                    <h2>Upcoming Events</h2>
-                    <p>Mark your calendars and join us!</p>
-                </div>
-
-                <div class="workshop-grid">
-                    <!-- Event 1 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="workshop-img">
-                            <span class="badge" style="background: var(--primary);">13 Feb 2026</span>
-                            <img src="peaceaxis_image11.jpg" alt="Inter-Religious Visit" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>Inter-Religious Visit</h4>
-                            <p>A one-day visit to multiple religious institutions including Gurudwara, Mahabodhi, and Dharmaram. Participation from students and faculty.</p>
-                            <a href="#" class="workshop-btn" target="_blank">Register Now <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <!-- Event 2 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="200">
-                        <div class="workshop-img">
-                            <span class="badge" style="background: var(--primary);">Feb 2026</span>
-                            <img src="peaceaxis_image9.jpg" alt="Film Festival" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>Film Festival & Panel Discussion</h4>
-                            <p>A one-day film screening followed by a panel discussion, planned for the 4th week of February 2026.</p>
-                            <a href="#" class="workshop-btn" target="_blank">Register Now <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <!-- Event 3 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="300">
-                        <div class="workshop-img">
-                            <span class="badge" style="background: var(--primary);">19 Feb 2026</span>
-                            <img src="peaceaxis_image12.jpg" alt="Well-being Workshop" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>Psychological Well-being Workshop</h4>
-                            <p>A 3-hour workshop on “Resilience and Recovery” with e-certificates and student coordinators from each campus.</p>
-                            <a href="#" class="workshop-btn" target="_blank">Register Now <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <!-- Event 4 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="400">
-                        <div class="workshop-img">
-                            <span class="badge" style="background: var(--primary);">SDG Week</span>
-                            <img src="peaceaxis_image6.jpg" alt="SDG Week" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>SDG Week – NGO Stalls</h4>
-                            <p>NGO stalls to be set up during SDG Week in the second week of February 2026 to promote sustainable development goals.</p>
-                            <a href="#" class="workshop-btn" target="_blank">Register Now <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <!-- Event 5 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="500">
-                        <div class="workshop-img">
-                            <span class="badge" style="background: var(--primary);">May 2026</span>
-                            <img src="volunteer_philippines.jpg" alt="Volunteer in Philippines" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>Volunteer in Philippines</h4>
-                            <p>International volunteering opportunity from May 12-31, 2026 at Mindanao Peacebuilding Institute.</p>
-                            <a href="#" class="workshop-btn" target="_blank">Register Now <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
+            <div class="footer-logo-wrapper">
+                <img src="CHRIST_LOGO1.png" alt="CHRIST Logo" class="footer-logo">
             </div>
-        </section>
 
-        <!-- Workshops Section -->
-        <section id="workshops">
-            <div class="container">
-                <div class="section-title" data-aos="fade-up">
-                    <h2>Our Workshops</h2>
-                    <p>Engaging, educational, and transformative experiences.</p>
-                </div>
-
-                <div class="workshop-grid">
-                    <!-- Card 1 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="workshop-img">
-                            <span class="badge">Popular</span>
-                            <img src="peaceaxis_image2.jpg" alt="Foundations of Peace" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>Bridging Hearts</h4>
-                            <p>The Bridging Hearts workshop engaged students in interactive activities and dialogue to explore the emotional, social, and structural dimensions of peace, fostering empathy, critical thinking, and youth leadership in peacebuilding.</p>
-                            <a href="Bridging_Hearts.html" class="workshop-btn" target="_blank">View Workshop Details <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <!-- Card 2 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="200">
-                        <div class="workshop-img">
-                            <img src="peaceaxis_image3.jpg" alt="Forgiveness Across Faiths" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>Dares you to be different</h4>
-                            <p>The panel discussion ‘Not Less, Different’ brought together voices from media, academia, and student experience to discuss disability, inclusion, and accessibility. The session highlighted inclusive language, lived experiences, and the responsibility of institutions and media in creating an empathetic and inclusive society.
-                            </p>
-                            <a href="Dares_you_to_be_different.html" class="workshop-btn" target="_blank">View Workshop Details <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <!-- Card 3 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="300">
-                        <div class="workshop-img">
-                            <img src="hero_bg_new.jpg" alt="Orientation Workshop" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>Orientation Workshop</h4>
-                            <p>Introducing Peace Practices to new students. The session explored how peacebuilding extends beyond conflict resolution to include personal, social, and ecological well-being.</p>
-                            <a href="Oreintation.html" class="workshop-btn" target="_blank">View Workshop Details <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <!-- Card 4 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="400">
-                        <div class="workshop-img">
-                            <span class="badge">New</span>
-                            <img src="role_of_religous.jpeg" alt="role of religious" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>Role of Religious</h4>
-                            <p>The guest lecture on the role of religious leaders in climate action explored how faith-based values of stewardship and compassion can inspire ethical responsibility, interfaith collaboration, and community-driven environmental sustainability.</p>
-                            <a href="role_of_religous.html" class="workshop-btn" target="_blank">View Workshop Details <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <!-- Card 5 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="500">
-                        <div class="workshop-img">
-                            <img src="Poster.jpeg" alt="sdg week" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>sdg week</h4>
-                            <p>The two-day SDG Week activity engaged participants in discussions on co-existence and urban biodiversity, highlighting the impact of human encroachment on ecosystems and the need for sustainable conservation practices.</p>
-                            <a href="sdg_week.html" class="workshop-btn" target="_blank">View Workshop Details <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <!-- Card 6 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="600">
-                        <div class="workshop-img">
-                            <img src="peaceaxis_image7.jpg" alt="Capacity Building" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>CAPACITY BUILDING</h4>
-                            <p>Strengthening organizational and community capabilities for sustainable peace initiatives.
-                            </p>
-                            <a href="#" class="workshop-btn" target="_blank">View Workshop Details <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
+            <div class="copyright">
+                <p>&copy; 2023 Centre for Peace Praxis. All rights reserved. | <i class="fas fa-heart"
+                        style="color: #e76f51;"></i> for peacebuilding</p>
             </div>
-        </section>
+        </div>
+    </footer>
 
-        <!-- Volunteer Section -->
-        <section class="volunteer" id="volunteer">
-            <div class="container">
-                <div class="volunteer-content" data-aos="zoom-in">
-                    <div class="section-title">
-                        <h2 class="special">Volunteer With Us</h2>
-                    </div>
+    <!-- AOS Animation Library JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-                    <p>Volunteering at the Centre for Peace Praxis is your chance to make a real difference. You'll level up
-                        your skills—communication, teamwork, creativity—while connecting with an awesome network.</p>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            once: true,
+            offset: 100,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
 
-                    <div class="quote">
-                        <p>“Peace is hard-earned, intentional, and sustained through listening, inclusion, and hope.”</p>
-                        <div class="team-member">
-                            <div class="team-avatar">
-                                <img src="peaceaxis_image5.jpg" alt="Dr. Padmakumar MM" loading="lazy">
-                            </div>
-                            <div class="team-info">
-                                <h4>Dr. Padmakumar MM</h4>
-                                <p>Director, Centre for Peace Praxis</p>
-                                <a href="Directors_note.html" class="read-more-link" target="_blank">Read More <i class="fas fa-arrow-right"></i></a> 
-                            </div>
-                        </div>
-                        <div class="team-member">
-                            <div class="team-avatar">
-                                <img src="Ravi ranjan.jpeg" alt="Ravi Ranjan" loading="lazy">
-                            </div>
-                            <div class="team-info">
-                                <h4 style="margin-top: 10px;">RAVI RANJAN SHARMA</h4>
-                                <p style="font-size: 0.9rem; color: var(--gray);">Student Coordinator, Centre for Peace Praxis</p>
-                                <p class="text-sm italic mt-1" style="font-size: 0.85rem; color: var(--accent);">"Driven by the idea that meaningful conversations can create lasting peace"</p>
-                            </div>
-                        </div>
-                    </div>
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        const header = document.getElementById('header');
 
-                    <a href="https://docs.google.com/forms/d/1SF-xJFwxwqIu8blYcvErdhzBB8WEiT0FIZg2fs_3kUs/edit" target="_blank" class="cta-button">Become a
-                        Volunteer</a>
-                </div>
-            </div>
-        </section>
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
 
-        
+            if (mainNav.classList.contains('active')) {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+                mobileMenuBtn.style.color = 'var(--dark)';
+            } else {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                mobileMenuBtn.style.color = 'var(--primary)';
+            }
+        });
 
-        
-
-        <!-- Footer -->
-        <footer id="contact">
-            <div class="container">
-                <div class="footer-content">
-                    <div class="footer-logo">
-                        <div class="logo-text">Centre for <span>Peace Praxis</span></div>
-                        <p>Building communities of hope, healing, and resilience through peace literacy and intercultural
-                            dialogue.</p>
-                        <div class="social-links">
-                            <a href="https://www.instagram.com/centreforpeacepraxis?igsh=MXdqNnhoMzM5eWZ4dQ==" target="_blank"><i class="fab fa-instagram"></i></a>
-                            <a href="https://www.linkedin.com/company/centre-for-peace-praxis/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="footer-column">
-                        <h3>Quick Links</h3>
-                        <ul>
-                            <li><a href="#home" target="_blank">Home</a></li>
-                            <li><a href="#about" target="_blank">About Us</a></li>
-                            <li><a href="#pillars" target="_blank">Our Pillars</a></li>
-                            <li><a href="#workshops" target="_blank">Workshops</a></li>
-                            <li><a href="#volunteer" target="_blank">Volunteer</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-column">
-                        <h3>Contact Info</h3>
-                        <ul>
-                            <li><i class="fas fa-map-marker-alt"></i><a href="https://www.christuniversity.in/" target="_blank"> CHRIST
-                                    University</a></li>
-                            <li><i class="fas fa-phone"></i> +1 (234) 567-8900</li>
-                            <li><i class="fas fa-envelope"></i><a href="mailto:peace.praxis@christuniversity.in" target="_blank">peace.praxis@christuniversity.in</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-column">
-                        <h3>Our Partners</h3>
-                        <ul>
-                            <li>Educational Institutions</li>
-                            <li>Civil Society Groups</li>
-                            <li>Government Bodies</li>
-                            <li>International Partners</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="copyright">
-                    <p>&copy; 2023 Centre for Peace Praxis. All rights reserved. | <i class="fas fa-heart"
-                            style="color: #e76f51;"></i> for peacebuilding</p>
-                </div>
-            </div>
-        </footer>
-
-        <!-- AOS Animation Library JS -->
-        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-        <script>
-            // Initialize AOS
-            AOS.init({
-                once: true,
-                offset: 100,
-                duration: 800,
-                easing: 'ease-out-cubic',
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             });
+        });
 
-            // Mobile menu functionality
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mainNav = document.getElementById('mainNav');
-            const header = document.getElementById('header');
+        // Sticky Header Effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
 
-            mobileMenuBtn.addEventListener('click', () => {
-                mainNav.classList.toggle('active');
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const targetElement = document.querySelector(targetId);
 
-                if (mainNav.classList.contains('active')) {
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
-                    mobileMenuBtn.style.color = 'var(--dark)';
-                } else {
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                    mobileMenuBtn.style.color = 'var(--primary)';
+                if (targetElement) {
+                    const headerOffset = 80;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                }
+            });
+        });
+
+        // Update active nav link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
                 }
             });
 
-            // Close mobile menu when a link is clicked
-            document.querySelectorAll('nav a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mainNav.classList.remove('active');
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                });
-            });
-
-            // Sticky Header Effect
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
                 }
             });
+        });
+    </script>
+</body>
 
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    const targetElement = document.querySelector(targetId);
-
-                    if (targetElement) {
-                        const headerOffset = 80;
-                        const elementPosition = targetElement.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: "smooth"
-                        });
-                    }
-                });
-            });
-
-            // Update active nav link on scroll
-            window.addEventListener('scroll', () => {
-                const sections = document.querySelectorAll('section');
-                const navLinks = document.querySelectorAll('nav a');
-
-                let current = '';
-
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    if (scrollY >= (sectionTop - 150)) {
-                        current = section.getAttribute('id');
-                    }
-                });
-
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${current}`) {
-                        link.classList.add('active');
-                    }
-                });
-            });
-        </script>
-    </body>
-
-    </html>
+</html>
