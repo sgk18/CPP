@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | Centre for Peace Praxis</title>
+    <link rel="icon" type="icon" href="icon.ico">
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Tailwind CSS (CDN for compatibility) -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css">
+
+    <style>
+        /* :root variables removed - in style.css */
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: #333;
+            background-color: #fcfcfc;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        /* Navigation styles removed - using style.css */
+
+        /* Hero Section */
+        .event-hero {
+            background-image: linear-gradient(rgba(26, 95, 122, 0.85), rgba(42, 157, 143, 0.8)), url('role_of_religious_bg.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 150px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .event-hero h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Gallery Grid */
+        .gallery-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            background: white;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-caption {
+            padding: 20px;
+            text-align: center;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        /* Footer styles removed - using style.css */
+        
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-img">
+                    <img src="current_logo.png" alt="CPP Logo">
+                </div>
+                <div class="logo-text">Centre for <span>Peace Praxis</span></div>
+            </a>
+
+            <button class="mobile-menu-btn" onclick="document.querySelector('nav').classList.toggle('active')">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav>
+                <ul>
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#workshops">Events</a></li>
+                    <li><a href="gallery.html" class="active">Gallery</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="event-hero">
+        <div class="container mx-auto" data-aos="fade-up">
+            <h1>Our Gallery</h1>
+            <p class="text-xl max-w-2xl mx-auto opacity-90">Capturing moments of hope, healing, and connection.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <div class="gallery-container" data-aos="fade-up">
+            <div class="gallery-grid">
+                <!-- Image 1 -->
+                <div class="gallery-item">
+                    <img src="gallery_img_1.png" alt="Gallery Image 1" class="gallery-img">
+                </div>
+                <!-- Image 2 -->
+                <div class="gallery-item">
+                    <img src="gallery_img_2.jpg" alt="Gallery Image 2" class="gallery-img">
+                </div>
+                <!-- Image 3 -->
+                <div class="gallery-item">
+                    <img src="gallery_img_3.jpg" alt="Gallery Image 3" class="gallery-img">
+                </div>
+                <!-- Image 4 -->
+                <div class="gallery-item">
+                    <img src="gallery_img_4.jpg" alt="Gallery Image 4" class="gallery-img">
+                </div>
+                <!-- Image 5 -->
+                <div class="gallery-item">
+                    <img src="gallery_img_5.jpg" alt="Gallery Image 5" class="gallery-img">
+                </div>
+                <!-- Image 6 -->
+                <div class="gallery-item">
+                    <img src="gallery_img_6.jpg" alt="Gallery Image 6" class="gallery-img">
+                </div>
+                <!-- Image 7 -->
+                <div class="gallery-item">
+                    <img src="gallery_img_7.jpg" alt="Gallery Image 7" class="gallery-img">
+                </div>
+                <!-- Image 8 -->
+                <div class="gallery-item">
+                    <img src="gallery_img_8.jpg" alt="Gallery Image 8" class="gallery-img">
+                </div>
+                <!-- Image 9 -->
+                <div class="gallery-item">
+                    <img src="gallery_img_9.jpg" alt="Gallery Image 9" class="gallery-img">
+                </div>
+                <!-- Image 10 -->
+                <div class="gallery-item">
+                    <img src="gallery_img_10.jpg" alt="Gallery Image 10" class="gallery-img">
+                </div>
+                <!-- Image 11 -->
+                <div class="gallery-item">
+                    <img src="gallery_img_11.jpg" alt="Gallery Image 11" class="gallery-img">
+                </div>
+                <!-- Changing Rains Images -->
+                <div class="gallery-item">
+                    <img src="changing_rains_1.jpg" alt="Changing Rains Event 1" class="gallery-img">
+                </div>
+                <div class="gallery-item">
+                    <img src="changing_rains_2.jpg" alt="Changing Rains Event 2" class="gallery-img">
+                </div>
+                <div class="gallery-item">
+                    <img src="changing_rains_3.jpg" alt="Changing Rains Event 3" class="gallery-img">
+                </div>
+                <div class="gallery-item">
+                    <img src="changing_rains_4.jpg" alt="Changing Rains Event 4" class="gallery-img">
+                </div>
+                <div class="gallery-item">
+                    <img src="changing_rains_5.jpg" alt="Changing Rains Event 5" class="gallery-img">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="header-container" style="display:block;">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10 text-center md:text-left">
+                <div>
+                    <h3 class="text-xl text-white mb-4">Department of Media Studies &<br>Centre for Peace Praxis</h3>
+                    <p class="text-gray-400 text-sm">Building communities of hope, healing, and resilience through peace
+                        literacy and intercultural dialogue.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl text-white mb-4">Contact</h3>
+                    <p class="text-gray-400 text-sm">CHRIST (Deemed to be University)</p>
+                    <p class="text-gray-400 text-sm">Bangalore, India</p>
+                    <p class="text-gray-400 text-sm mt-2"><a href="mailto:peace.praxis@christuniversity.in" class="hover:text-teal-400 transition-colors">peace.praxis@christuniversity.in</a></p>
+                </div>
+                <div>
+                    <h3 class="text-xl text-white mb-4">Connect</h3>
+                    <div class="flex justify-center md:justify-start gap-4">
+                        <a href="https://www.instagram.com/centreforpeacepraxis?igsh=MXdqNnhoMzM5eWZ4dQ==" class="text-white hover:text-teal-400" target="_blank"><i class="fab fa-instagram fa-lg"></i></a>
+
+                        <a href="https://www.linkedin.com/company/centre-for-peace-praxis/" class="text-white hover:text-teal-400" target="_blank"><i class="fab fa-linkedin fa-lg"></i></a>
+                    </div>
+                    <p class="text-gray-500 text-xs mt-4">Report Prepared By: ABISHEK CHETTY A</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-6 text-center text-gray-500 text-sm">
+                &copy; 2025 Centre for Peace Praxis. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+    </script>
+</body>
+
+</html>
