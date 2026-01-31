@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faculties | Centre for Peace Praxis</title>
+    <title>Students | Centre for Peace Praxis</title>
     <link rel="icon" type="icon" href="current_logo.png">
     <!-- Fonts -->
     <link
@@ -191,7 +191,7 @@
 
         /* Hero Section */
         .faculties-hero {
-            background: linear-gradient(rgba(26, 95, 122, 0.8), rgba(42, 157, 143, 0.8)), url('faculties_group.jpg');
+            background: linear-gradient(rgba(26, 95, 122, 0.8), rgba(42, 157, 143, 0.8)), url('volunteer_group.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -353,6 +353,26 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Footer Logo Styles */
+        .footer-logo-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .christ-logo {
+            height: 122px;
+            object-fit: contain;
+            opacity: 0.8;
+        }
+
+        @media (min-width: 768px) {
+            .christ-logo {
+                height: 122px;
+            }
+        }
     </style>
 </head>
 
@@ -380,7 +400,7 @@
                     <li><a href="index.html#volunteer" target="_blank">Volunteer</a></li>
                     <li><a href="gallery.html">Gallery</a></li>
                     <li class="dropdown">
-                        <a href="community.html" class="dropbtn active">Community <i class="fas fa-caret-down"></i></a>
+                        <a href="#" class="dropbtn active">Community <i class="fas fa-caret-down"></i></a>
                         <div class="dropdown-content">
                             <a href="Faculties.html">Faculties</a>
                             <a href="students.html">Students</a>
@@ -392,91 +412,169 @@
         </div>
     </header>
 
-    <!-- Faculties Hero Section -->
+    <!-- Students Hero Section -->
     <section class="faculties-hero" data-aos="fade-in">
         <div class="container">
-            <h1 data-aos="fade-down" data-aos-delay="100">Meet Our Faculties</h1>
-            <p data-aos="fade-up" data-aos-delay="200">The guiding lights behind our mission for peace and resilience.
+            <h1 data-aos="fade-down" data-aos-delay="100">Meet Our Students</h1>
+            <p data-aos="fade-up" data-aos-delay="200">The hearts and hands behind our mission for peace and resilience.
             </p>
         </div>
     </section>
 
-    <!-- Faculties Grid -->
-    <section class="container" style="padding: 80px 20px;">
-        <div class="workshop-grid">
-            <!-- Faculty Card 1 -->
-            <div class="workshop-card" data-aos="fade-up">
-                <div class="workshop-img" style="height: 350px;">
-                    <a href="https://christuniversity.in/psychology/faculty-details/NzAyNA==/ODAx" target="_blank"
-                        style="display: block; width: 100%; height: 100%;">
-                        <img src="dr_abilash_k.jpg" alt="Dr. Abilash K" loading="lazy"
-                            style="object-position: top center;">
-                    </a>
-                </div>
-                <div class="workshop-content" style="text-align: center;">
-                    <h4 style="margin-bottom: 5px;">Dr. Abilash K</h4>
-                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;">Assistant Professor</p>
-                    <p style="margin-bottom: 5px; font-size: 0.9rem;">School of Psychological Sciences</p>
-                    <p style="margin-bottom: 0px; font-size: 0.9rem; color: var(--gray);">Bangalore Yeshwanthpur Campus
-                    </p>
-                </div>
-            </div>
+    <!-- Students Sections -->
+    <section class="container" style="padding: 60px 20px;">
 
-            <!-- Faculty Card 2 -->
-            <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
+        <!-- Student Coordinator (Centered) -->
+        <div style="display: flex; justify-content: center; margin-bottom: 60px;">
+            <div class="workshop-card" data-aos="fade-up" style="max-width: 350px; width: 100%;">
                 <div class="workshop-img" style="height: 350px;">
-                    <a href="https://christuniversity.in/dept/faculty-details/NzA2MQ==/ODA1" target="_blank"
-                        style="display: block; width: 100%; height: 100%;">
-                        <img src="dr_priya_vinod.jpg" alt="Dr Priya Vinod" loading="lazy"
+                    <a href="#" style="display: block; width: 100%; height: 100%;">
+                        <img src="student_coordinator.jpg" alt="Student Coordinator" loading="lazy"
                             style="object-position: top center;">
                     </a>
                 </div>
                 <div class="workshop-content" style="text-align: center;">
-                    <h4 style="margin-bottom: 5px;">Dr Priya Vinod</h4>
-                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600; line-height: 1.3;">Associate
-                        Professor & Program Coordinator<br><span style="font-size: 0.85em; font-weight: normal;">BBA
-                            Finance and Marketing Analytics</span></p>
-                    <p style="margin-bottom: 5px; font-size: 0.9rem;">School of Business and Management</p>
+                    <h4 style="margin-bottom: 5px;">Student Coordinator</h4>
+                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;">Coordinator</p>
+                    <p style="margin-bottom: 5px; font-size: 0.9rem;">Centre for Peace Praxis</p>
                     <p style="margin-bottom: 0px; font-size: 0.9rem; color: var(--gray);">Christ University</p>
                 </div>
             </div>
-
-            <!-- Faculty Card 3 -->
-            <div class="workshop-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="workshop-img" style="height: 350px;">
-                    <a href="https://christuniversity.in/dept/faculty-details/MTcx/NTk=" target="_blank"
-                        style="display: block; width: 100%; height: 100%;">
-                        <img src="dr_padmakumar_mm.jpg" alt="Dr. Padmakumar MM" loading="lazy"
-                            style="object-position: top center;">
-                    </a>
-                </div>
-                <div class="workshop-content" style="text-align: center;">
-                    <h4 style="margin-bottom: 5px;">Dr. Padmakumar MM</h4>
-                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;">Associate Professor</p>
-                    <p style="margin-bottom: 5px; font-size: 0.9rem;">Media Studies</p>
-                    <p style="margin-bottom: 0px; font-size: 0.9rem; color: var(--gray);">Bangalore Campus</p>
-                </div>
-            </div>
-
-            <!-- Faculty Card 4 -->
-            <div class="workshop-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="workshop-img" style="height: 350px;">
-                    <a href="https://christuniversity.in/dept/faculty-details/MTk2/NjI=" target="_blank"
-                        style="display: block; width: 100%; height: 100%;">
-                        <img src="https://ui-avatars.com/api/?name=Dr+Rohini+V&background=random&color=fff&size=512"
-                            alt="Dr. Rohini V" loading="lazy" style="object-position: top center;">
-                    </a>
-                </div>
-                <div class="workshop-content" style="text-align: center;">
-                    <h4 style="margin-bottom: 5px;">Dr. Rohini V</h4>
-                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;">Professor</p>
-                    <p style="margin-bottom: 5px; font-size: 0.9rem;">Computer Science</p>
-                    <p style="margin-bottom: 0px; font-size: 0.9rem; color: var(--gray);">Bangalore Campus</p>
-                </div>
-            </div>
-
-            <!-- More faculties can be added here -->
         </div>
+
+        <!-- Core Committee Members -->
+        <h2 class="section-title" data-aos="fade-up" style="text-align: center; margin-bottom: 30px;">Core Committee
+            Members</h2>
+        <div class="workshop-grid" style="margin-bottom: 60px;">
+            <!-- Card 1 -->
+            <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="workshop-img"
+                    style="height: 300px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-user" style="font-size: 4rem; color: #bdbdbd;"></i>
+                </div>
+                <div class="workshop-content" style="text-align: center;">
+                    <h4 style="margin-bottom: 5px;">Member Name</h4>
+                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;">Core Committee</p>
+                    <p style="margin-bottom: 5px; font-size: 0.9rem;">CLASS</p>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="workshop-card" data-aos="fade-up" data-aos-delay="150">
+                <div class="workshop-img"
+                    style="height: 300px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-user" style="font-size: 4rem; color: #bdbdbd;"></i>
+                </div>
+                <div class="workshop-content" style="text-align: center;">
+                    <h4 style="margin-bottom: 5px;">Member Name</h4>
+                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;">Core Committee</p>
+                    <p style="margin-bottom: 5px; font-size: 0.9rem;">CLASS</p>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="workshop-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="workshop-img"
+                    style="height: 300px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-user" style="font-size: 4rem; color: #bdbdbd;"></i>
+                </div>
+                <div class="workshop-content" style="text-align: center;">
+                    <h4 style="margin-bottom: 5px;">Member Name</h4>
+                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;">Core Committee</p>
+                    <p style="margin-bottom: 5px; font-size: 0.9rem;">CLASS</p>
+                </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="workshop-card" data-aos="fade-up" data-aos-delay="250">
+                <div class="workshop-img"
+                    style="height: 300px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-user" style="font-size: 4rem; color: #bdbdbd;"></i>
+                </div>
+                <div class="workshop-content" style="text-align: center;">
+                    <h4 style="margin-bottom: 5px;">Member Name</h4>
+                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;">Core Committee</p>
+                    <p style="margin-bottom: 5px; font-size: 0.9rem;">CLASS</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Web Developers -->
+        <h2 class="section-title" data-aos="fade-up" style="text-align: center; margin-bottom: 30px;">Web Developers
+        </h2>
+        <div class="workshop-grid">
+
+            <!-- Card 1 -->
+            <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="workshop-img"
+                    style="height: 300px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-code" style="font-size: 4rem; color: #bdbdbd;"></i>
+                </div>
+                <div class="workshop-content" style="text-align: center;">
+                    <h4 style="margin-bottom: 5px;">SURYACHALAM</h4>
+                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;">Web Developer</p>
+                    <p style="margin-bottom: 5px; font-size: 0.9rem;">2BSCCM</p>
+                    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
+                        <a href="https://www.linkedin.com/in/suryachalam/" target="_blank"
+                            style="color: var(--dark); font-size: 1.2rem;"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" target="_blank" style="color: var(--dark); font-size: 1.2rem;"><i
+                                class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="workshop-card" data-aos="fade-up" data-aos-delay="150">
+                <div class="workshop-img"
+                    style="height: 300px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-code" style="font-size: 4rem; color: #bdbdbd;"></i>
+                </div>
+                <div class="workshop-content" style="text-align: center;">
+                    <h4 style="margin-bottom: 5px;">DHINESH KARTHIK R</h4>
+                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;">Web Developer</p>
+                    <p style="margin-bottom: 5px; font-size: 0.9rem;">2BSCCM</p>
+                    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
+                        <a href="https://www.linkedin.com/in/dhineshkarthik2007/" target="_blank"
+                            style="color: var(--dark); font-size: 1.2rem;"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" target="_blank" style="color: var(--dark); font-size: 1.2rem;"><i
+                                class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="workshop-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="workshop-img"
+                    style="height: 300px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-code" style="font-size: 4rem; color: #bdbdbd;"></i>
+                </div>
+                <div class="workshop-content" style="text-align: center;">
+                    <h4 style="margin-bottom: 5px;">BHARGAV</h4>
+                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;">Web Developer</p>
+                    <p style="margin-bottom: 5px; font-size: 0.9rem;">2BSCCM</p>
+                    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
+                        <a href="https://www.linkedin.com/in/bhargav-shree-raj-g-9223473a9/" target="_blank"
+                            style="color: var(--dark); font-size: 1.2rem;"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" target="_blank" style="color: var(--dark); font-size: 1.2rem;"><i
+                                class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="workshop-card" data-aos="fade-up" data-aos-delay="250">
+                <div class="workshop-img"
+                    style="height: 300px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-code" style="font-size: 4rem; color: #bdbdbd;"></i>
+                </div>
+                <div class="workshop-content" style="text-align: center;">
+                    <h4 style="margin-bottom: 5px;">UDHYA </h4>
+                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;">Web Developer</p>
+                    <p style="margin-bottom: 5px; font-size: 0.9rem;">2BSCCM</p>
+                    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
+                        <a href="#" target="_blank" style="color: var(--dark); font-size: 1.2rem;"><i
+                                class="fab fa-linkedin"></i></a>
+                        <a href="#" target="_blank" style="color: var(--dark); font-size: 1.2rem;"><i
+                                class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </section>
 
     <!-- Footer -->
@@ -527,6 +625,10 @@
                         <li>International Partners</li>
                     </ul>
                 </div>
+            </div>
+
+            <div class="footer-logo-wrapper">
+                <img src="CHRIST_LOGO1.png" alt="CHRIST Logo" class="christ-logo">
             </div>
 
             <div class="copyright">
