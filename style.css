@@ -102,10 +102,11 @@ header.scrolled {
 }
 
 .logo-text {
-    font-size: 22px;
-    font-weight: 800;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 700;
     color: var(--primary);
-    letter-spacing: -0.5px;
+    letter-spacing: 0px;
 }
 
 .logo-text span {
