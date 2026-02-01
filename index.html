@@ -1,1519 +1,1537 @@
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Centre for Peace Praxis | Hope, Healing and Resilience</title>
-    <link rel="icon" type="icon" href="current_logo.png" >
-        <!-- Fonts -->
-        <link
-            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap"
-            rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centre for Peace Praxis | Hope, Healing and Resilience</title>
+    <link rel="icon" type="icon" href="current_logo.png">
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
 
-        <!-- Icons -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        <!-- AOS Library for Scroll Animations -->
-        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css">
+    <!-- AOS Library for Scroll Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css">
 
-        <style>
-            :root {
-                --primary: #1a5f7a;
-                --primary-dark: #12465a;
-                --secondary: #2a9d8f;
-                --accent: #e76f51;
-                --accent-hover: #d65c3e;
-                --light: #f8f9fa;
-                --dark: #264653;
-                --gray: #6c757d;
-                --light-blue: #a8dadc;
+    <style>
+        :root {
+            --primary: #1a5f7a;
+            --primary-dark: #12465a;
+            --secondary: #2a9d8f;
+            --accent: #e76f51;
+            --accent-hover: #d65c3e;
+            --light: #f8f9fa;
+            --dark: #264653;
+            --gray: #6c757d;
+            --light-blue: #a8dadc;
 
-                --glass-bg: rgba(255, 255, 255, 0.85);
-                --glass-border: rgba(255, 255, 255, 0.3);
-                --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fcfcfc;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Glassmorphism Header */
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        #bridging-hearts {
+            background: linear-gradient(135deg,
+                    rgba(168, 218, 220, 0.15),
+                    rgba(255, 255, 255, 0.6));
+        }
+
+
+        header.scrolled {
+            padding: 5px 0;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            transition: padding 0.3s ease;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 75px;
+            height: 75px;
+            border-radius: 70%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid var(--primary);
+            padding: 2px;
+            background: white;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-img {
+            transform: scale(1.1);
+        }
+
+        .logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            /* padding: 4px; */
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        nav a:before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            bottom: 0;
+            left: 50%;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover:before,
+        nav a.active:before {
+            width: 100%;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        /* Premium Hero Section */
+        .hero {
+            height: 100vh;
+            min-height: 600px;
+            background: linear-gradient(135deg, rgba(26, 95, 122, 0.9), rgba(42, 157, 143, 0.85)), url('volunteer_bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            margin-top: -85px;
+            /* Offset for fixed header */
+            padding-top: 85px;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 0 20px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            color: white;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            font-weight: 800;
+        }
+
+        .hero h1 span {
+            color: var(--light-blue);
+            display: block;
+            font-size: 0.5em;
+            font-weight: 500;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid var(--accent);
+            box-shadow: 0 10px 20px rgba(231, 111, 81, 0.3);
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: black;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(231, 111, 81, 0.4);
+        }
+
+        .cta-button.secondary {
+            background-color: transparent;
+            border: 2px solid white;
+            box-shadow: none;
+        }
+
+        .cta-button.secondary:hover {
+            background-color: white;
+            color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateX(-50%) translateY(0);
             }
 
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-                scroll-behavior: smooth;
+            40% {
+                transform: translateX(-50%) translateY(-10px);
             }
 
-            body {
-                font-family: 'Open Sans', sans-serif;
-                line-height: 1.6;
-                color: #333;
-                background-color: #fcfcfc;
-                overflow-x: hidden;
+            60% {
+                transform: translateX(-50%) translateY(-5px);
             }
+        }
 
-            h1,
-            h2,
-            h3,
-            h4,
-            h5,
-            h6 {
-                font-family: 'Montserrat', sans-serif;
-                font-weight: 700;
-                color: var(--dark);
-            }
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
 
-            .container {
-                width: 100%;
-                max-width: 1200px;
-                margin: 0 auto;
-                padding: 0 20px;
-            }
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+            position: relative;
+        }
 
-            /* Glassmorphism Header */
-            header {
-                background: rgba(255, 255, 255, 0.9);
-                backdrop-filter: blur(10px);
-                -webkit-backdrop-filter: blur(10px);
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-                position: sticky;
-                top: 0;
-                z-index: 1000;
-                transition: all 0.3s ease;
-            }
-            #bridging-hearts {
-        background: linear-gradient(
-            135deg,
-            rgba(168, 218, 220, 0.15),
-            rgba(255, 255, 255, 0.6)
-        );
-    }
+        .section-title h2 {
+            font-size: 3rem;
+            display: inline-block;
+            padding-bottom: 20px;
+            color: var(--dark);
+        }
 
 
-            header.scrolled {
-                padding: 5px 0;
-                background: rgba(255, 255, 255, 0.95);
-            }
 
-            .header-container {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 15px 0;
-                transition: padding 0.3s ease;
-            }
+        .section-title p {
+            margin-top: 15px;
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
 
-            .logo {
-                display: flex;
-                align-items: center;
-                gap: 15px;
-                text-decoration: none;
-            }
 
-            .logo-img {
-                width: 75px;
-                height: 75px;
-                border-radius: 70%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                overflow: hidden;
-                border: 2px solid var(--primary);
-                padding: 2px;
-                background: white;
-                transition: transform 0.3s ease;
-            }
 
-            .logo:hover .logo-img {
-                transform: scale(1.1);
-            }
+        /* Features / Why Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 20px;
+        }
 
-            .logo-img img {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-                /* padding: 4px; */
-            }
+        .feature-card {
+            background-color: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 5px solid transparent;
+        }
 
-            .logo-text {
-                font-size: 22px;
-                font-weight: 800;
-                color: var(--primary);
-                letter-spacing: -0.5px;
-            }
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+            border-bottom-color: var(--accent);
+        }
 
-            .logo-text span {
-                color: var(--secondary);
-            }
+        .feature-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, rgba(26, 95, 122, 0.1), rgba(42, 157, 143, 0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--primary);
+            font-size: 36px;
+            transition: all 0.4s ease;
+        }
 
-            nav ul {
-                display: flex;
-                list-style: none;
-                gap: 30px;
-            }
+        .feature-card:hover .feature-icon {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            transform: scale(1.1) rotate(5deg);
+        }
 
-            nav a {
-                text-decoration: none;
-                color: var(--dark);
-                font-weight: 600;
-                font-size: 15px;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-                transition: color 0.3s;
-                position: relative;
-                padding-bottom: 5px;
-            }
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+            color: var(--dark);
+        }
 
-            nav a:before {
-                content: '';
-                position: absolute;
-                width: 0;
-                height: 2px;
-                background-color: var(--accent);
-                bottom: 0;
-                left: 50%;
-                transition: all 0.3s ease;
-                transform: translateX(-50%);
-            }
+        .feature-card p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
 
-            nav a:hover:before,
-            nav a.active:before {
-                width: 100%;
-            }
+        /* Stats Section */
+        .stats-section {
+            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
 
-            nav a:hover,
-            nav a.active {
-                color: var(--primary);
-            }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
 
-            .mobile-menu-btn {
-                display: none;
-                background: none;
-                border: none;
-                font-size: 24px;
-                color: var(--primary);
-                cursor: pointer;
-                transition: transform 0.3s ease;
-            }
+        .stat-item h3 {
+            font-size: 3.5rem;
+            color: var(--light-blue);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
 
-            /* Premium Hero Section */
-            .hero {
-                height: 100vh;
-                min-height: 600px;
-                background: linear-gradient(135deg, rgba(26, 95, 122, 0.9), rgba(42, 157, 143, 0.85)), url('volunteer_bg.jpg');
-                background-size: cover;
-                background-position: center;
-                background-attachment: fixed;
-                color: white;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                position: relative;
-                margin-top: -85px;
-                /* Offset for fixed header */
-                padding-top: 85px;
-            }
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-            .hero-content {
-                max-width: 900px;
-                padding: 0 20px;
-                z-index: 2;
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 25px;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .about-img {
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 20px 20px 0 rgba(42, 157, 143, 0.15);
+        }
+
+        .about-img img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-img:hover img {
+            transform: scale(1.02);
+        }
+
+        /* Pillars Section */
+        .pillars {
+            background-color: #f0f4f8;
+            position: relative;
+        }
+
+        /* Decorative Blob */
+        .pillars:before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23A8DADC' d='M44.7,-76.4C58.9,-69.2,71.8,-59.1,81.6,-46.6C91.4,-34.1,98.1,-19.2,95.8,-4.9C93.5,9.3,82.1,22.9,71.1,34.8C60.1,46.7,49.5,56.9,37.4,63.9C25.3,70.9,11.7,74.7,-1.5,77.3C-14.7,79.9,-28.1,81.3,-40.4,76.5C-52.7,71.7,-63.9,60.7,-72.2,47.9C-80.5,35.1,-85.9,20.5,-85.4,6.2C-84.9,-8.1,-78.5,-22.1,-69.3,-34.2C-60,-46.3,-47.9,-56.5,-34.9,-64.1C-21.9,-71.7,-8,-76.7,5.5,-86.2L44.7,-76.4Z' transform='translate(100 100)' /%3E%3C/svg%3E") no-repeat center center;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .pillar-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pillar-item {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .pillar-item:hover {
+            background: white;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .pillar-icon {
+            font-size: 2rem;
+            color: var(--secondary);
+            background: var(--light);
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .pillar-item h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        .pillar-item p {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        /* Workshops Section */
+        .workshop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 36px;
+        }
+
+        /* Card */
+        .workshop-card {
+            background: linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.95),
+                    rgba(245, 247, 250, 0.9));
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow:
+                0 12px 30px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: all 0.45s ease;
+            position: relative;
+        }
+
+        /* Hover effect */
+        .workshop-card:hover {
+            transform: translateY(-12px);
+            box-shadow:
+                0 30px 60px rgba(0, 0, 0, 0.18);
+        }
+
+        /* Image */
+        .workshop-img {
+            height: 230px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .workshop-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease, filter 0.8s ease;
+        }
+
+        .workshop-card:hover .workshop-img img {
+            transform: scale(1.12);
+            filter: brightness(0.9);
+        }
+
+        /* Badge */
+        .badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Content */
+        .workshop-content {
+            padding: 28px 30px 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        /* Title */
+        .workshop-content h4 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 14px;
+            line-height: 1.35;
+        }
+
+        /* Description */
+        .workshop-content p {
+            color: #555;
+            font-size: 0.98rem;
+            line-height: 1.65;
+            margin-bottom: 28px;
+            flex-grow: 1;
+        }
+
+        /* Button */
+        .workshop-btn {
+            margin-top: auto;
+            padding: 14px 0;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            transition: all 0.35s ease;
+            position: relative;
+        }
+
+        /* Button hover */
+        .workshop-btn::after {
+            content: "→";
+            transition: transform 0.3s ease;
+        }
+
+        .workshop-btn:hover {
+            color: var(--secondary);
+            background: linear-gradient(90deg,
+                    rgba(0, 0, 0, 0.02),
+                    rgba(0, 0, 0, 0));
+        }
+
+        .workshop-btn:hover::after {
+            transform: translateX(6px);
+        }
+
+
+        /* Volunteer Section */
+        .volunteer {
+            background: linear-gradient(rgba(26, 95, 122, 0.8), rgba(26, 95, 122, 0.8)), url('volunteer_group.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            background-attachment: fixed;
+
+        }
+
+        .volunteer-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .volunteer-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--dark);
+        }
+
+        .quote {
+            font-style: italic;
+            padding: 30px;
+            margin: 40px 0;
+            border-left: 5px solid var(--accent);
+            background-color: rgba(168, 218, 220, 0.15);
+            border-radius: 0 10px 10px 0;
+            text-align: left;
+        }
+
+        .quote p {
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+            margin-bottom: 0;
+            font-family: 'Montserrat', serif;
+        }
+
+        .team-member {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        .team-avatar {
+            width: 90px;
+            height: 90px;
+            background: var(--light-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: bold;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .team-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+        }
+
+        .team-info h4 {
+            color: var(--primary);
+            margin-bottom: 2px;
+            font-size: 1.1rem;
+        }
+
+        .team-info p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            color: var(--gray);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 80px 0 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--accent), var(--secondary), var(--primary));
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-logo .logo-text {
+            color: white;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .footer-logo p {
+            margin-top: 15px;
+            opacity: 0.7;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .footer-column h3 {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-column a {
+            color: #d1d1d1;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .footer-column a:hover {
+            color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        .read-more-link {
+            display: inline-block;
+            margin-top: 5px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .read-more-link:hover {
+            transform: translateX(5px);
+            color: var(--accent-hover);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .special {
+            animate__flipInX
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+
+            .features,
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .hero h1 {
-                font-size: 4rem;
-                line-height: 1.1;
-                color: white;
-                margin-bottom: 25px;
-                text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-                font-weight: 800;
-            }
-
-            .hero h1 span {
-                color: var(--light-blue);
-                display: block;
-                font-size: 0.5em;
-                font-weight: 500;
-                letter-spacing: 3px;
-                margin-bottom: 15px;
-                text-transform: uppercase;
-            }
-
-            .hero p {
-                font-size: 1.4rem;
-                max-width: 800px;
-                margin: 0 auto 40px;
-                opacity: 0.95;
-                font-weight: 300;
-            }
-
-            .hero-buttons {
-                display: flex;
-                gap: 20px;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-
-            .cta-button {
-                display: inline-block;
-                background-color: var(--accent);
-                color: white;
-                padding: 15px 40px;
-                border-radius: 50px;
-                text-decoration: none;
-                font-weight: 700;
-                font-size: 1.1rem;
-                transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                border: 2px solid var(--accent);
-                box-shadow: 0 10px 20px rgba(231, 111, 81, 0.3);
-            }
-
-            .cta-button:hover {
-                background-color: transparent;
-                color: black;
-                transform: translateY(-5px);
-                box-shadow: 0 15px 30px rgba(231, 111, 81, 0.4);
-            }
-
-            .cta-button.secondary {
-                background-color: transparent;
-                border: 2px solid white;
-                box-shadow: none;
-            }
-
-            .cta-button.secondary:hover {
-                background-color: white;
-                color: var(--primary);
-                transform: translateY(-5px);
-                box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
-            }
-
-            .scroll-down {
-                position: absolute;
-                bottom: 30px;
-                left: 50%;
-                transform: translateX(-50%);
-                animation: bounce 2s infinite;
-                color: white;
-                font-size: 24px;
-                cursor: pointer;
-                z-index: 2;
-            }
-
-            @keyframes bounce {
-
-                0%,
-                20%,
-                50%,
-                80%,
-                100% {
-                    transform: translateX(-50%) translateY(0);
-                }
-
-                40% {
-                    transform: translateX(-50%) translateY(-10px);
-                }
-
-                60% {
-                    transform: translateX(-50%) translateY(-5px);
-                }
-            }
-
-            /* Section Styles */
-            section {
-                padding: 100px 0;
-                position: relative;
-            }
-
-            .section-title {
-                text-align: center;
-                margin-bottom: 70px;
-                position: relative;
-            }
-
-            .section-title h2 {
                 font-size: 3rem;
-                display: inline-block;
-                padding-bottom: 20px;
-                color: var(--dark);
             }
 
-
-
-            .section-title p {
-                margin-top: 15px;
-                color: var(--gray);
-                font-size: 1.1rem;
-            }
-
-
-
-            /* Features / Why Section */
-            .features {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 40px;
-                margin-bottom: 20px;
-            }
-
-            .feature-card {
-                background-color: white;
-                border-radius: 20px;
-                padding: 40px 30px;
-                text-align: center;
-                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-                transition: all 0.4s ease;
-                position: relative;
-                overflow: hidden;
-                border-bottom: 5px solid transparent;
-            }
-
-            .feature-card:hover {
-                transform: translateY(-15px);
-                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
-                border-bottom-color: var(--accent);
-            }
-
-            .feature-icon {
-                width: 90px;
-                height: 90px;
-                background: linear-gradient(135deg, rgba(26, 95, 122, 0.1), rgba(42, 157, 143, 0.1));
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin: 0 auto 25px;
-                color: var(--primary);
-                font-size: 36px;
-                transition: all 0.4s ease;
-            }
-
-            .feature-card:hover .feature-icon {
-                background: linear-gradient(135deg, var(--primary), var(--secondary));
-                color: white;
-                transform: scale(1.1) rotate(5deg);
-            }
-
-            .feature-card h3 {
-                margin-bottom: 15px;
-                font-size: 1.6rem;
-                color: var(--dark);
-            }
-
-            .feature-card p {
-                color: var(--gray);
-                line-height: 1.7;
-            }
-
-            /* Stats Section */
-            .stats-section {
-                background: var(--primary);
-                background: linear-gradient(135deg, var(--primary), var(--dark));
-                color: white;
-                padding: 80px 0;
-                text-align: center;
-            }
-
-            .stats-grid {
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                gap: 30px;
-            }
-
-            .stat-item h3 {
-                font-size: 3.5rem;
-                color: var(--light-blue);
-                margin-bottom: 10px;
-                font-weight: 800;
-            }
-
-            .stat-item p {
-                font-size: 1.1rem;
-                opacity: 0.9;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-            }
-
-            /* About Section */
             .about-content {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 60px;
-                align-items: center;
-            }
-
-            .about-text p {
-                margin-bottom: 25px;
-                font-size: 1.15rem;
-                line-height: 1.8;
-                color: #555;
-            }
-
-            .about-img {
-                border-radius: 20px;
-                position: relative;
-                box-shadow: 20px 20px 0 rgba(42, 157, 143, 0.15);
-            }
-
-            .about-img img {
-                width: 100%;
-                height: auto;
-                border-radius: 20px;
-                display: block;
-                transition: transform 0.5s ease;
-            }
-
-            .about-img:hover img {
-                transform: scale(1.02);
-            }
-
-            /* Pillars Section */
-            .pillars {
-                background-color: #f0f4f8;
-                position: relative;
-            }
-
-            /* Decorative Blob */
-            .pillars:before {
-                content: '';
-                position: absolute;
-                top: -50px;
-                right: 0;
-                width: 300px;
-                height: 300px;
-                background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23A8DADC' d='M44.7,-76.4C58.9,-69.2,71.8,-59.1,81.6,-46.6C91.4,-34.1,98.1,-19.2,95.8,-4.9C93.5,9.3,82.1,22.9,71.1,34.8C60.1,46.7,49.5,56.9,37.4,63.9C25.3,70.9,11.7,74.7,-1.5,77.3C-14.7,79.9,-28.1,81.3,-40.4,76.5C-52.7,71.7,-63.9,60.7,-72.2,47.9C-80.5,35.1,-85.9,20.5,-85.4,6.2C-84.9,-8.1,-78.5,-22.1,-69.3,-34.2C-60,-46.3,-47.9,-56.5,-34.9,-64.1C-21.9,-71.7,-8,-76.7,5.5,-86.2L44.7,-76.4Z' transform='translate(100 100)' /%3E%3C/svg%3E") no-repeat center center;
-                opacity: 0.15;
-                z-index: 0;
+                grid-template-columns: 1fr;
             }
 
             .pillar-grid {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 40px;
-                position: relative;
-                z-index: 1;
-            }
-
-            .pillar-item {
-                background: rgba(255, 255, 255, 0.7);
-                backdrop-filter: blur(10px);
-                padding: 40px;
-                border-radius: 15px;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-                border: 1px solid rgba(255, 255, 255, 0.5);
-                transition: all 0.3s ease;
-                display: flex;
-                align-items: flex-start;
                 gap: 20px;
             }
 
-            .pillar-item:hover {
-                background: white;
-                transform: translateY(-5px);
-                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
+        }
 
-            .pillar-icon {
-                font-size: 2rem;
-                color: var(--secondary);
-                background: var(--light);
-                width: 60px;
-                height: 60px;
-                border-radius: 12px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
-            }
-
-            .pillar-item h3 {
-                color: var(--primary);
-                margin-bottom: 10px;
-                font-size: 1.4rem;
-            }
-
-            .pillar-item p {
-                color: var(--gray);
-                font-size: 1rem;
-            }
-    /* Workshops Section */
-    .workshop-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-        gap: 36px;
-    }
-
-    /* Card */
-    .workshop-card {
-        background: linear-gradient(
-            135deg,
-            rgba(255, 255, 255, 0.95),
-            rgba(245, 247, 250, 0.9)
-        );
-        border-radius: 22px;
-        overflow: hidden;
-        box-shadow: 
-            0 12px 30px rgba(0, 0, 0, 0.08),
-            inset 0 1px 0 rgba(255, 255, 255, 0.6);
-        border: 1px solid rgba(0, 0, 0, 0.04);
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        transition: all 0.45s ease;
-        position: relative;
-    }
-
-    /* Hover effect */
-    .workshop-card:hover {
-        transform: translateY(-12px);
-        box-shadow: 
-            0 30px 60px rgba(0, 0, 0, 0.18);
-    }
-
-    /* Image */
-    .workshop-img {
-        height: 230px;
-        overflow: hidden;
-        position: relative;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
-    }
-
-    .workshop-img img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.8s ease, filter 0.8s ease;
-    }
-
-    .workshop-card:hover .workshop-img img {
-        transform: scale(1.12);
-        filter: brightness(0.9);
-    }
-
-    /* Badge */
-    .badge {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        background: linear-gradient(135deg, var(--accent), var(--secondary));
-        color: #fff;
-        padding: 6px 14px;
-        border-radius: 999px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
-    }
-
-    /* Content */
-    .workshop-content {
-        padding: 28px 30px 30px;
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-    }
-
-    /* Title */
-    .workshop-content h4 {
-        font-size: 1.35rem;
-        font-weight: 800;
-        color: var(--primary);
-        margin-bottom: 14px;
-        line-height: 1.35;
-    }
-
-    /* Description */
-    .workshop-content p {
-        color: #555;
-        font-size: 0.98rem;
-        line-height: 1.65;
-        margin-bottom: 28px;
-        flex-grow: 1;
-    }
-
-    /* Button */
-    .workshop-btn {
-        margin-top: auto;
-        padding: 14px 0;
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 0.95rem;
-        color: var(--primary);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        border-top: 1px solid rgba(0, 0, 0, 0.06);
-        transition: all 0.35s ease;
-        position: relative;
-    }
-
-    /* Button hover */
-    .workshop-btn::after {
-        content: "→";
-        transition: transform 0.3s ease;
-    }
-
-    .workshop-btn:hover {
-        color: var(--secondary);
-        background: linear-gradient(
-            90deg,
-            rgba(0, 0, 0, 0.02),
-            rgba(0, 0, 0, 0)
-        );
-    }
-
-    .workshop-btn:hover::after {
-        transform: translateX(6px);
-    }
-
-
-            /* Volunteer Section */
-            .volunteer {
-                background: linear-gradient(rgba(26, 95, 122, 0.8), rgba(26, 95, 122, 0.8)), url('volunteer_group.jpg');
-                background-size: cover;
-                background-position: center;
-                padding: 100px 0;
-                background-attachment: fixed;
-                
-            }
-
-            .volunteer-content {
-                max-width: 900px;
-                margin: 0 auto;
-                background: rgba(255, 255, 255, 0.95);
-                backdrop-filter: blur(10px);
-                padding: 60px;
-                border-radius: 20px;
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-                text-align: center;
-            }
-
-            .volunteer-content p {
-                font-size: 1.2rem;
-                margin-bottom: 30px;
-                color: var(--dark);
-            }
-
-            .quote {
-                font-style: italic;
-                padding: 30px;
-                margin: 40px 0;
-                border-left: 5px solid var(--accent);
-                background-color: rgba(168, 218, 220, 0.15);
-                border-radius: 0 10px 10px 0;
-                text-align: left;
-            }
-
-            .quote p {
-                font-size: 1.3rem;
-                color: var(--primary-dark);
-                margin-bottom: 0;
-                font-family: 'Montserrat', serif;
-            }
-
-            .team-member {
-                display: inline-flex;
-                align-items: center;
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
                 gap: 15px;
-                margin-top: 10px;
-                text-align: left;
             }
 
-            .team-avatar {
-                width: 90px;
-                height: 90px;
-                background: var(--light-blue);
-                border-radius: 50%;
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: white;
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+                padding: 80px 30px;
+                transition: 0.4s ease;
+                z-index: 1001;
                 display: flex;
-                align-items: center;
-                justify-content: center;
-                color: var(--primary);
-                font-weight: bold;
-                overflow: hidden;
-                flex-shrink: 0;
+                flex-direction: column;
             }
 
-            .team-avatar img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                object-position: top center;
+            nav.active {
+                right: 0;
             }
 
-            .team-info h4 {
-                color: var(--primary);
-                margin-bottom: 2px;
+            nav ul {
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            nav a {
+                font-size: 1.2rem;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                z-index: 1002;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
                 font-size: 1.1rem;
             }
 
-            .team-info p {
-                font-size: 0.9rem;
-                margin-bottom: 0;
-                color: var(--gray);
+            .features,
+            .pillar-grid,
+            .footer-content,
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
 
-            /* Footer */
-            footer {
-                background-color: var(--dark);
-                color: white;
-                padding: 80px 0 30px;
-                position: relative;
-                overflow: hidden;
+            .section-title h2 {
+                font-size: 2.2rem;
             }
+        }
+    </style>
+</head>
 
-            footer:before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 5px;
-                background: linear-gradient(to right, var(--accent), var(--secondary), var(--primary));
-            }
+<body>
 
-            .footer-content {
-                display: grid;
-                grid-template-columns: 1.5fr 1fr 1fr 1fr;
-                gap: 50px;
-                margin-bottom: 60px;
-            }
+    <!-- Preloader can be added here if needed, keeping it simple for now -->
 
-            .footer-logo .logo-text {
-                color: white;
-                margin-bottom: 20px;
-                display: block;
-            }
-
-            .footer-logo p {
-                margin-top: 15px;
-                opacity: 0.7;
-                line-height: 1.8;
-                font-size: 0.95rem;
-            }
-
-            .footer-column h3 {
-                color: white;
-                font-size: 1.3rem;
-                margin-bottom: 25px;
-                position: relative;
-                padding-bottom: 10px;
-            }
-
-            .footer-column h3:after {
-                content: '';
-                position: absolute;
-                width: 40px;
-                height: 3px;
-                background-color: var(--secondary);
-                bottom: 0;
-                left: 0;
-            }
-
-            .footer-column ul {
-                list-style: none;
-            }
-
-            .footer-column ul li {
-                margin-bottom: 12px;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-
-            .footer-column a {
-                color: #d1d1d1;
-                text-decoration: none;
-                transition: all 0.3s;
-                display: inline-block;
-            }
-
-            .footer-column a:hover {
-                color: var(--secondary);
-                transform: translateX(5px);
-            }
-
-            .read-more-link {
-                display: inline-block;
-                margin-top: 5px;
-                font-size: 0.85rem;
-                font-weight: 600;
-                color: var(--accent);
-                text-decoration: none;
-                transition: transform 0.3s ease;
-            }
-
-            .read-more-link:hover {
-                transform: translateX(5px);
-                color: var(--accent-hover);
-            }
-
-            .social-links {
-                display: flex;
-                gap: 15px;
-                margin-top: 25px;
-            }
-
-            .social-links a {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                width: 45px;
-                height: 45px;
-                background-color: rgba(255, 255, 255, 0.05);
-                border-radius: 50%;
-                color: white;
-                transition: all 0.3s;
-                border: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            .social-links a:hover {
-                background-color: var(--accent);
-                transform: translateY(-5px);
-                border-color: var(--accent);
-            }
-
-            .copyright {
-                text-align: center;
-                padding-top: 30px;
-                border-top: 1px solid rgba(255, 255, 255, 0.05);
-                color: #888;
-                font-size: 0.9rem;
-            }
-            
-            .special{
-                animate__flipInX
-            }
-            /* Mobile Responsive */
-            @media (max-width: 992px) {
-
-                .features,
-                .footer-content {
-                    grid-template-columns: repeat(2, 1fr);
-                }
-
-                .hero h1 {
-                    font-size: 3rem;
-                }
-
-                .about-content {
-                    grid-template-columns: 1fr;
-                }
-
-                .pillar-grid {
-                    gap: 20px;
-                }
-
-                .stats-grid {
-                    grid-template-columns: repeat(2, 1fr);
-                }
-            }
-
-            @media (max-width: 768px) {
-                .header-container {
-                    flex-direction: column;
-                    gap: 15px;
-                }
-
-                nav {
-                    position: fixed;
-                    top: 0;
-                    right: -100%;
-                    width: 70%;
-                    height: 100vh;
-                    background: white;
-                    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
-                    padding: 80px 30px;
-                    transition: 0.4s ease;
-                    z-index: 1001;
-                    display: flex;
-                    flex-direction: column;
-                }
-
-                nav.active {
-                    right: 0;
-                }
-
-                nav ul {
-                    flex-direction: column;
-                    gap: 25px;
-                }
-
-                nav a {
-                    font-size: 1.2rem;
-                }
-
-                .mobile-menu-btn {
-                    display: block;
-                    position: absolute;
-                    top: 20px;
-                    right: 20px;
-                    z-index: 1002;
-                }
-
-                .hero h1 {
-                    font-size: 2.5rem;
-                }
-
-                .hero p {
-                    font-size: 1.1rem;
-                }
-
-                .features,
-                .pillar-grid,
-                .footer-content,
-                .stats-grid {
-                    grid-template-columns: 1fr;
-                }
-
-                .section-title h2 {
-                    font-size: 2.2rem;
-                }
-            }
-        </style>
-    </head>
-
-    <body>
-
-        <!-- Preloader can be added here if needed, keeping it simple for now -->
-
-        <!-- Header & Navigation -->
-        <header id="header">
-            <div class="container header-container">
-                <a href="#home" class="logo" target="_blank">
-                    <div class="logo-img">
-                        <img src="current_logo.png" alt="CPP Logo">
-                    </div>
-                    <div class="logo-text">Centre for <span>Peace Praxis</span></div>
-                </a>
-
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-
-                <nav id="mainNav">
-                    <ul>
-                        <li><a href="#home" class="active" target="_blank">Home</a></li>
-                        <li><a href="#about" target="_blank">About</a></li>
-                        <li><a href="#why" target="_blank">Why CPP?</a></li>
-                        <li><a href="#workshops" target="_blank">Workshops</a></li>
-                        <li><a href="#volunteer" target="_blank">Volunteer</a></li>
-                        <li><a href="gallery.html">Gallery</a></li>
-                        
-                        <li><a href="#contact" target="_blank">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
-
-        <!-- Hero Section -->
-        <section class="hero" id="home">
-            <div class="hero-content" data-aos="zoom-in" data-aos-duration="1000">
-                <h1><span>Welcome To</span>Hope, Healing <br>& Resilience</h1>
-                <p>Building communities through peace literacy, intercultural dialogue, and collective well-being since
-                    2023.</p>
-                <div class="hero-buttons">
-                    <a href="https://forms.google.com/your-form-link-here" target="_blank" class="cta-button">Join Our
-                        Mission</a>
-                    <a href="#workshops" class="cta-button secondary" target="_blank">View Workshops</a>
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="#home" class="logo" target="_blank">
+                <div class="logo-img">
+                    <img src="current_logo.png" alt="CPP Logo">
                 </div>
-            </div>
-            <a href="#why" class="scroll-down" target="_blank">
-                <i class="fas fa-chevron-down"></i>
+                <div class="logo-text">Centre for <span>Peace Praxis</span></div>
             </a>
-        </section>
 
-        <!-- Why Section -->
-        <section id="why">
-            <div class="container">
-                <div class="section-title" data-aos="fade-up">
-                    <h2>Why Centre for Peace Praxis?</h2>
-                    <p>Empowering individuals <span style="letter-spacing: 2px;">to become a</span>gents of positive change.</p>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#home" class="active" target="_blank">Home</a></li>
+                    <li><a href="#about" target="_blank">About</a></li>
+                    <li><a href="#why" target="_blank">Why CPP?</a></li>
+                    <li><a href="#workshops" target="_blank">Workshops</a></li>
+                    <li><a href="#volunteer" target="_blank">Volunteer</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+
+                    <li><a href="#contact" target="_blank">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content" data-aos="zoom-in" data-aos-duration="1000">
+            <h1><span>Welcome To</span>Hope, Healing <br>& Resilience</h1>
+            <p>Building communities through peace literacy, intercultural dialogue, and collective well-being since
+                2023.</p>
+            <div class="hero-buttons">
+                <a href="https://forms.google.com/your-form-link-here" target="_blank" class="cta-button">Join Our
+                    Mission</a>
+                <a href="#workshops" class="cta-button secondary" target="_blank">View Workshops</a>
+            </div>
+        </div>
+        <a href="#why" class="scroll-down" target="_blank">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </section>
+
+    <!-- Why Section -->
+    <section id="why">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Why Centre for Peace Praxis?</h2>
+                <p>Empowering individuals <span style="letter-spacing: 2px;">to become a</span>gents of positive change.
+                </p>
+            </div>
+
+            <div class="features">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>Make a Real Difference!</h3>
+                    <p>Contribute to meaningful peacebuilding initiatives that create lasting impact locally and
+                        globally.</p>
                 </div>
-                
-                <div class="features">
-                    <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="feature-icon">
-                            <i class="fas fa-hands-helping"></i>
-                        </div>
-                        <h3>Make a Real Difference!</h3>
-                        <p>Contribute to meaningful peacebuilding initiatives that create lasting impact locally and
-                            globally.</p>
-                    </div>
 
-                    <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-                        <div class="feature-icon">
-                            <i class="fas fa-user-graduate"></i>
-                        </div>
-                        <h3>Build Capacity!</h3>
-                        <p>Develop essential skills in communication, teamwork, creativity, and conflict resolution.</p>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-graduate"></i>
                     </div>
+                    <h3>Build Capacity!</h3>
+                    <p>Develop essential skills in communication, teamwork, creativity, and conflict resolution.</p>
+                </div>
 
-                    <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
-                        <div class="feature-icon">
-                            <i class="fas fa-laugh-beam"></i>
-                        </div>
-                        <h3>Have Fun!</h3>
-                        <p>Connect with like-minded people, work on creative projects, and be part of a vibrant community.
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="fas fa-laugh-beam"></i>
+                    </div>
+                    <h3>Have Fun!</h3>
+                    <p>Connect with like-minded people, work on creative projects, and be part of a vibrant community.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <div class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item" data-aos="zoom-in">
+                    <h3>20+</h3>
+                    <p>Workshops Conducted</p>
+                </div>
+                <div class="stat-item" data-aos="zoom-in" data-aos-delay="100">
+                    <h3>500+</h3>
+                    <p>Participants</p>
+                </div>
+                <div class="stat-item" data-aos="zoom-in" data-aos-delay="200">
+                    <h3>15+</h3>
+                    <p>Partner Organizations</p>
+                </div>
+                <div class="stat-item" data-aos="zoom-in" data-aos-delay="300">
+                    <h3>4</h3>
+                    <p>Core Pillars</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>About Us</h2>
+                <p>Our journey towards a more peaceful world.</p>
+            </div>
+
+            <div class="about-content">
+                <div class="about-text" data-aos="fade-right">
+                    <p>Established in 2023, the <strong style="color: var(--primary);">Centre for Peace Praxis</strong>
+                        aims at building communities of hope, healing, and resilience.</p>
+                    <p>We believe that peace is not just the absence of conflict, but the presence of justice,
+                        understanding, and active cooperation. To achieve this, we organize regular workshops,
+                        dialogues, and events that spread peace literacy.</p>
+                    <p>Aligned with our pillars—Media Literacy, Psychosocial Support, Intercultural Dialogue, and
+                        Ecological Wellbeing—we create environments where diversity is embraced as a strength.</p>
+                    <a href="#volunteer" class="workshop-btn" target="_blank"
+                        style="justify-content: flex-start; border:none; padding-left:0; font-size:1.1rem;">Read Our
+                        Full Story <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="about-img" data-aos="fade-left">
+                    <img src="peaceaxis_image1.jpg" alt="Community building and dialogue">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pillars Section -->
+    <section class="pillars" id="pillars">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Our Core Pillars</h2>
+                <p>The foundation of our approach to peacebuilding.</p>
+            </div>
+
+            <div class="pillar-grid">
+                <div class="pillar-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="pillar-icon"><i class="fas fa-globe-americas"></i></div>
+                    <div>
+                        <h3>Intercultural Dialogue</h3>
+                        <p>Fostering understanding and respect across diverse cultures, beliefs, and backgrounds through
+                            open conversations.</p>
+                    </div>
+                </div>
+
+                <div class="pillar-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="pillar-icon"><i class="fas fa-heart"></i></div>
+                    <div>
+                        <h3>Psycho-social Well-being</h3>
+                        <p>Supporting mental and emotional health through community-based approaches to healing and
+                            resilience.</p>
+                    </div>
+                </div>
+
+                <div class="pillar-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="pillar-icon"><i class="fas fa-newspaper"></i></div>
+                    <div>
+                        <h3>Media Literacy</h3>
+                        <p>Developing critical thinking skills to navigate today's complex media landscape and counter
+                            misinformation.</p>
+                    </div>
+                </div>
+
+                <div class="pillar-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="pillar-icon"><i class="fas fa-leaf"></i></div>
+                    <div>
+                        <h3>Eco-consciousness</h3>
+                        <p>Promoting environmental awareness and sustainable practices as integral components of peace.
                         </p>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Stats Section -->
-        <div class="stats-section">
-            <div class="container">
-                <div class="stats-grid">
-                    <div class="stat-item" data-aos="zoom-in">
-                        <h3>20+</h3>
-                        <p>Workshops Conducted</p>
+    <!-- Upcoming Events Section -->
+    <section id="upcoming">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Upcoming Events</h2>
+                <p>Mark your calendars and join us!</p>
+            </div>
+
+            <div class="workshop-grid">
+                <!-- Event 1 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="workshop-img">
+                        <span class="badge" style="background: var(--primary);">13 Feb 2026</span>
+                        <img src="peaceaxis_image11.jpg" alt="Inter-Religious Visit" loading="lazy">
                     </div>
-                    <div class="stat-item" data-aos="zoom-in" data-aos-delay="100">
-                        <h3>500+</h3>
-                        <p>Participants</p>
+                    <div class="workshop-content">
+                        <h4>Inter-Religious Visit</h4>
+                        <p>A one-day visit to multiple religious institutions including Gurudwara, Mahabodhi, and
+                            Dharmaram. Participation from students and faculty.</p>
+                        <a href="#" class="workshop-btn" target="_blank">Register Now <i
+                                class="fas fa-arrow-right"></i></a>
                     </div>
-                    <div class="stat-item" data-aos="zoom-in" data-aos-delay="200">
-                        <h3>15+</h3>
-                        <p>Partner Organizations</p>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="workshop-img">
+                        <span class="badge" style="background: var(--primary);">Feb 2026</span>
+                        <img src="peaceaxis_image9.jpg" alt="Film Festival" loading="lazy">
                     </div>
-                    <div class="stat-item" data-aos="zoom-in" data-aos-delay="300">
-                        <h3>4</h3>
-                        <p>Core Pillars</p>
+                    <div class="workshop-content">
+                        <h4>Film Festival & Panel Discussion</h4>
+                        <p>A one-day film screening followed by a panel discussion, planned for the 4th week of February
+                            2026.</p>
+                        <a href="#" class="workshop-btn" target="_blank">Register Now <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Event 3 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="workshop-img">
+                        <span class="badge" style="background: var(--primary);">19 Feb 2026</span>
+                        <img src="peaceaxis_image12.jpg" alt="Well-being Workshop" loading="lazy">
+                    </div>
+                    <div class="workshop-content">
+                        <h4>Psychological Well-being Workshop</h4>
+                        <p>A 3-hour workshop on “Resilience and Recovery” with e-certificates and student coordinators
+                            from each campus.</p>
+                        <a href="#" class="workshop-btn" target="_blank">Register Now <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Event 4 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="workshop-img">
+                        <span class="badge" style="background: var(--primary);">SDG Week</span>
+                        <img src="peaceaxis_image6.jpg" alt="SDG Week" loading="lazy">
+                    </div>
+                    <div class="workshop-content">
+                        <h4>SDG Week – NGO Stalls</h4>
+                        <p>NGO stalls to be set up during SDG Week in the second week of February 2026 to promote
+                            sustainable development goals.</p>
+                        <a href="#" class="workshop-btn" target="_blank">Register Now <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Event 5 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="workshop-img">
+                        <span class="badge" style="background: var(--primary);">May 2026</span>
+                        <img src="volunteer_philippines.jpg" alt="Volunteer in Philippines" loading="lazy">
+                    </div>
+                    <div class="workshop-content">
+                        <h4>Volunteer in Philippines</h4>
+                        <p>International volunteering opportunity from May 12-31, 2026 at Mindanao Peacebuilding
+                            Institute.</p>
+                        <a href="#" class="workshop-btn" target="_blank">Register Now <i
+                                class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- About Section -->
-        <section id="about">
-            <div class="container">
-                <div class="section-title" data-aos="fade-up">
-                    <h2>About Us</h2>
-                    <p>Our journey towards a more peaceful world.</p>
+    <!-- Workshops Section -->
+    <section id="workshops">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Our Workshops</h2>
+                <p>Engaging, educational, and transformative experiences.</p>
+            </div>
+
+            <div class="workshop-grid">
+                <!-- Card 1 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="workshop-img">
+                        <span class="badge">Popular</span>
+                        <img src="peaceaxis_image2.jpg" alt="Foundations of Peace" loading="lazy">
+                    </div>
+                    <div class="workshop-content">
+                        <h4>Bridging Hearts</h4>
+                        <p>The Bridging Hearts workshop engaged students in interactive activities and dialogue to
+                            explore the emotional, social, and structural dimensions of peace, fostering empathy,
+                            critical thinking, and youth leadership in peacebuilding.</p>
+                        <a href="Bridging_Hearts.html" class="workshop-btn" target="_blank">View Workshop Details <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
 
-                <div class="about-content">
-                    <div class="about-text" data-aos="fade-right">
-                        <p>Established in 2023, the <strong style="color: var(--primary);">Centre for Peace Praxis</strong>
-                            aims at building communities of hope, healing, and resilience.</p>
-                        <p>We believe that peace is not just the absence of conflict, but the presence of justice,
-                            understanding, and active cooperation. To achieve this, we organize regular workshops,
-                            dialogues, and events that spread peace literacy.</p>
-                        <p>Aligned with our pillars—Media Literacy, Psychosocial Support, Intercultural Dialogue, and
-                            Ecological Wellbeing—we create environments where diversity is embraced as a strength.</p>
-                        <a href="#volunteer" class="workshop-btn" target="_blank"
-                            style="justify-content: flex-start; border:none; padding-left:0; font-size:1.1rem;">Read Our
-                            Full Story <i class="fas fa-arrow-right"></i></a>
+                <!-- Card 2 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="workshop-img">
+                        <img src="peaceaxis_image3.jpg" alt="Forgiveness Across Faiths" loading="lazy">
                     </div>
+                    <div class="workshop-content">
+                        <h4>Dares you to be different</h4>
+                        <p>The panel discussion ‘Not Less, Different’ brought together voices from media, academia, and
+                            student experience to discuss disability, inclusion, and accessibility. The session
+                            highlighted inclusive language, lived experiences, and the responsibility of institutions
+                            and media in creating an empathetic and inclusive society.
+                        </p>
+                        <a href="Dares_you_to_be_different.html" class="workshop-btn" target="_blank">View Workshop
+                            Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
 
-                    <div class="about-img" data-aos="fade-left">
-                        <img src="peaceaxis_image1.jpg" alt="Community building and dialogue">
+                <!-- Card 3 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="workshop-img">
+                        <img src="hero_bg_new.jpg" alt="Orientation Workshop" loading="lazy">
+                    </div>
+                    <div class="workshop-content">
+                        <h4>Orientation Workshop</h4>
+                        <p>Introducing Peace Practices to new students. The session explored how peacebuilding extends
+                            beyond conflict resolution to include personal, social, and ecological well-being.</p>
+                        <a href="Oreintation.html" class="workshop-btn" target="_blank">View Workshop Details <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="workshop-img">
+                        <span class="badge">New</span>
+                        <img src="role_of_religous.jpeg" alt="role of religious" loading="lazy">
+                    </div>
+                    <div class="workshop-content">
+                        <h4>Role of Religious</h4>
+                        <p>The guest lecture on the role of religious leaders in climate action explored how faith-based
+                            values of stewardship and compassion can inspire ethical responsibility, interfaith
+                            collaboration, and community-driven environmental sustainability.</p>
+                        <a href="role_of_religous.html" class="workshop-btn" target="_blank">View Workshop Details <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="workshop-img">
+                        <img src="Poster.jpeg" alt="sdg week" loading="lazy">
+                    </div>
+                    <div class="workshop-content">
+                        <h4>sdg week</h4>
+                        <p>The two-day SDG Week activity engaged participants in discussions on co-existence and urban
+                            biodiversity, highlighting the impact of human encroachment on ecosystems and the need for
+                            sustainable conservation practices.</p>
+                        <a href="sdg_week.html" class="workshop-btn" target="_blank">View Workshop Details <i
+                                class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Pillars Section -->
-        <section class="pillars" id="pillars">
-            <div class="container">
-                <div class="section-title" data-aos="fade-up">
-                    <h2>Our Core Pillars</h2>
-                    <p>The foundation of our approach to peacebuilding.</p>
+    <!-- Volunteer Section -->
+    <section class="volunteer" id="volunteer">
+        <div class="container">
+            <div class="volunteer-content" data-aos="zoom-in">
+                <div class="section-title">
+                    <h2 class="special">Volunteer With Us</h2>
                 </div>
 
-                <div class="pillar-grid">
-                    <div class="pillar-item" data-aos="fade-up" data-aos-delay="100">
-                        <div class="pillar-icon"><i class="fas fa-globe-americas"></i></div>
-                        <div>
-                            <h3>Intercultural Dialogue</h3>
-                            <p>Fostering understanding and respect across diverse cultures, beliefs, and backgrounds through
-                                open conversations.</p>
-                        </div>
-                    </div>
+                <p>Volunteering at the Centre for Peace Praxis is your chance to make a real difference. You'll level up
+                    your skills—communication, teamwork, creativity—while connecting with an awesome network.</p>
 
-                    <div class="pillar-item" data-aos="fade-up" data-aos-delay="200">
-                        <div class="pillar-icon"><i class="fas fa-heart"></i></div>
-                        <div>
-                            <h3>Psycho-social Well-being</h3>
-                            <p>Supporting mental and emotional health through community-based approaches to healing and
-                                resilience.</p>
+                <div class="quote">
+                    <p>“Peace is hard-earned, intentional, and sustained through listening, inclusion, and hope.”</p>
+                    <div class="team-member">
+                        <div class="team-avatar">
+                            <img src="peaceaxis_image5.jpg" alt="Dr. Padmakumar MM" loading="lazy">
+                        </div>
+                        <div class="team-info">
+                            <h4>Dr. Padmakumar MM</h4>
+                            <p>Director, Centre for Peace Praxis</p>
+                            <a href="Directors_note.html" class="read-more-link" target="_blank">Read More <i
+                                    class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
+                    <div class="team-member">
+                        <div class="team-avatar">
+                            <img src="Ravi ranjan.jpeg" alt="Ravi Ranjan" loading="lazy">
+                        </div>
+                        <div class="team-info">
+                            <h4 style="margin-top: 10px;">RAVI RANJAN SHARMA</h4>
+                            <p style="font-size: 0.9rem; color: var(--gray);">Student Coordinator, Centre for Peace
+                                Praxis</p>
+                            <p class="text-sm italic mt-1" style="font-size: 0.85rem; color: var(--accent);">"Driven by
+                                the idea that meaningful conversations can create lasting peace"</p>
+                        </div>
+                    </div>
+                </div>
 
-                    <div class="pillar-item" data-aos="fade-up" data-aos-delay="300">
-                        <div class="pillar-icon"><i class="fas fa-newspaper"></i></div>
-                        <div>
-                            <h3>Media Literacy</h3>
-                            <p>Developing critical thinking skills to navigate today's complex media landscape and counter
-                                misinformation.</p>
-                        </div>
-                    </div>
+                <a href="https://docs.google.com/forms/d/1SF-xJFwxwqIu8blYcvErdhzBB8WEiT0FIZg2fs_3kUs/edit"
+                    target="_blank" class="cta-button">Become a
+                    Volunteer</a>
+            </div>
+        </div>
+    </section>
 
-                    <div class="pillar-item" data-aos="fade-up" data-aos-delay="400">
-                        <div class="pillar-icon"><i class="fas fa-leaf"></i></div>
-                        <div>
-                            <h3>Eco-consciousness</h3>
-                            <p>Promoting environmental awareness and sustainable practices as integral components of peace.
-                            </p>
-                        </div>
+
+
+
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo-text">Centre for <span>Peace Praxis</span></div>
+                    <p>Building communities of hope, healing, and resilience through peace literacy and intercultural
+                        dialogue.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/centreforpeacepraxis?igsh=MXdqNnhoMzM5eWZ4dQ=="
+                            target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/centre-for-peace-praxis/" target="_blank"><i
+                                class="fab fa-linkedin-in"></i></a>
                     </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home" target="_blank">Home</a></li>
+                        <li><a href="#about" target="_blank">About Us</a></li>
+                        <li><a href="#pillars" target="_blank">Our Pillars</a></li>
+                        <li><a href="#workshops" target="_blank">Workshops</a></li>
+                        <li><a href="#volunteer" target="_blank">Volunteer</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i><a href="https://www.christuniversity.in/"
+                                target="_blank"> CHRIST
+                                University</a></li>
+                        <li><i class="fas fa-phone"></i> +1 (234) 567-8900</li>
+                        <li><i class="fas fa-envelope"></i><a href="mailto:peace.praxis@christuniversity.in"
+                                target="_blank">peace.praxis@christuniversity.in</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Our Partners</h3>
+                    <ul>
+                        <li>Educational Institutions</li>
+                        <li>Civil Society Groups</li>
+                        <li>Government Bodies</li>
+                        <li>International Partners</li>
+                    </ul>
                 </div>
             </div>
-        </section>
 
-        <!-- Upcoming Events Section -->
-        <section id="upcoming">
-            <div class="container">
-                <div class="section-title" data-aos="fade-up">
-                    <h2>Upcoming Events</h2>
-                    <p>Mark your calendars and join us!</p>
-                </div>
-
-                <div class="workshop-grid">
-                    <!-- Event 1 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="workshop-img">
-                            <span class="badge" style="background: var(--primary);">13 Feb 2026</span>
-                            <img src="peaceaxis_image11.jpg" alt="Inter-Religious Visit" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>Inter-Religious Visit</h4>
-                            <p>A one-day visit to multiple religious institutions including Gurudwara, Mahabodhi, and Dharmaram. Participation from students and faculty.</p>
-                            <a href="#" class="workshop-btn" target="_blank">Register Now <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <!-- Event 2 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="200">
-                        <div class="workshop-img">
-                            <span class="badge" style="background: var(--primary);">Feb 2026</span>
-                            <img src="peaceaxis_image9.jpg" alt="Film Festival" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>Film Festival & Panel Discussion</h4>
-                            <p>A one-day film screening followed by a panel discussion, planned for the 4th week of February 2026.</p>
-                            <a href="#" class="workshop-btn" target="_blank">Register Now <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <!-- Event 3 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="300">
-                        <div class="workshop-img">
-                            <span class="badge" style="background: var(--primary);">19 Feb 2026</span>
-                            <img src="peaceaxis_image12.jpg" alt="Well-being Workshop" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>Psychological Well-being Workshop</h4>
-                            <p>A 3-hour workshop on “Resilience and Recovery” with e-certificates and student coordinators from each campus.</p>
-                            <a href="#" class="workshop-btn" target="_blank">Register Now <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <!-- Event 4 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="400">
-                        <div class="workshop-img">
-                            <span class="badge" style="background: var(--primary);">SDG Week</span>
-                            <img src="peaceaxis_image6.jpg" alt="SDG Week" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>SDG Week – NGO Stalls</h4>
-                            <p>NGO stalls to be set up during SDG Week in the second week of February 2026 to promote sustainable development goals.</p>
-                            <a href="#" class="workshop-btn" target="_blank">Register Now <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <!-- Event 5 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="500">
-                        <div class="workshop-img">
-                            <span class="badge" style="background: var(--primary);">May 2026</span>
-                            <img src="volunteer_philippines.jpg" alt="Volunteer in Philippines" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>Volunteer in Philippines</h4>
-                            <p>International volunteering opportunity from May 12-31, 2026 at Mindanao Peacebuilding Institute.</p>
-                            <a href="#" class="workshop-btn" target="_blank">Register Now <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
+            <div class="copyright">
+                <p>&copy; 2023 Centre for Peace Praxis. All rights reserved. | <i class="fas fa-heart"
+                        style="color: #e76f51;"></i> for peacebuilding</p>
             </div>
-        </section>
+        </div>
+    </footer>
 
-        <!-- Workshops Section -->
-        <section id="workshops">
-            <div class="container">
-                <div class="section-title" data-aos="fade-up">
-                    <h2>Our Workshops</h2>
-                    <p>Engaging, educational, and transformative experiences.</p>
-                </div>
+    <!-- AOS Animation Library JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-                <div class="workshop-grid">
-                    <!-- Card 1 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="workshop-img">
-                            <span class="badge">Popular</span>
-                            <img src="peaceaxis_image2.jpg" alt="Foundations of Peace" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>Bridging Hearts</h4>
-                            <p>The Bridging Hearts workshop engaged students in interactive activities and dialogue to explore the emotional, social, and structural dimensions of peace, fostering empathy, critical thinking, and youth leadership in peacebuilding.</p>
-                            <a href="Bridging_Hearts.html" class="workshop-btn" target="_blank">View Workshop Details <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            once: true,
+            offset: 100,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
 
-                    <!-- Card 2 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="200">
-                        <div class="workshop-img">
-                            <img src="peaceaxis_image3.jpg" alt="Forgiveness Across Faiths" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>Dares you to be different</h4>
-                            <p>The panel discussion ‘Not Less, Different’ brought together voices from media, academia, and student experience to discuss disability, inclusion, and accessibility. The session highlighted inclusive language, lived experiences, and the responsibility of institutions and media in creating an empathetic and inclusive society.
-                            </p>
-                            <a href="Dares_you_to_be_different.html" class="workshop-btn" target="_blank">View Workshop Details <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        const header = document.getElementById('header');
 
-                    <!-- Card 3 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="300">
-                        <div class="workshop-img">
-                            <img src="hero_bg_new.jpg" alt="Orientation Workshop" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>Orientation Workshop</h4>
-                            <p>Introducing Peace Practices to new students. The session explored how peacebuilding extends beyond conflict resolution to include personal, social, and ecological well-being.</p>
-                            <a href="Oreintation.html" class="workshop-btn" target="_blank">View Workshop Details <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
 
-                    <!-- Card 4 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="400">
-                        <div class="workshop-img">
-                            <span class="badge">New</span>
-                            <img src="role_of_religous.jpeg" alt="role of religious" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>Role of Religious</h4>
-                            <p>The guest lecture on the role of religious leaders in climate action explored how faith-based values of stewardship and compassion can inspire ethical responsibility, interfaith collaboration, and community-driven environmental sustainability.</p>
-                            <a href="role_of_religous.html" class="workshop-btn" target="_blank">View Workshop Details <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
+            if (mainNav.classList.contains('active')) {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+                mobileMenuBtn.style.color = 'var(--dark)';
+            } else {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                mobileMenuBtn.style.color = 'var(--primary)';
+            }
+        });
 
-                    <!-- Card 5 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="500">
-                        <div class="workshop-img">
-                            <img src="Poster.jpeg" alt="sdg week" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>sdg week</h4>
-                            <p>The two-day SDG Week activity engaged participants in discussions on co-existence and urban biodiversity, highlighting the impact of human encroachment on ecosystems and the need for sustainable conservation practices.</p>
-                            <a href="sdg_week.html" class="workshop-btn" target="_blank">View Workshop Details <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <!-- Card 6 -->
-                    <div class="workshop-card" data-aos="fade-up" data-aos-delay="600">
-                        <div class="workshop-img">
-                            <img src="peaceaxis_image7.jpg" alt="Capacity Building" loading="lazy">
-                        </div>
-                        <div class="workshop-content">
-                            <h4>CAPACITY BUILDING</h4>
-                            <p>Strengthening organizational and community capabilities for sustainable peace initiatives.
-                            </p>
-                            <a href="#" class="workshop-btn" target="_blank">View Workshop Details <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Volunteer Section -->
-        <section class="volunteer" id="volunteer">
-            <div class="container">
-                <div class="volunteer-content" data-aos="zoom-in">
-                    <div class="section-title">
-                        <h2 class="special">Volunteer With Us</h2>
-                    </div>
-
-                    <p>Volunteering at the Centre for Peace Praxis is your chance to make a real difference. You'll level up
-                        your skills—communication, teamwork, creativity—while connecting with an awesome network.</p>
-
-                    <div class="quote">
-                        <p>“Peace is hard-earned, intentional, and sustained through listening, inclusion, and hope.”</p>
-                        <div class="team-member">
-                            <div class="team-avatar">
-                                <img src="peaceaxis_image5.jpg" alt="Dr. Padmakumar MM" loading="lazy">
-                            </div>
-                            <div class="team-info">
-                                <h4>Dr. Padmakumar MM</h4>
-                                <p>Director, Centre for Peace Praxis</p>
-                                <a href="Directors_note.html" class="read-more-link" target="_blank">Read More <i class="fas fa-arrow-right"></i></a> 
-                            </div>
-                        </div>
-                        <div class="team-member">
-                            <div class="team-avatar">
-                                <img src="Ravi ranjan.jpeg" alt="Ravi Ranjan" loading="lazy">
-                            </div>
-                            <div class="team-info">
-                                <h4 style="margin-top: 10px;">RAVI RANJAN SHARMA</h4>
-                                <p style="font-size: 0.9rem; color: var(--gray);">Student Coordinator, Centre for Peace Praxis</p>
-                                <p class="text-sm italic mt-1" style="font-size: 0.85rem; color: var(--accent);">"Driven by the idea that meaningful conversations can create lasting peace"</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <a href="https://docs.google.com/forms/d/1SF-xJFwxwqIu8blYcvErdhzBB8WEiT0FIZg2fs_3kUs/edit" target="_blank" class="cta-button">Become a
-                        Volunteer</a>
-                </div>
-            </div>
-        </section>
-
-        
-
-        
-
-        <!-- Footer -->
-        <footer id="contact">
-            <div class="container">
-                <div class="footer-content">
-                    <div class="footer-logo">
-                        <div class="logo-text">Centre for <span>Peace Praxis</span></div>
-                        <p>Building communities of hope, healing, and resilience through peace literacy and intercultural
-                            dialogue.</p>
-                        <div class="social-links">
-                            <a href="https://www.instagram.com/centreforpeacepraxis?igsh=MXdqNnhoMzM5eWZ4dQ==" target="_blank"><i class="fab fa-instagram"></i></a>
-                            <a href="https://www.linkedin.com/company/centre-for-peace-praxis/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="footer-column">
-                        <h3>Quick Links</h3>
-                        <ul>
-                            <li><a href="#home" target="_blank">Home</a></li>
-                            <li><a href="#about" target="_blank">About Us</a></li>
-                            <li><a href="#pillars" target="_blank">Our Pillars</a></li>
-                            <li><a href="#workshops" target="_blank">Workshops</a></li>
-                            <li><a href="#volunteer" target="_blank">Volunteer</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-column">
-                        <h3>Contact Info</h3>
-                        <ul>
-                            <li><i class="fas fa-map-marker-alt"></i><a href="https://www.christuniversity.in/" target="_blank"> CHRIST
-                                    University</a></li>
-                            <li><i class="fas fa-phone"></i> +1 (234) 567-8900</li>
-                            <li><i class="fas fa-envelope"></i><a href="mailto:peace.praxis@christuniversity.in" target="_blank">peace.praxis@christuniversity.in</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-column">
-                        <h3>Our Partners</h3>
-                        <ul>
-                            <li>Educational Institutions</li>
-                            <li>Civil Society Groups</li>
-                            <li>Government Bodies</li>
-                            <li>International Partners</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="copyright">
-                    <p>&copy; 2023 Centre for Peace Praxis. All rights reserved. | <i class="fas fa-heart"
-                            style="color: #e76f51;"></i> for peacebuilding</p>
-                </div>
-            </div>
-        </footer>
-
-        <!-- AOS Animation Library JS -->
-        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-        <script>
-            // Initialize AOS
-            AOS.init({
-                once: true,
-                offset: 100,
-                duration: 800,
-                easing: 'ease-out-cubic',
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             });
+        });
 
-            // Mobile menu functionality
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mainNav = document.getElementById('mainNav');
-            const header = document.getElementById('header');
+        // Sticky Header Effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
 
-            mobileMenuBtn.addEventListener('click', () => {
-                mainNav.classList.toggle('active');
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const targetElement = document.querySelector(targetId);
 
-                if (mainNav.classList.contains('active')) {
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
-                    mobileMenuBtn.style.color = 'var(--dark)';
-                } else {
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                    mobileMenuBtn.style.color = 'var(--primary)';
+                if (targetElement) {
+                    const headerOffset = 80;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                }
+            });
+        });
+
+        // Update active nav link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
                 }
             });
 
-            // Close mobile menu when a link is clicked
-            document.querySelectorAll('nav a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mainNav.classList.remove('active');
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                });
-            });
-
-            // Sticky Header Effect
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
                 }
             });
+        });
+    </script>
+</body>
 
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    const targetElement = document.querySelector(targetId);
-
-                    if (targetElement) {
-                        const headerOffset = 80;
-                        const elementPosition = targetElement.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: "smooth"
-                        });
-                    }
-                });
-            });
-
-            // Update active nav link on scroll
-            window.addEventListener('scroll', () => {
-                const sections = document.querySelectorAll('section');
-                const navLinks = document.querySelectorAll('nav a');
-
-                let current = '';
-
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    if (scrollY >= (sectionTop - 150)) {
-                        current = section.getAttribute('id');
-                    }
-                });
-
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${current}`) {
-                        link.classList.add('active');
-                    }
-                });
-            });
-        </script>
-    </body>
-
-    </html>
+</html>
