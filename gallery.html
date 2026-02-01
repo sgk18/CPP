@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery | Centre for Peace Praxis</title>
-    <link rel="icon" type="icon" href="icon.ico">
+    <link rel="icon" type="image/png" href="current_logo.png">
 
     <!-- Fonts -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap"
         rel="stylesheet">
 
     <!-- Icons -->
@@ -19,19 +19,11 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- Tailwind CSS (CDN for compatibility) -->
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css">
 
     <style>
-        :root {
-            --primary: #1a5f7a;
-            --primary-dark: #12465a;
-            --secondary: #2a9d8f;
-            --accent: #e76f51;
-            --light: #f8f9fa;
-            --dark: #264653;
-            --gray: #6c757d;
-            --light-blue: #a8dadc;
-        }
+        /* :root variables removed - in style.css */
 
         body {
             font-family: 'Open Sans', sans-serif;
@@ -52,110 +44,87 @@
             color: var(--dark);
         }
 
-        /* Navigation */
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-        }
-
-        .logo-img {
-            width: 75px;
-            height: 75px;
-            border-radius: 70%;
-            border: 2px solid var(--primary);
-            padding: 2px;
-        }
-
-        .logo-img img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .logo-text {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--primary);
-        }
-
-        .logo-text span {
-            color: var(--secondary);
-        }
+        /* Header styles are now imported from style.css */
 
         nav ul {
             display: flex;
-            gap: 30px;
             list-style: none;
+            gap: 30px;
         }
 
-        nav a {
-            text-decoration: none;
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            border-radius: 8px;
+            top: 100%;
+            left: 0;
+            overflow: hidden;
+            border-top: 3px solid var(--accent);
+        }
+
+        .dropdown-content a {
             color: var(--dark);
-            font-weight: 600;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
             font-size: 14px;
-            text-transform: uppercase;
-            transition: color 0.3s;
+            text-transform: none;
+            text-align: left;
+            border-bottom: 1px solid #f1f1f1;
         }
 
-        nav a:hover,
-        nav a.active {
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
             color: var(--primary);
         }
 
-        /* Mobile Menu */
+        .dropdown-content a:before {
+            display: none;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            color: var(--primary);
+        }
+
         .mobile-menu-btn {
             display: none;
-            font-size: 24px;
-            color: var(--primary);
             background: none;
             border: none;
+            font-size: 24px;
+            color: var(--primary);
             cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
         @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
             .mobile-menu-btn {
                 display: block;
-            }
-
-            nav {
-                position: fixed;
-                top: 80px;
-                right: -100%;
-                width: 100%;
-                background: white;
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-                transition: 0.3s ease;
-                padding: 20px;
-            }
-
-            nav.active {
-                right: 0;
-            }
-
-            nav ul {
-                flex-direction: column;
-                text-align: center;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                z-index: 1002;
             }
         }
 
@@ -193,7 +162,7 @@
         .gallery-item {
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
             position: relative;
             background: white;
@@ -217,22 +186,15 @@
             font-weight: 600;
         }
 
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 60px 0 30px;
-            margin-top: 80px;
-        }
-        
+        /* Footer styles removed - using style.css */
     </style>
 </head>
 
 <body>
 
     <!-- Header -->
-    <header>
-        <div class="header-container">
+    <header id="header">
+        <div class="container header-container">
             <a href="index.html" class="logo">
                 <div class="logo-img">
                     <img src="current_logo.png" alt="CPP Logo">
@@ -240,16 +202,24 @@
                 <div class="logo-text">Centre for <span>Peace Praxis</span></div>
             </a>
 
-            <button class="mobile-menu-btn" onclick="document.querySelector('nav').classList.toggle('active')">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
             </button>
 
-            <nav>
+            <nav id="mainNav">
                 <ul>
                     <li><a href="index.html#home">Home</a></li>
                     <li><a href="index.html#about">About</a></li>
-                    <li><a href="index.html#workshops">Events</a></li>
+                    <li><a href="index.html#workshops">Workshops</a></li>
+                    <li><a href="index.html#volunteer">Volunteer</a></li>
                     <li><a href="gallery.html" class="active">Gallery</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Community <i class="fas fa-caret-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="Faculties.html">Faculties</a>
+                            <a href="students.html">Students</a>
+                        </div>
+                    </li>
                     <li><a href="index.html#contact">Contact</a></li>
                 </ul>
             </nav>
@@ -312,6 +282,22 @@
                 <div class="gallery-item">
                     <img src="gallery_img_11.jpg" alt="Gallery Image 11" class="gallery-img">
                 </div>
+                <!-- Changing Rains Images -->
+                <div class="gallery-item">
+                    <img src="changing_rains_1.jpg" alt="Changing Rains Event 1" class="gallery-img">
+                </div>
+                <div class="gallery-item">
+                    <img src="changing_rains_2.jpg" alt="Changing Rains Event 2" class="gallery-img">
+                </div>
+                <div class="gallery-item">
+                    <img src="changing_rains_3.jpg" alt="Changing Rains Event 3" class="gallery-img">
+                </div>
+                <div class="gallery-item">
+                    <img src="changing_rains_4.jpg" alt="Changing Rains Event 4" class="gallery-img">
+                </div>
+                <div class="gallery-item">
+                    <img src="changing_rains_5.jpg" alt="Changing Rains Event 5" class="gallery-img">
+                </div>
             </div>
         </div>
     </main>
@@ -329,14 +315,19 @@
                     <h3 class="text-xl text-white mb-4">Contact</h3>
                     <p class="text-gray-400 text-sm">CHRIST (Deemed to be University)</p>
                     <p class="text-gray-400 text-sm">Bangalore, India</p>
-                    <p class="text-gray-400 text-sm mt-2"><a href="mailto:peace.praxis@christuniversity.in" class="hover:text-teal-400 transition-colors">peace.praxis@christuniversity.in</a></p>
+                    <p class="text-gray-400 text-sm mt-2"><a href="mailto:peace.praxis@christuniversity.in"
+                            class="hover:text-teal-400 transition-colors">peace.praxis@christuniversity.in</a></p>
                 </div>
                 <div>
                     <h3 class="text-xl text-white mb-4">Connect</h3>
                     <div class="flex justify-center md:justify-start gap-4">
-                        <a href="https://www.instagram.com/centreforpeacepraxis?igsh=MXdqNnhoMzM5eWZ4dQ==" class="text-white hover:text-teal-400" target="_blank"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="https://www.instagram.com/centreforpeacepraxis?igsh=MXdqNnhoMzM5eWZ4dQ=="
+                            class="text-white hover:text-teal-400" target="_blank"><i
+                                class="fab fa-instagram fa-lg"></i></a>
 
-                        <a href="https://www.linkedin.com/company/centre-for-peace-praxis/" class="text-white hover:text-teal-400" target="_blank"><i class="fab fa-linkedin fa-lg"></i></a>
+                        <a href="https://www.linkedin.com/company/centre-for-peace-praxis/"
+                            class="text-white hover:text-teal-400" target="_blank"><i
+                                class="fab fa-linkedin fa-lg"></i></a>
                     </div>
                     <p class="text-gray-500 text-xs mt-4">Report Prepared By: ABISHEK CHETTY A</p>
                 </div>
@@ -354,6 +345,44 @@
             duration: 800,
             once: true,
             offset: 50
+        });
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        const header = document.getElementById('header');
+
+        if (mobileMenuBtn && mainNav) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mainNav.classList.toggle('active');
+
+                if (mainNav.classList.contains('active')) {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+                    mobileMenuBtn.style.color = 'var(--dark)';
+                } else {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    mobileMenuBtn.style.color = 'var(--primary)';
+                }
+            });
+
+            // Close mobile menu when a link is clicked
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mainNav.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+        }
+
+        // Sticky Header Effect
+        window.addEventListener('scroll', () => {
+            if (header) {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            }
         });
     </script>
 </body>

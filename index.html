@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Centre for Peace Praxis | Hope, Healing and Resilience</title>
+<<<<<<< HEAD
     <link rel="icon" type="icon" href="current_logo.png">
     <!-- Fonts -->
     <link
@@ -31,6 +32,36 @@
             --gray: #6c757d;
             --light-blue: #a8dadc;
 
+=======
+    <link rel="icon" type="image/png" href="current_logo.png">
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Library for Scroll Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Tailwind CSS (CDN for compatibility) -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css">
+
+    <style>
+        :root {
+            --primary: #1a5f7a;
+            --primary-dark: #12465a;
+            --secondary: #2a9d8f;
+            --accent: #e76f51;
+            --accent-hover: #d65c3e;
+            --light: #f8f9fa;
+            --dark: #264653;
+            --gray: #6c757d;
+            --light-blue: #a8dadc;
+
+>>>>>>> d1d69697d8c5d8e67a15cf838c70aee295484498
             --glass-bg: rgba(255, 255, 255, 0.85);
             --glass-border: rgba(255, 255, 255, 0.3);
             --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
@@ -108,17 +139,55 @@
             text-decoration: none;
         }
 
+<<<<<<< HEAD
         .logo-img {
             width: 75px;
             height: 75px;
             border-radius: 70%;
+=======
+        .footer-logo-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .footer-logo {
+            height: 122px;
+            object-fit: contain;
+            opacity: 0.8;
+        }
+
+        @media (min-width: 768px) {
+            .footer-logo {
+                height: 122px;
+            }
+        }
+
+
+
+        .logo-img {
+            width: 75px;
+            height: 75px;
+            /* border-radius: 70%; */
+            /* Removed circle border */
+>>>>>>> d1d69697d8c5d8e67a15cf838c70aee295484498
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
+<<<<<<< HEAD
             border: 2px solid var(--primary);
             padding: 2px;
             background: white;
+=======
+            /* border: 2px solid var(--primary); */
+            /* Removed border */
+            /* padding: 2px; */
+            /* Removed padding */
+            /* background: white; */
+            /* Removed background */
+>>>>>>> d1d69697d8c5d8e67a15cf838c70aee295484498
             transition: transform 0.3s ease;
         }
 
@@ -134,10 +203,19 @@
         }
 
         .logo-text {
+<<<<<<< HEAD
             font-size: 22px;
             font-weight: 800;
             color: var(--primary);
             letter-spacing: -0.5px;
+=======
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 36px;
+            /* Slightly larger for this font as it tends to be smaller */
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0px;
+>>>>>>> d1d69697d8c5d8e67a15cf838c70aee295484498
         }
 
         .logo-text span {
@@ -150,6 +228,7 @@
             gap: 30px;
         }
 
+<<<<<<< HEAD
         nav a {
             text-decoration: none;
             color: var(--dark);
@@ -181,6 +260,59 @@
 
         nav a:hover,
         nav a.active {
+=======
+        /* Nav Styles removed - using style.css */
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            border-radius: 8px;
+            top: 100%;
+            left: 0;
+            overflow: hidden;
+            border-top: 3px solid var(--accent);
+        }
+
+        .dropdown-content a {
+            color: var(--dark);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            text-transform: none;
+            text-align: left;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+            color: var(--primary);
+        }
+
+        .dropdown-content a:before {
+            display: none;
+            /* Remove the underline effect from main nav links */
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+>>>>>>> d1d69697d8c5d8e67a15cf838c70aee295484498
             color: var(--primary);
         }
 
@@ -749,6 +881,7 @@
             color: var(--gray);
         }
 
+<<<<<<< HEAD
         /* Footer */
         footer {
             background-color: var(--dark);
@@ -880,6 +1013,10 @@
         .special {
             animate__flipInX
         }
+=======
+        /* Footer and Social Links styles removed - using style.css */
+
+>>>>>>> d1d69697d8c5d8e67a15cf838c70aee295484498
 
         /* Mobile Responsive */
         @media (max-width: 992px) {
@@ -912,6 +1049,7 @@
                 gap: 15px;
             }
 
+<<<<<<< HEAD
             nav {
                 position: fixed;
                 top: 0;
@@ -952,6 +1090,21 @@
                 font-size: 2.5rem;
             }
 
+=======
+            /* Mobile Nav styles removed - using style.css */
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                z-index: 1002;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+>>>>>>> d1d69697d8c5d8e67a15cf838c70aee295484498
             .hero p {
                 font-size: 1.1rem;
             }
@@ -963,6 +1116,15 @@
                 grid-template-columns: 1fr;
             }
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+>>>>>>> d1d69697d8c5d8e67a15cf838c70aee295484498
             .section-title h2 {
                 font-size: 2.2rem;
             }
@@ -992,10 +1154,24 @@
                 <ul>
                     <li><a href="#home" class="active" target="_blank">Home</a></li>
                     <li><a href="#about" target="_blank">About</a></li>
+<<<<<<< HEAD
                     <li><a href="#why" target="_blank">Why CPP?</a></li>
                     <li><a href="#workshops" target="_blank">Workshops</a></li>
                     <li><a href="#volunteer" target="_blank">Volunteer</a></li>
                     <li><a href="gallery.html">Gallery</a></li>
+=======
+
+                    <li><a href="#workshops" target="_blank">Workshops</a></li>
+                    <li><a href="#volunteer" target="_blank">Volunteer</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Community <i class="fas fa-caret-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="Faculties.html">Faculties</a>
+                            <a href="students.html">Students</a>
+                        </div>
+                    </li>
+>>>>>>> d1d69697d8c5d8e67a15cf838c70aee295484498
 
                     <li><a href="#contact" target="_blank">Contact</a></li>
                 </ul>
@@ -1010,7 +1186,11 @@
             <p>Building communities through peace literacy, intercultural dialogue, and collective well-being since
                 2023.</p>
             <div class="hero-buttons">
+<<<<<<< HEAD
                 <a href="https://forms.google.com/your-form-link-here" target="_blank" class="cta-button">Join Our
+=======
+                <a href="#volunteer" target="_blank" class="cta-button">Join Our
+>>>>>>> d1d69697d8c5d8e67a15cf838c70aee295484498
                     Mission</a>
                 <a href="#workshops" class="cta-button secondary" target="_blank">View Workshops</a>
             </div>
@@ -1256,6 +1436,24 @@
             </div>
 
             <div class="workshop-grid">
+<<<<<<< HEAD
+=======
+                <!-- Card New -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="workshop-img">
+                        <span class="badge">New</span>
+                        <img src="changing_rains_poster.jpg" alt="Changing Rains" loading="lazy">
+                    </div>
+                    <div class="workshop-content">
+                        <h4>Changing Rains</h4>
+                        <p>An interdisciplinary academic event that examined shifting rainfall patterns and their
+                            impacts on Southwestern India, featuring experts discussing climate prediction and urban
+                            vulnerability.</p>
+                        <a href="Changing_rains.html" class="workshop-btn" target="_blank">View Workshop Details <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+>>>>>>> d1d69697d8c5d8e67a15cf838c70aee295484498
                 <!-- Card 1 -->
                 <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="workshop-img">
@@ -1325,11 +1523,47 @@
                         <img src="Poster.jpeg" alt="sdg week" loading="lazy">
                     </div>
                     <div class="workshop-content">
+<<<<<<< HEAD
                         <h4>sdg week</h4>
                         <p>The two-day SDG Week activity engaged participants in discussions on co-existence and urban
                             biodiversity, highlighting the impact of human encroachment on ecosystems and the need for
                             sustainable conservation practices.</p>
                         <a href="sdg_week.html" class="workshop-btn" target="_blank">View Workshop Details <i
+=======
+                        <h4>SDG Week</h4>
+                        <p>The two-day SDG Week activity engaged participants in discussions on co-existence and urban
+                            biodiversity, highlighting the impact of human encroachment on ecosystems and the need for
+                            sustainable conservation practices.</p>
+                        <a href="SDG_week.html" class="workshop-btn" target="_blank">View Workshop Details <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="workshop-img">
+                        <img src="peaceaxis_image7.jpg" alt="Capacity Building" loading="lazy">
+                    </div>
+                    <div class="workshop-content">
+                        <h4>CAPACITY BUILDING</h4>
+                        <p>Strengthening organizational and community capabilities for sustainable peace initiatives.
+                        </p>
+                        <a href="#" class="workshop-btn" target="_blank">View Workshop Details <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <!-- Card 7 -->
+                <div class="workshop-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="workshop-img">
+                        <img src="peaceaxis_image8.jpg" alt="story wheel" loading="lazy">
+                    </div>
+                    <div class="workshop-content">
+                        <h4>STORY WHEEL</h4>
+                        <p>A participatory storytelling process that brings communities together to share experiences,
+                            build empathy, and explore pathways to peace through dialogue.
+                        </p>
+                        <a href="#" class="workshop-btn" target="_blank">View Workshop Details <i
+>>>>>>> d1d69697d8c5d8e67a15cf838c70aee295484498
                                 class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
@@ -1375,7 +1609,11 @@
                     </div>
                 </div>
 
+<<<<<<< HEAD
                 <a href="https://docs.google.com/forms/d/1SF-xJFwxwqIu8blYcvErdhzBB8WEiT0FIZg2fs_3kUs/edit"
+=======
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScmjweCQfwquN_aHSy9Tz_DkvodQwyqULN-3AQ19-SfWxP2Lw/viewform?usp=sf_link"
+>>>>>>> d1d69697d8c5d8e67a15cf838c70aee295484498
                     target="_blank" class="cta-button">Become a
                     Volunteer</a>
             </div>
@@ -1419,7 +1657,11 @@
                         <li><i class="fas fa-map-marker-alt"></i><a href="https://www.christuniversity.in/"
                                 target="_blank"> CHRIST
                                 University</a></li>
+<<<<<<< HEAD
                         <li><i class="fas fa-phone"></i> +1 (234) 567-8900</li>
+=======
+                        <li><i class="fas fa-phone"></i> 080 4012 9361</li>
+>>>>>>> d1d69697d8c5d8e67a15cf838c70aee295484498
                         <li><i class="fas fa-envelope"></i><a href="mailto:peace.praxis@christuniversity.in"
                                 target="_blank">peace.praxis@christuniversity.in</a></li>
                     </ul>
@@ -1435,6 +1677,7 @@
                     </ul>
                 </div>
             </div>
+<<<<<<< HEAD
 
             <div class="copyright">
                 <p>&copy; 2023 Centre for Peace Praxis. All rights reserved. | <i class="fas fa-heart"
@@ -1443,6 +1686,19 @@
         </div>
     </footer>
 
+=======
+            <div class="footer-logo-wrapper">
+                <img src="CHRIST_LOGO1.png" alt="CHRIST Logo" class="footer-logo">
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2023 Centre for Peace Praxis. All rights reserved. | <i class="fas fa-heart"
+                        style="color: #e76f51;"></i> for peacebuilding</p>
+            </div>
+        </div>
+    </footer>
+
+>>>>>>> d1d69697d8c5d8e67a15cf838c70aee295484498
     <!-- AOS Animation Library JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 

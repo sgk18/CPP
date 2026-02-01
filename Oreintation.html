@@ -5,152 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orientation Workshop | Centre for Peace Praxis</title>
-    <link rel="icon" type="icon" href="icon.ico" >
-    
+    <link rel="icon" type="image/png" href="current_logo.png">
+
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- AOS Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+
     <!-- Tailwind CSS (CDN for compatibility) -->
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css">
-    
+
     <style>
-        :root {
-            --primary: #1a5f7a;
-            --primary-dark: #12465a;
-            --secondary: #2a9d8f;
-            --accent: #e76f51;
-            --light: #f8f9fa;
-            --dark: #264653;
-            --gray: #6c757d;
-            --light-blue: #a8dadc;
-        }
-
-        body {
-            font-family: 'Open Sans', sans-serif;
-            color: #333;
-            background-color: #fcfcfc;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            color: var(--dark);
-        }
-
-        /* Navigation */
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-        }
-
-        .logo-img {
-            width: 75px;
-            height: 75px;
-            border-radius: 70%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border: 2px solid var(--primary);
-            padding: 2px;
-            background: white;
-            transition: transform 0.3s ease;
-        }
-
-        .logo:hover .logo-img {
-            transform: scale(1.05);
-        }
-        
-        .logo-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            padding: 0;
-            transform: scale(1.2) translateY(2px);
-        }
-
-        .logo-text {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--primary);
-        }
-
-        .logo-text span {
-            color: var(--secondary);
-        }
-
-        nav ul {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 600;
-            font-size: 14px;
-            text-transform: uppercase;
-            transition: color 0.3s;
-        }
-
-        nav a:hover, nav a.active {
-            color: var(--primary);
-        }
-        
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            font-size: 24px;
-            color: var(--primary);
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-btn { display: block; }
-            nav {
-                position: fixed;
-                top: 80px;
-                right: -100%;
-                width: 100%;
-                background: white;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-                transition: 0.3s ease;
-                padding: 20px;
-            }
-            nav.active { right: 0; }
-            nav ul { flex-direction: column; text-align: center; }
-        }
+        /* :root, body, nav, mobile menu styles removed - using style.css */
 
         /* Hero Section */
         .event-hero {
@@ -167,7 +40,7 @@
             color: white;
             font-size: 3.5rem;
             margin-bottom: 15px;
-            text-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
         .event-tag {
@@ -196,7 +69,7 @@
             align-items: center;
             gap: 10px;
             font-size: 1.1rem;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             padding: 10px 20px;
             border-radius: 10px;
             backdrop-filter: blur(5px);
@@ -213,7 +86,8 @@
 
         .impact-grid {
             display: grid;
-            grid-template-columns: repeat(1, 1fr); /* Changed to 1 column for single item */
+            grid-template-columns: repeat(1, 1fr);
+            /* Changed to 1 column for single item */
             gap: 30px;
             max-width: 1000px;
             margin: 0 auto;
@@ -230,14 +104,14 @@
             font-size: 1.1rem;
             opacity: 0.9;
         }
-        
+
         /* Content Layout */
         .content-section {
             max-width: 900px;
             margin: 0 auto 60px;
             padding: 0 20px;
         }
-        
+
         .section-heading {
             color: var(--primary);
             font-size: 2rem;
@@ -245,7 +119,7 @@
             position: relative;
             padding-bottom: 10px;
         }
-        
+
         .section-heading::after {
             content: '';
             position: absolute;
@@ -265,19 +139,23 @@
             border-radius: 0 10px 10px 0;
         }
 
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 60px 0 30px;
-            margin-top: 80px;
-        }
-        
+        /* Footer styles removed - using style.css */
+
         /* Mobile */
         @media(max-width: 768px) {
-            .event-hero h1 { font-size: 2.5rem; }
-            .impact-grid { grid-template-columns: 1fr; gap: 40px; }
-            .meta-item { width: 100%; justify-content: center; }
+            .event-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .impact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .meta-item {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -293,7 +171,7 @@
                 </div>
                 <div class="logo-text">Centre for <span>Peace Praxis</span></div>
             </a>
-            
+
             <button class="mobile-menu-btn" onclick="document.querySelector('nav').classList.toggle('active')">
                 <i class="fas fa-bars"></i>
             </button>
@@ -316,7 +194,7 @@
             <span class="event-tag">Workshop</span>
             <h1>Orientation work shop</h1>
             <p class="text-xl max-w-2xl mx-auto opacity-90">Introducing Peace Practices to new students.</p>
-            
+
             <div class="event-meta">
                 <div class="meta-item">
                     <i class="fas fa-calendar-alt text-yellow-400"></i>
@@ -336,17 +214,24 @@
 
     <!-- Main Content -->
     <main class="py-16">
-        
+
         <!-- Synopsis -->
         <div class="content-section" data-aos="fade-up">
             <h2 class="section-heading">Summary of the Activity</h2>
             <p class="text-lg text-gray-700 leading-relaxed mb-8">
-                We conducted an orientation workshop for new students to introduce the concept of Peace Practices and its various dimensions. The session explored how peacebuilding extends beyond conflict resolution to include personal, social, and ecological well-being. It aimed to instill awareness, curiosity, and commitment to peace-related initiatives among participants. The workshop was interactive and informative, laying a strong foundation for student engagement in peacebuilding efforts.
+                We conducted an orientation workshop for new students to introduce the concept of Peace Practices and
+                its various dimensions. The session explored how peacebuilding extends beyond conflict resolution to
+                include personal, social, and ecological well-being. It aimed to instill awareness, curiosity, and
+                commitment to peace-related initiatives among participants. The workshop was interactive and
+                informative, laying a strong foundation for student engagement in peacebuilding efforts.
             </p>
 
             <h2 class="section-heading">Highlights of the Activity</h2>
             <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                We explained about what is peace practises and various types of peace practises to new students. It includes psychological wellbeing peace building, ecology and peacebuilding, media and peacebuilding, intellectual dialouge and peacebuilding. The main highlight of the activity was we recruited lot of new students through the orientation workshop.
+                We explained about what is peace practises and various types of peace practises to new students. It
+                includes psychological wellbeing peace building, ecology and peacebuilding, media and peacebuilding,
+                intellectual dialouge and peacebuilding. The main highlight of the activity was we recruited lot of new
+                students through the orientation workshop.
             </p>
         </div>
 
@@ -363,7 +248,7 @@
         <!-- Key Takeaways -->
         <div class="content-section" data-aos="fade-up">
             <h2 class="section-heading">Key Takeaways</h2>
-            
+
             <ul class="space-y-6 text-gray-700">
                 <li class="flex gap-4">
                     <i class="fas fa-check-circle text-teal-500 mt-1"></i>
@@ -404,30 +289,32 @@
                     <i class="fas fa-check-circle text-teal-500 mt-1"></i>
                     <div>
                         <strong class="block text-gray-900 mb-1">Main Outcome</strong>
-                        Successfully recruited many new students who showed interest in peace-related activities through this workshop.
+                        Successfully recruited many new students who showed interest in peace-related activities through
+                        this workshop.
                     </div>
                 </li>
             </ul>
         </div>
-        
+
         <!-- Gallery -->
         <div class="content-section" data-aos="fade-up">
             <h2 class="section-heading text-center">Event Gallery</h2>
             <div class="report-image-container">
                 <img src="orientation_workshop.jpg" alt="Orientation Workshop Session" class="report-image">
             </div>
-            <p class="text-center text-gray-500 italic mt-4">Snapshots from the Orientation Workshop at CHRIST University.</p>
+            <p class="text-center text-gray-500 italic mt-4">Snapshots from the Orientation Workshop at CHRIST
+                University.</p>
         </div>
 
         <!-- SDG Section -->
         <div class="container mx-auto text-center py-10" data-aos="fade-in">
-             <div class="inline-block bg-white p-6 rounded-xl shadow-lg border-2 border-dashed border-gray-200">
+            <div class="inline-block bg-white p-6 rounded-xl shadow-lg border-2 border-dashed border-gray-200">
                 <p class="uppercase tracking-widest text-xs font-bold text-gray-500 mb-2">Aligned with UN SDG</p>
                 <div class="flex items-center gap-3 justify-center">
                     <span class="text-4xl font-black text-blue-600">16</span>
                     <span class="text-xl font-bold text-gray-800">Peace, Justice and Strong Institutions</span>
                 </div>
-             </div>
+            </div>
         </div>
 
     </main>
@@ -438,20 +325,26 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10 text-center md:text-left">
                 <div>
                     <h3 class="text-xl text-white mb-4">Department of Media Studies &<br>Centre for Peace Praxis</h3>
-                    <p class="text-gray-400 text-sm">Building communities of hope, healing, and resilience through peace literacy and intercultural dialogue.</p>
+                    <p class="text-gray-400 text-sm">Building communities of hope, healing, and resilience through peace
+                        literacy and intercultural dialogue.</p>
                 </div>
                 <div>
                     <h3 class="text-xl text-white mb-4">Contact</h3>
                     <p class="text-gray-400 text-sm">CHRIST (Deemed to be University)</p>
                     <p class="text-gray-400 text-sm">Bangalore, India</p>
-                    <p class="text-gray-400 text-sm mt-2"><a href="mailto:peace.praxis@christuniversity.in" class="hover:text-teal-400 transition-colors">peace.praxis@christuniversity.in</a></p>
+                    <p class="text-gray-400 text-sm mt-2"><a href="mailto:peace.praxis@christuniversity.in"
+                            class="hover:text-teal-400 transition-colors">peace.praxis@christuniversity.in</a></p>
                 </div>
                 <div>
                     <h3 class="text-xl text-white mb-4">Connect</h3>
                     <div class="flex justify-center md:justify-start gap-4">
-                        <a href="https://www.instagram.com/centreforpeacepraxis?igsh=MXdqNnhoMzM5eWZ4dQ==" class="text-white hover:text-teal-400" target="_blank"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="https://www.instagram.com/centreforpeacepraxis?igsh=MXdqNnhoMzM5eWZ4dQ=="
+                            class="text-white hover:text-teal-400" target="_blank"><i
+                                class="fab fa-instagram fa-lg"></i></a>
 
-                        <a href="https://www.linkedin.com/company/centre-for-peace-praxis/" class="text-white hover:text-teal-400" target="_blank"><i class="fab fa-linkedin-in fa-lg"></i></a>
+                        <a href="https://www.linkedin.com/company/centre-for-peace-praxis/"
+                            class="text-white hover:text-teal-400" target="_blank"><i
+                                class="fab fa-linkedin-in fa-lg"></i></a>
                     </div>
                     <p class="text-gray-500 text-xs mt-4">Report Prepared By: ABISHEK CHETTY A</p>
                 </div>
@@ -472,4 +365,5 @@
         });
     </script>
 </body>
+
 </html>
