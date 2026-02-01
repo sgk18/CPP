@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Students | Centre for Peace Praxis</title>
-    <link rel="icon" type="icon" href="current_logo.png">
+    <link rel="icon" type="image/png" href="current_logo.png">
     <!-- Fonts -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap"
         rel="stylesheet">
 
     <!-- Icons -->
@@ -105,13 +105,17 @@
             width: 75px;
             height: 75px;
             /* border-radius: 70%; */
+            /* Removed circle border */
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             /* border: 2px solid var(--primary); */
+            /* Removed border */
             /* padding: 2px; */
+            /* Removed padding */
             /* background: white; */
+            /* Removed background */
             transition: transform 0.3s ease;
         }
 
@@ -123,17 +127,26 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
+            /* padding: 4px; */
         }
 
         .logo-text {
-            font-size: 22px;
-            font-weight: 800;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 36px;
+            /* Slightly larger for this font as it tends to be smaller */
+            font-weight: 700;
             color: var(--primary);
-            letter-spacing: -0.5px;
+            letter-spacing: 0px;
         }
 
         .logo-text span {
             color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
         }
 
         /* Nav and Mobile Menu styles removed - using style.css */
@@ -273,7 +286,7 @@
 
         /* Image */
         .workshop-img {
-            height: 350px;
+            height: 220px;
             /* Adjusted for faculty portraits */
             overflow: hidden;
             position: relative;
@@ -294,7 +307,7 @@
 
         /* Content */
         .workshop-content {
-            padding: 20px;
+            padding: 15px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
@@ -381,7 +394,7 @@
     <!-- Header & Navigation -->
     <header id="header">
         <div class="container header-container">
-            <a href="index.html" class="logo" target="_blank">
+            <a href="index.html" class="logo">
                 <div class="logo-img">
                     <img src="current_logo.png" alt="CPP Logo">
                 </div>
@@ -394,19 +407,20 @@
 
             <nav id="mainNav">
                 <ul>
-                    <li><a href="index.html" target="_blank">Home</a></li>
-                    <li><a href="index.html#about" target="_blank">About</a></li>
-                    <li><a href="index.html#workshops" target="_blank">Workshops</a></li>
-                    <li><a href="index.html#volunteer" target="_blank">Volunteer</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#workshops">Workshops</a></li>
+                    <li><a href="index.html#volunteer">Volunteer</a></li>
                     <li><a href="gallery.html">Gallery</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropbtn active">Community <i class="fas fa-caret-down"></i></a>
                         <div class="dropdown-content">
                             <a href="Faculties.html">Faculties</a>
                             <a href="students.html">Students</a>
+                            <a href="Alumni.html">Alumni</a>
                         </div>
                     </li>
-                    <li><a href="index.html#contact" target="_blank">Contact</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -427,7 +441,7 @@
         <!-- Student Coordinator (Centered) -->
         <div style="display: flex; justify-content: center; margin-bottom: 60px;">
             <div class="workshop-card" data-aos="fade-up" style="max-width: 350px; width: 100%;">
-                <div class="workshop-img" style="height: 350px;">
+                <div class="workshop-img" style="height: 280px;">
                     <a href="#" style="display: block; width: 100%; height: 100%;">
                         <img src="student_coordinator.jpg" alt="Student Coordinator" loading="lazy"
                             style="object-position: top center;">
@@ -449,7 +463,7 @@
             <!-- Card 1 -->
             <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="workshop-img"
-                    style="height: 300px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
+                    style="height: 220px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
                     <i class="fas fa-user" style="font-size: 4rem; color: #bdbdbd;"></i>
                 </div>
                 <div class="workshop-content" style="text-align: center;">
@@ -461,7 +475,7 @@
             <!-- Card 2 -->
             <div class="workshop-card" data-aos="fade-up" data-aos-delay="150">
                 <div class="workshop-img"
-                    style="height: 300px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
+                    style="height: 220px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
                     <i class="fas fa-user" style="font-size: 4rem; color: #bdbdbd;"></i>
                 </div>
                 <div class="workshop-content" style="text-align: center;">
@@ -473,7 +487,7 @@
             <!-- Card 3 -->
             <div class="workshop-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="workshop-img"
-                    style="height: 300px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
+                    style="height: 220px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
                     <i class="fas fa-user" style="font-size: 4rem; color: #bdbdbd;"></i>
                 </div>
                 <div class="workshop-content" style="text-align: center;">
@@ -485,7 +499,7 @@
             <!-- Card 4 -->
             <div class="workshop-card" data-aos="fade-up" data-aos-delay="250">
                 <div class="workshop-img"
-                    style="height: 300px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
+                    style="height: 220px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
                     <i class="fas fa-user" style="font-size: 4rem; color: #bdbdbd;"></i>
                 </div>
                 <div class="workshop-content" style="text-align: center;">
@@ -504,7 +518,7 @@
             <!-- Card 1 -->
             <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="workshop-img"
-                    style="height: 300px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
+                    style="height: 220px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
                     <i class="fas fa-code" style="font-size: 4rem; color: #bdbdbd;"></i>
                 </div>
                 <div class="workshop-content" style="text-align: center;">
@@ -522,7 +536,7 @@
             <!-- Card 2 -->
             <div class="workshop-card" data-aos="fade-up" data-aos-delay="150">
                 <div class="workshop-img"
-                    style="height: 300px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
+                    style="height: 220px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
                     <i class="fas fa-code" style="font-size: 4rem; color: #bdbdbd;"></i>
                 </div>
                 <div class="workshop-content" style="text-align: center;">
@@ -540,7 +554,7 @@
             <!-- Card 3 -->
             <div class="workshop-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="workshop-img"
-                    style="height: 300px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
+                    style="height: 220px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
                     <i class="fas fa-code" style="font-size: 4rem; color: #bdbdbd;"></i>
                 </div>
                 <div class="workshop-content" style="text-align: center;">
@@ -558,7 +572,7 @@
             <!-- Card 4 -->
             <div class="workshop-card" data-aos="fade-up" data-aos-delay="250">
                 <div class="workshop-img"
-                    style="height: 300px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
+                    style="height: 220px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
                     <i class="fas fa-code" style="font-size: 4rem; color: #bdbdbd;"></i>
                 </div>
                 <div class="workshop-content" style="text-align: center;">
