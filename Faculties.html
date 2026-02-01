@@ -366,6 +366,26 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Footer Logo Styles */
+        .footer-logo-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .christ-logo {
+            height: 122px;
+            object-fit: contain;
+            opacity: 0.8;
+        }
+
+        @media (min-width: 768px) {
+            .christ-logo {
+                height: 122px;
+            }
+        }
     </style>
 </head>
 
@@ -541,6 +561,10 @@
                         <li>International Partners</li>
                     </ul>
                 </div>
+            </div>
+
+            <div class="footer-logo-wrapper">
+                <img src="CHRIST_LOGO1.png" alt="CHRIST Logo" class="christ-logo">
             </div>
 
             <div class="copyright">
