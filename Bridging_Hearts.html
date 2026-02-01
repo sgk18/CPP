@@ -112,6 +112,14 @@
             font-size: 24px;
             color: var(--primary);
             font-weight: bold;
+            overflow: hidden; /* Ensure image stays in circle */
+        }
+
+        .speaker-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         .speaker-card h4 {
@@ -363,7 +371,9 @@
                 <div class="speaker-grid" data-aos="fade-up" data-aos-delay="100">
                     <!-- Speaker 1 -->
                     <div class="speaker-card">
-                        <div class="speaker-avatar">PM</div>
+                        <div class="speaker-avatar">
+                            <img src="speaker_image.jpg" alt="Dr. Padmakumar MM">
+                        </div>
                         <h4>Dr. Padmakumar MM</h4>
                         <p>Department of Media Studies</p>
                         <p class="speaker-org">Christ University, BCC</p>
