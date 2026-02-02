@@ -27,11 +27,11 @@
 
         /* Hero Section */
         .event-hero {
-            background-image: linear-gradient(rgba(26, 95, 122, 0.85), rgba(42, 157, 143, 0.8)), url('hero_bg.png');
+            background-image: linear-gradient(rgba(26, 95, 122, 0.85), rgba(42, 157, 143, 0.8)), url('bridging_hearts_bg.jpg');
             background-size: cover;
             background-position: center;
             color: white;
-            padding: 120px 20px;
+            padding: 200px 20px;
             text-align: center;
             position: relative;
         }
@@ -112,6 +112,14 @@
             font-size: 24px;
             color: var(--primary);
             font-weight: bold;
+            overflow: hidden; /* Ensure image stays in circle */
+        }
+
+        .speaker-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         .speaker-card h4 {
@@ -132,13 +140,38 @@
             font-size: 0.85rem;
         }
 
-        /* Impact Section */
         .impact-section {
             background: var(--primary);
             color: white;
             padding: 60px 0;
             margin: 60px 0;
             text-align: center;
+        }
+
+        /* Gallery Styles */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
         }
 
         .impact-grid {
@@ -237,8 +270,8 @@
 <body>
 
     <!-- Header -->
-    <header>
-        <div class="header-container">
+    <header id="header">
+        <div class="container header-container">
             <a href="index.html" class="logo" target="_blank">
                 <div class="logo-img">
                     <img src="current_logo.png" alt="CPP Logo">
@@ -246,16 +279,27 @@
                 <div class="logo-text">Centre for <span>Peace Praxis</span></div>
             </a>
 
-            <button class="mobile-menu-btn" onclick="document.querySelector('nav').classList.toggle('active')">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
             </button>
 
-            <nav>
+            <nav id="mainNav">
                 <ul>
-                    <li><a href="index.html#home" target="_blank">Home</a></li>
+                    <li><a href="index.html#home" class="active" target="_blank">Home</a></li>
                     <li><a href="index.html#about" target="_blank">About</a></li>
-                    <li><a href="index.html#workshops" class="active" target="_blank">Events</a></li>
-                    <li><a href="gallery.html" target="_blank">Gallery</a></li>
+
+                    <li><a href="index.html#workshops" target="_blank">Workshops</a></li>
+                    <li><a href="index.html#volunteer" target="_blank">Volunteer</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Community <i class="fas fa-caret-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="Faculties.html">Faculties</a>
+                            <a href="students.html">Students</a>
+                            <a href="Alumni.html">Alumni</a>
+                        </div>
+                    </li>
+
                     <li><a href="index.html#contact" target="_blank">Contact</a></li>
                 </ul>
             </nav>
@@ -352,7 +396,9 @@
                 <div class="speaker-grid" data-aos="fade-up" data-aos-delay="100">
                     <!-- Speaker 1 -->
                     <div class="speaker-card">
-                        <div class="speaker-avatar">PM</div>
+                        <div class="speaker-avatar">
+                            <img src="speaker_image.jpg" alt="Dr. Padmakumar MM">
+                        </div>
                         <h4>Dr. Padmakumar MM</h4>
                         <p>Department of Media Studies</p>
                         <p class="speaker-org">Christ University, BCC</p>
@@ -394,8 +440,22 @@
         <!-- Gallery -->
         <div class="content-section" data-aos="fade-up">
             <h2 class="section-heading text-center">Event Gallery</h2>
-            <div class="report-image-container">
-                <img src="Bridging_hearts.png" alt="Bridging Hearts workshop session" class="report-image">
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="Bridging_hearts.png" alt="Bridging Hearts workshop session" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="bridging_hearts_gallery_1.jpg" alt="Bridging Hearts Activity 1" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="bridging_hearts_gallery_2.jpg" alt="Bridging Hearts Activity 2" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="bridging_hearts_gallery_3.jpg" alt="Bridging Hearts Activity 3" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="bridging_hearts_gallery_4.jpg" alt="Bridging Hearts Activity 4" loading="lazy">
+                </div>
             </div>
             <p class="text-center text-gray-500 italic mt-4">Bridging Hearts workshop session conducted at CHRIST
                 University</p>
