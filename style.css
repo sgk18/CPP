@@ -74,7 +74,7 @@ header.scrolled {
 .logo {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 25px;
   text-decoration: none;
 }
 
@@ -103,7 +103,7 @@ header.scrolled {
 
 .logo-text {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 42px;
+  font-size: 48px;
   font-weight: 700;
   color: var(--accent);
   /* "Demoniting" (Dominating) Colour */
@@ -1009,7 +1009,7 @@ section {
   }
 
   .logo-text {
-    font-size: 28px;
+    font-size: 32px;
   }
 
   /* Footer Logo Fix for Mobile */
@@ -1028,5 +1028,15 @@ section {
 @media (min-width: 768px) {
   .christ-logo {
     height: 122px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-text {
+    font-size: 26px;
+  }
+
+  .header-container {
+    padding: 15px 20px;
   }
 }
