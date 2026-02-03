@@ -89,13 +89,7 @@
             background: rgba(255, 255, 255, 0.95);
         }
 
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            transition: padding 0.3s ease;
-        }
+
 
         .logo {
             display: flex;
@@ -396,7 +390,7 @@
 
     <!-- Header & Navigation -->
     <header id="header">
-        <div class="container header-container">
+        <div class="header-container">
             <a href="index.html" class="logo" target="_blank">
                 <div class="logo-img">
                     <img src="current_logo.png" alt="CPP Logo">
@@ -705,22 +699,7 @@
             easing: 'ease-out-cubic',
         });
 
-        // Mobile menu functionality
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mainNav = document.getElementById('mainNav');
-        const header = document.getElementById('header');
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mainNav.classList.toggle('active');
-
-            if (mainNav.classList.contains('active')) {
-                mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
-                mobileMenuBtn.style.color = 'var(--dark)';
-            } else {
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                mobileMenuBtn.style.color = 'var(--primary)';
-            }
-        });
 
         // Sticky Header Effect
         window.addEventListener('scroll', () => {
@@ -730,6 +709,32 @@
                 header.classList.remove('scrolled');
             }
         });
+    </script>
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mainNav = document.querySelector('nav');
+
+        if (mobileMenuBtn && mainNav) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mainNav.classList.toggle('active');
+                if (mainNav.classList.contains('active')) {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+                    mobileMenuBtn.style.color = 'var(--dark)';
+                } else {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    mobileMenuBtn.style.color = 'var(--primary)';
+                }
+            });
+
+            // Close mobile menu when a link is clicked
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mainNav.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+        }
     </script>
 </body>
 
