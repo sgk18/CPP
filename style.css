@@ -67,7 +67,7 @@ header.scrolled {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 0;
+  padding: 15px 50px;
   transition: padding 0.3s ease;
 }
 
