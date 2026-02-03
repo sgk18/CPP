@@ -26,9 +26,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css">
 
     <style>
-        /* :root, body, nav, mobile menu styles removed - using style.css */
-
-        /* Hero Section */
+        /* Specific Page Overrides */
         .event-hero {
             background-image: linear-gradient(rgba(26, 95, 122, 0.85), rgba(42, 157, 143, 0.8)), url('sdg_week_bg.jpg');
             background-size: cover;
@@ -220,7 +218,6 @@
             border-radius: 0 10px 10px 0;
         }
 
-        /* Footer styles removed - using style.css */
         /* Mobile */
         @media(max-width: 768px) {
             .event-hero h1 {
@@ -470,6 +467,44 @@
             duration: 800,
             once: true,
             offset: 50
+        });
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        const header = document.getElementById('header');
+
+        if (mobileMenuBtn && mainNav) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mainNav.classList.toggle('active');
+
+                if (mainNav.classList.contains('active')) {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+                    mobileMenuBtn.style.color = 'var(--dark)';
+                } else {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    mobileMenuBtn.style.color = 'var(--primary)';
+                }
+            });
+
+            // Close mobile menu when a link is clicked
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mainNav.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+        }
+
+        // Sticky Header Effect
+        window.addEventListener('scroll', () => {
+            if (header) {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            }
         });
     </script>
 </body>
