@@ -1018,6 +1018,14 @@ section {
   }
 }
 
+/* Footer Logo Wrapper */
+.footer-logo-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
 /* Christ University Logo in Footer */
 .christ-logo {
   height: 122px;
