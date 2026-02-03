@@ -57,14 +57,7 @@
             z-index: 1000;
         }
 
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+
 
         /* Logo styles removed - using style.css */
 
@@ -352,7 +345,7 @@
 
     <!-- Header -->
     <header id="header">
-        <div class="container header-container">
+        <div class="header-container">
             <a href="index.html" class="logo" target="_blank">
                 <div class="logo-img">
                     <img src="current_logo.png" alt="CPP Logo">
@@ -626,6 +619,32 @@
             once: true,
             offset: 50
         });
+    </script>
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mainNav = document.querySelector('nav');
+
+        if (mobileMenuBtn && mainNav) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mainNav.classList.toggle('active');
+                if (mainNav.classList.contains('active')) {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+                    mobileMenuBtn.style.color = 'var(--dark)';
+                } else {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    mobileMenuBtn.style.color = 'var(--primary)';
+                }
+            });
+
+            // Close mobile menu when a link is clicked
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mainNav.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+        }
     </script>
 </body>
 
