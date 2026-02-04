@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Builder | Centre for Peace Praxis</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="admin.css">
+    <script src="auth.js"></script>
+    <script>
+        Auth.requireLogin();
+    </script>
+</head>
+
+<body>
+
+    <div class="builder-container">
+        <!-- LEFT PANEL: CONTROLS -->
+        <aside class="builder-sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <button id="back-btn" class="back-btn hidden"><i class="fas fa-arrow-left"></i></button>
+                    <span id="panel-title">Pages / Sections</span>
+                </div>
+                <!-- Optional: View Mode toggles could go here -->
+            </div>
+
+            <div id="sidebar-content" class="sidebar-content">
+                <!-- Dynamic Content Loaded Here (List or Editor) -->
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-info" style="font-size: 0.85rem; color: var(--text-secondary);">
+                    <i class="fas fa-user-circle"></i> Admin
+                </div>
+                <button id="saveBtn" class="save-btn">Save Changes</button>
+            </div>
+
+            <!-- Hidden logout for now, or add to footer -->
+            <div style="padding: 10px 20px; font-size: 0.8rem; text-align: center; border-top: 1px solid var(--border-dark); cursor: pointer; color: var(--danger);"
+                onclick="Auth.logout()">
+                Logout
+            </div>
+        </aside>
+
+        <!-- RIGHT PANEL: LIVE VIEW -->
+        <div class="builder-canvas">
+            <div class="device-frame">
+                <iframe id="site-frame" src="index.html"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Message Toast -->
+    <div id="statusMsg"
+        style="position: fixed; bottom: 20px; right: 20px; background: #0f9d58; color: white; padding: 12px 24px; border-radius: 4px; display: none; z-index: 100;">
+        Saved Successfully!
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+
+</html>
