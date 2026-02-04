@@ -105,7 +105,7 @@ header.scrolled {
   font-family: 'Cormorant Garamond', serif;
   font-size: 48px;
   font-weight: 700;
-  color: var(--accent);
+  color: var(--dark);
   /* "Demoniting" (Dominating) Colour */
   letter-spacing: 0px;
 }
