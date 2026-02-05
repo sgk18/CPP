@@ -52,9 +52,9 @@
         <div class="header-container">
             <a href="#home" class="logo" target="_blank">
                 <div class="logo-img">
-                    <img src="current_logo.png" alt="CPP Logo">
+                    <img src="current_logo.png" alt="CPP Logo" id="header-logo-img">
                 </div>
-                <div class="logo-text">Centre for <span>Peace Praxis</span></div>
+                <div class="logo-text" id="header-logo-text">Centre for <span>Peace Praxis</span></div>
             </a>
 
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -63,22 +63,22 @@
 
             <nav id="mainNav">
                 <ul>
-                    <li><a href="#home" class="active" target="_blank">Home</a></li>
-                    <li><a href="#about" target="_blank">About</a></li>
+                    <li><a href="#home" class="active" target="_blank" id="nav-home">Home</a></li>
+                    <li><a href="#about" target="_blank" id="nav-about">About</a></li>
 
-                    <li><a href="#workshops" target="_blank">Workshops</a></li>
-                    <li><a href="#volunteer" target="_blank">Volunteer</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="#workshops" target="_blank" id="nav-workshops">Workshops</a></li>
+                    <li><a href="#volunteer" target="_blank" id="nav-volunteer">Volunteer</a></li>
+                    <li><a href="gallery.html" id="nav-gallery">Gallery</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropbtn">Community <i class="fas fa-caret-down"></i></a>
+                        <a href="#" class="dropbtn" id="nav-community">Community <i class="fas fa-caret-down"></i></a>
                         <div class="dropdown-content">
-                            <a href="Faculties.html">Faculties</a>
-                            <a href="students.html">Students</a>
-                            <a href="Alumni.html">Alumni</a>
+                            <a href="Faculties.html" id="nav-faculties">Faculties</a>
+                            <a href="students.html" id="nav-students">Students</a>
+                            <a href="Alumni.html" id="nav-alumni">Alumni</a>
                         </div>
                     </li>
 
-                    <li><a href="#contact" target="_blank">Contact</a></li>
+                    <li><a href="#contact" target="_blank" id="nav-contact">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -92,9 +92,10 @@
                 well-being since
                 2023.</p>
             <div class="hero-buttons">
-                <a href="#volunteer" target="_blank" class="cta-button">Join Our
+                <a href="#volunteer" target="_blank" class="cta-button" id="hero-btn-primary">Join Our
                     Mission</a>
-                <a href="#workshops" class="cta-button secondary" target="_blank">View Workshops</a>
+                <a href="#workshops" class="cta-button secondary" target="_blank" id="hero-btn-secondary">View
+                    Workshops</a>
             </div>
         </div>
         <a href="#why" class="scroll-down" target="_blank">
@@ -117,8 +118,9 @@
                     <div class="feature-icon">
                         <i class="fas fa-hands-helping"></i>
                     </div>
-                    <h3>Make a Real Difference!</h3>
-                    <p>Contribute to meaningful peacebuilding initiatives that create lasting impact locally and
+                    <h3 id="feature-1-title">Make a Real Difference!</h3>
+                    <p id="feature-1-desc">Contribute to meaningful peacebuilding initiatives that create lasting impact
+                        locally and
                         globally.</p>
                 </div>
 
@@ -126,16 +128,18 @@
                     <div class="feature-icon">
                         <i class="fas fa-user-graduate"></i>
                     </div>
-                    <h3>Build Capacity!</h3>
-                    <p>Develop essential skills in communication, teamwork, creativity, and conflict resolution.</p>
+                    <h3 id="feature-2-title">Build Capacity!</h3>
+                    <p id="feature-2-desc">Develop essential skills in communication, teamwork, creativity, and conflict
+                        resolution.</p>
                 </div>
 
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="feature-icon">
                         <i class="fas fa-laugh-beam"></i>
                     </div>
-                    <h3>Have Fun!</h3>
-                    <p>Connect with like-minded people, work on creative projects, and be part of a vibrant community.
+                    <h3 id="feature-3-title">Have Fun!</h3>
+                    <p id="feature-3-desc">Connect with like-minded people, work on creative projects, and be part of a
+                        vibrant community.
                     </p>
                 </div>
             </div>
@@ -147,20 +151,20 @@
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-item" data-aos="zoom-in">
-                    <h3>20+</h3>
-                    <p>Workshops Conducted</p>
+                    <h3 id="stat-1-number">20+</h3>
+                    <p id="stat-1-label">Workshops Conducted</p>
                 </div>
                 <div class="stat-item" data-aos="zoom-in" data-aos-delay="100">
-                    <h3>1000+</h3>
-                    <p>Participants</p>
+                    <h3 id="stat-2-number">1000+</h3>
+                    <p id="stat-2-label">Participants</p>
                 </div>
                 <div class="stat-item" data-aos="zoom-in" data-aos-delay="200">
-                    <h3>15+</h3>
-                    <p>Partner Organizations</p>
+                    <h3 id="stat-3-number">15+</h3>
+                    <p id="stat-3-label">Partner Organizations</p>
                 </div>
                 <div class="stat-item" data-aos="zoom-in" data-aos-delay="300">
-                    <h3>4</h3>
-                    <p>Core Pillars</p>
+                    <h3 id="stat-4-number">4</h3>
+                    <p id="stat-4-label">Core Pillars</p>
                 </div>
             </div>
         </div>
@@ -187,7 +191,8 @@
                         Dialogue, and
                         Ecological Wellbeing—we create environments where diversity is embraced as a strength.</p>
                     <a href="#volunteer" class="workshop-btn" target="_blank"
-                        style="justify-content: flex-start; border:none; padding-left:0; font-size:1.1rem;">Read Our
+                        style="justify-content: flex-start; border:none; padding-left:0; font-size:1.1rem;"
+                        id="about-link">Read Our
                         Full Story <i class="fas fa-arrow-right"></i></a>
                 </div>
 
@@ -210,8 +215,9 @@
                 <div class="pillar-item" data-aos="fade-up" data-aos-delay="100">
                     <div class="pillar-icon"><i class="fas fa-globe-americas"></i></div>
                     <div>
-                        <h3>Intercultural Dialogue</h3>
-                        <p>Fostering understanding and respect across diverse cultures, beliefs, and backgrounds through
+                        <h3 id="pillar-1-title">Intercultural Dialogue</h3>
+                        <p id="pillar-1-desc">Fostering understanding and respect across diverse cultures, beliefs, and
+                            backgrounds through
                             open conversations.</p>
                     </div>
                 </div>
@@ -219,8 +225,9 @@
                 <div class="pillar-item" data-aos="fade-up" data-aos-delay="200">
                     <div class="pillar-icon"><i class="fas fa-heart"></i></div>
                     <div>
-                        <h3>Psycho-social Well-being</h3>
-                        <p>Supporting mental and emotional health through community-based approaches to healing and
+                        <h3 id="pillar-2-title">Psycho-social Well-being</h3>
+                        <p id="pillar-2-desc">Supporting mental and emotional health through community-based approaches
+                            to healing and
                             resilience.</p>
                     </div>
                 </div>
@@ -228,8 +235,9 @@
                 <div class="pillar-item" data-aos="fade-up" data-aos-delay="300">
                     <div class="pillar-icon"><i class="fas fa-newspaper"></i></div>
                     <div>
-                        <h3>Media Literacy</h3>
-                        <p>Developing critical thinking skills to navigate today's complex media landscape and counter
+                        <h3 id="pillar-3-title">Media Literacy</h3>
+                        <p id="pillar-3-desc">Developing critical thinking skills to navigate today's complex media
+                            landscape and counter
                             misinformation.</p>
                     </div>
                 </div>
@@ -237,8 +245,9 @@
                 <div class="pillar-item" data-aos="fade-up" data-aos-delay="400">
                     <div class="pillar-icon"><i class="fas fa-leaf"></i></div>
                     <div>
-                        <h3>Eco-consciousness</h3>
-                        <p>Promoting environmental awareness and sustainable practices as integral components of peace.
+                        <h3 id="pillar-4-title">Eco-consciousness</h3>
+                        <p id="pillar-4-desc">Promoting environmental awareness and sustainable practices as integral
+                            components of peace.
                         </p>
                     </div>
                 </div>
@@ -258,14 +267,15 @@
                 <!-- Event 1 -->
                 <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="workshop-img">
-                        <span class="badge" style="background: var(--primary);">20 Feb 2026</span>
-                        <img src="peaceaxis_image11.jpg" alt="Inter-Religious Visit" loading="lazy">
+                        <span class="badge" style="background: var(--primary);" id="upcoming-1-date">20 Feb 2026</span>
+                        <img src="peaceaxis_image11.jpg" alt="Inter-Religious Visit" loading="lazy" id="upcoming-1-img">
                     </div>
                     <div class="workshop-content">
-                        <h4>Inter-Religious Visit</h4>
-                        <p>A one-day visit to multiple religious institutions including Gurudwara, Mahabodhi, and
+                        <h4 id="upcoming-1-title">Inter-Religious Visit</h4>
+                        <p id="upcoming-1-desc">A one-day visit to multiple religious institutions including Gurudwara,
+                            Mahabodhi, and
                             Dharmaram. Participation from students and faculty.</p>
-                        <a href="#" class="workshop-btn" target="_blank">Register Now <i
+                        <a href="#" class="workshop-btn" target="_blank" id="upcoming-1-link">Register Now <i
                                 class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
@@ -273,14 +283,15 @@
                 <!-- Event 2 -->
                 <div class="workshop-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="workshop-img">
-                        <span class="badge" style="background: var(--primary);">24 Feb 2026</span>
-                        <img src="peaceaxis_image9.jpg" alt="Film Festival" loading="lazy">
+                        <span class="badge" style="background: var(--primary);" id="upcoming-2-date">24 Feb 2026</span>
+                        <img src="peaceaxis_image9.jpg" alt="Film Festival" loading="lazy" id="upcoming-2-img">
                     </div>
                     <div class="workshop-content">
-                        <h4>Film Festival & Panel Discussion</h4>
-                        <p>A one-day film screening followed by a panel discussion, scheduled for 24th February 2026.
+                        <h4 id="upcoming-2-title">Film Festival & Panel Discussion</h4>
+                        <p id="upcoming-2-desc">A one-day film screening followed by a panel discussion, scheduled for
+                            24th February 2026.
                         </p>
-                        <a href="#" class="workshop-btn" target="_blank">Register Now <i
+                        <a href="#" class="workshop-btn" target="_blank" id="upcoming-2-link">Register Now <i
                                 class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
@@ -288,14 +299,15 @@
                 <!-- Event 3 -->
                 <div class="workshop-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="workshop-img">
-                        <span class="badge" style="background: var(--primary);">19 Feb 2026</span>
-                        <img src="peaceaxis_image12.jpg" alt="Well-being Workshop" loading="lazy">
+                        <span class="badge" style="background: var(--primary);" id="upcoming-3-date">19 Feb 2026</span>
+                        <img src="peaceaxis_image12.jpg" alt="Well-being Workshop" loading="lazy" id="upcoming-3-img">
                     </div>
                     <div class="workshop-content">
-                        <h4>Psychosocial Well-being Workshop</h4>
-                        <p>A 3-hour workshop on “Resilience and Recovery” with e-certificates and student coordinators
+                        <h4 id="upcoming-3-title">Psychosocial Well-being Workshop</h4>
+                        <p id="upcoming-3-desc">A 3-hour workshop on “Resilience and Recovery” with e-certificates and
+                            student coordinators
                             from each campus.</p>
-                        <a href="#" class="workshop-btn" target="_blank">Register Now <i
+                        <a href="#" class="workshop-btn" target="_blank" id="upcoming-3-link">Register Now <i
                                 class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
@@ -303,14 +315,15 @@
                 <!-- Event 4 -->
                 <div class="workshop-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="workshop-img">
-                        <span class="badge" style="background: var(--primary);">SDG Week</span>
-                        <img src="peaceaxis_image6.jpg" alt="SDG Week" loading="lazy">
+                        <span class="badge" style="background: var(--primary);" id="upcoming-4-date">SDG Week</span>
+                        <img src="peaceaxis_image6.jpg" alt="SDG Week" loading="lazy" id="upcoming-4-img">
                     </div>
                     <div class="workshop-content">
-                        <h4>SDG Week – NGO Stalls</h4>
-                        <p>NGO stalls to be set up during SDG Week in the second week of February 2026 to promote
+                        <h4 id="upcoming-4-title">SDG Week – NGO Stalls</h4>
+                        <p id="upcoming-4-desc">NGO stalls to be set up during SDG Week in the second week of February
+                            2026 to promote
                             sustainable development goals.</p>
-                        <a href="#" class="workshop-btn" target="_blank">Register Now <i
+                        <a href="#" class="workshop-btn" target="_blank" id="upcoming-4-link">Register Now <i
                                 class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
@@ -318,14 +331,16 @@
                 <!-- Event 5 -->
                 <div class="workshop-card" data-aos="fade-up" data-aos-delay="500">
                     <div class="workshop-img">
-                        <span class="badge" style="background: var(--primary);">May 2026</span>
-                        <img src="volunteer_philippines.jpg" alt="Volunteer in Philippines" loading="lazy">
+                        <span class="badge" style="background: var(--primary);" id="upcoming-5-date">May 2026</span>
+                        <img src="volunteer_philippines.jpg" alt="Volunteer in Philippines" loading="lazy"
+                            id="upcoming-5-img">
                     </div>
                     <div class="workshop-content">
-                        <h4>Volunteer in Philippines</h4>
-                        <p>International volunteering opportunity from May 12-31, 2026 at Mindanao Peacebuilding
+                        <h4 id="upcoming-5-title">Volunteer in Philippines</h4>
+                        <p id="upcoming-5-desc">International volunteering opportunity from May 12-31, 2026 at Mindanao
+                            Peacebuilding
                             Institute.</p>
-                        <a href="#" class="workshop-btn" target="_blank">Register Now <i
+                        <a href="#" class="workshop-btn" target="_blank" id="upcoming-5-link">Register Now <i
                                 class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
@@ -346,46 +361,51 @@
                 <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="workshop-img">
                         <span class="badge">New</span>
-                        <img src="changing_rains_poster.jpg" alt="Changing Rains" loading="lazy">
+                        <img src="changing_rains_poster.jpg" alt="Changing Rains" loading="lazy" id="workshop-1-img">
                     </div>
                     <div class="workshop-content">
-                        <h4>Changing Rains</h4>
-                        <p>An interdisciplinary academic event that examined shifting rainfall patterns and their
+                        <h4 id="workshop-1-title">Changing Rains</h4>
+                        <p id="workshop-1-desc">An interdisciplinary academic event that examined shifting rainfall
+                            patterns and their
                             impacts on Southwestern India, featuring experts discussing climate prediction and urban
                             vulnerability.</p>
-                        <a href="Changing_rains.html" class="workshop-btn" target="_blank">View Workshop Details <i
-                                class="fas fa-arrow-right"></i></a>
+                        <a href="Changing_rains.html" class="workshop-btn" target="_blank" id="workshop-1-link">View
+                            Workshop Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <!-- Card 1 -->
                 <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="workshop-img">
                         <span class="badge">Popular</span>
-                        <img src="Bridging_Hearts_poster.jpeg" alt="Foundations of Peace" loading="lazy">
+                        <img src="Bridging_Hearts_poster.jpeg" alt="Foundations of Peace" loading="lazy"
+                            id="workshop-2-img">
                     </div>
                     <div class="workshop-content">
-                        <h4>Bridging Hearts</h4>
-                        <p>The Bridging Hearts workshop engaged students in interactive activities and dialogue to
+                        <h4 id="workshop-2-title">Bridging Hearts</h4>
+                        <p id="workshop-2-desc">The Bridging Hearts workshop engaged students in interactive activities
+                            and dialogue to
                             explore the emotional, social, and structural dimensions of peace, fostering empathy,
                             critical thinking, and youth leadership in peacebuilding.</p>
-                        <a href="Bridging_Hearts.html" class="workshop-btn" target="_blank">View Workshop Details <i
-                                class="fas fa-arrow-right"></i></a>
+                        <a href="Bridging_Hearts.html" class="workshop-btn" target="_blank" id="workshop-2-link">View
+                            Workshop Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
 
                 <!-- Card 2 -->
                 <div class="workshop-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="workshop-img">
-                        <img src="gallery_img_4.jpg" alt="Forgiveness Across Faiths" loading="lazy">
+                        <img src="gallery_img_4.jpg" alt="Forgiveness Across Faiths" loading="lazy" id="workshop-3-img">
                     </div>
                     <div class="workshop-content">
-                        <h4>Dares you to be different</h4>
-                        <p>The panel discussion ‘Not Less, Different’ brought together voices from media, academia, and
+                        <h4 id="workshop-3-title">Dares you to be different</h4>
+                        <p id="workshop-3-desc">The panel discussion ‘Not Less, Different’ brought together voices from
+                            media, academia, and
                             student experience to discuss disability, inclusion, and accessibility. The session
                             highlighted inclusive language, lived experiences, and the responsibility of institutions
                             and media in creating an empathetic and inclusive society.
                         </p>
-                        <a href="Dares_you_to_be_different.html" class="workshop-btn" target="_blank">View Workshop
+                        <a href="Dares_you_to_be_different.html" class="workshop-btn" target="_blank"
+                            id="workshop-3-link">View Workshop
                             Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
@@ -393,14 +413,15 @@
                 <!-- Card 3 -->
                 <div class="workshop-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="workshop-img">
-                        <img src="hero_bg_new.jpg" alt="Orientation Workshop" loading="lazy">
+                        <img src="hero_bg_new.jpg" alt="Orientation Workshop" loading="lazy" id="workshop-4-img">
                     </div>
                     <div class="workshop-content">
-                        <h4>Orientation Workshop</h4>
-                        <p>Introducing Peace Practices to new students. The session explored how peacebuilding extends
+                        <h4 id="workshop-4-title">Orientation Workshop</h4>
+                        <p id="workshop-4-desc">Introducing Peace Practices to new students. The session explored how
+                            peacebuilding extends
                             beyond conflict resolution to include personal, social, and ecological well-being.</p>
-                        <a href="Oreintation.html" class="workshop-btn" target="_blank">View Workshop Details <i
-                                class="fas fa-arrow-right"></i></a>
+                        <a href="Oreintation.html" class="workshop-btn" target="_blank" id="workshop-4-link">View
+                            Workshop Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
 
@@ -408,43 +429,46 @@
                 <div class="workshop-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="workshop-img">
                         <span class="badge">New</span>
-                        <img src="role_of_religous.jpeg" alt="role of religious" loading="lazy">
+                        <img src="role_of_religous.jpeg" alt="role of religious" loading="lazy" id="workshop-5-img">
                     </div>
                     <div class="workshop-content">
-                        <h4>Role of Religious</h4>
-                        <p>The guest lecture on the role of religious leaders in climate action explored how faith-based
+                        <h4 id="workshop-5-title">Role of Religious</h4>
+                        <p id="workshop-5-desc">The guest lecture on the role of religious leaders in climate action
+                            explored how faith-based
                             values of stewardship and compassion can inspire ethical responsibility, interfaith
                             collaboration, and community-driven environmental sustainability.</p>
-                        <a href="role_of_religous.html" class="workshop-btn" target="_blank">View Workshop Details <i
-                                class="fas fa-arrow-right"></i></a>
+                        <a href="role_of_religous.html" class="workshop-btn" target="_blank" id="workshop-5-link">View
+                            Workshop Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
 
                 <!-- Card 5 -->
                 <div class="workshop-card" data-aos="fade-up" data-aos-delay="500">
                     <div class="workshop-img">
-                        <img src="Poster.jpeg" alt="sdg week" loading="lazy">
+                        <img src="Poster.jpeg" alt="sdg week" loading="lazy" id="workshop-6-img">
                     </div>
                     <div class="workshop-content">
-                        <h4>SDG Week</h4>
-                        <p>The two-day SDG Week activity engaged participants in discussions on co-existence and urban
+                        <h4 id="workshop-6-title">SDG Week</h4>
+                        <p id="workshop-6-desc">The two-day SDG Week activity engaged participants in discussions on
+                            co-existence and urban
                             biodiversity, highlighting the impact of human encroachment on ecosystems and the need for
                             sustainable conservation practices.</p>
-                        <a href="SDG_week.html" class="workshop-btn" target="_blank">View Workshop Details <i
-                                class="fas fa-arrow-right"></i></a>
+                        <a href="SDG_week.html" class="workshop-btn" target="_blank" id="workshop-6-link">View Workshop
+                            Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="workshop-card" data-aos="fade-up" data-aos-delay="600">
                     <div class="workshop-img">
-                        <img src="story_wheel_poster.jpg" alt="story wheel" loading="lazy">
+                        <img src="story_wheel_poster.jpg" alt="story wheel" loading="lazy" id="workshop-7-img">
                     </div>
                     <div class="workshop-content">
-                        <h4>STORY WHEEL</h4>
-                        <p>A participatory storytelling process that brings communities together to share experiences,
+                        <h4 id="workshop-7-title">STORY WHEEL</h4>
+                        <p id="workshop-7-desc">A participatory storytelling process that brings communities together to
+                            share experiences,
                             build empathy, and explore pathways to peace through dialogue.
                         </p>
-                        <a href="Story_Wheel.html" class="workshop-btn" target="_blank">View Workshop Details <i
-                                class="fas fa-arrow-right"></i></a>
+                        <a href="Story_Wheel.html" class="workshop-btn" target="_blank" id="workshop-7-link">View
+                            Workshop Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -464,42 +488,41 @@
                     your skills—communication, teamwork, creativity—while connecting with an awesome network.</p>
 
                 <div class="quote">
-                    <p>“Peace is hard-earned, intentional, and sustained through listening, inclusion, and hope.”</p>
+                    <p id="volunteer-quote">“Peace is hard-earned, intentional, and sustained through listening,
+                        inclusion, and hope.”</p>
                     <div class="team-member">
                         <div class="team-avatar">
-                            <img src="peaceaxis_image5.jpg" alt="Dr. Padmakumar MM" loading="lazy">
+                            <img src="peaceaxis_image5.jpg" alt="Dr. Padmakumar MM" loading="lazy" id="member-1-img">
                         </div>
                         <div class="team-info">
-                            <h4>Dr. Padmakumar MM</h4>
-                            <p>Director, Centre for Peace Praxis</p>
-                            <a href="Directors_note.html" class="read-more-link" target="_blank">Read More <i
-                                    class="fas fa-arrow-right"></i></a>
+                            <h4 id="member-1-name">Dr. Padmakumar MM</h4>
+                            <p id="member-1-role">Director, Centre for Peace Praxis</p>
+                            <a href="Directors_note.html" class="read-more-link" target="_blank" id="member-1-link">Read
+                                More <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                     <div class="team-member">
                         <div class="team-avatar">
-                            <img src="Ravi ranjan.jpeg" alt="Ravi Ranjan" loading="lazy">
+                            <img src="Ravi ranjan.jpeg" alt="Ravi Ranjan" loading="lazy" id="member-2-img">
                         </div>
                         <div class="team-info">
-                            <h4 style="margin-top: 10px;">RAVI RANJAN SHARMA</h4>
-                            <p style="font-size: 0.9rem; color: var(--gray);">Student Coordinator, Centre for Peace
+                            <h4 style="margin-top: 10px;" id="member-2-name">RAVI RANJAN SHARMA</h4>
+                            <p style="font-size: 0.9rem; color: var(--gray);" id="member-2-role">Student Coordinator,
+                                Centre for Peace
                                 Praxis</p>
-                            <p class="text-sm italic mt-1" style="font-size: 0.85rem; color: var(--accent);">"Driven by
+                            <p class="text-sm italic mt-1" style="font-size: 0.85rem; color: var(--accent);"
+                                id="member-2-quote">"Driven by
                                 the idea that meaningful conversations can create lasting peace"</p>
                         </div>
                     </div>
                 </div>
 
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLScmjweCQfwquN_aHSy9Tz_DkvodQwyqULN-3AQ19-SfWxP2Lw/viewform?usp=sf_link"
-                    target="_blank" class="cta-button">Become a
+                    target="_blank" class="cta-button" id="volunteer-cta">Become a
                     Volunteer</a>
             </div>
         </div>
     </section>
-
-
-
-
 
     <!-- Footer -->
     <footer id="contact">
@@ -507,24 +530,25 @@
             <div class="footer-content">
                 <div class="footer-logo">
                     <div class="logo-text">Centre for <span>Peace Praxis</span></div>
-                    <p>Building communities of hope, healing, and resilience through peace literacy and intercultural
+                    <p id="footer-desc">Building communities of hope, healing, and resilience through peace literacy and
+                        intercultural
                         dialogue.</p>
                     <div class="social-links">
                         <a href="https://www.instagram.com/centreforpeacepraxis?igsh=MXdqNnhoMzM5eWZ4dQ=="
-                            target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.linkedin.com/company/centre-for-peace-praxis/" target="_blank"><i
-                                class="fab fa-linkedin-in"></i></a>
+                            target="_blank" id="footer-instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/centre-for-peace-praxis/" target="_blank"
+                            id="footer-linkedin"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
 
                 <div class="footer-column">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="#home" target="_blank">Home</a></li>
-                        <li><a href="#about" target="_blank">About Us</a></li>
-                        <li><a href="#pillars" target="_blank">Our Pillars</a></li>
-                        <li><a href="#workshops" target="_blank">Workshops</a></li>
-                        <li><a href="#volunteer" target="_blank">Volunteer</a></li>
+                        <li><a href="#home" target="_blank" id="footer-link-1">Home</a></li>
+                        <li><a href="#about" target="_blank" id="footer-link-2">About Us</a></li>
+                        <li><a href="#pillars" target="_blank" id="footer-link-3">Our Pillars</a></li>
+                        <li><a href="#workshops" target="_blank" id="footer-link-4">Workshops</a></li>
+                        <li><a href="#volunteer" target="_blank" id="footer-link-5">Volunteer</a></li>
                     </ul>
                 </div>
 
@@ -532,11 +556,11 @@
                     <h3>Contact Info</h3>
                     <ul>
                         <li><i class="fas fa-map-marker-alt"></i><a href="https://www.christuniversity.in/"
-                                target="_blank"> CHRIST
+                                target="_blank" id="footer-address"> CHRIST
                                 University</a></li>
-                        <li><i class="fas fa-phone"></i> 080 4012 9361</li>
+                        <li><i class="fas fa-phone"></i> <span id="footer-phone">080 4012 9361</span></li>
                         <li><i class="fas fa-envelope"></i><a href="mailto:peace.praxis@christuniversity.in"
-                                target="_blank">peace.praxis@christuniversity.in</a></li>
+                                target="_blank" id="footer-email">peace.praxis@christuniversity.in</a></li>
                     </ul>
                 </div>
 

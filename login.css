@@ -132,6 +132,24 @@ body::after {
     color: var(--text-secondary);
     font-size: 1rem;
     transition: color 0.3s;
+    pointer-events: none;
+    /* Ensure icon doesn't block input */
+}
+
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.3s;
+    z-index: 10;
+}
+
+.password-toggle:hover {
+    color: var(--primary);
 }
 
 .form-control {

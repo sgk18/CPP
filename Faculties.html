@@ -157,9 +157,9 @@
         <div class="header-container">
             <a href="index.html" class="logo" target="_blank">
                 <div class="logo-img">
-                    <img src="current_logo.png" alt="CPP Logo">
+                    <img src="current_logo.png" alt="CPP Logo" id="header-logo-img">
                 </div>
-                <div class="logo-text">Centre for <span>Peace Praxis</span></div>
+                <div class="logo-text" id="header-logo-text">Centre for <span>Peace Praxis</span></div>
             </a>
 
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -168,22 +168,22 @@
 
             <nav id="mainNav">
                 <ul>
-                    <li><a href="index.html#home" target="_blank">Home</a></li>
-                    <li><a href="index.html#about" target="_blank">About</a></li>
+                    <li><a href="index.html#home" target="_blank" id="nav-home">Home</a></li>
+                    <li><a href="index.html#about" target="_blank" id="nav-about">About</a></li>
 
-                    <li><a href="index.html#workshops" target="_blank">Workshops</a></li>
-                    <li><a href="index.html#volunteer" target="_blank">Volunteer</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="index.html#workshops" target="_blank" id="nav-workshops">Workshops</a></li>
+                    <li><a href="index.html#volunteer" target="_blank" id="nav-volunteer">Volunteer</a></li>
+                    <li><a href="gallery.html" id="nav-gallery">Gallery</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropbtn">Community <i class="fas fa-caret-down"></i></a>
+                        <a href="#" class="dropbtn" id="nav-community">Community <i class="fas fa-caret-down"></i></a>
                         <div class="dropdown-content">
-                            <a href="Faculties.html">Faculties</a>
-                            <a href="students.html">Students</a>
-                            <a href="Alumni.html">Alumni</a>
+                            <a href="Faculties.html" id="nav-faculties">Faculties</a>
+                            <a href="students.html" id="nav-students">Students</a>
+                            <a href="Alumni.html" id="nav-alumni">Alumni</a>
                         </div>
                     </li>
 
-                    <li><a href="index.html#contact" target="_blank">Contact</a></li>
+                    <li><a href="index.html#contact" target="_blank" id="nav-contact">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -206,16 +206,19 @@
             <div class="workshop-card" data-aos="fade-up">
                 <div class="workshop-img" style="height: 350px;">
                     <a href="https://christuniversity.in/psychology/faculty-details/NzAyNA==/ODAx" target="_blank"
-                        style="display: block; width: 100%; height: 100%;">
+                        style="display: block; width: 100%; height: 100%;" id="faculty-1-link">
                         <img src="dr_abilash_k.jpg" alt="Dr. Abilash K" loading="lazy"
-                            style="object-position: top center;">
+                            style="object-position: top center;" id="faculty-1-img">
                     </a>
                 </div>
                 <div class="workshop-content" style="text-align: center;">
-                    <h4 style="margin-bottom: 5px;">Dr. Abilash K</h4>
-                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;">Assistant Professor</p>
-                    <p style="margin-bottom: 5px; font-size: 0.9rem;">School of Psychological Sciences</p>
-                    <p style="margin-bottom: 0px; font-size: 0.9rem; color: var(--gray);">Bangalore Yeshwanthpur Campus
+                    <h4 style="margin-bottom: 5px;" id="faculty-1-name">Dr. Abilash K</h4>
+                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;" id="faculty-1-role">Assistant
+                        Professor</p>
+                    <p style="margin-bottom: 5px; font-size: 0.9rem;" id="faculty-1-dept">School of Psychological
+                        Sciences</p>
+                    <p style="margin-bottom: 0px; font-size: 0.9rem; color: var(--gray);" id="faculty-1-campus">
+                        Bangalore Yeshwanthpur Campus
                     </p>
                 </div>
             </div>
@@ -224,18 +227,21 @@
             <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="workshop-img" style="height: 350px;">
                     <a href="https://christuniversity.in/dept/faculty-details/NzA2MQ==/ODA1" target="_blank"
-                        style="display: block; width: 100%; height: 100%;">
+                        style="display: block; width: 100%; height: 100%;" id="faculty-2-link">
                         <img src="dr_priya_vinod.jpg" alt="Dr Priya Vinod" loading="lazy"
-                            style="object-position: top center;">
+                            style="object-position: top center;" id="faculty-2-img">
                     </a>
                 </div>
                 <div class="workshop-content" style="text-align: center;">
-                    <h4 style="margin-bottom: 5px;">Dr Priya Vinod</h4>
-                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600; line-height: 1.3;">Associate
+                    <h4 style="margin-bottom: 5px;" id="faculty-2-name">Dr Priya Vinod</h4>
+                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600; line-height: 1.3;"
+                        id="faculty-2-role">Associate
                         Professor & Program Coordinator<br><span style="font-size: 0.85em; font-weight: normal;">BBA
                             Finance and Marketing Analytics</span></p>
-                    <p style="margin-bottom: 5px; font-size: 0.9rem;">School of Business and Management</p>
-                    <p style="margin-bottom: 0px; font-size: 0.9rem; color: var(--gray);">Christ University</p>
+                    <p style="margin-bottom: 5px; font-size: 0.9rem;" id="faculty-2-dept">School of Business and
+                        Management</p>
+                    <p style="margin-bottom: 0px; font-size: 0.9rem; color: var(--gray);" id="faculty-2-campus">Christ
+                        University</p>
                 </div>
             </div>
 
@@ -243,16 +249,18 @@
             <div class="workshop-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="workshop-img" style="height: 350px;">
                     <a href="https://christuniversity.in/dept/faculty-details/MTcx/NTk=" target="_blank"
-                        style="display: block; width: 100%; height: 100%;">
+                        style="display: block; width: 100%; height: 100%;" id="faculty-3-link">
                         <img src="dr_padmakumar_mm.jpg" alt="Dr. Padmakumar MM" loading="lazy"
-                            style="object-position: top center;">
+                            style="object-position: top center;" id="faculty-3-img">
                     </a>
                 </div>
                 <div class="workshop-content" style="text-align: center;">
-                    <h4 style="margin-bottom: 5px;">Dr. Padmakumar MM</h4>
-                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;">Associate Professor</p>
-                    <p style="margin-bottom: 5px; font-size: 0.9rem;">Media Studies</p>
-                    <p style="margin-bottom: 0px; font-size: 0.9rem; color: var(--gray);">Bangalore Campus</p>
+                    <h4 style="margin-bottom: 5px;" id="faculty-3-name">Dr. Padmakumar MM</h4>
+                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;" id="faculty-3-role">Associate
+                        Professor</p>
+                    <p style="margin-bottom: 5px; font-size: 0.9rem;" id="faculty-3-dept">Media Studies</p>
+                    <p style="margin-bottom: 0px; font-size: 0.9rem; color: var(--gray);" id="faculty-3-campus">
+                        Bangalore Campus</p>
                 </div>
             </div>
 
@@ -260,16 +268,18 @@
             <div class="workshop-card" data-aos="fade-up" data-aos-delay="300">
                 <div class="workshop-img" style="height: 350px;">
                     <a href="https://christuniversity.in/dept/faculty-details/MTk2/NjI=" target="_blank"
-                        style="display: block; width: 100%; height: 100%;">
+                        style="display: block; width: 100%; height: 100%;" id="faculty-4-link">
                         <img src="https://ui-avatars.com/api/?name=Dr+Rohini+V&background=random&color=fff&size=512"
-                            alt="Dr. Rohini V" loading="lazy" style="object-position: top center;">
+                            alt="Dr. Rohini V" loading="lazy" style="object-position: top center;" id="faculty-4-img">
                     </a>
                 </div>
                 <div class="workshop-content" style="text-align: center;">
-                    <h4 style="margin-bottom: 5px;">Dr. Rohini V</h4>
-                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;">Professor</p>
-                    <p style="margin-bottom: 5px; font-size: 0.9rem;">Computer Science</p>
-                    <p style="margin-bottom: 0px; font-size: 0.9rem; color: var(--gray);">Bangalore Campus</p>
+                    <h4 style="margin-bottom: 5px;" id="faculty-4-name">Dr. Rohini V</h4>
+                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;" id="faculty-4-role">Professor
+                    </p>
+                    <p style="margin-bottom: 5px; font-size: 0.9rem;" id="faculty-4-dept">Computer Science</p>
+                    <p style="margin-bottom: 0px; font-size: 0.9rem; color: var(--gray);" id="faculty-4-campus">
+                        Bangalore Campus</p>
                 </div>
             </div>
 
@@ -296,11 +306,11 @@
                 <div class="footer-column">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="index.html" target="_blank">Home</a></li>
-                        <li><a href="index.html#about" target="_blank">About Us</a></li>
-                        <li><a href="index.html#pillars" target="_blank">Our Pillars</a></li>
-                        <li><a href="index.html#workshops" target="_blank">Workshops</a></li>
-                        <li><a href="index.html#volunteer" target="_blank">Volunteer</a></li>
+                        <li><a href="index.html" target="_blank" id="footer-link-1">Home</a></li>
+                        <li><a href="index.html#about" target="_blank" id="footer-link-2">About Us</a></li>
+                        <li><a href="index.html#pillars" target="_blank" id="footer-link-3">Our Pillars</a></li>
+                        <li><a href="index.html#workshops" target="_blank" id="footer-link-4">Workshops</a></li>
+                        <li><a href="index.html#volunteer" target="_blank" id="footer-link-5">Volunteer</a></li>
                     </ul>
                 </div>
 
