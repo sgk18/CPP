@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="admin.css">
     <script src="auth.js"></script>
     <script>
+        // Hosting-safe: Immediately check session before rendering
+        // Redirects to login.html if not authenticated
         Auth.requireLogin();
     </script>
 </head>
