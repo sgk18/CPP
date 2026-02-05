@@ -9,11 +9,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="admin.css">
-    <script src="auth.js"></script>
-    <script>
-        // Hosting-safe: Immediately check session before rendering
-        // Redirects to login.html if not authenticated
-        Auth.requireLogin();
+    <!-- Auth Logic -->
+    <script type="module">
+        import { Auth } from './auth.js';
+
+        // Wait for Auth State
+        // We rely on the "Loading Overlay" in the body to hide content until we know
+        Auth.monitor((user) => {
+            const loader = document.getElementById('dashboardLoader');
+            const status = document.getElementById('loaderStatus');
+
+            if (!user) {
+                // Not logged in -> Redirect
+                if (status) status.textContent = 'Not authenticated. Redirecting...';
+                window.location.replace('login.html');
+            } else {
+                // Logged in -> Proceed
+                if (status) status.textContent = 'Authenticated. Initializing...';
+
+                // Allow dashboard.js to run (it handles the loader removal)
+                // We just need to ensure we don't redirect.
+            }
+        });
+
+        // Extend window for dashboard.js to use logout
+        window.logout = () => Auth.logout();
     </script>
 </head>
 
@@ -43,7 +63,7 @@
 
             <!-- Hidden logout for now, or add to footer -->
             <div style="padding: 10px 20px; font-size: 0.8rem; text-align: center; border-top: 1px solid var(--border-dark); cursor: pointer; color: var(--danger);"
-                onclick="Auth.logout()">
+                onclick="window.logout()">
                 Logout
             </div>
         </aside>
