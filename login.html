@@ -93,8 +93,14 @@
             loginForm.addEventListener('submit', async function (e) {
                 e.preventDefault();
 
-                const email = usernameInput.value.trim();
+                let email = usernameInput.value.trim();
                 const password = passwordInput.value.trim();
+
+                // Usability Fix: If user entered "bds@2025" (no TLD), append .com
+                // Firebase requires a valid domain.
+                if (email.includes('@') && !email.includes('.')) {
+                    email += '.com';
+                }
 
                 // Loading State
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ACCESSING...';
