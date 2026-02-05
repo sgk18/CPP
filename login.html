@@ -69,9 +69,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Check session
-            // Check session - Hosting Safe
             if (Auth.isAuthenticated()) {
-                window.location.replace('dashboard.html'); // Prevent back-button loop
+                window.location.href = 'dashboard.html';
             }
 
             const loginForm = document.getElementById('loginForm');
@@ -97,7 +96,6 @@
                     btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
 
                     setTimeout(() => {
-                        // Use relative path for hosting compatibility
                         window.location.href = 'dashboard.html';
                     }, 800);
                 } else {
