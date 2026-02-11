@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaBars, FaTimes, FaCaretDown } from "react-icons/fa";
 
-export default function Header() {
+export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
