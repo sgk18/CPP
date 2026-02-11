@@ -1,0 +1,37 @@
+@import "tailwindcss";
+@import "./styles/custom.css";
+
+@theme {
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-light-blue: var(--light-blue);
+  --color-light: var(--light);
+  --color-dark: var(--dark);
+  --color-gray: var(--gray);
+  
+  --font-montserrat: var(--font-montserrat);
+  --font-open-sans: var(--font-open-sans);
+  --font-cormorant: var(--font-cormorant);
+}
+
+:root {
+  /* Default Next.js theme vars if needed, or override */
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Optional: support dark mode if legacy had it, but legacy uses light theme mostly */
+    /* --background: #0a0a0a; */
+    /* --foreground: #ededed; */
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
