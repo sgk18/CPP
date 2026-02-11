@@ -167,7 +167,6 @@ nav a.active {
 .hero {
   height: 100vh;
   min-height: 600px;
-  /* Updated background URL to assume /public/volunteer_bg.jpg is available or use existing remote URL if preferred. But legacy css had generic URL. I will fix URL later if needed. For now keeping as provided in file. */
   background: linear-gradient(135deg, rgba(26, 95, 122, 0.9), rgba(42, 157, 143, 0.85)), url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
   background-size: cover;
   background-position: center;
@@ -856,7 +855,6 @@ section {
 
 /* Volunteer Section */
 .volunteer {
-  /* Updated background URL */
   background: linear-gradient(rgba(26, 95, 122, 0.8), rgba(26, 95, 122, 0.8)), url('/volunteer_group.jpg');
   background-size: cover;
   background-position: center;
