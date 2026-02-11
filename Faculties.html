@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta description="Faculties | Centre for Peace Praxis">
+    <meta keywords="Faculties | Centre for Peace Praxis">
+    <meta author="Centre for Peace Praxis">
+    <title>Faculties | Centre for Peace Praxis</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Library for Scroll Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css">
+
+    <style>
+        /* Specific Page Overrides */
+        .faculties-hero {
+            background: linear-gradient(rgba(26, 95, 122, 0.8), rgba(42, 157, 143, 0.8)), url('faculties_group.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            padding: 250px 0 200px;
+            text-align: center;
+            position: relative;
+            margin-top: -85px;
+            /* Offset for fixed header */
+            padding-top: 260px;
+        }
+
+        .faculties-hero h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .faculties-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Faculty/Workshop Grid Specifics */
+        .workshop-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        @media (max-width: 1100px) {
+            .workshop-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .workshop-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .faculties-hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .workshop-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Card Customization for Faculties */
+        .workshop-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(245, 247, 250, 0.9));
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: all 0.45s ease;
+            position: relative;
+        }
+
+        .workshop-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18);
+        }
+
+        .workshop-img {
+            height: 350px;
+            /* Specific height for faculty images */
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .workshop-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease, filter 0.8s ease;
+        }
+
+        .workshop-card:hover .workshop-img img {
+            transform: scale(1.12);
+            filter: brightness(0.9);
+        }
+
+        .workshop-content {
+            padding: 20px;
+            /* Specific padding for faculty cards */
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        /* Footer Logo Styles */
+        .footer-logo-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .christ-logo {
+            height: 122px;
+            object-fit: contain;
+            opacity: 0.8;
+        }
+
+        @media (min-width: 768px) {
+            .christ-logo {
+                height: 122px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo" target="_blank">
+                <div class="logo-img">
+                    <img src="current_logo.png" alt="CPP Logo" id="header-logo-img">
+                </div>
+                <div class="logo-text" id="header-logo-text">Centre for <span>Peace Praxis</span></div>
+            </a>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="index.html#home" target="_blank" id="nav-home">Home</a></li>
+                    <li><a href="index.html#about" target="_blank" id="nav-about">About</a></li>
+
+                    <li><a href="index.html#workshops" target="_blank" id="nav-workshops">Workshops</a></li>
+                    <li><a href="index.html#volunteer" target="_blank" id="nav-volunteer">Volunteer</a></li>
+                    <li><a href="gallery.html" id="nav-gallery">Gallery</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn" id="nav-community">Community <i class="fas fa-caret-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="Faculties.html" id="nav-faculties">Faculties</a>
+                            <a href="students.html" id="nav-students">Students</a>
+                            <a href="Alumni.html" id="nav-alumni">Alumni</a>
+                        </div>
+                    </li>
+
+                    <li><a href="index.html#contact" target="_blank" id="nav-contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Faculties Hero Section -->
+    <section id="faculties-hero" class="faculties-hero" data-aos="fade-in">
+        <div class="container">
+            <h1 id="faculties-title" data-aos="fade-down" data-aos-delay="100">Meet Our Faculties</h1>
+            <p id="faculties-desc" data-aos="fade-up" data-aos-delay="200">The guiding lights behind our mission for
+                peace and resilience.
+            </p>
+        </div>
+    </section>
+
+    <!-- Faculties Grid -->
+    <section class="container" style="padding: 80px 20px;">
+        <div class="workshop-grid">
+            <!-- Faculty Card 1 -->
+            <div class="workshop-card" data-aos="fade-up">
+                <div class="workshop-img" style="height: 350px;">
+                    <a href="https://christuniversity.in/psychology/faculty-details/NzAyNA==/ODAx" target="_blank"
+                        style="display: block; width: 100%; height: 100%;" id="faculty-1-link">
+                        <img src="dr_abilash_k.jpg" alt="Dr. Abilash K" loading="lazy"
+                            style="object-position: top center;" id="faculty-1-img">
+                    </a>
+                </div>
+                <div class="workshop-content" style="text-align: center;">
+                    <h4 style="margin-bottom: 5px;" id="faculty-1-name">Dr. Abilash K</h4>
+                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;" id="faculty-1-role">Assistant
+                        Professor</p>
+                    <p style="margin-bottom: 5px; font-size: 0.9rem;" id="faculty-1-dept">School of Psychological
+                        Sciences</p>
+                    <p style="margin-bottom: 0px; font-size: 0.9rem; color: var(--gray);" id="faculty-1-campus">
+                        Bangalore Yeshwanthpur Campus
+                    </p>
+                </div>
+            </div>
+
+            <!-- Faculty Card 2 -->
+            <div class="workshop-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="workshop-img" style="height: 350px;">
+                    <a href="https://christuniversity.in/dept/faculty-details/NzA2MQ==/ODA1" target="_blank"
+                        style="display: block; width: 100%; height: 100%;" id="faculty-2-link">
+                        <img src="dr_priya_vinod.jpg" alt="Dr Priya Vinod" loading="lazy"
+                            style="object-position: top center;" id="faculty-2-img">
+                    </a>
+                </div>
+                <div class="workshop-content" style="text-align: center;">
+                    <h4 style="margin-bottom: 5px;" id="faculty-2-name">Dr Priya Vinod</h4>
+                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600; line-height: 1.3;"
+                        id="faculty-2-role">Associate
+                        Professor & Program Coordinator<br><span style="font-size: 0.85em; font-weight: normal;">BBA
+                            Finance and Marketing Analytics</span></p>
+                    <p style="margin-bottom: 5px; font-size: 0.9rem;" id="faculty-2-dept">School of Business and
+                        Management</p>
+                    <p style="margin-bottom: 0px; font-size: 0.9rem; color: var(--gray);" id="faculty-2-campus">Christ
+                        University</p>
+                </div>
+            </div>
+
+            <!-- Faculty Card 3 -->
+            <div class="workshop-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="workshop-img" style="height: 350px;">
+                    <a href="https://christuniversity.in/dept/faculty-details/MTcx/NTk=" target="_blank"
+                        style="display: block; width: 100%; height: 100%;" id="faculty-3-link">
+                        <img src="dr_padmakumar_mm.jpg" alt="Dr. Padmakumar MM" loading="lazy"
+                            style="object-position: top center;" id="faculty-3-img">
+                    </a>
+                </div>
+                <div class="workshop-content" style="text-align: center;">
+                    <h4 style="margin-bottom: 5px;" id="faculty-3-name">Dr. Padmakumar MM</h4>
+                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;" id="faculty-3-role">Associate
+                        Professor</p>
+                    <p style="margin-bottom: 5px; font-size: 0.9rem;" id="faculty-3-dept">Media Studies</p>
+                    <p style="margin-bottom: 0px; font-size: 0.9rem; color: var(--gray);" id="faculty-3-campus">
+                        Bangalore Campus</p>
+                </div>
+            </div>
+
+            <!-- Faculty Card 4 -->
+            <div class="workshop-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="workshop-img" style="height: 350px;">
+                    <a href="https://christuniversity.in/dept/faculty-details/MTk2/NjI=" target="_blank"
+                        style="display: block; width: 100%; height: 100%;" id="faculty-4-link">
+                        <img src="https://ui-avatars.com/api/?name=Dr+Rohini+V&background=random&color=fff&size=512"
+                            alt="Dr. Rohini V" loading="lazy" style="object-position: top center;" id="faculty-4-img">
+                    </a>
+                </div>
+                <div class="workshop-content" style="text-align: center;">
+                    <h4 style="margin-bottom: 5px;" id="faculty-4-name">Dr. Rohini V</h4>
+                    <p style="margin-bottom: 5px; color: var(--accent); font-weight: 600;" id="faculty-4-role">Professor
+                    </p>
+                    <p style="margin-bottom: 5px; font-size: 0.9rem;" id="faculty-4-dept">Computer Science</p>
+                    <p style="margin-bottom: 0px; font-size: 0.9rem; color: var(--gray);" id="faculty-4-campus">
+                        Bangalore Campus</p>
+                </div>
+            </div>
+
+            <!-- More faculties can be added here -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo-text">Centre for <span>Peace Praxis</span></div>
+                    <p>Building communities of hope, healing, and resilience through peace literacy and intercultural
+                        dialogue.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/centreforpeacepraxis?igsh=MXdqNnhoMzM5eWZ4dQ=="
+                            target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/centre-for-peace-praxis/" target="_blank"><i
+                                class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html" target="_blank" id="footer-link-1">Home</a></li>
+                        <li><a href="index.html#about" target="_blank" id="footer-link-2">About Us</a></li>
+                        <li><a href="index.html#pillars" target="_blank" id="footer-link-3">Our Pillars</a></li>
+                        <li><a href="index.html#workshops" target="_blank" id="footer-link-4">Workshops</a></li>
+                        <li><a href="index.html#volunteer" target="_blank" id="footer-link-5">Volunteer</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i><a href="https://www.christuniversity.in/"
+                                target="_blank"> CHRIST
+                                University</a></li>
+                        <li><i class="fas fa-phone"></i> 080 4012 9361</li>
+                        <li><i class="fas fa-envelope"></i><a href="mailto:peace.praxis@christuniversity.in"
+                                target="_blank">peace.praxis@christuniversity.in</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Our Partners</h3>
+                    <ul>
+                        <li>Educational Institutions</li>
+                        <li>Civil Society Groups</li>
+                        <li>Government Bodies</li>
+                        <li>International Partners</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-logo-wrapper">
+                <img src="CHRIST_LOGO1.png" alt="CHRIST Logo" class="christ-logo">
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2023 Centre for Peace Praxis. All rights reserved. | <i class="fas fa-heart"
+                        style="color: #e76f51;"></i> for peacebuilding</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Animation Library JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            once: true,
+            offset: 100,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
+
+
+
+        // Sticky Header Effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mainNav = document.querySelector('nav');
+
+        if (mobileMenuBtn && mainNav) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mainNav.classList.toggle('active');
+                if (mainNav.classList.contains('active')) {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+                    mobileMenuBtn.style.color = 'var(--dark)';
+                } else {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    mobileMenuBtn.style.color = 'var(--primary)';
+                }
+            });
+
+            // Close mobile menu when a link is clicked
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mainNav.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+        }
+    </script>
+    <script src="content-loader.js"></script>
+</body>
+
+</html>

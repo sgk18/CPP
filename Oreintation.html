@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Orientation Workshop | Centre for Peace Praxis">
+    <meta name="keywords" content="Orientation Workshop, Centre for Peace Praxis">
+    <meta name="author" content="Centre for Peace Praxis">
+    <title>Orientation Workshop | Centre for Peace Praxis</title>
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Tailwind CSS (CDN for compatibility) -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css">
+
+    <style>
+        /* Page Specific Overrides */
+        .event-hero {
+            background-image: linear-gradient(rgba(26, 95, 122, 0.85), rgba(42, 157, 143, 0.8)), url('hero_bg.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .event-hero h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .event-tag {
+            background-color: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .event-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Impact Section */
+        .impact-section {
+            background: var(--primary);
+            color: white;
+            padding: 60px 0;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            justify-items: center;
+        }
+
+        .impact-item h3 {
+            font-size: 3rem;
+            color: var(--light-blue);
+            margin-bottom: 0;
+        }
+
+        .impact-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Content Layout */
+        .content-section {
+            max-width: 900px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .section-heading {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .highlight-box {
+            background: #f0f9ff;
+            border-left: 5px solid var(--primary);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        /* Mobile */
+        @media(max-width: 768px) {
+            .event-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .impact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .meta-item {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo" target="_blank">
+                <div class="logo-img">
+                    <img src="current_logo.png" alt="CPP Logo">
+                </div>
+                <div class="logo-text">Centre for <span>Peace Praxis</span></div>
+            </a>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="index.html#home" class="active" target="_blank">Home</a></li>
+                    <li><a href="index.html#about" target="_blank">About</a></li>
+
+                    <li><a href="index.html#workshops" target="_blank">Workshops</a></li>
+                    <li><a href="index.html#volunteer" target="_blank">Volunteer</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Community <i class="fas fa-caret-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="Faculties.html">Faculties</a>
+                            <a href="students.html">Students</a>
+                            <a href="Alumni.html">Alumni</a>
+                        </div>
+                    </li>
+
+                    <li><a href="index.html#contact" target="_blank">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="event-hero">
+        <div class="container mx-auto" data-aos="fade-up">
+            <span class="event-tag">Workshop</span>
+            <h1>Orientation work shop</h1>
+            <p class="text-xl max-w-2xl mx-auto opacity-90">Introducing Peace Practices to new students.</p>
+
+            <div class="event-meta">
+                <div class="meta-item">
+                    <i class="fas fa-calendar-alt text-yellow-400"></i>
+                    <span>23-06-2025</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-clock text-yellow-400"></i>
+                    <span>08:00 A.M - 04:00 P.M</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-map-marker-alt text-yellow-400"></i>
+                    <span>Garden street</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="py-16">
+
+        <!-- Synopsis -->
+        <div class="content-section" data-aos="fade-up">
+            <h2 class="section-heading">Summary of the Activity</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                We conducted an orientation workshop for new students to introduce the concept of Peace Practices and
+                its various dimensions. The session explored how peacebuilding extends beyond conflict resolution to
+                include personal, social, and ecological well-being. It aimed to instill awareness, curiosity, and
+                commitment to peace-related initiatives among participants. The workshop was interactive and
+                informative, laying a strong foundation for student engagement in peacebuilding efforts.
+            </p>
+
+            <h2 class="section-heading">Highlights of the Activity</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                We explained about what is peace practises and various types of peace practises to new students. It
+                includes psychological wellbeing peace building, ecology and peacebuilding, media and peacebuilding,
+                intellectual dialouge and peacebuilding. The main highlight of the activity was we recruited lot of new
+                students through the orientation workshop.
+            </p>
+        </div>
+
+        <!-- Impact Counter -->
+        <div class="impact-section">
+            <div class="impact-grid" data-aos="zoom-in">
+                <div class="impact-item">
+                    <h3>200</h3>
+                    <p>Active Participants</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="content-section" data-aos="fade-up">
+            <h2 class="section-heading">Key Takeaways</h2>
+
+            <ul class="space-y-6 text-gray-700">
+                <li class="flex gap-4">
+                    <i class="fas fa-check-circle text-teal-500 mt-1"></i>
+                    <div>
+                        <strong class="block text-gray-900 mb-1">Introduction to Peace Practices</strong>
+                        Covered the core idea of peace as both an inner state and a social process.
+                    </div>
+                </li>
+                <li class="flex gap-4">
+                    <i class="fas fa-check-circle text-teal-500 mt-1"></i>
+                    <div>
+                        <strong class="block text-gray-900 mb-1">Psychological Well-being and Peace</strong>
+                        Emphasized the role of emotional and mental health in sustaining peace.
+                    </div>
+                </li>
+                <li class="flex gap-4">
+                    <i class="fas fa-check-circle text-teal-500 mt-1"></i>
+                    <div>
+                        <strong class="block text-gray-900 mb-1">Ecology and Peacebuilding</strong>
+                        Explained the importance of environmental harmony in achieving long-term peace.
+                    </div>
+                </li>
+                <li class="flex gap-4">
+                    <i class="fas fa-check-circle text-teal-500 mt-1"></i>
+                    <div>
+                        <strong class="block text-gray-900 mb-1">Media and Peacebuilding</strong>
+                        Discussed responsible media usage and its influence on public perception and peace narratives.
+                    </div>
+                </li>
+                <li class="flex gap-4">
+                    <i class="fas fa-check-circle text-teal-500 mt-1"></i>
+                    <div>
+                        <strong class="block text-gray-900 mb-1">Intellectual Dialogue and Peace</strong>
+                        Encouraged critical thinking and respectful discussions as tools for peaceful coexistence.
+                    </div>
+                </li>
+                <li class="flex gap-4">
+                    <i class="fas fa-check-circle text-teal-500 mt-1"></i>
+                    <div>
+                        <strong class="block text-gray-900 mb-1">Main Outcome</strong>
+                        Successfully recruited many new students who showed interest in peace-related activities through
+                        this workshop.
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Gallery -->
+        <div class="content-section" data-aos="fade-up">
+            <h2 class="section-heading text-center">Event Gallery</h2>
+            <div class="report-image-container">
+                <img src="orientation_workshop.jpg" alt="Orientation Workshop Session" class="report-image">
+            </div>
+            <p class="text-center text-gray-500 italic mt-4">Snapshots from the Orientation Workshop at CHRIST
+                University.</p>
+        </div>
+
+        <!-- SDG Section -->
+        <div class="container mx-auto text-center py-10" data-aos="fade-in">
+            <div class="inline-block bg-white p-6 rounded-xl shadow-lg border-2 border-dashed border-gray-200">
+                <p class="uppercase tracking-widest text-xs font-bold text-gray-500 mb-2">Aligned with UN SDG</p>
+                <div class="flex items-center gap-3 justify-center">
+                    <span class="text-4xl font-black text-blue-600">16</span>
+                    <span class="text-xl font-bold text-gray-800">Peace, Justice and Strong Institutions</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="header-container" style="display:block;"> <!-- Reusing container with block display -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10 text-center md:text-left">
+                <div>
+                    <h3 class="text-xl text-white mb-4">Department of Media Studies &<br>Centre for Peace Praxis</h3>
+                    <p class="text-gray-400 text-sm">Building communities of hope, healing, and resilience through peace
+                        literacy and intercultural dialogue.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl text-white mb-4">Contact</h3>
+                    <p class="text-gray-400 text-sm">CHRIST (Deemed to be University)</p>
+                    <p class="text-gray-400 text-sm">Bangalore, India</p>
+                    <p class="text-gray-400 text-sm mt-2"><a href="mailto:peace.praxis@christuniversity.in"
+                            class="hover:text-teal-400 transition-colors">peace.praxis@christuniversity.in</a></p>
+                </div>
+                <div>
+                    <h3 class="text-xl text-white mb-4">Connect</h3>
+                    <div class="flex justify-center md:justify-start gap-4">
+                        <a href="https://www.instagram.com/centreforpeacepraxis?igsh=MXdqNnhoMzM5eWZ4dQ=="
+                            class="text-white hover:text-teal-400" target="_blank"><i
+                                class="fab fa-instagram fa-lg"></i></a>
+
+                        <a href="https://www.linkedin.com/company/centre-for-peace-praxis/"
+                            class="text-white hover:text-teal-400" target="_blank"><i
+                                class="fab fa-linkedin-in fa-lg"></i></a>
+                    </div>
+                    <p class="text-gray-500 text-xs mt-4">Report Prepared By: ABISHEK CHETTY A</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-6 text-center text-gray-500 text-sm">
+                &copy; 2025 Centre for Peace Praxis. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        const header = document.getElementById('header');
+
+        if (mobileMenuBtn && mainNav) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mainNav.classList.toggle('active');
+
+                if (mainNav.classList.contains('active')) {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+                    mobileMenuBtn.style.color = 'var(--dark)';
+                } else {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    mobileMenuBtn.style.color = 'var(--primary)';
+                }
+            });
+
+            // Close mobile menu when a link is clicked
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mainNav.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+        }
+
+        // Sticky Header Effect
+        window.addEventListener('scroll', () => {
+            if (header) {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
