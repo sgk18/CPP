@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Centre for Peace Praxis</title>
+    <meta name="description"
+        content="Learn more about the Centre for Peace Praxis, our mission, vision, and the team behind our peacebuilding initiatives.">
+    <meta name="keywords"
+        content="About Peace Praxis, Mission, Vision, Peacebuilding Team, Centre for Peace Praxis">
+    <meta name="author" content="Centre for Peace Praxis">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Library for Scroll Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Tailwind CSS (CDN for compatibility) -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css">
+
+    <style>
+        /* Page Specific Overrides */
+        .hero-small {
+            background: linear-gradient(135deg, rgba(26, 95, 122, 0.9), rgba(42, 157, 143, 0.85)), url('assets/volunteer_bg.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 150px 0 80px;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-small h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-img">
+                    <img src="assets/current_logo.png" alt="CPP Logo" id="header-logo-img">
+                </div>
+                <div class="logo-text" id="header-logo-text">Centre for <span>Peace Praxis</span></div>
+            </a>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="index.html" id="nav-home">Home</a></li>
+                    <li><a href="about.html" class="active" id="nav-about">About</a></li>
+
+                    <li><a href="index.html#workshops" id="nav-workshops">Workshops</a></li>
+                    <li><a href="index.html#volunteer" id="nav-volunteer">Volunteer</a></li>
+                    <li><a href="gallery.html" id="nav-gallery">Gallery</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn" id="nav-community">Community <i class="fas fa-caret-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="Faculties.html" id="nav-faculties">Faculties</a>
+                            <a href="students.html" id="nav-students">Students</a>
+                            <a href="Alumni.html" id="nav-alumni">Alumni</a>
+                        </div>
+                    </li>
+
+                    <li><a href="#contact" id="nav-contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="hero-small">
+        <div class="container">
+            <h1 data-aos="fade-up">About Us</h1>
+            <p data-aos="fade-up" data-aos-delay="100">Our journey towards a more peaceful world.</p>
+        </div>
+    </section>
+
+    <!-- About Section Content -->
+    <section id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text" data-aos="fade-right">
+                    <p id="about-content-1">Established in 2023, the <strong style="color: var(--primary);">Centre for
+                            Peace Praxis</strong>
+                        aims at building communities of hope, healing, and resilience.</p>
+                    <p id="about-content-2">We believe that peace is not just the absence of conflict, but the presence
+                        of justice,
+                        understanding, and active cooperation. To achieve this, we organize regular workshops,
+                        dialogues, and events that spread peace literacy.</p>
+                    <p id="about-content-3">Aligned with our pillars—Media Literacy, Psychosocial Support, Intercultural
+                        Dialogue, and
+                        Ecological Wellbeing—we create environments where diversity is embraced as a strength.</p>
+                </div>
+
+                <div class="about-img" data-aos="fade-left">
+                    <img id="about-image" src="assets/peaceaxis_image1.jpg" alt="Community building and dialogue">
+                </div>
+            </div>
+            
+            <!-- Added more content structure if needed or keep it simple as requested -->
+            <div class="section-title" data-aos="fade-up" style="margin-top: 80px;">
+                <h2>Our Vision & Mission</h2>
+            </div>
+            <div class="features" style="margin-top: 40px;">
+                 <div class="feature-card" data-aos="fade-up">
+                    <h3 style="color: var(--primary); margin-bottom: 15px;">Vision</h3>
+                    <p>To be a catalyst for building inclusive, just, and peaceful communities through education, dialogue, and action.</p>
+                 </div>
+                 <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                     <h3 style="color: var(--primary); margin-bottom: 15px;">Mission</h3>
+                    <p>Empowering individuals and institutions with the skills, knowledge, and values necessary for seeking peace and social transformation.</p>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo-text">Centre for <span>Peace Praxis</span></div>
+                    <p id="footer-desc">Building communities of hope, healing, and resilience through peace literacy and
+                        intercultural
+                        dialogue.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/centreforpeacepraxis?igsh=MXdqNnhoMzM5eWZ4dQ=="
+                            target="_blank" id="footer-instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/centre-for-peace-praxis/" target="_blank"
+                            id="footer-linkedin"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html" id="footer-link-1">Home</a></li>
+                        <li><a href="about.html" id="footer-link-2">About Us</a></li>
+                        <li><a href="index.html#pillars" id="footer-link-3">Our Pillars</a></li>
+                        <li><a href="index.html#workshops" id="footer-link-4">Workshops</a></li>
+                        <li><a href="index.html#volunteer" id="footer-link-5">Volunteer</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i><a href="https://www.christuniversity.in/"
+                                target="_blank" id="footer-address"> CHRIST
+                                University</a></li>
+                        <li><i class="fas fa-phone"></i> <span id="footer-phone">080 4012 9361</span></li>
+                        <li><i class="fas fa-envelope"></i><a href="mailto:peace.praxis@christuniversity.in"
+                                target="_blank" id="footer-email">peace.praxis@christuniversity.in</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Our Partners</h3>
+                    <ul>
+                        <li>Educational Institutions</li>
+                        <li>Civil Society Groups</li>
+                        <li>Government Bodies</li>
+                        <li>International Partners</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Admin Login Link (Hidden/Subtle) -->
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="login.html" style="color: #666; font-size: 0.8rem; text-decoration: none; opacity: 0.5;">Admin
+                    Login</a>
+            </div>
+
+            <div class="footer-logo-wrapper">
+                <img src="assets/CHRIST_LOGO1.png" alt="CHRIST Logo" class="christ-logo">
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2023 Centre for Peace Praxis. All rights reserved. | <i class="fas fa-heart"
+                        style="color: #e76f51;"></i> for peacebuilding</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Animation Library JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script src="content-loader.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
