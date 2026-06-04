@@ -63,8 +63,8 @@ export const Footer: React.FC = () => {
               </Link>
             </li>
             <li>
-              <Link href="/#workshops" className="text-white/70 hover:text-secondary text-sm transition-all hover:translate-x-1 inline-block">
-                Workshops
+              <Link href="/#activities" className="text-white/70 hover:text-secondary text-sm transition-all hover:translate-x-1 inline-block">
+                Activities
               </Link>
             </li>
             <li>

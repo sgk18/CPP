@@ -212,8 +212,8 @@ export const workshops: Workshop[] = [
     date: "06 March 2025 – 07 March 2025",
     time: "Day 1: 06:00 AM – 04:00 PM | Day 2: 10:00 AM – 01:00 PM",
     location: "Day 1: Garden Street | Day 2: Central Block, Room 1003",
-    summary: "The two-day activity was organized as part of the SDG Week celebrations, focusing on Sustainable Development Goal 15 – Life on Land. The initiative aimed to create awareness about biodiversity conservation, wildlife protection, and the importance of sustainable coexistence between humans and nature. On Day 1, an SDG Week stall was set up on Garden Street, where students actively engaged with visitors. On Day 2, a guest lecture was delivered by Mr. Ravi Chellam, focusing on the concept of co-existence and the growing challenges faced by urban biodiversity.",
-    highlights: "The session began with a clear explanation of forests and their significance as complex ecosystems that support biodiversity. Mr. Ravi Chellam discussed wildlife conservation, emphasizing the urgent need to protect endangered species. The talk highlighted how human encroachment, including deforestation and industrial activities, has severely impacted ecosystems. Real-world examples showed how animals are losing their natural habitats, leading to human-wildlife conflict, and encouraged students to reflect on sustainable urban planning.",
+    summary: "The two-day activity was organized as part of the SDG Week celebrations, focusing on Sustainable Development Goal 15 – Life on Land. The initiative aimed to create awareness about biodiversity conservation, wildlife protection, and the importance of sustainable coexistence between humans and nature. On Day 1, an SDG Week stall was set up on Garden Street, where students actively engaged with visitors. On Day 2, a guest lecture was delivered by Dr. Ravi Chellam, focusing on the concept of co-existence and the growing challenges faced by urban biodiversity.",
+    highlights: "The session began with a clear explanation of forests and their significance as complex ecosystems that support biodiversity. Dr. Ravi Chellam discussed wildlife conservation, emphasizing the urgent need to protect endangered species. The talk highlighted how human encroachment, including deforestation and industrial activities, has severely impacted ecosystems. Real-world examples showed how animals are losing their natural habitats, leading to human-wildlife conflict, and encouraged students to reflect on sustainable urban planning.",
     takeaways: [
       "Forests are vital ecosystems that sustain biodiversity and support life on Earth.",
       "Wildlife conservation plays a crucial role in maintaining ecological balance.",
@@ -224,11 +224,11 @@ export const workshops: Workshop[] = [
     participants: 80,
     speakers: [
       {
-        name: "Mr. Ravi Chellam",
+        name: "Dr. Ravi Chellam",
         role: "Programme Director",
         org: "Foundation for Ecological Society (FES)",
         presentation: "Co-existence and Urban Biodiversity",
-        image: "/assets/Speaker.jpeg"
+        image: "/assets/speaker_image.jpg"
       }
     ],
     gallery: [

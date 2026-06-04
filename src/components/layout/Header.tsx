@@ -26,7 +26,7 @@ export const Header: React.FC = () => {
   const navLinks = [
     { label: "Home", href: pathname === "/" ? "#home" : "/" },
     { label: "About", href: "/about" },
-    { label: "Workshops", href: pathname === "/" ? "#workshops" : "/#workshops" },
+    { label: "Activities", href: pathname === "/" ? "#activities" : "/#activities" },
     { label: "Volunteer", href: pathname === "/" ? "#volunteer" : "/#volunteer" },
     { label: "Gallery", href: "/gallery" }
   ];

@@ -88,8 +88,8 @@ export default function WorkshopReport({ params }: PageProps) {
           
           {/* Back to Home Link */}
           <div>
-            <Link href="/#workshops" className="inline-flex items-center gap-2 text-xs font-bold tracking-wide uppercase text-gray-text hover:text-primary transition-colors">
-              <ArrowLeft className="w-3.5 h-3.5" /> Back to Workshops
+            <Link href="/#activities" className="inline-flex items-center gap-2 text-xs font-bold tracking-wide uppercase text-gray-text hover:text-primary transition-colors">
+              <ArrowLeft className="w-3.5 h-3.5" /> Back to Activities
             </Link>
           </div>
 

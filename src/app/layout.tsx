@@ -25,11 +25,11 @@ export const metadata: Metadata = {
     default: "Centre for Peace Praxis | Hope, Healing and Resilience",
     template: "%s | Centre for Peace Praxis"
   },
-  description: "The Centre for Peace Praxis is a hub for peacebuilding, interfaith dialogue, and social transformation. Explore our workshops, initiatives, and resources.",
-  keywords: ["Peace Praxis", "Interfaith Dialogue", "Peacebuilding", "Social Transformation", "Workshops", "Centre for Peace Praxis"],
+  description: "The Centre for Peace Praxis is a hub for peacebuilding, interfaith dialogue, and social transformation. Explore our activities, initiatives, and resources.",
+  keywords: ["Peace Praxis", "Interfaith Dialogue", "Peacebuilding", "Social Transformation", "Activities", "Centre for Peace Praxis"],
   authors: [{ name: "Centre for Peace Praxis" }],
   icons: {
-    icon: "/assets/logo.png"
+    icon: "/assets/favicon.ico"
   }
 };
 
