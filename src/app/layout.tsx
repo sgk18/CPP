@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   keywords: ["Peace Praxis", "Interfaith Dialogue", "Peacebuilding", "Social Transformation", "Activities", "Centre for Peace Praxis"],
   authors: [{ name: "Centre for Peace Praxis" }],
   icons: {
-    icon: "/assets/favicon.ico"
+    icon: "/favicon.ico"
   }
 };
 

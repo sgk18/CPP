@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
         {/* Brand Column */}
         <div className="flex flex-col gap-6">
-          <div className="font-serif text-2xl font-bold tracking-tight">
+          <div className="font-serif text-3xl sm:text-4xl font-bold tracking-tight">
             Centre for <span className="text-secondary">Peace Praxis</span>
           </div>
           <p className="text-white/60 text-sm leading-relaxed max-w-sm">
