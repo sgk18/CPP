@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { BloomingFlower, LogoSVG } from "@/components/ui/BloomingFlower";
+import { BloomingFlower } from "@/components/ui/BloomingFlower";
 
 interface IntroProviderProps {
   children: React.ReactNode;
@@ -82,14 +82,23 @@ export const IntroProvider: React.FC<IntroProviderProps> = ({ children }) => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className="text-center flex flex-col items-center gap-4"
+                className="relative flex flex-col items-center justify-center px-6"
               >
-                <LogoSVG className="drop-shadow-[0_4px_12px_rgba(26,95,122,0.1)]" />
-                <div className="flex flex-col gap-1">
-                  <span className="font-serif text-3xl sm:text-4xl font-bold tracking-wide text-dark">
+                {/* Logo - Exact Center */}
+                <div className="w-24 h-24 relative flex items-center justify-center">
+                  <img
+                    src="/assets/current_logo.png"
+                    alt="Centre for Peace Praxis Logo"
+                    className="w-full h-full object-contain drop-shadow-[0_6px_16px_rgba(26,95,122,0.15)]"
+                  />
+                </div>
+
+                {/* Text Title - Positioned Absolutely below the logo */}
+                <div className="absolute top-full mt-4 text-center flex flex-col gap-1.5 w-[90vw] sm:w-[500px]">
+                  <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide text-dark">
                     Centre for <span className="text-primary">Peace Praxis</span>
-                  </span>
-                  <span className="text-[10px] tracking-[0.25em] font-display uppercase font-semibold text-gray-text">
+                  </h1>
+                  <span className="text-[10px] sm:text-xs tracking-[0.3em] font-display uppercase font-semibold text-gray-text">
                     Hope • Healing • Resilience
                   </span>
                 </div>

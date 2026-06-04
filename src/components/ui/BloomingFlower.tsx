@@ -3,35 +3,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-// Custom SVG Brand Logo for the Centre for Peace Praxis
-export const LogoSVG: React.FC<{ className?: string }> = ({ className }) => (
-  <svg
-    viewBox="0 0 100 100"
-    className={className}
-    width="80"
-    height="80"
-  >
-    {/* Outer elegant rings */}
-    <circle cx="50" cy="50" r="45" fill="none" stroke="#1a5f7a" strokeWidth="1.5" opacity="0.8" />
-    <circle cx="50" cy="50" r="41" fill="none" stroke="#1a5f7a" strokeWidth="0.5" strokeDasharray="3 3" opacity="0.6" />
-    
-    {/* Stylized Olive Branch (Peace Symbol) */}
-    <path
-      d="M 50 78 C 50 65, 48 50, 62 40 M 50 65 C 50 55, 42 45, 38 38 M 50 50 C 50 40, 58 32, 65 28"
-      fill="none"
-      stroke="#2a9d8f"
-      strokeWidth="2"
-      strokeLinecap="round"
-    />
-    {/* Leaves */}
-    <path d="M 62 40 C 65 38, 68 40, 66 43 C 63 46, 60 44, 62 40 Z" fill="#2a9d8f" />
-    <path d="M 38 38 C 35 36, 33 39, 35 42 C 38 44, 40 41, 38 38 Z" fill="#2a9d8f" />
-    <path d="M 65 28 C 68 26, 70 29, 68 31 C 65 33, 63 31, 65 28 Z" fill="#2a9d8f" />
-    <path d="M 50 25 C 49 20, 52 18, 54 21 C 53 25, 51 27, 50 25 Z" fill="#2a9d8f" />
-    <path d="M 44 55 C 41 53, 39 56, 41 59 C 44 61, 46 58, 44 55 Z" fill="#2a9d8f" />
-  </svg>
-);
-
 export const BloomingFlower: React.FC = () => {
   const sporeCount = 36;
   
@@ -107,7 +78,7 @@ export const BloomingFlower: React.FC = () => {
   });
 
   return (
-    <div className="relative w-full h-full min-h-screen flex items-center justify-center bg-[#fcfcfc] overflow-hidden select-none pointer-events-none">
+    <div className="relative w-full h-full flex items-center justify-center overflow-hidden select-none pointer-events-none">
       
       {/* Background Floating Wind Particles */}
       <div className="absolute inset-0 z-0">
@@ -306,11 +277,12 @@ export const BloomingFlower: React.FC = () => {
         >
           <div className="w-4 h-4 rounded-full bg-white blur-[1px]" />
         </motion.div>
+      </div>
 
-        {/* Stage 11: Brand Reveal (Center Peace Logo SVG and text grace reveal) */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
-          
-          {/* Logo SVG Reveal */}
+      {/* Stage 11: Brand Reveal (Centred relative to the entire screen/viewport) */}
+      <div className="absolute inset-0 flex items-center justify-center z-30 px-6">
+        <div className="relative flex flex-col items-center justify-center">
+          {/* Logo Reveal - Exact Center */}
           <motion.div
             initial={{ opacity: 0, scale: 0.85, y: 15 }}
             animate={{
@@ -323,12 +295,16 @@ export const BloomingFlower: React.FC = () => {
               times: [0, 0.84, 0.92, 1],
               ease: "easeOut",
             }}
-            className="flex items-center justify-center mb-6"
+            className="w-24 h-24 relative flex items-center justify-center"
           >
-            <LogoSVG className="drop-shadow-[0_4px_12px_rgba(26,95,122,0.1)]" />
+            <img
+              src="/assets/current_logo.png"
+              alt="Centre for Peace Praxis Logo"
+              className="w-full h-full object-contain drop-shadow-[0_6px_16px_rgba(26,95,122,0.15)]"
+            />
           </motion.div>
 
-          {/* Text Title Reveal */}
+          {/* Text Title Reveal - Positioned Absolutely below the logo */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{
@@ -340,12 +316,12 @@ export const BloomingFlower: React.FC = () => {
               times: [0, 0.87, 0.94, 1],
               ease: "easeOut",
             }}
-            className="text-center flex flex-col gap-1"
+            className="absolute top-full mt-4 text-center flex flex-col gap-1.5 w-[90vw] sm:w-[500px]"
           >
-            <span className="font-serif text-3xl sm:text-4xl font-bold tracking-wide text-dark">
+            <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide text-dark">
               Centre for <span className="text-primary">Peace Praxis</span>
-            </span>
-            <span className="text-[10px] tracking-[0.25em] font-display uppercase font-semibold text-gray-text">
+            </h1>
+            <span className="text-[10px] sm:text-xs tracking-[0.3em] font-display uppercase font-semibold text-gray-text">
               Hope • Healing • Resilience
             </span>
           </motion.div>

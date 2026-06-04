@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { User, Lock, Eye, EyeOff, Camera, AlertTriangle, ArrowLeft } from "lucide-react";
+import { User, Lock, Eye, EyeOff, AlertTriangle, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
 export default function Login() {
@@ -59,8 +59,12 @@ export default function Login() {
           }`}
         >
           {/* Badge Icon */}
-          <div className="w-16 h-16 rounded-full flex items-center justify-center border-2 border-primary/20 bg-primary/5 text-primary mx-auto shadow-inner">
-            <Camera className="w-6 h-6" />
+          <div className="w-16 h-16 rounded-full flex items-center justify-center border border-primary/10 bg-[#fcfcfc] mx-auto shadow-md p-1.5">
+            <img
+              src="/assets/current_logo.png"
+              alt="Centre for Peace Praxis Logo"
+              className="w-full h-full object-contain"
+            />
           </div>
 
           <div className="flex flex-col gap-2">
