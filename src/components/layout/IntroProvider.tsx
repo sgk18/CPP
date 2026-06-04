@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { BloomingFlower } from "@/components/ui/BloomingFlower";
+import { BloomingFlower, LogoSVG } from "@/components/ui/BloomingFlower";
 
 interface IntroProviderProps {
   children: React.ReactNode;
@@ -79,17 +79,20 @@ export const IntroProvider: React.FC<IntroProviderProps> = ({ children }) => {
             ) : isMounted && reducedMotion ? (
               // Simple fade branding for prefers-reduced-motion
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8 }}
-                className="text-center flex flex-col gap-1.5"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="text-center flex flex-col items-center gap-4"
               >
-                <span className="font-serif text-3xl sm:text-4xl font-bold tracking-wide text-dark">
-                  Centre for <span className="text-primary">Peace Praxis</span>
-                </span>
-                <span className="text-[10px] tracking-[0.25em] font-display uppercase font-semibold text-gray-text">
-                  Hope • Healing • Resilience
-                </span>
+                <LogoSVG className="drop-shadow-[0_4px_12px_rgba(26,95,122,0.1)]" />
+                <div className="flex flex-col gap-1">
+                  <span className="font-serif text-3xl sm:text-4xl font-bold tracking-wide text-dark">
+                    Centre for <span className="text-primary">Peace Praxis</span>
+                  </span>
+                  <span className="text-[10px] tracking-[0.25em] font-display uppercase font-semibold text-gray-text">
+                    Hope • Healing • Resilience
+                  </span>
+                </div>
               </motion.div>
             ) : null}
           </motion.div>
