@@ -19,6 +19,10 @@ export const IntroProvider: React.FC<IntroProviderProps> = ({ children }) => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const prefersReduced = mediaQuery.matches;
 
+    // Check query params for forced development preview
+    const urlParams = new URLSearchParams(window.location.search);
+    const forceIntro = urlParams.get("forceIntro") === "true";
+
     const isShown = localStorage.getItem("startup-animation-shown");
     
     // Defer state updates to avoid synchronous cascading render warnings
@@ -28,7 +32,7 @@ export const IntroProvider: React.FC<IntroProviderProps> = ({ children }) => {
         setReducedMotion(true);
       }
       
-      if (isShown === "true") {
+      if (isShown === "true" && !forceIntro) {
         setHasShownBefore(true);
         setShowIntro(false);
       } else {
@@ -38,12 +42,14 @@ export const IntroProvider: React.FC<IntroProviderProps> = ({ children }) => {
 
     let animationTimer: NodeJS.Timeout | undefined;
 
-    if (isShown !== "true") {
+    if (isShown !== "true" || forceIntro) {
       const duration = prefersReduced ? 1500 : 3600;
       animationTimer = setTimeout(() => {
         setShowIntro(false);
         try {
-          localStorage.setItem("startup-animation-shown", "true");
+          if (!forceIntro) {
+            localStorage.setItem("startup-animation-shown", "true");
+          }
         } catch (e) {
           console.error("Failed to set localStorage key:", e);
         }

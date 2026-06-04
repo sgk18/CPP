@@ -43,22 +43,7 @@ export const BloomingFlower: React.FC = () => {
     },
   });
 
-  // Glowing bud core variant
-  const coreVariants = {
-    initial: {
-      scale: 0,
-      opacity: 0,
-    },
-    animate: {
-      scale: [0, 1.2, 1],
-      opacity: 1,
-      transition: {
-        delay: 0.2,
-        duration: 1.0,
-        ease: "easeOut" as const,
-      },
-    },
-  };
+
 
   // Brand text reveal variant
   const textVariants = {
@@ -152,15 +137,15 @@ export const BloomingFlower: React.FC = () => {
             fill="#ffffff"
             filter="url(#coreGlow)"
             className="shadow-2xl"
-            variants={coreVariants}
             style={{ originX: "100px", originY: "100px" }}
+            initial={{ scale: 0, opacity: 0 }}
             animate={{
-              boxShadow: ["0 0 10px #ffffff", "0 0 20px #2a9d8f", "0 0 10px #ffffff"],
+              scale: [0, 1.2, 1],
+              opacity: 1,
             }}
             transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
+              scale: { delay: 0.2, duration: 1.0, ease: "easeOut" },
+              opacity: { delay: 0.2, duration: 1.0, ease: "easeOut" },
             }}
           />
         </svg>
