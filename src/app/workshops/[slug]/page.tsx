@@ -14,7 +14,9 @@ import {
   Users,
   CheckCircle2,
   ZoomIn,
-  ArrowLeft
+  ArrowLeft,
+  Award,
+  Target
 } from "lucide-react";
 import Link from "next/link";
 
@@ -119,7 +121,7 @@ export default function WorkshopReport({ params }: PageProps) {
             <h3 className="text-2xl font-display font-bold text-primary relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-10 after:h-0.5 after:bg-accent">
               Highlights of the Activity
             </h3>
-            <p className="text-gray-text text-base sm:text-lg leading-relaxed text-justify mt-2">
+            <p className="text-gray-text text-base sm:text-lg leading-relaxed text-justify mt-2 whitespace-pre-line">
               {workshop.highlights}
             </p>
           </div>
@@ -195,11 +197,26 @@ export default function WorkshopReport({ params }: PageProps) {
           </div>
 
           {/* Impact Stats Section */}
-          <div className="py-12 bg-primary text-white rounded-3xl text-center px-6 flex flex-col items-center gap-1 shadow-lg shadow-primary/20">
-            <Users className="w-8 h-8 text-light-blue mb-2" />
-            <h3 className="text-4xl font-extrabold text-light-blue">{workshop.participants}</h3>
-            <p className="text-xs sm:text-sm font-semibold tracking-wider uppercase text-white/80">Active Participants</p>
-          </div>
+          {workshop.stats && workshop.stats.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full">
+              {workshop.stats.map((stat, idx) => {
+                const IconComponent = idx === 0 ? Users : idx === 1 ? Award : Target;
+                return (
+                  <div key={idx} className="py-12 bg-primary text-white rounded-3xl text-center px-6 flex flex-col items-center gap-1 shadow-lg shadow-primary/20">
+                    <IconComponent className="w-8 h-8 text-light-blue mb-2" />
+                    <h3 className="text-4xl font-extrabold text-light-blue">{stat.value}</h3>
+                    <p className="text-xs sm:text-sm font-semibold tracking-wider uppercase text-white/80">{stat.label}</p>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="py-12 bg-primary text-white rounded-3xl text-center px-6 flex flex-col items-center gap-1 shadow-lg shadow-primary/20">
+              <Users className="w-8 h-8 text-light-blue mb-2" />
+              <h3 className="text-4xl font-extrabold text-light-blue">{workshop.participants}</h3>
+              <p className="text-xs sm:text-sm font-semibold tracking-wider uppercase text-white/80">Active Participants</p>
+            </div>
+          )}
 
           {/* Event Gallery */}
           <div className="flex flex-col gap-4">

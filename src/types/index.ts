@@ -11,6 +11,11 @@ export interface SDG {
   label: string;
 }
 
+export interface WorkshopStat {
+  value: string | number;
+  label: string;
+}
+
 export interface Workshop {
   slug: string;
   title: string;
@@ -27,6 +32,7 @@ export interface Workshop {
   gallery: string[];
   sdgs: SDG[];
   badge?: string;
+  stats?: WorkshopStat[];
 }
 
 export interface Faculty {

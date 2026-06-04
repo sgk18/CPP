@@ -142,15 +142,6 @@ export const Footer: React.FC = () => {
             <Heart className="w-3.5 h-3.5 text-accent fill-accent animate-pulse" />
             <span>for peacebuilding</span>
           </div>
-          {/* Admin Login Link */}
-          <div>
-            <Link
-              href="/login"
-              className="text-white/20 hover:text-white/40 text-xs transition-colors duration-200"
-            >
-              Admin Access
-            </Link>
-          </div>
         </div>
       </div>
     </footer>

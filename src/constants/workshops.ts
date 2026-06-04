@@ -99,13 +99,14 @@ export const workshops: Workshop[] = [
     time: "11:45 A.M. – 1:00 P.M.",
     location: "PU block, 4th floor, seminar hall",
     summary: "The panel discussion titled “Not Less, Different” was hosted by the Centre for Peace Praxis at CHRIST (Deemed to be University) on 25 July 2025. The session focused on the challenges faced by the differently abled, aiming to foster awareness, empathy, and advocacy within the university community. Featuring voices from journalism, academia, and student experience, the event encouraged participants to rethink inclusivity, representation, and accessibility in everyday life.",
-    highlights: "The panel discussion brought together voices that don’t often share the same stage—an academic, a journalist, and a student—each offering unique yet intersecting perspectives on disability. Mrs. Priti Salian spoke about how the media has the power to shape public attitudes and narratives, but often misses the mark when it comes to nuanced coverage. Dr. Abilash Chandran provided insights into how higher education institutions must go beyond tokenism, embedding inclusion in policy, pedagogy, and campus culture. Student panelist Abishek Chetty spoke candidly about his lived experiences navigating campus life—not as a victim, but as someone constantly negotiating agency in a system not designed with him in mind.",
+    highlights: "The panel discussion brought together voices that don’t often share the same stage—an academic, a journalist, and a student—each offering unique yet intersecting perspectives on disability. Mrs. Priti Salian spoke about how the media has the power to shape public attitudes and narratives, but often misses the mark when it comes to nuanced coverage of disability. She emphasized that storytelling, when done right, can build empathy instead of pity.\n\nDr. Abilash Chandran provided insights into how higher education institutions must go beyond tokenism. He pointed out that inclusion should be embedded in policy, pedagogy, and campus culture—not limited to infrastructure alone. His observations sparked conversation about the silent struggles that are overlooked in academic spaces.\n\nAbhishek Chetty, a student panelist from the 3rd year of the BA Economics and Sociology program, spoke candidly about his lived experiences. He reflected on navigating campus life as a differently abled individual—not as a victim, but as someone who is constantly negotiating agency and acceptance in a system not designed with him in mind. His words resonated deeply with the audience and brought authenticity to the theme: “Not Less, Different.”\n\nThe session wasn't just about discussion—it was a quiet call to action. Participants left the seminar hall reflecting on their role in building an inclusive community that embraces difference without diminishing individuality.",
     takeaways: [
-      "Disability is not a limitation but a difference that society must recognize with dignity and respect.",
-      "Importance of shifting language from terms that marginalize to expressions that empower, such as 'differently abled'.",
-      "Lived experiences offer powerful insights that challenge stereotypes; accessibility is not just about ramps, but about attitude and awareness.",
-      "The media plays a crucial role in transforming public perception—portraying persons with disabilities as autonomous individuals rather than subjects of sympathy.",
-      "Institutions must support students both structurally and socially, making inclusion a lived reality in every sphere."
+      "The panel discussion emphasized that disability is not a limitation but a difference that society must recognize with dignity and respect.",
+      "A central takeaway was the importance of shifting language from terms that marginalize to expressions that empower—moving away from outdated labels and embracing inclusive terminology like “differently abled”.",
+      "Lived experiences offer powerful insights that challenge stereotypes; Abhishek Chetty’s reflections made it evident that accessibility is not just about ramps and elevators, but about attitude, awareness, and agency.",
+      "The role of the media, as discussed by Mrs. Priti Salian, was seen as crucial in transforming public perception—portraying persons with disabilities not as subjects of sympathy but as individuals with autonomy and value.",
+      "Dr. Abilash Chandran’s academic lens brought attention to institutional responsibilities, urging universities to create inclusive learning spaces that support students both structurally and socially.",
+      "Ultimately, the discussion inspired participants to become allies in action—committed to listening, learning, and making inclusion a lived reality in every sphere of life."
     ],
     participants: "50+",
     speakers: [
@@ -140,6 +141,11 @@ export const workshops: Workshop[] = [
     ],
     sdgs: [
       { number: 10, label: "Reduced Inequalities" }
+    ],
+    stats: [
+      { value: "50+", label: "Active Participants" },
+      { value: "4", label: "Expert Perspectives" },
+      { value: "1", label: "Shared Mission" }
     ]
   },
   {
