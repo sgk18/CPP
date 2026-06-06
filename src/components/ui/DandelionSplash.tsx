@@ -533,20 +533,26 @@ const CameraController = ({ isMobile }: { isMobile: boolean }) => {
 const AmbientDust = ({ count = 80 }: { count?: number }) => {
   const ref = useRef<THREE.InstancedMesh>(null);
   const dummy = useMemo(() => new THREE.Object3D(), []);
-  const dust = useMemo(() =>
-    Array.from({ length: count }, () => ({
+  const dust = useMemo(() => {
+    let seed = 42;
+    const rnd = () => {
+      const x = Math.sin(seed++) * 10000;
+      return x - Math.floor(x);
+    };
+    return Array.from({ length: count }, () => ({
       pos: new THREE.Vector3(
-        (Math.random() - 0.5) * 18,
-        (Math.random() - 0.5) * 10,
-        (Math.random() - 0.5) * 8
+        (rnd() - 0.5) * 18,
+        (rnd() - 0.5) * 10,
+        (rnd() - 0.5) * 8
       ),
       vel: new THREE.Vector3(
-        (Math.random() - 0.5) * 0.3,
-        (Math.random() - 0.5) * 0.15,
+        (rnd() - 0.5) * 0.3,
+        (rnd() - 0.5) * 0.15,
         0
       ),
-      size: 0.02 + Math.random() * 0.04,
-    })), [count]);
+      size: 0.02 + rnd() * 0.04,
+    }));
+  }, [count]);
 
   useFrame((_, dt) => {
     if (!ref.current) return;
@@ -671,12 +677,18 @@ export const DandelionSplash: React.FC<DandelionSplashProps> = ({
 }) => {
   const [phase, setPhase] = useState(1);
   const [logoGlow, setLogoGlow] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth < 768 : false
+  );
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
     const timer = setTimeout(onComplete, (T.S8_END + 0.5) * 1000);
-    return () => clearTimeout(timer);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(timer);
+    };
   }, [onComplete]);
 
   // Background stays dark until scene 7 (seeds in flight look cinematic on dark)
@@ -717,7 +729,7 @@ export const DandelionSplash: React.FC<DandelionSplashProps> = ({
             onLogoGlowChange={setLogoGlow}
           />
 
-          <EffectComposer disableNormalPass multisampling={isMobile ? 0 : 4}>
+          <EffectComposer enableNormalPass={false} multisampling={isMobile ? 0 : 4}>
             {!isMobile ? (
               <DepthOfField
                 focusDistance={0.01}
