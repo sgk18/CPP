@@ -19,6 +19,10 @@ export const IntroProvider: React.FC<IntroProviderProps> = ({ children }) => {
   const [hasShownBefore, setHasShownBefore] = useState<boolean | null>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
 
+  const handleComplete = () => {
+    setShowIntro(false);
+  };
+
   useEffect(() => {
     // Check if user prefers reduced motion
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -48,10 +52,6 @@ export const IntroProvider: React.FC<IntroProviderProps> = ({ children }) => {
       if (animationTimer) clearTimeout(animationTimer);
     };
   }, []);
-
-  const handleComplete = () => {
-    setShowIntro(false);
-  };
 
   return (
     <>

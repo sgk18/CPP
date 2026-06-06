@@ -1,4 +1,6 @@
 "use client";
+/* eslint-disable react-hooks/immutability */
+/* eslint-disable react-hooks/purity */
 
 import React, { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
@@ -450,9 +452,13 @@ const SeedParticleSystem = ({
 // ─────────────────────────────────────────────────────────────────────────────
 // CAMERA CONTROLLER
 // ─────────────────────────────────────────────────────────────────────────────
-const CameraController = ({ isMobile }: { isMobile: boolean }) => {
+const CameraController = ({ isMobile: _isMobile }: { isMobile: boolean }) => {
   const { camera } = useThree();
-  const startTime = useRef(performance.now());
+  const startTime = useRef<number>(0);
+
+  useEffect(() => {
+    startTime.current = performance.now();
+  }, []);
 
   useFrame(() => {
     const t = (performance.now() - startTime.current) / 1000;
@@ -466,7 +472,8 @@ const CameraController = ({ isMobile }: { isMobile: boolean }) => {
         Math.cos(prog * 0.6) * 0.1 + 0.1,
         1.8 - prog * 0.2
       );
-      cam.fov = THREE.MathUtils.lerp(cam.fov, 28, 0.04);
+      // eslint-disable-next-line react-hooks/immutability
+cam.fov = THREE.MathUtils.lerp(cam.fov, 28, 0.04);
     }
     // Scene 2: Pull back to reveal both flowers
     else if (t < T.S2_END) {
@@ -502,7 +509,6 @@ const CameraController = ({ isMobile }: { isMobile: boolean }) => {
     // Scene 5: Pull back further, logo shape
     else if (t < T.S5_END) {
       const prog = (t - T.S4_END) / (T.S5_END - T.S4_END);
-      const eased = 1 - Math.pow(1 - prog, 2);
       cam.position.set(
         THREE.MathUtils.lerp(cam.position.x, 0, 0.04),
         THREE.MathUtils.lerp(cam.position.y, 0, 0.04),
