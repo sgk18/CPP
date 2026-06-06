@@ -19,30 +19,18 @@ export const IntroProvider: React.FC<IntroProviderProps> = ({ children }) => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const prefersReduced = mediaQuery.matches;
 
-    // Check query params for forced development preview
-    const urlParams = new URLSearchParams(window.location.search);
-    const forceIntro = urlParams.get("forceIntro") === "true";
-
-    const isShown = localStorage.getItem("startup-animation-shown");
-    
     // Defer state updates to avoid synchronous cascading render warnings
     const mountTimer = setTimeout(() => {
       setIsMounted(true);
       if (prefersReduced) {
         setReducedMotion(true);
       }
-      
-      if (isShown === "true" && !forceIntro) {
-        setHasShownBefore(true);
-        setShowIntro(false);
-      } else {
-        setHasShownBefore(false);
-      }
+      setHasShownBefore(false);
     }, 0);
 
     let animationTimer: NodeJS.Timeout | undefined;
 
-    if ((isShown !== "true" || forceIntro) && prefersReduced) {
+    if (prefersReduced) {
       // If reduced motion is true, fallback to a simple short animation
       const duration = 2000;
       animationTimer = setTimeout(() => {
@@ -58,14 +46,6 @@ export const IntroProvider: React.FC<IntroProviderProps> = ({ children }) => {
 
   const handleComplete = () => {
     setShowIntro(false);
-    try {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get("forceIntro") !== "true") {
-        localStorage.setItem("startup-animation-shown", "true");
-      }
-    } catch (e) {
-      console.error("Failed to set localStorage key:", e);
-    }
   };
 
   return (

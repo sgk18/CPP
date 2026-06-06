@@ -35,21 +35,19 @@ interface DandelionSplashProps {
 // SCENE TIMING (seconds)
 // ─────────────────────────────────────────────────────────────────────────────
 const T = {
-  S1_END:   1.0,   // Single seed close-up ends
-  S2_END:   2.0,   // Two flowers revealed
-  S3_END:   3.0,   // Wind begins, first seeds detach
-  S4_END:   4.5,   // Seeds in full 3D flight
-  S5_END:   5.5,   // CPP logo shape fully visible
-  S6_END:   6.5,   // Brand name + tagline faded in
-  S7_END:   7.5,   // Background transparent, homepage visible
-  S8_END:   8.5,   // Seeds dissolved, animation complete
+  S1_END:   1.5,   // Single seed close-up ends
+  S2_END:   3.0,   // Flower fully revealed (longer reveal)
+  S3_END:   4.5,   // Wind begins, seeds detach
+  S4_END:   6.0,   // Seeds in 3D flight
+  S5_END:   7.2,   // Logo shape formed (more convergence time)
+  S6_END:   8.0,   // Brand name + tagline
+  S7_END:   9.0,   // Background transparent, homepage visible
+  S8_END:  10.0,   // Seeds dissolved, animation complete
 };
 
-// CPP logo two-flower positions (world space)
-const FLOWER_A_POS = new THREE.Vector3(-1.4, 0, 0);
-const FLOWER_B_POS = new THREE.Vector3( 1.4, 0, 0);
-const SEEDS_PER_FLOWER = 180; // each flower
-const TOTAL_SEEDS = SEEDS_PER_FLOWER * 2;
+// Single centered dandelion flower
+const FLOWER_CENTER_POS = new THREE.Vector3(0, 0, 0);
+const TOTAL_SEEDS = 300;
 
 // Fibonacci sphere helper
 function fibonacciSphere(count: number, radius: number) {
@@ -203,46 +201,42 @@ const SeedParticleSystem = ({
   const particles = useMemo<SeedParticle[]>(() => {
     const list: SeedParticle[] = [];
     const phi = Math.PI * (3 - Math.sqrt(5));
-    const perFlower = Math.floor(count / 2);
 
-    for (let f = 0; f < 2; f++) {
-      const flowerPos = f === 0 ? FLOWER_A_POS : FLOWER_B_POS;
-      for (let i = 0; i < perFlower; i++) {
-        const y = 1 - (i / (perFlower - 1)) * 2;
-        const r = Math.sqrt(1 - y * y);
-        const theta = phi * i;
-        const x = Math.cos(theta) * r;
-        const z = Math.sin(theta) * r;
+    for (let i = 0; i < count; i++) {
+      const y = 1 - (i / (count - 1)) * 2;
+      const r = Math.sqrt(1 - y * y);
+      const theta = phi * i;
+      const x = Math.cos(theta) * r;
+      const z = Math.sin(theta) * r;
 
-        const startPos = new THREE.Vector3(
-          flowerPos.x + x * 0.55,
-          flowerPos.y + y * 0.55,
-          flowerPos.z + z * 0.55
-        );
-        const outVec = new THREE.Vector3(x, y, z).normalize();
-        const quat = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), outVec);
-        const euler = new THREE.Euler().setFromQuaternion(quat);
+      const startPos = new THREE.Vector3(
+        FLOWER_CENTER_POS.x + x * 0.55,
+        FLOWER_CENTER_POS.y + y * 0.55,
+        FLOWER_CENTER_POS.z + z * 0.55
+      );
+      const outVec = new THREE.Vector3(x, y, z).normalize();
+      const quat = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), outVec);
+      const euler = new THREE.Euler().setFromQuaternion(quat);
 
-        list.push({
-          pos: startPos.clone(),
-          vel: new THREE.Vector3(),
-          rot: euler,
-          rotVel: new THREE.Vector3(
-            (Math.random() - 0.5) * 0.15,
-            (Math.random() - 0.5) * 0.15,
-            (Math.random() - 0.5) * 0.15
-          ),
-          outVec,
-          target: new THREE.Vector3(),
-          hasTarget: false,
-          isDetached: false,
-          detachDelay: Math.random() * 1.2,
-          baseScale: 0.7 + Math.random() * 0.5,
-          flower: f as 0 | 1,
-          stemLength: 0.45 + Math.random() * 0.15,
-          opacity: 1,
-        });
-      }
+      list.push({
+        pos: startPos.clone(),
+        vel: new THREE.Vector3(),
+        rot: euler,
+        rotVel: new THREE.Vector3(
+          (Math.random() - 0.5) * 0.15,
+          (Math.random() - 0.5) * 0.15,
+          (Math.random() - 0.5) * 0.15
+        ),
+        outVec,
+        target: new THREE.Vector3(),
+        hasTarget: false,
+        isDetached: false,
+        detachDelay: Math.random() * 1.2,
+        baseScale: 0.7 + Math.random() * 0.5,
+        flower: 0,
+        stemLength: 0.45 + Math.random() * 0.15,
+        opacity: 1,
+      });
     }
     return list;
   }, [count]);
@@ -295,6 +289,9 @@ const SeedParticleSystem = ({
 
   const dummy      = useMemo(() => new THREE.Object3D(), []);
   const fluffDummy = useMemo(() => new THREE.Object3D(), []);
+  // Reusable tmp vector to compute fluff world offset without GC
+  const tmpVec     = useMemo(() => new THREE.Vector3(), []);
+  const tmpMat     = useMemo(() => new THREE.Matrix4(), []);
   const startTime  = useRef(performance.now());
   const phase      = useRef(0);
 
@@ -397,22 +394,24 @@ const SeedParticleSystem = ({
       dummy.updateMatrix();
       stemsRef.current.setMatrixAt(i, dummy.matrix);
 
-      // Fluff (at tip of stem)
-      fluffDummy.position.copy(p.pos);
+      // Fluff: offset along the stem's LOCAL +Y axis using rotation matrix
+      // tmpVec = local tip offset = (0, stemLength*sc*0.5, 0)
+      // Then rotate it by the seed's euler to get world offset
+      tmpMat.makeRotationFromEuler(p.rot);
+      tmpVec.set(0, p.stemLength * sc * 0.5, 0).applyMatrix4(tmpMat);
+      fluffDummy.position.copy(p.pos).add(tmpVec);
       fluffDummy.rotation.copy(p.rot);
       fluffDummy.scale.setScalar(sc);
       fluffDummy.updateMatrix();
-      // Translate along local Y (tip of stem)
-      fluffDummy.position.x += p.rot.x * (p.stemLength * sc * 0.5);
-      fluffDummy.position.y += Math.cos(p.rot.x) * (p.stemLength * sc * 0.5);
-      fluffDummy.position.z += -Math.sin(p.rot.x) * (p.stemLength * sc * 0.5);
-      fluffDummy.updateMatrix();
       fluffsRef.current.setMatrixAt(i, fluffDummy.matrix);
 
-      // Opacity via color
+      // Dissolve material opacity in Scene 8
       if (t > T.S7_END) {
-        (stemsRef.current.material as THREE.MeshPhysicalMaterial).opacity = p.opacity;
-        (fluffsRef.current.material as THREE.MeshPhysicalMaterial).opacity = p.opacity;
+        const matS = stemsRef.current.material as THREE.MeshPhysicalMaterial;
+        const matF = fluffsRef.current.material as THREE.MeshPhysicalMaterial;
+        const fade = Math.max(0, 1 - (t - T.S7_END) / 1.0);
+        matS.opacity = fade;
+        matF.opacity = fade * 0.88;
       }
     }
 
@@ -641,16 +640,10 @@ const Scene = ({
       {/* Scene 1: Single seed */}
       <SingleSeed visible={phase === 1} />
 
-      {/* Scene 2-4: Two dandelion flowers (static bodies) */}
+      {/* Scene 2-4: Single centered dandelion flower */}
       <DandelionFlower
-        position={FLOWER_A_POS}
-        seedCount={isMobile ? 60 : 100}
-        visible={phase >= 2}
-        showSeeds={phase <= 2}
-      />
-      <DandelionFlower
-        position={FLOWER_B_POS}
-        seedCount={isMobile ? 60 : 100}
+        position={FLOWER_CENTER_POS}
+        seedCount={isMobile ? 80 : 140}
         visible={phase >= 2}
         showSeeds={phase <= 2}
       />
@@ -686,7 +679,9 @@ export const DandelionSplash: React.FC<DandelionSplashProps> = ({
     return () => clearTimeout(timer);
   }, [onComplete]);
 
+  // Background stays dark until scene 7 (seeds in flight look cinematic on dark)
   const bgOpacity   = phase >= 7 ? 0 : 1;
+  // Logo and text only appear once seeds have assembled (scene 6)
   const showLogo    = phase >= 6;
   const showTagline = phase >= 6;
 
