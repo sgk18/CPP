@@ -682,8 +682,8 @@ export const DandelionSplash: React.FC<DandelionSplashProps> = ({
   // Background stays dark until scene 7 (seeds in flight look cinematic on dark)
   const bgOpacity   = phase >= 7 ? 0 : 1;
   // Logo and text only appear once seeds have assembled (scene 6)
-  const showLogo    = phase >= 6;
-  const showTagline = phase >= 6;
+  const showLogo    = false;
+  const showTagline = false;
 
   return (
     <div className="relative w-full h-full overflow-hidden" style={{ pointerEvents: "none" }}>
@@ -692,7 +692,7 @@ export const DandelionSplash: React.FC<DandelionSplashProps> = ({
       <motion.div
         className="absolute inset-0 z-0"
         style={{
-          background: "radial-gradient(ellipse at 40% 30%, #061428 0%, #030c18 60%, #010810 100%)",
+          background: "#000000",
         }}
         animate={{ opacity: bgOpacity }}
         transition={{ duration: 2.0, ease: [0.4, 0, 0.2, 1] }}
