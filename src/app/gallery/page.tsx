@@ -1,20 +1,45 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Modal } from "@/components/ui/Modal";
-import { galleryItems } from "@/constants/gallery";
-import { ZoomIn } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
+import { ZoomIn, Loader2 } from "lucide-react";
+
+type GalleryItem = {
+  id: string;
+  url: string;
+  caption: string;
+  album: string;
+  is_featured: boolean;
+  sort_order: number;
+};
+
+const ALBUMS = ["All", "Events", "Workshops", "Leadership", "Volunteers", "General"];
 
 export default function Gallery() {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [selectedAlt, setSelectedAlt] = useState<string>("");
+  const [items, setItems] = useState<GalleryItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [albumFilter, setAlbumFilter] = useState("All");
+  const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
 
-  const handleImageClick = (src: string, alt: string) => {
-    setSelectedImage(src);
-    setSelectedAlt(alt);
-  };
+  useEffect(() => {
+    const fetchGallery = async () => {
+      const supabase = createClient();
+      const { data } = await supabase
+        .from("gallery")
+        .select("*")
+        .order("sort_order", { ascending: true });
+      if (data) setItems(data as GalleryItem[]);
+      setLoading(false);
+    };
+    fetchGallery();
+  }, []);
+
+  const filtered = items.filter(item =>
+    albumFilter === "All" || item.album === albumFilter
+  );
 
   return (
     <>
@@ -37,50 +62,91 @@ export default function Gallery() {
           </div>
         </section>
 
-        {/* Gallery Grid */}
-        <section className="py-24 px-6 max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {galleryItems.map((item) => (
-              <div
-                key={item.id}
-                onClick={() => handleImageClick(item.src, item.alt)}
-                className="group relative h-80 rounded-2xl overflow-hidden shadow-md shadow-black/[0.03] border border-black/5 bg-light/30 cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-black/[0.08]"
+        {/* Album Filters */}
+        <section className="pt-10 px-6 max-w-7xl mx-auto">
+          <div className="flex flex-wrap gap-2 justify-center">
+            {ALBUMS.map(a => (
+              <button
+                key={a}
+                onClick={() => setAlbumFilter(a)}
+                className={`text-sm px-4 py-2 rounded-full border font-medium transition-all ${
+                  albumFilter === a
+                    ? "bg-primary text-white border-primary"
+                    : "bg-white border-black/10 text-gray-500 hover:border-primary hover:text-primary"
+                }`}
               >
-                <img
-                  src={item.src}
-                  alt={item.alt}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
-                />
-                
-                {/* Overlay on hover */}
-                <div className="absolute inset-0 bg-primary/45 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-2 p-4 text-center">
-                  <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white">
-                    <ZoomIn className="w-5 h-5" />
-                  </div>
-                  <p className="text-white text-xs font-semibold uppercase tracking-wider mt-2 line-clamp-2">
-                    {item.alt}
-                  </p>
-                </div>
-              </div>
+                {a}
+              </button>
             ))}
           </div>
+        </section>
+
+        {/* Gallery Grid */}
+        <section className="py-10 px-6 max-w-7xl mx-auto">
+          {loading ? (
+            <div className="flex flex-col items-center justify-center py-24 text-gray-400">
+              <Loader2 className="w-8 h-8 animate-spin mb-3" />
+              <p className="text-sm">Loading gallery...</p>
+            </div>
+          ) : filtered.length === 0 ? (
+            <div className="text-center py-24 text-gray-400">
+              <p className="text-sm">No images found in this album.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+              {filtered.map((item) => (
+                <div
+                  key={item.id}
+                  onClick={() => setSelectedImage(item)}
+                  className="group relative h-80 rounded-2xl overflow-hidden shadow-md shadow-black/[0.03] border border-black/5 bg-light/30 cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-black/[0.08]"
+                >
+                  <img
+                    src={item.url}
+                    alt={item.caption}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
+
+                  {item.is_featured && (
+                    <div className="absolute top-3 left-3 bg-amber-400 text-amber-950 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                      Featured
+                    </div>
+                  )}
+
+                  {/* Overlay on hover */}
+                  <div className="absolute inset-0 bg-primary/45 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-2 p-4 text-center">
+                    <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white">
+                      <ZoomIn className="w-5 h-5" />
+                    </div>
+                    <p className="text-white text-xs font-semibold uppercase tracking-wider mt-2 line-clamp-2">
+                      {item.caption}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </section>
 
         {/* Lightbox Modal */}
         <Modal
           isOpen={!!selectedImage}
           onClose={() => setSelectedImage(null)}
-          title={selectedAlt}
+          title={selectedImage?.caption ?? ""}
           size="lg"
         >
           {selectedImage && (
-            <div className="w-full flex justify-center items-center rounded-2xl overflow-hidden bg-black/5">
+            <div className="w-full flex flex-col items-center gap-3 rounded-2xl overflow-hidden bg-black/5">
               <img
-                src={selectedImage}
-                alt={selectedAlt}
+                src={selectedImage.url}
+                alt={selectedImage.caption}
                 className="max-w-full max-h-[70vh] object-contain rounded-2xl"
               />
+              {selectedImage.album && (
+                <span className="text-xs text-gray-400 font-medium px-3 py-1 bg-gray-100 rounded-full">
+                  {selectedImage.album}
+                </span>
+              )}
             </div>
           )}
         </Modal>

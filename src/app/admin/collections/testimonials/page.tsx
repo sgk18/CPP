@@ -1,24 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Quote, Plus, Pencil, Trash2, Check, X, Save, Loader2, ThumbsUp, ThumbsDown, Search } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
 type Testimonial = {
   id: string;
   name: string;
   role: string;
   content: string;
-  avatar: string;
+  avatar_url: string;
   status: "approved" | "pending" | "rejected";
-  date: string;
+  created_at: string;
 };
-
-const INITIAL: Testimonial[] = [
-  { id: "1", name: "Dr. Padmakumar MM", role: "Director, CPP", content: "Peace is hard-earned, intentional, and sustained through listening, inclusion, and hope.", avatar: "/assets/peaceaxis_image5.jpg", status: "approved", date: "2024-01-15" },
-  { id: "2", name: "Ravi Ranjan Sharma", role: "Student Coordinator", content: "This program transformed how I see conflict resolution and community building.", avatar: "/assets/studentcoordinator.jpg", status: "approved", date: "2024-02-10" },
-  { id: "3", name: "Workshop Participant", role: "Psychosocial Workshop", content: "The resilience workshop gave me tools I use every day. Truly life-changing.", avatar: "", status: "pending", date: "2024-03-01" },
-];
 
 const STATUS_COLORS = {
   approved: "text-emerald-400 bg-emerald-400/10 border-emerald-400/20",
@@ -26,15 +21,14 @@ const STATUS_COLORS = {
   rejected: "text-rose-400 bg-rose-400/10 border-rose-400/20",
 };
 
-function TestimonialForm({ item, onSave, onCancel }: { item: Partial<Testimonial>; onSave: (t: Testimonial) => void; onCancel: () => void }) {
+function TestimonialForm({ item, onSave, onCancel }: { item: Partial<Testimonial>; onSave: (t: Partial<Testimonial>) => Promise<void>; onCancel: () => void }) {
   const [form, setForm] = useState<Partial<Testimonial>>({ status: "pending", ...item });
   const [saving, setSaving] = useState(false);
 
   const handleSave = async () => {
     if (!form.name || !form.content) return;
     setSaving(true);
-    await new Promise(r => setTimeout(r, 500));
-    onSave({ id: form.id || Date.now().toString(), name: form.name!, role: form.role || "", content: form.content!, avatar: form.avatar || "", status: form.status || "pending", date: form.date || new Date().toISOString().split("T")[0] });
+    await onSave(form);
     setSaving(false);
   };
 
@@ -43,20 +37,14 @@ function TestimonialForm({ item, onSave, onCancel }: { item: Partial<Testimonial
       className="bg-[#0d1f2d]/80 backdrop-blur border border-[#2a9d8f]/30 rounded-2xl p-6 mb-4">
       <h3 className="text-white font-semibold text-sm mb-5">{item.id ? "Edit Testimonial" : "Add Testimonial"}</h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {["name", "role", "avatar", "date"].map(key => (
+        {["name", "role", "avatar_url"].map(key => (
           <div key={key}>
-            <label className="block text-white/50 text-xs font-medium mb-1.5 capitalize">{key === "avatar" ? "Photo URL" : key}</label>
+            <label className="block text-white/50 text-xs font-medium mb-1.5 capitalize">{key === "avatar_url" ? "Photo URL" : key}</label>
             <input value={(form[key as keyof Testimonial] as string) ?? ""}
               onChange={e => setForm(p => ({ ...p, [key]: e.target.value }))}
               className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-3 py-2.5 text-white text-sm outline-none focus:border-[#2a9d8f]/60 transition-all" />
           </div>
         ))}
-        <div className="sm:col-span-2">
-          <label className="block text-white/50 text-xs font-medium mb-1.5">Testimonial Text</label>
-          <textarea rows={3} value={form.content ?? ""}
-            onChange={e => setForm(p => ({ ...p, content: e.target.value }))}
-            className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-3 py-2.5 text-white text-sm outline-none focus:border-[#2a9d8f]/60 transition-all resize-none" />
-        </div>
         <div>
           <label className="block text-white/50 text-xs font-medium mb-1.5">Status</label>
           <select value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value as Testimonial["status"] }))}
@@ -65,6 +53,12 @@ function TestimonialForm({ item, onSave, onCancel }: { item: Partial<Testimonial
             <option value="approved">Approved</option>
             <option value="rejected">Rejected</option>
           </select>
+        </div>
+        <div className="sm:col-span-2">
+          <label className="block text-white/50 text-xs font-medium mb-1.5">Testimonial Text</label>
+          <textarea rows={3} value={form.content ?? ""}
+            onChange={e => setForm(p => ({ ...p, content: e.target.value }))}
+            className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-3 py-2.5 text-white text-sm outline-none focus:border-[#2a9d8f]/60 transition-all resize-none" />
         </div>
       </div>
       <div className="flex justify-end gap-3 mt-5">
@@ -82,26 +76,52 @@ function TestimonialForm({ item, onSave, onCancel }: { item: Partial<Testimonial
 }
 
 export default function TestimonialsManagerPage() {
-  const [items, setItems] = useState<Testimonial[]>(INITIAL);
+  const [items, setItems] = useState<Testimonial[]>([]);
+  const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<Partial<Testimonial> | null>(null);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<"all" | Testimonial["status"]>("all");
+
+  const supabase = createClient();
+
+  useEffect(() => {
+    fetchTestimonials();
+  }, []);
+
+  const fetchTestimonials = async () => {
+    setLoading(true);
+    const { data } = await supabase.from("testimonials").select("*").order("created_at", { ascending: false });
+    if (data) setItems(data as Testimonial[]);
+    setLoading(false);
+  };
 
   const filtered = items.filter(t =>
     (filter === "all" || t.status === filter) &&
     (t.name.toLowerCase().includes(search.toLowerCase()) || t.content.toLowerCase().includes(search.toLowerCase()))
   );
 
-  const approve = (id: string) => setItems(prev => prev.map(t => t.id === id ? { ...t, status: "approved" } : t));
-  const reject = (id: string) => setItems(prev => prev.map(t => t.id === id ? { ...t, status: "rejected" } : t));
-  const remove = (id: string) => { if (confirm("Delete?")) setItems(prev => prev.filter(t => t.id !== id)); };
+  const updateStatus = async (id: string, status: "approved" | "rejected") => {
+    const { error } = await supabase.from("testimonials").update({ status }).eq("id", id);
+    if (!error) setItems(prev => prev.map(t => t.id === id ? { ...t, status } : t));
+  };
 
-  const handleSave = (t: Testimonial) => {
-    setItems(prev => {
-      const idx = prev.findIndex(x => x.id === t.id);
-      if (idx >= 0) { const arr = [...prev]; arr[idx] = t; return arr; }
-      return [t, ...prev];
-    });
+  const remove = async (id: string) => { 
+    if (confirm("Delete?")) {
+      const { error } = await supabase.from("testimonials").delete().eq("id", id);
+      if (!error) setItems(prev => prev.filter(t => t.id !== id)); 
+    }
+  };
+
+  const handleSave = async (t: Partial<Testimonial>) => {
+    if (t.id) {
+      // Update
+      const { data, error } = await supabase.from("testimonials").update(t).eq("id", t.id).select().single();
+      if (!error && data) setItems(prev => prev.map(x => x.id === data.id ? data as Testimonial : x));
+    } else {
+      // Insert
+      const { data, error } = await supabase.from("testimonials").insert(t).select().single();
+      if (!error && data) setItems(prev => [data as Testimonial, ...prev]);
+    }
     setEditing(null);
   };
 
@@ -152,7 +172,7 @@ export default function TestimonialsManagerPage() {
               className="bg-[#0d1f2d]/60 backdrop-blur border border-white/[0.07] rounded-2xl p-5 hover:border-white/[0.12] transition-all">
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1A5F7A]/30 to-[#2a9d8f]/20 border border-white/[0.07] flex-shrink-0 overflow-hidden">
-                  {t.avatar ? <img src={t.avatar} alt={t.name} className="w-full h-full object-cover" />
+                  {t.avatar_url ? <img src={t.avatar_url} alt={t.name} className="w-full h-full object-cover" />
                     : <div className="w-full h-full flex items-center justify-center text-white/30 font-bold text-sm">{t.name[0]}</div>}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -162,17 +182,17 @@ export default function TestimonialsManagerPage() {
                     <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${STATUS_COLORS[t.status]}`}>{t.status}</span>
                   </div>
                   <p className="text-white/60 text-sm italic leading-relaxed">"{t.content}"</p>
-                  <p className="text-white/25 text-xs mt-2">{t.date}</p>
+                  <p className="text-white/25 text-xs mt-2">{new Date(t.created_at).toLocaleDateString()}</p>
                 </div>
                 <div className="flex flex-col gap-2 flex-shrink-0">
                   {t.status === "pending" && (
                     <>
-                      <button onClick={() => approve(t.id)}
+                      <button onClick={() => updateStatus(t.id, "approved")}
                         className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400/60 hover:text-emerald-400 transition-colors"
                         title="Approve">
                         <ThumbsUp size={14} />
                       </button>
-                      <button onClick={() => reject(t.id)}
+                      <button onClick={() => updateStatus(t.id, "rejected")}
                         className="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400/60 hover:text-rose-400 transition-colors"
                         title="Reject">
                         <ThumbsDown size={14} />
@@ -197,10 +217,17 @@ export default function TestimonialsManagerPage() {
             </motion.div>
           ))}
         </AnimatePresence>
-        {filtered.length === 0 && (
+        {filtered.length === 0 && !loading && (
           <div className="text-center py-16 text-white/25">
             <Quote size={32} className="mx-auto mb-3 opacity-30" />
             <p className="text-sm">No testimonials found</p>
+          </div>
+        )}
+        
+        {loading && (
+          <div className="text-center py-16 text-white/25">
+            <Loader2 size={32} className="mx-auto mb-3 opacity-30 animate-spin" />
+            <p className="text-sm">Loading testimonials...</p>
           </div>
         )}
       </div>

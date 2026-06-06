@@ -1,15 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Phone, MapPin, Globe, Save, Check, Loader2, Plus, Trash2 } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
 type ContactData = {
   address: string; email: string; phone: string; altPhone: string; mapLink: string;
   socialLinks: { platform: string; url: string }[];
 };
 
-const INITIAL: ContactData = {
+const DEFAULT_CONTACT: ContactData = {
   address: "Centre for Peace Praxis, Christ (Deemed to be University), Hosur Road, Bengaluru – 560029, India",
   email: "peacepraxis@christuniversity.in",
   phone: "+91 80 4012 9100",
@@ -23,16 +24,36 @@ const INITIAL: ContactData = {
 };
 
 export default function ContactManagerPage() {
-  const [data, setData] = useState<ContactData>(INITIAL);
+  const [data, setData] = useState<ContactData>(DEFAULT_CONTACT);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const supabase = createClient();
+
+  useEffect(() => {
+    fetchSettings();
+  }, []);
+
+  const fetchSettings = async () => {
+    setLoading(true);
+    const { data: res } = await supabase.from("settings").select("value").eq("key", "contact").single();
+    if (res && res.value) {
+      setData(res.value as ContactData);
+    }
+    setLoading(false);
+  };
 
   const handleSave = async () => {
     setSaving(true);
-    await new Promise(r => setTimeout(r, 800));
+    const { error } = await supabase.from("settings").upsert({ key: "contact", value: data });
     setSaving(false);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2500);
+    if (!error) {
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2500);
+    } else {
+      alert("Error saving: " + error.message);
+    }
   };
 
   const updateSocial = (i: number, field: "platform" | "url", val: string) => {

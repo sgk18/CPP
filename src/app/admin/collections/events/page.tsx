@@ -1,29 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Plus, Pencil, Trash2, Search, Filter, Calendar,
   ExternalLink, ChevronDown, Loader2, X, Save, ImageIcon
 } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
 type Event = {
   id: string;
   title: string;
   date: string;
   description: string;
-  image: string;
-  registrationLink: string;
+  image_url: string;
+  registration_link: string;
   status: "upcoming" | "past" | "ongoing";
 };
-
-const INITIAL_EVENTS: Event[] = [
-  { id: "1", title: "Inter-Religious Visit", date: "2026-02-20", description: "A one-day visit to multiple religious institutions including Gurudwara, Mahabodhi, and Dharmaram.", image: "/assets/peaceaxis_image11.jpg", registrationLink: "", status: "past" },
-  { id: "2", title: "Film Festival & Panel Discussion", date: "2026-02-24", description: "A one-day film screening followed by a panel discussion.", image: "/assets/peaceaxis_image9.jpg", registrationLink: "", status: "past" },
-  { id: "3", title: "Psychosocial Well-being Workshop", date: "2026-02-19", description: "A 3-hour workshop on \"Resilience and Recovery\" with e-certificates.", image: "/assets/peaceaxis_image12.jpg", registrationLink: "", status: "past" },
-  { id: "4", title: "SDG Week – NGO Stalls", date: "2026-02-12", description: "NGO stalls to promote sustainable development goals during SDG Week.", image: "/assets/peaceaxis_image6.jpg", registrationLink: "", status: "past" },
-  { id: "5", title: "Volunteer in Philippines", date: "2026-05-12", description: "International volunteering at Mindanao Peacebuilding Institute, May 12-31, 2026.", image: "/assets/volunteer_philippines.jpg", registrationLink: "https://docs.google.com/forms/d/e/1FAIpQLScmjweCQfwquN_aHSy9Tz_DkvodQwyqULN-3AQ19-SfWxP2Lw/viewform", status: "upcoming" },
-];
 
 const STATUS_COLORS = {
   upcoming: "text-emerald-400 bg-emerald-400/10 border-emerald-400/20",
@@ -33,7 +26,7 @@ const STATUS_COLORS = {
 
 function EventForm({ event, onSave, onCancel }: {
   event: Partial<Event>;
-  onSave: (e: Event) => void;
+  onSave: (e: Partial<Event>) => Promise<void>;
   onCancel: () => void;
 }) {
   const [form, setForm] = useState<Partial<Event>>({ status: "upcoming", ...event });
@@ -42,8 +35,7 @@ function EventForm({ event, onSave, onCancel }: {
   const handleSave = async () => {
     if (!form.title || !form.date) return;
     setSaving(true);
-    await new Promise(r => setTimeout(r, 600));
-    onSave({ id: form.id || Date.now().toString(), title: form.title!, date: form.date!, description: form.description || "", image: form.image || "", registrationLink: form.registrationLink || "", status: form.status || "upcoming" });
+    await onSave(form);
     setSaving(false);
   };
 
@@ -79,8 +71,8 @@ function EventForm({ event, onSave, onCancel }: {
             className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-3 py-2.5 text-white text-sm outline-none focus:border-[#2a9d8f]/60 transition-all resize-none"
           />
         </div>
-        {field("Image Path / URL", "image")}
-        {field("Registration Link", "registrationLink")}
+        {field("Image Path / URL", "image_url")}
+        {field("Registration Link", "registration_link")}
         <div>
           <label className="block text-white/50 text-xs font-medium mb-1.5">Status</label>
           <select
@@ -108,32 +100,57 @@ function EventForm({ event, onSave, onCancel }: {
 }
 
 export default function EventsManagerPage() {
-  const [events, setEvents] = useState<Event[]>(INITIAL_EVENTS);
+  const [events, setEvents] = useState<Event[]>([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState<"all" | Event["status"]>("all");
   const [editingEvent, setEditingEvent] = useState<Partial<Event> | null>(null);
   const [deleting, setDeleting] = useState<string | null>(null);
+  
+  const supabase = createClient();
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+  const fetchEvents = async () => {
+    setLoading(true);
+    const { data } = await supabase.from("events").select("*").order("date", { ascending: false });
+    if (data) setEvents(data as Event[]);
+    setLoading(false);
+  };
 
   const filtered = events.filter(e => {
-    const matchSearch = e.title.toLowerCase().includes(search.toLowerCase()) || e.description.toLowerCase().includes(search.toLowerCase());
+    const matchSearch = e.title.toLowerCase().includes(search.toLowerCase()) || (e.description || "").toLowerCase().includes(search.toLowerCase());
     const matchStatus = filterStatus === "all" || e.status === filterStatus;
     return matchSearch && matchStatus;
   });
 
-  const handleSave = (event: Event) => {
-    setEvents(prev => {
-      const idx = prev.findIndex(e => e.id === event.id);
-      if (idx >= 0) { const arr = [...prev]; arr[idx] = event; return arr; }
-      return [event, ...prev];
-    });
+  const handleSave = async (event: Partial<Event>) => {
+    if (event.id) {
+      // Update
+      const { data, error } = await supabase.from("events").update(event).eq("id", event.id).select().single();
+      if (!error && data) {
+        setEvents(prev => prev.map(e => e.id === data.id ? data as Event : e));
+      }
+    } else {
+      // Insert
+      const slug = event.title?.toLowerCase().replace(/\s+/g, "-") + "-" + Date.now().toString().slice(-4);
+      const { data, error } = await supabase.from("events").insert({ ...event, slug }).select().single();
+      if (!error && data) {
+        setEvents(prev => [data as Event, ...prev]);
+      }
+    }
     setEditingEvent(null);
   };
 
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this event?")) return;
     setDeleting(id);
-    await new Promise(r => setTimeout(r, 500));
-    setEvents(prev => prev.filter(e => e.id !== id));
+    const { error } = await supabase.from("events").delete().eq("id", id);
+    if (!error) {
+      setEvents(prev => prev.filter(e => e.id !== id));
+    }
     setDeleting(null);
   };
 
@@ -203,8 +220,8 @@ export default function EventsManagerPage() {
             >
               {/* Image thumb */}
               <div className="w-16 h-16 rounded-xl bg-white/[0.04] border border-white/[0.07] flex-shrink-0 overflow-hidden">
-                {event.image ? (
-                  <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
+                {event.image_url ? (
+                  <img src={event.image_url} alt={event.title} className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center"><ImageIcon size={20} className="text-white/20" /></div>
                 )}
@@ -226,8 +243,8 @@ export default function EventsManagerPage() {
 
               {/* Actions */}
               <div className="flex items-center gap-2 flex-shrink-0">
-                {event.registrationLink && (
-                  <a href={event.registrationLink} target="_blank" rel="noopener noreferrer"
+                {event.registration_link && (
+                  <a href={event.registration_link} target="_blank" rel="noopener noreferrer"
                     className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.07] flex items-center justify-center text-white/30 hover:text-[#2a9d8f] transition-colors">
                     <ExternalLink size={14} />
                   </a>
@@ -246,10 +263,17 @@ export default function EventsManagerPage() {
           ))}
         </AnimatePresence>
 
-        {filtered.length === 0 && (
+        {filtered.length === 0 && !loading && (
           <div className="text-center py-16 text-white/25">
             <Calendar size={32} className="mx-auto mb-3 opacity-30" />
             <p className="text-sm">No events found</p>
+          </div>
+        )}
+
+        {loading && (
+          <div className="text-center py-16 text-white/25">
+            <Loader2 size={32} className="mx-auto mb-3 opacity-30 animate-spin" />
+            <p className="text-sm">Loading events...</p>
           </div>
         )}
       </div>

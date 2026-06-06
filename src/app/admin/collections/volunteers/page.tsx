@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Users, Plus, Pencil, Trash2, Search, Filter,
   ChevronDown, Loader2, X, Save, Mail, Phone
 } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
 type Volunteer = {
   id: string;
@@ -15,14 +16,9 @@ type Volunteer = {
   email: string;
   phone: string;
   status: "active" | "inactive" | "pending";
-  image: string;
-  joinedDate: string;
+  image_url: string;
+  joined_date: string;
 };
-
-const INITIAL_VOLUNTEERS: Volunteer[] = [
-  { id: "1", name: "Dr. Padmakumar MM", role: "Director", department: "Leadership", email: "director@cpp.in", phone: "", status: "active", image: "/assets/peaceaxis_image5.jpg", joinedDate: "2023-01-01" },
-  { id: "2", name: "Ravi Ranjan Sharma", role: "Student Coordinator", department: "Coordination", email: "ravi@cpp.in", phone: "", status: "active", image: "/assets/studentcoordinator.jpg", joinedDate: "2023-06-01" },
-];
 
 const STATUS_COLORS = {
   active: "text-emerald-400 bg-emerald-400/10 border-emerald-400/20",
@@ -32,7 +28,7 @@ const STATUS_COLORS = {
 
 function VolunteerForm({ volunteer, onSave, onCancel }: {
   volunteer: Partial<Volunteer>;
-  onSave: (v: Volunteer) => void;
+  onSave: (v: Partial<Volunteer>) => Promise<void>;
   onCancel: () => void;
 }) {
   const [form, setForm] = useState<Partial<Volunteer>>({ status: "active", ...volunteer });
@@ -41,14 +37,7 @@ function VolunteerForm({ volunteer, onSave, onCancel }: {
   const handleSave = async () => {
     if (!form.name) return;
     setSaving(true);
-    await new Promise(r => setTimeout(r, 600));
-    onSave({
-      id: form.id || Date.now().toString(),
-      name: form.name!, role: form.role || "", department: form.department || "",
-      email: form.email || "", phone: form.phone || "",
-      status: form.status || "active", image: form.image || "",
-      joinedDate: form.joinedDate || new Date().toISOString().split("T")[0],
-    });
+    await onSave(form);
     setSaving(false);
   };
 
@@ -71,8 +60,8 @@ function VolunteerForm({ volunteer, onSave, onCancel }: {
         {f("Department", "department")}
         {f("Email", "email", "email")}
         {f("Phone", "phone", "tel")}
-        {f("Photo URL / Path", "image")}
-        {f("Join Date", "joinedDate", "date")}
+        {f("Photo URL / Path", "image_url")}
+        {f("Join Date", "joined_date", "date")}
         <div>
           <label className="block text-white/50 text-xs font-medium mb-1.5">Status</label>
           <select value={form.status}
@@ -99,31 +88,55 @@ function VolunteerForm({ volunteer, onSave, onCancel }: {
 }
 
 export default function VolunteersManagerPage() {
-  const [volunteers, setVolunteers] = useState<Volunteer[]>(INITIAL_VOLUNTEERS);
+  const [volunteers, setVolunteers] = useState<Volunteer[]>([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState<"all" | Volunteer["status"]>("all");
   const [editing, setEditing] = useState<Partial<Volunteer> | null>(null);
   const [deleting, setDeleting] = useState<string | null>(null);
 
+  const supabase = createClient();
+
+  useEffect(() => {
+    fetchVolunteers();
+  }, []);
+
+  const fetchVolunteers = async () => {
+    setLoading(true);
+    const { data } = await supabase.from("volunteers").select("*").order("created_at", { ascending: false });
+    if (data) setVolunteers(data as Volunteer[]);
+    setLoading(false);
+  };
+
   const filtered = volunteers.filter(v =>
     (filterStatus === "all" || v.status === filterStatus) &&
-    (v.name.toLowerCase().includes(search.toLowerCase()) || v.role.toLowerCase().includes(search.toLowerCase()))
+    (v.name.toLowerCase().includes(search.toLowerCase()) || (v.role || "").toLowerCase().includes(search.toLowerCase()))
   );
 
-  const handleSave = (vol: Volunteer) => {
-    setVolunteers(prev => {
-      const idx = prev.findIndex(v => v.id === vol.id);
-      if (idx >= 0) { const arr = [...prev]; arr[idx] = vol; return arr; }
-      return [vol, ...prev];
-    });
+  const handleSave = async (vol: Partial<Volunteer>) => {
+    if (vol.id) {
+      // Update
+      const { data, error } = await supabase.from("volunteers").update(vol).eq("id", vol.id).select().single();
+      if (!error && data) {
+        setVolunteers(prev => prev.map(v => v.id === data.id ? data as Volunteer : v));
+      }
+    } else {
+      // Insert
+      const { data, error } = await supabase.from("volunteers").insert(vol).select().single();
+      if (!error && data) {
+        setVolunteers(prev => [data as Volunteer, ...prev]);
+      }
+    }
     setEditing(null);
   };
 
   const handleDelete = async (id: string) => {
     if (!confirm("Remove this volunteer?")) return;
     setDeleting(id);
-    await new Promise(r => setTimeout(r, 500));
-    setVolunteers(prev => prev.filter(v => v.id !== id));
+    const { error } = await supabase.from("volunteers").delete().eq("id", id);
+    if (!error) {
+      setVolunteers(prev => prev.filter(v => v.id !== id));
+    }
     setDeleting(null);
   };
 
@@ -167,42 +180,50 @@ export default function VolunteersManagerPage() {
 
       <div className="space-y-3">
         <AnimatePresence>
-          {filtered.map((vol, i) => (
-            <motion.div key={vol.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+          {filtered.map((v, i) => (
+            <motion.div key={v.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, x: -20 }} transition={{ delay: i * 0.04 }}
               className="bg-[#0d1f2d]/60 backdrop-blur border border-white/[0.07] rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center gap-4 hover:border-white/[0.12] transition-all">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1A5F7A]/30 to-[#2a9d8f]/20 border border-white/[0.07] flex-shrink-0 overflow-hidden">
-                {vol.image ? <img src={vol.image} alt={vol.name} className="w-full h-full object-cover" />
-                  : <div className="w-full h-full flex items-center justify-center text-white/30 font-bold text-sm">{vol.name[0]}</div>}
+                {v.image_url ? <img src={v.image_url} alt={v.name} className="w-full h-full object-cover" />
+                  : <div className="w-full h-full flex items-center justify-center text-white/30 font-bold text-lg">{v.name[0]}</div>}
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <h3 className="text-white font-semibold text-sm">{vol.name}</h3>
-                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${STATUS_COLORS[vol.status]}`}>{vol.status}</span>
+                  <p className="text-white font-semibold text-sm">{v.name}</p>
+                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${STATUS_COLORS[v.status]}`}>{v.status}</span>
                 </div>
-                <p className="text-[#2a9d8f] text-xs mt-0.5">{vol.role} · {vol.department}</p>
-                <div className="flex items-center gap-4 mt-1">
-                  {vol.email && <p className="text-white/30 text-xs flex items-center gap-1"><Mail size={10} /> {vol.email}</p>}
-                  {vol.phone && <p className="text-white/30 text-xs flex items-center gap-1"><Phone size={10} /> {vol.phone}</p>}
+                <p className="text-[#2a9d8f] text-xs mt-0.5">{v.role} {v.department && `· ${v.department}`}</p>
+                <div className="flex items-center gap-3 mt-1.5 flex-wrap">
+                  {v.email && <p className="text-white/40 text-[11px] flex items-center gap-1.5"><Mail size={10} /> {v.email}</p>}
+                  {v.phone && <p className="text-white/40 text-[11px] flex items-center gap-1.5"><Phone size={10} /> {v.phone}</p>}
                 </div>
               </div>
-              <div className="flex items-center gap-2 flex-shrink-0">
-                <button onClick={() => setEditing(vol)}
-                  className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.07] flex items-center justify-center text-white/30 hover:text-white/80 transition-colors">
-                  <Pencil size={14} />
-                </button>
-                <button onClick={() => handleDelete(vol.id)} disabled={deleting === vol.id}
-                  className="w-8 h-8 rounded-lg bg-rose-500/5 border border-rose-500/10 flex items-center justify-center text-rose-400/40 hover:text-rose-400 hover:bg-rose-500/10 transition-all">
-                  {deleting === vol.id ? <Loader2 size={14} className="animate-spin" /> : <Trash2 size={14} />}
-                </button>
+              <div className="flex flex-col items-end gap-1 flex-shrink-0 text-right">
+                <p className="text-white/30 text-[10px]">Joined {v.joined_date}</p>
+                <div className="flex items-center gap-1.5 mt-1">
+                  <button onClick={() => setEditing(v)} className="w-7 h-7 rounded-lg bg-white/[0.04] border border-white/[0.07] flex items-center justify-center text-white/30 hover:text-white/80 transition-colors">
+                    <Pencil size={12} />
+                  </button>
+                  <button onClick={() => handleDelete(v.id)} disabled={deleting === v.id}
+                    className="w-7 h-7 rounded-lg bg-rose-500/5 border border-rose-500/10 flex items-center justify-center text-rose-400/40 hover:text-rose-400 transition-colors disabled:opacity-50">
+                    {deleting === v.id ? <Loader2 size={12} className="animate-spin" /> : <Trash2 size={12} />}
+                  </button>
+                </div>
               </div>
             </motion.div>
           ))}
         </AnimatePresence>
-        {filtered.length === 0 && (
+        {filtered.length === 0 && !loading && (
           <div className="text-center py-16 text-white/25">
             <Users size={32} className="mx-auto mb-3 opacity-30" />
             <p className="text-sm">No volunteers found</p>
+          </div>
+        )}
+        {loading && (
+          <div className="text-center py-16 text-white/25">
+            <Loader2 size={32} className="mx-auto mb-3 opacity-30 animate-spin" />
+            <p className="text-sm">Loading volunteers...</p>
           </div>
         )}
       </div>

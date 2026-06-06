@@ -1,12 +1,49 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Globe, Heart, Compass, Shield, Newspaper, Leaf, Mail } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
+
+const DEFAULT = {
+  missionTitle: "Our Mission",
+  mission: "To build communities of hope, healing, and resilience through peace literacy, intercultural dialogue, and collective well-being.",
+  visionTitle: "Our Vision",
+  vision: "A world where every individual is an active agent of peace — rooted in justice, empathy, and ecological consciousness.",
+  storyTitle: "Our Story",
+  story: "Established in 2023 at Christ (Deemed to be University), Bengaluru, the Centre for Peace Praxis emerged from the belief that peace education is not a luxury, but a necessity.",
+  pillar1Title: "Intercultural Dialogue",
+  pillar1Desc: "Fostering understanding and respect across diverse cultures, beliefs, and backgrounds through open conversations.",
+  pillar2Title: "Psycho-social Well-being",
+  pillar2Desc: "Supporting mental and emotional health through community-based approaches to healing and resilience.",
+  pillar3Title: "Media Literacy",
+  pillar3Desc: "Developing critical thinking skills to navigate today's complex media landscape and counter misinformation.",
+  pillar4Title: "Eco-consciousness",
+  pillar4Desc: "Promoting environmental awareness and sustainable practices as integral components of peace.",
+  directorName: "Dr. Padmakumar MM",
+  directorTitle: "Director, Centre for Peace Praxis",
+  directorMessage: "At the Centre for Peace Praxis, we believe that peace begins within — in how we relate to ourselves, to each other, and to the world around us. Our work is grounded in the conviction that peace is not passive, but an active practice of compassion, justice, and hope.",
+  directorImage: "/assets/peaceaxis_image5.jpg",
+  teamTitle: "Our Team",
+  teamDesc: "A dedicated team of educators, students, and community partners committed to peacebuilding.",
+};
 
 export default function About() {
+  const [content, setContent] = useState(DEFAULT);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      const supabase = createClient();
+      const { data } = await supabase.from("pages").select("content").eq("slug", "about").single();
+      if (data && data.content) {
+        setContent(data.content as typeof DEFAULT);
+      }
+    };
+    fetchContent();
+  }, []);
+
   const values = [
     {
       title: "Inclusivity",
@@ -60,18 +97,12 @@ export default function About() {
               <div className="flex flex-col gap-6">
                 <span className="text-xs font-bold uppercase tracking-wider text-accent">Who We Are</span>
                 <h2 className="text-3xl font-display font-bold text-dark">
-                  Building Communities of Hope, Healing, and Resilience
+                  {content.storyTitle}
                 </h2>
                 <div className="h-1 bg-accent w-12" />
                 <div className="text-gray-text text-base leading-relaxed flex flex-col gap-4">
-                  <p className="font-semibold text-primary">
-                    Established in 2023, the Centre for Peace Praxis is grounded in the belief that peace is not merely a slogan, but a practice to be cultivated.
-                  </p>
-                  <p>
-                    We believe that peace is not just the absence of conflict, but the presence of active justice, mutual understanding, and cooperation. To achieve this, we organize regular workshops, dialogues, and community projects that spread peace literacy and media critique.
-                  </p>
-                  <p>
-                    Aligned with our pillars—Media Literacy, Psychosocial Support, Intercultural Dialogue, and Ecological Wellbeing—we create environments where differences are embraced as strengths. We equip young leaders with the skills, values, and knowledge needed to become agents of positive social change.
+                  <p className="font-semibold text-primary whitespace-pre-wrap">
+                    {content.story}
                   </p>
                 </div>
               </div>
@@ -89,18 +120,18 @@ export default function About() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <Card hoverEffect={false} className="border border-black/5 bg-light/30">
                 <CardContent className="p-8 flex flex-col gap-4">
-                  <h3 className="text-2xl font-display font-bold text-primary">Vision</h3>
+                  <h3 className="text-2xl font-display font-bold text-primary">{content.visionTitle}</h3>
                   <p className="text-gray-text text-base leading-relaxed">
-                    To be a catalyst for building inclusive, just, and peaceful communities through education, dialogue, and collaborative action across local and global spheres.
+                    {content.vision}
                   </p>
                 </CardContent>
               </Card>
 
               <Card hoverEffect={false} className="border border-black/5 bg-light/30">
                 <CardContent className="p-8 flex flex-col gap-4">
-                  <h3 className="text-2xl font-display font-bold text-primary">Mission</h3>
+                  <h3 className="text-2xl font-display font-bold text-primary">{content.missionTitle}</h3>
                   <p className="text-gray-text text-base leading-relaxed">
-                    Empowering individuals and institutions with the practical skills, ethical clarity, critical knowledge, and core values necessary for seeking peace and leading social transformation.
+                    {content.mission}
                   </p>
                 </CardContent>
               </Card>

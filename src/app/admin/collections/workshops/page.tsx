@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, Plus, Pencil, Trash2, Search, X, Save, Loader2, ImageIcon, ExternalLink } from "lucide-react";
-import { workshops as STATIC_WORKSHOPS } from "@/constants/workshops";
+import { createClient } from "@/lib/supabase/client";
 
 type Workshop = {
   id: string;
@@ -12,29 +12,15 @@ type Workshop = {
   description: string;
   date: string;
   duration: string;
-  image: string;
+  image_url: string;
   category: string;
-  registrationLink: string;
+  registration_link: string;
   status: "active" | "archived";
 };
 
-// Seed from existing static data
-const INITIAL: Workshop[] = STATIC_WORKSHOPS.map((w, i) => ({
-  id: String(i + 1),
-  title: w.title,
-  slug: w.slug,
-  description: w.summary ?? "",
-  date: w.date ?? "",
-  duration: w.time ?? "",
-  image: (w.gallery && w.gallery.length > 0) ? w.gallery[0] : "",
-  category: w.tag ?? "General",
-  registrationLink: "",
-  status: "active" as const,
-}));
-
 function WorkshopForm({ workshop, onSave, onCancel }: {
   workshop: Partial<Workshop>;
-  onSave: (w: Workshop) => void;
+  onSave: (w: Partial<Workshop>) => Promise<void>;
   onCancel: () => void;
 }) {
   const [form, setForm] = useState<Partial<Workshop>>({ status: "active", ...workshop });
@@ -53,14 +39,7 @@ function WorkshopForm({ workshop, onSave, onCancel }: {
   const handleSave = async () => {
     if (!form.title) return;
     setSaving(true);
-    await new Promise(r => setTimeout(r, 600));
-    onSave({
-      id: form.id || Date.now().toString(),
-      title: form.title!, slug: form.slug || form.title!.toLowerCase().replace(/\s+/g, "-"),
-      description: form.description || "", date: form.date || "", duration: form.duration || "",
-      image: form.image || "", category: form.category || "General",
-      registrationLink: form.registrationLink || "", status: form.status || "active",
-    });
+    await onSave(form);
     setSaving(false);
   };
 
@@ -79,9 +58,9 @@ function WorkshopForm({ workshop, onSave, onCancel }: {
         </div>
         {f("Date", "date", "text")}
         {f("Duration", "duration")}
-        {f("Image Path / URL", "image")}
+        {f("Image Path / URL", "image_url")}
         {f("Category", "category")}
-        {f("Registration Link", "registrationLink", "url")}
+        {f("Registration Link", "registration_link", "url")}
         <div>
           <label className="block text-white/50 text-xs font-medium mb-1.5">Status</label>
           <select value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value as Workshop["status"] }))}
@@ -106,30 +85,55 @@ function WorkshopForm({ workshop, onSave, onCancel }: {
 }
 
 export default function WorkshopsManagerPage() {
-  const [items, setItems] = useState<Workshop[]>(INITIAL);
+  const [items, setItems] = useState<Workshop[]>([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [editing, setEditing] = useState<Partial<Workshop> | null>(null);
   const [deleting, setDeleting] = useState<string | null>(null);
+
+  const supabase = createClient();
+
+  useEffect(() => {
+    fetchWorkshops();
+  }, []);
+
+  const fetchWorkshops = async () => {
+    setLoading(true);
+    const { data } = await supabase.from("workshops").select("*").order("created_at", { ascending: false });
+    if (data) setItems(data as Workshop[]);
+    setLoading(false);
+  };
 
   const filtered = items.filter(w =>
     w.title.toLowerCase().includes(search.toLowerCase()) ||
     w.category.toLowerCase().includes(search.toLowerCase())
   );
 
-  const handleSave = (w: Workshop) => {
-    setItems(prev => {
-      const idx = prev.findIndex(x => x.id === w.id);
-      if (idx >= 0) { const arr = [...prev]; arr[idx] = w; return arr; }
-      return [w, ...prev];
-    });
+  const handleSave = async (w: Partial<Workshop>) => {
+    if (w.id) {
+      // Update
+      const { data, error } = await supabase.from("workshops").update(w).eq("id", w.id).select().single();
+      if (!error && data) {
+        setItems(prev => prev.map(x => x.id === data.id ? data as Workshop : x));
+      }
+    } else {
+      // Insert
+      const slug = w.slug || w.title?.toLowerCase().replace(/\s+/g, "-") + "-" + Date.now().toString().slice(-4);
+      const { data, error } = await supabase.from("workshops").insert({ ...w, slug }).select().single();
+      if (!error && data) {
+        setItems(prev => [data as Workshop, ...prev]);
+      }
+    }
     setEditing(null);
   };
 
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this workshop?")) return;
     setDeleting(id);
-    await new Promise(r => setTimeout(r, 400));
-    setItems(prev => prev.filter(w => w.id !== id));
+    const { error } = await supabase.from("workshops").delete().eq("id", id);
+    if (!error) {
+      setItems(prev => prev.filter(w => w.id !== id));
+    }
     setDeleting(null);
   };
 
@@ -165,7 +169,7 @@ export default function WorkshopsManagerPage() {
               exit={{ opacity: 0, x: -20 }} transition={{ delay: i * 0.04 }}
               className="bg-[#0d1f2d]/60 backdrop-blur border border-white/[0.07] rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center gap-4 hover:border-white/[0.12] transition-all">
               <div className="w-14 h-14 rounded-xl flex-shrink-0 overflow-hidden bg-white/[0.03] border border-white/[0.07]">
-                {w.image ? <img src={w.image} alt={w.title} className="w-full h-full object-cover" />
+                {w.image_url ? <img src={w.image_url} alt={w.title} className="w-full h-full object-cover" />
                   : <div className="w-full h-full flex items-center justify-center"><ImageIcon size={18} className="text-white/20" /></div>}
               </div>
               <div className="flex-1 min-w-0">
@@ -180,8 +184,8 @@ export default function WorkshopsManagerPage() {
                 <p className="text-white/35 text-xs mt-1 truncate">{w.description}</p>
               </div>
               <div className="flex items-center gap-2 flex-shrink-0">
-                {w.registrationLink && (
-                  <a href={w.registrationLink} target="_blank" rel="noopener noreferrer"
+                {w.registration_link && (
+                  <a href={w.registration_link} target="_blank" rel="noopener noreferrer"
                     className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.07] flex items-center justify-center text-white/30 hover:text-[#2a9d8f] transition-colors">
                     <ExternalLink size={14} />
                   </a>
@@ -198,10 +202,17 @@ export default function WorkshopsManagerPage() {
             </motion.div>
           ))}
         </AnimatePresence>
-        {filtered.length === 0 && (
+        {filtered.length === 0 && !loading && (
           <div className="text-center py-16 text-white/25">
             <BookOpen size={32} className="mx-auto mb-3 opacity-30" />
             <p className="text-sm">No workshops found</p>
+          </div>
+        )}
+
+        {loading && (
+          <div className="text-center py-16 text-white/25">
+            <Loader2 size={32} className="mx-auto mb-3 opacity-30 animate-spin" />
+            <p className="text-sm">Loading workshops...</p>
           </div>
         )}
       </div>

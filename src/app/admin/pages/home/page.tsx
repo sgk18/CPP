@@ -139,7 +139,23 @@ export default function HomepageManagerPage() {
   const [showPreview, setShowPreview] = useState(true);
   const [device, setDevice] = useState<"desktop" | "mobile">("desktop");
   const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [saved, setSaved] = useState(false);
+
+  const supabase = createClient();
+
+  useEffect(() => {
+    fetchContent();
+  }, []);
+
+  const fetchContent = async () => {
+    setLoading(true);
+    const { data } = await supabase.from("pages").select("content").eq("slug", "home").single();
+    if (data && data.content) {
+      setContent(data.content as typeof DEFAULT);
+    }
+    setLoading(false);
+  };
 
   const handleChange = useCallback((key: ContentKey, value: string) => {
     setContent((prev) => ({ ...prev, [key]: value }));
@@ -148,11 +164,14 @@ export default function HomepageManagerPage() {
 
   const handleSave = async () => {
     setSaving(true);
-    // TODO: save to Supabase
-    await new Promise((r) => setTimeout(r, 900));
+    const { error } = await supabase.from("pages").update({ content }).eq("slug", "home");
     setSaving(false);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 3000);
+    if (!error) {
+      setSaved(true);
+      setTimeout(() => setSaved(false), 3000);
+    } else {
+      alert("Error saving: " + error.message);
+    }
   };
 
   const handleReset = () => {

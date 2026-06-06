@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FileText, Save, Check, Loader2, ChevronDown, ChevronUp } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
 const DEFAULT = {
   missionTitle: "Our Mission",
@@ -54,6 +55,22 @@ export default function AboutManagerPage() {
   const [content, setContent] = useState(DEFAULT);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const supabase = createClient();
+
+  useEffect(() => {
+    fetchContent();
+  }, []);
+
+  const fetchContent = async () => {
+    setLoading(true);
+    const { data } = await supabase.from("pages").select("content").eq("slug", "about").single();
+    if (data && data.content) {
+      setContent(data.content as typeof DEFAULT);
+    }
+    setLoading(false);
+  };
 
   const set = (key: Key, val: string) => { setContent(prev => ({ ...prev, [key]: val })); setSaved(false); };
 
@@ -72,9 +89,14 @@ export default function AboutManagerPage() {
 
   const handleSave = async () => {
     setSaving(true);
-    await new Promise(r => setTimeout(r, 800));
-    setSaving(false); setSaved(true);
-    setTimeout(() => setSaved(false), 2500);
+    const { error } = await supabase.from("pages").update({ content }).eq("slug", "about");
+    setSaving(false);
+    if (!error) {
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2500);
+    } else {
+      alert("Error saving: " + error.message);
+    }
   };
 
   return (

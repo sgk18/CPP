@@ -6,6 +6,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent } from "@/components/ui/Card";
+import { createClient } from "@/lib/supabase/client";
 import { workshops } from "@/constants/workshops";
 import {
   HeartHandshake,
@@ -129,19 +130,24 @@ const parseEventDate = (dateStr: string): Date => {
 
 export default function Home() {
   const [content, setContent] = useState(DEFAULT_CONTENT);
+  const [events, setEvents] = useState<any[]>([]);
 
   useEffect(() => {
-    const saved = localStorage.getItem("cpp_builder_content");
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        setTimeout(() => {
-          setContent((prev) => ({ ...prev, ...parsed }));
-        }, 0);
-      } catch (e) {
-        console.error("Failed parsing custom builder content", e);
+    const fetchContent = async () => {
+      const supabase = createClient();
+      const [pagesRes, eventsRes] = await Promise.all([
+        supabase.from("pages").select("content").eq("slug", "home").single(),
+        supabase.from("events").select("*").eq("status", "upcoming").order("date", { ascending: true }).limit(5)
+      ]);
+      
+      if (pagesRes.data && pagesRes.data.content) {
+        setContent(pagesRes.data.content);
       }
-    }
+      if (eventsRes.data) {
+        setEvents(eventsRes.data);
+      }
+    };
+    fetchContent();
   }, []);
 
   const features = [
@@ -185,42 +191,7 @@ export default function Home() {
     }
   ];
 
-  const upcomingEvents = [
-    {
-      title: content.event1Title,
-      date: content.event1Date,
-      desc: content.event1Desc,
-      image: content.event1Image
-    },
-    {
-      title: content.event2Title,
-      date: content.event2Date,
-      desc: content.event2Desc,
-      image: content.event2Image
-    },
-    {
-      title: content.event3Title,
-      date: content.event3Date,
-      desc: content.event3Desc,
-      image: content.event3Image
-    },
-    {
-      title: content.event4Title,
-      date: content.event4Date,
-      desc: content.event4Desc,
-      image: content.event4Image
-    },
-    {
-      title: content.event5Title,
-      date: content.event5Date,
-      desc: content.event5Desc,
-      image: content.event5Image
-    }
-  ];
-
-  const sortedEvents = [...upcomingEvents].sort((a, b) => {
-    return parseEventDate(a.date).getTime() - parseEventDate(b.date).getTime();
-  });
+  const sortedEvents = events;
 
   return (
     <>
@@ -401,7 +372,7 @@ export default function Home() {
                 <Card key={idx} className="flex flex-col h-full hover:-translate-y-2 transition-all duration-300">
                   <div className="h-48 relative overflow-hidden bg-primary/10">
                     <img
-                      src={evt.image}
+                      src={evt.image_url || "/assets/peaceaxis_image6.jpg"}
                       alt={evt.title}
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                     />
@@ -415,13 +386,17 @@ export default function Home() {
                         {evt.title}
                       </h3>
                       <p className="text-gray-text text-sm leading-relaxed line-clamp-3">
-                        {evt.desc}
+                        {evt.description}
                       </p>
                     </div>
                     <div>
-                      <Button variant="ghost" className="px-0 gap-2 hover:bg-transparent text-primary hover:text-accent p-0 cursor-pointer font-bold">
-                        Register Now <ArrowRight className="w-4 h-4" />
-                      </Button>
+                      {evt.registration_link ? (
+                        <a href={evt.registration_link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary hover:text-accent font-bold">
+                          Register Now <ArrowRight className="w-4 h-4" />
+                        </a>
+                      ) : (
+                        <span className="text-gray-400 text-sm">Registration closed</span>
+                      )}
                     </div>
                   </CardContent>
                 </Card>

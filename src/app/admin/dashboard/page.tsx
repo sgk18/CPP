@@ -6,15 +6,17 @@ import { motion } from "framer-motion";
 import {
   Users, Calendar, ImageIcon, BookOpen,
   TrendingUp, ArrowRight, Plus, Edit3,
-  Activity, Clock, Globe, Zap
+  Activity, Clock, Globe, Zap, Loader2,
+  type LucideIcon
 } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
-const STATS = [
-  { label: "Events", value: "12", icon: Calendar, change: "+2 this month", color: "from-[#1A5F7A] to-[#2a9d8f]", href: "/admin/collections/events" },
-  { label: "Volunteers", value: "48", icon: Users, change: "+6 this month", color: "from-[#2a9d8f] to-[#57cc99]", href: "/admin/collections/volunteers" },
-  { label: "Gallery Images", value: "134", icon: ImageIcon, change: "+14 this month", color: "from-[#e9c46a] to-[#f4a261]", href: "/admin/collections/gallery" },
-  { label: "Workshops", value: "8", icon: BookOpen, change: "+1 this month", color: "from-[#f4a261] to-[#e76f51]", href: "/admin/collections/workshops" },
-];
+type Stats = {
+  events: number;
+  volunteers: number;
+  gallery: number;
+  workshops: number;
+};
 
 const QUICK_ACTIONS = [
   { label: "New Event", icon: Plus, href: "/admin/collections/events?new=1", desc: "Create an upcoming event" },
@@ -31,26 +33,30 @@ const RECENT_ACTIVITY = [
   { action: "SEO meta updated for About page", user: "Admin", time: "3 days ago", icon: Activity },
 ];
 
-function StatCard({ stat, index }: { stat: typeof STATS[0]; index: number }) {
-  const Icon = stat.icon;
+function StatCard({ label, value, icon: Icon, change, color, href, loading }: {
+  label: string; value: number | string; icon: LucideIcon;
+  change: string; color: string; href: string; loading: boolean;
+}) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.07, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
     >
-      <Link href={stat.href}>
+      <Link href={href}>
         <div className="bg-[#0d1f2d]/60 backdrop-blur border border-white/[0.07] rounded-2xl p-5 hover:border-white/[0.14] transition-all duration-300 group cursor-pointer">
           <div className="flex items-start justify-between mb-4">
-            <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center shadow-lg`}>
+            <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center shadow-lg`}>
               <Icon size={18} className="text-white" />
             </div>
             <ArrowRight size={14} className="text-white/20 group-hover:text-white/50 group-hover:translate-x-0.5 transition-all" />
           </div>
-          <p className="text-3xl font-bold text-white mb-1">{stat.value}</p>
-          <p className="text-white/50 text-sm font-medium">{stat.label}</p>
+          <p className="text-3xl font-bold text-white mb-1">
+            {loading ? <Loader2 size={20} className="animate-spin text-white/30" /> : value}
+          </p>
+          <p className="text-white/50 text-sm font-medium">{label}</p>
           <p className="text-[#2a9d8f] text-xs mt-2 flex items-center gap-1">
-            <TrendingUp size={11} /> {stat.change}
+            <TrendingUp size={11} /> {change}
           </p>
         </div>
       </Link>
@@ -60,13 +66,35 @@ function StatCard({ stat, index }: { stat: typeof STATS[0]; index: number }) {
 
 export default function AdminDashboard() {
   const [greeting, setGreeting] = useState("Good morning");
+  const [stats, setStats] = useState<Stats>({ events: 0, volunteers: 0, gallery: 0, workshops: 0 });
+  const [statsLoading, setStatsLoading] = useState(true);
 
   useEffect(() => {
     const h = new Date().getHours();
     if (h < 12) setGreeting("Good morning");
     else if (h < 17) setGreeting("Good afternoon");
     else setGreeting("Good evening");
+
+    fetchStats();
   }, []);
+
+  const fetchStats = async () => {
+    const supabase = createClient();
+    const [eventsRes, volunteersRes, galleryRes, workshopsRes] = await Promise.all([
+      supabase.from("events").select("id", { count: "exact", head: true }),
+      supabase.from("volunteers").select("id", { count: "exact", head: true }).eq("status", "active"),
+      supabase.from("gallery").select("id", { count: "exact", head: true }),
+      supabase.from("workshops").select("id", { count: "exact", head: true }),
+    ]);
+    setStats({
+      events: eventsRes.count ?? 0,
+      volunteers: volunteersRes.count ?? 0,
+      gallery: galleryRes.count ?? 0,
+      workshops: workshopsRes.count ?? 0,
+    });
+    setStatsLoading(false);
+  };
+
 
   return (
     <div className="space-y-8 max-w-7xl mx-auto">
@@ -90,7 +118,10 @@ export default function AdminDashboard() {
       <div>
         <p className="text-white/30 text-xs font-semibold uppercase tracking-widest mb-3">Overview</p>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {STATS.map((stat, i) => <StatCard key={stat.label} stat={stat} index={i} />)}
+          <StatCard label="Events" value={stats.events} icon={Calendar} change="from database" color="from-[#1A5F7A] to-[#2a9d8f]" href="/admin/collections/events" loading={statsLoading} />
+          <StatCard label="Active Volunteers" value={stats.volunteers} icon={Users} change="from database" color="from-[#2a9d8f] to-[#57cc99]" href="/admin/collections/volunteers" loading={statsLoading} />
+          <StatCard label="Gallery Images" value={stats.gallery} icon={ImageIcon} change="from database" color="from-[#e9c46a] to-[#f4a261]" href="/admin/collections/gallery" loading={statsLoading} />
+          <StatCard label="Workshops" value={stats.workshops} icon={BookOpen} change="from database" color="from-[#f4a261] to-[#e76f51]" href="/admin/collections/workshops" loading={statsLoading} />
         </div>
       </div>
 
