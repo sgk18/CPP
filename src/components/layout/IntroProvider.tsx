@@ -2,7 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { DandelionSplash } from "@/components/ui/DandelionSplash";
+import dynamic from "next/dynamic";
+
+const DandelionSplash = dynamic(
+  () => import("@/components/ui/DandelionSplash").then((mod) => mod.DandelionSplash),
+  { ssr: false }
+);
 
 interface IntroProviderProps {
   children: React.ReactNode;
