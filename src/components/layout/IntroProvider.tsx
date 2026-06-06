@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { BloomingFlower } from "@/components/ui/BloomingFlower";
+import { DandelionSplash } from "@/components/ui/DandelionSplash";
 
 interface IntroProviderProps {
   children: React.ReactNode;
@@ -42,17 +42,11 @@ export const IntroProvider: React.FC<IntroProviderProps> = ({ children }) => {
 
     let animationTimer: NodeJS.Timeout | undefined;
 
-    if (isShown !== "true" || forceIntro) {
-      const duration = prefersReduced ? 1500 : 3600;
+    if ((isShown !== "true" || forceIntro) && prefersReduced) {
+      // If reduced motion is true, fallback to a simple short animation
+      const duration = 2000;
       animationTimer = setTimeout(() => {
-        setShowIntro(false);
-        try {
-          if (!forceIntro) {
-            localStorage.setItem("startup-animation-shown", "true");
-          }
-        } catch (e) {
-          console.error("Failed to set localStorage key:", e);
-        }
+        handleComplete();
       }, duration);
     }
 
@@ -62,6 +56,18 @@ export const IntroProvider: React.FC<IntroProviderProps> = ({ children }) => {
     };
   }, []);
 
+  const handleComplete = () => {
+    setShowIntro(false);
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("forceIntro") !== "true") {
+        localStorage.setItem("startup-animation-shown", "true");
+      }
+    } catch (e) {
+      console.error("Failed to set localStorage key:", e);
+    }
+  };
+
   return (
     <>
       <AnimatePresence mode="wait">
@@ -70,19 +76,19 @@ export const IntroProvider: React.FC<IntroProviderProps> = ({ children }) => {
             key="intro-screen"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#fcfcfc]"
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-transparent pointer-events-none"
             style={{ willChange: "opacity" }}
           >
             {isMounted && !reducedMotion ? (
-              <BloomingFlower />
+              <DandelionSplash onComplete={handleComplete} onSkip={handleComplete} />
             ) : isMounted && reducedMotion ? (
               // Simple fade branding for prefers-reduced-motion
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className="relative flex flex-col items-center justify-center px-6"
+                className="relative flex flex-col items-center justify-center px-6 pointer-events-auto bg-[#050816] w-full h-full"
               >
                 {/* Logo - Exact Center */}
                 <div className="w-24 h-24 relative flex items-center justify-center">
@@ -95,10 +101,10 @@ export const IntroProvider: React.FC<IntroProviderProps> = ({ children }) => {
 
                 {/* Text Title - Positioned Absolutely below the logo */}
                 <div className="absolute top-full mt-4 text-center flex flex-col gap-1.5 w-[90vw] sm:w-[500px]">
-                  <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide text-dark">
-                    Centre for <span className="text-primary">Peace Praxis</span>
+                  <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide text-white">
+                    Centre for <span className="text-[#38bdf8]">Peace Praxis</span>
                   </h1>
-                  <span className="text-[10px] sm:text-xs tracking-[0.3em] font-display uppercase font-semibold text-gray-text">
+                  <span className="text-[10px] sm:text-xs tracking-[0.3em] font-display uppercase font-semibold text-white/80">
                     Hope • Healing • Resilience
                   </span>
                 </div>
@@ -115,8 +121,8 @@ export const IntroProvider: React.FC<IntroProviderProps> = ({ children }) => {
           hasShownBefore === true
             ? {} // Instant rendering with no performance overhead for returning users
             : {
-                opacity: !isMounted || showIntro ? 0 : 1,
-                transition: "opacity 0.6s ease-out",
+                opacity: isMounted ? 1 : 0,
+                transition: "opacity 0.8s ease-out",
                 willChange: "opacity"
               }
         }
