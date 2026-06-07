@@ -49,6 +49,8 @@ const NAV_ITEMS = [
       { href: "/admin/collections/workshops", icon: BookOpen, label: "Workshops" },
       { href: "/admin/collections/gallery", icon: ImageIcon, label: "Gallery" },
       { href: "/admin/collections/volunteers", icon: Users, label: "Volunteers" },
+      { href: "/admin/collections/faculties", icon: BookOpen, label: "Faculties" },
+      { href: "/admin/collections/alumni", icon: Users, label: "Alumni" },
       { href: "/admin/collections/testimonials", icon: Quote, label: "Testimonials" },
     ],
   },

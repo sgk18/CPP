@@ -1,12 +1,34 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/Card";
-import { alumni } from "@/constants/community";
+import { createClient } from "@/lib/supabase/client";
+import { Loader2 } from "lucide-react";
+
+type Alumni = {
+  id: string;
+  name: string;
+  image: string;
+};
 
 export default function Alumni() {
+  const [alumni, setAlumni] = useState<Alumni[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAlumni = async () => {
+      const supabase = createClient();
+      const { data } = await supabase.from("settings").select("value").eq("key", "alumni").single();
+      if (data && data.value) {
+        setAlumni(data.value as Alumni[]);
+      }
+      setLoading(false);
+    };
+    fetchAlumni();
+  }, []);
+
   return (
     <>
       <Header />
@@ -30,27 +52,39 @@ export default function Alumni() {
 
         {/* Alumni Grid */}
         <section className="py-24 px-6 max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {alumni.map((a, idx) => (
-              <Card key={idx} className="hover:-translate-y-2 transition-all duration-300">
-                <div className="h-[350px] relative overflow-hidden bg-primary/10">
-                  <img
-                    src={a.image}
-                    alt={a.name}
-                    className="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105"
-                    loading="lazy"
-                  />
-                </div>
-                <CardContent className="p-6 text-center">
-                  <h3 className="text-xl font-display font-bold text-dark mb-1">
-                    {a.name}
-                  </h3>
-                  <p className="text-xs font-semibold text-accent uppercase tracking-wider mb-2">Alumni member</p>
-                  <p className="text-xs text-gray-text">Centre for Peace Praxis</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          {loading ? (
+            <div className="text-center py-16 text-gray-400 flex flex-col items-center">
+              <Loader2 className="w-8 h-8 animate-spin mb-3 text-primary" />
+              <p>Loading alumni...</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+              {alumni.map((a, idx) => (
+                <Card key={idx} className="hover:-translate-y-2 transition-all duration-300">
+                  <div className="h-[350px] relative overflow-hidden bg-primary/10">
+                    <img
+                      src={a.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(a.name)}&background=1A5F7A&color=fff`}
+                      alt={a.name}
+                      className="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                  <CardContent className="p-6 text-center">
+                    <h3 className="text-xl font-display font-bold text-dark mb-1">
+                      {a.name}
+                    </h3>
+                    <p className="text-xs font-semibold text-accent uppercase tracking-wider mb-2">Alumni member</p>
+                    <p className="text-xs text-gray-text">Centre for Peace Praxis</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+          {alumni.length === 0 && !loading && (
+            <div className="text-center py-16 text-gray-500">
+              No alumni found.
+            </div>
+          )}
         </section>
       </main>
       <Footer />

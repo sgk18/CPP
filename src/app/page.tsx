@@ -7,7 +7,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent } from "@/components/ui/Card";
 import { createClient } from "@/lib/supabase/client";
-import { workshops } from "@/constants/workshops";
+
 import {
   HeartHandshake,
   GraduationCap,
@@ -131,13 +131,15 @@ const parseEventDate = (dateStr: string): Date => {
 export default function Home() {
   const [content, setContent] = useState(DEFAULT_CONTENT);
   const [events, setEvents] = useState<any[]>([]);
+  const [workshops, setWorkshops] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchContent = async () => {
       const supabase = createClient();
-      const [pagesRes, eventsRes] = await Promise.all([
+      const [pagesRes, eventsRes, workshopsRes] = await Promise.all([
         supabase.from("pages").select("content").eq("slug", "home").single(),
-        supabase.from("events").select("*").eq("status", "upcoming").order("date", { ascending: true }).limit(5)
+        supabase.from("events").select("*").eq("status", "upcoming").order("date", { ascending: true }).limit(5),
+        supabase.from("workshops").select("*").eq("status", "active").order("created_at", { ascending: false }).limit(6)
       ]);
       
       if (pagesRes.data && pagesRes.data.content) {
@@ -145,6 +147,9 @@ export default function Home() {
       }
       if (eventsRes.data) {
         setEvents(eventsRes.data);
+      }
+      if (workshopsRes.data) {
+        setWorkshops(workshopsRes.data);
       }
     };
     fetchContent();
@@ -420,40 +425,46 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {workshops.map((w) => (
-                <Card key={w.slug} className="flex flex-col h-full hover:-translate-y-2 transition-all duration-300">
-                  <div className="h-52 relative overflow-hidden bg-primary/10">
-                    <img
-                      src={w.gallery[0]}
-                      alt={w.title}
-                      className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                    />
-                    {w.badge && (
-                      <div className="absolute top-4 right-4 px-3 py-1 bg-gradient-to-r from-accent to-secondary text-white text-xs font-bold rounded-full shadow-md">
-                        {w.badge}
+              {workshops.map((w) => {
+                const galleryImg = w.content?.gallery?.[0] || w.image_url || "/assets/peaceaxis_image1.jpg";
+                const badge = w.content?.badge || "";
+                const tag = w.content?.tag || w.category || "Workshop";
+                const summary = w.content?.summary || w.description || "";
+                return (
+                  <Card key={w.slug} className="flex flex-col h-full hover:-translate-y-2 transition-all duration-300">
+                    <div className="h-52 relative overflow-hidden bg-primary/10">
+                      <img
+                        src={galleryImg}
+                        alt={w.title}
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                      />
+                      {badge && (
+                        <div className="absolute top-4 right-4 px-3 py-1 bg-gradient-to-r from-accent to-secondary text-white text-xs font-bold rounded-full shadow-md">
+                          {badge}
+                        </div>
+                      )}
+                    </div>
+                    <CardContent className="p-6 flex-grow flex flex-col justify-between gap-6">
+                      <div className="flex flex-col gap-2">
+                        <span className="text-xs font-bold text-accent uppercase tracking-wider">{tag}</span>
+                        <h3 className="text-xl font-display font-bold text-dark">
+                          {w.title}
+                        </h3>
+                        <p className="text-gray-text text-sm leading-relaxed line-clamp-3">
+                          {summary}
+                        </p>
                       </div>
-                    )}
-                  </div>
-                  <CardContent className="p-6 flex-grow flex flex-col justify-between gap-6">
-                    <div className="flex flex-col gap-2">
-                      <span className="text-xs font-bold text-accent uppercase tracking-wider">{w.tag}</span>
-                      <h3 className="text-xl font-display font-bold text-dark">
-                        {w.title}
-                      </h3>
-                      <p className="text-gray-text text-sm leading-relaxed line-clamp-3">
-                        {w.summary}
-                      </p>
-                    </div>
-                    <div>
-                      <Link href={`/workshops/${w.slug}`}>
-                        <Button variant="outline" className="w-full justify-center gap-2">
-                          View Activity Details <ArrowRight className="w-4 h-4" />
-                        </Button>
-                      </Link>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                      <div>
+                        <Link href={`/workshops/${w.slug}`}>
+                          <Button variant="outline" className="w-full justify-center gap-2">
+                            View Activity Details <ArrowRight className="w-4 h-4" />
+                          </Button>
+                        </Link>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           </div>
         </section>

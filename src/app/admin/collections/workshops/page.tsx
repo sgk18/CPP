@@ -16,6 +16,7 @@ type Workshop = {
   category: string;
   registration_link: string;
   status: "active" | "archived";
+  content?: any;
 };
 
 function WorkshopForm({ workshop, onSave, onCancel }: {
@@ -24,6 +25,7 @@ function WorkshopForm({ workshop, onSave, onCancel }: {
   onCancel: () => void;
 }) {
   const [form, setForm] = useState<Partial<Workshop>>({ status: "active", ...workshop });
+  const [contentJson, setContentJson] = useState(workshop.content ? JSON.stringify(workshop.content, null, 2) : "{}");
   const [saving, setSaving] = useState(false);
 
   const f = (label: string, key: keyof Workshop, type = "text", hint?: string) => (
@@ -38,8 +40,15 @@ function WorkshopForm({ workshop, onSave, onCancel }: {
 
   const handleSave = async () => {
     if (!form.title) return;
+    let parsedContent = {};
+    try {
+      parsedContent = JSON.parse(contentJson);
+    } catch (e) {
+      alert("Invalid JSON in Advanced Content. Please fix before saving.");
+      return;
+    }
     setSaving(true);
-    await onSave(form);
+    await onSave({ ...form, content: parsedContent });
     setSaving(false);
   };
 
@@ -68,6 +77,13 @@ function WorkshopForm({ workshop, onSave, onCancel }: {
             <option value="active">Active</option>
             <option value="archived">Archived</option>
           </select>
+        </div>
+        <div className="sm:col-span-2 mt-2">
+          <label className="block text-white/50 text-xs font-medium mb-1.5">Advanced Content (JSON)</label>
+          <textarea rows={6} value={contentJson}
+            onChange={e => setContentJson(e.target.value)}
+            className="w-full bg-[#060e14] border border-white/10 rounded-xl px-3 py-2.5 text-[#2a9d8f] font-mono text-xs outline-none focus:border-[#2a9d8f]/60 transition-all resize-none" />
+          <p className="text-white/20 text-[10px] mt-1">Supports speakers, takeaways, sdgs, stats, gallery, summary, highlights etc.</p>
         </div>
       </div>
       <div className="flex justify-end gap-3 mt-5">
