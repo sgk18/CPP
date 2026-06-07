@@ -16,7 +16,7 @@ const Auth = {
     },
 
     login: function (username, password) {
-        if (username === 'bds2025' && password === 'BDS@705') {
+        if (username === 'admin@gmail.com' && password === '0123456789') {
             sessionStorage.setItem(AUTH_KEY, 'true');
             return true;
         }

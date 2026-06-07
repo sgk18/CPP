@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "create-admin": "node scripts/create_admin_user.js"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
