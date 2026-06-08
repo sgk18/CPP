@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { isFeatureEnabled } from "@/lib/featureFlags";
 import { motion } from "framer-motion";
 import { Lock, Mail, Eye, EyeOff, AlertCircle, Loader2 } from "lucide-react";
 
@@ -18,6 +19,20 @@ export default function AdminLoginPage() {
     e.preventDefault();
     setLoading(true);
     setError("");
+
+    // If mockAuth feature is enabled, allow local test credentials.
+    if (isFeatureEnabled('mockAuth')) {
+      // Local test credentials (for development only)
+      if (email === 'admin@gmail.com' && password === '0123456789') {
+        router.push('/admin/dashboard');
+        router.refresh();
+        return;
+      } else {
+        setError('Invalid mock credentials');
+        setLoading(false);
+        return;
+      }
+    }
 
     const supabase = createClient();
     const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
