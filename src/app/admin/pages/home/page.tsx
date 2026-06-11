@@ -1,11 +1,13 @@
 "use client";
+export const dynamic = "force-dynamic";
 
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Save, Eye, EyeOff, Monitor, Smartphone, RotateCcw,
   ChevronDown, ChevronUp, Check, Loader2, Sparkles
 } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
 // ── Default content seeded from static page ───────────────────
 const DEFAULT = {
