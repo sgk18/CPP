@@ -214,6 +214,56 @@ export default function About() {
               </div>
             </div>
 
+            {/* Inauguration Gallery */}
+            <div className="mt-4">
+              <div className="text-center mb-10">
+                <span className="text-xs font-bold uppercase tracking-wider text-accent">16th August 2023</span>
+                <h3 className="text-2xl font-display font-bold text-dark mt-2">
+                  Inauguration Gallery
+                </h3>
+                <div className="h-1 bg-accent w-12 mx-auto mt-4" />
+                <p className="text-sm text-gray-text mt-3 max-w-lg mx-auto">
+                  Glimpses from the inauguration of the Centre for Peace Praxis and the launch of the Christites for Peace program.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                {/* Large featured image */}
+                <div className="col-span-2 row-span-2 group relative overflow-hidden rounded-2xl shadow-md border border-black/5">
+                  <img
+                    src="/assets/inaugration/IMG-20230819-WA0025.jpg"
+                    alt="Inauguration ceremony — Centre for Peace Praxis"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    style={{ minHeight: "240px" }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    <p className="text-white text-xs font-medium">Inauguration Ceremony</p>
+                  </div>
+                </div>
+
+                {/* Remaining images */}
+                {[
+                  { src: "/assets/inaugration/IMG-20230819-WA0007.jpg", alt: "Inauguration — dignitaries gathering" },
+                  { src: "/assets/inaugration/IMG-20230819-WA0013.jpg", alt: "Inauguration — address to students" },
+                  { src: "/assets/inaugration/IMG-20230819-WA0014.jpg", alt: "Inauguration — ceremonial lamp lighting" },
+                  { src: "/assets/inaugration/IMG-20230819-WA0028.jpg", alt: "Inauguration — student representatives" },
+                  { src: "/assets/inaugration/IMG-20230819-WA0045.jpg", alt: "Inauguration — group photo" },
+                  { src: "/assets/inaugration/IMG-20230819-WA0050.jpg", alt: "Inauguration — community gathering" },
+                ].map((img, i) => (
+                  <div key={i} className="group relative overflow-hidden rounded-2xl shadow-md border border-black/5">
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      className="w-full h-40 md:h-44 object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                      <p className="text-white text-[10px] font-medium leading-tight">{img.alt.replace("Inauguration — ", "")}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Focus Areas Grid */}
             <div className="mt-8">
               <div className="text-center mb-12">
