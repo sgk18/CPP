@@ -70,7 +70,7 @@ export default function AlumniManagerPage() {
     fetchAlumni();
   }, []);
 
-  const fetchAlumni = async () => {
+  async function fetchAlumni() {
     setLoading(true);
     const { data } = await supabase.from("settings").select("value").eq("key", "alumni").single();
     if (data && data.value) {

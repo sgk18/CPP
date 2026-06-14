@@ -14,14 +14,10 @@ import {
   Users,
   Quote,
   Mail,
-  FolderOpen,
-  Search,
   ChevronLeft,
   ChevronRight,
   LogOut,
   Bell,
-  Sun,
-  Moon,
   Menu,
   X,
   Globe,
@@ -57,9 +53,7 @@ const NAV_ITEMS = [
   {
     label: "Settings",
     items: [
-      { href: "/admin/media", icon: FolderOpen, label: "Media Library" },
       { href: "/admin/settings/contact", icon: Mail, label: "Contact Info" },
-      { href: "/admin/settings/seo", icon: Search, label: "SEO Manager" },
     ],
   },
 ];
@@ -85,8 +79,8 @@ function NavLink({
       <motion.div
         className={`relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group cursor-pointer
           ${isActive
-            ? "bg-[#1A5F7A]/30 text-[#2a9d8f] border border-[#2a9d8f]/30"
-            : "text-white/50 hover:text-white/90 hover:bg-white/5"
+            ? "bg-[#1A5F7A]/10 text-[#1a5f7a] border border-[#1a5f7a]/20"
+            : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
           }`}
         whileHover={{ x: 2 }}
         whileTap={{ scale: 0.98 }}
@@ -94,11 +88,11 @@ function NavLink({
         {isActive && (
           <motion.div
             layoutId="sidebar-active"
-            className="absolute inset-0 rounded-xl bg-[#1A5F7A]/20 border border-[#2a9d8f]/30"
+            className="absolute inset-0 rounded-xl bg-[#1A5F7A]/5 border border-[#1A5F7A]/20"
             transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
           />
         )}
-        <Icon className={`relative z-10 w-4.5 h-4.5 flex-shrink-0 ${isActive ? "text-[#2a9d8f]" : "text-white/40 group-hover:text-white/70"}`} size={18} />
+        <Icon className={`relative z-10 w-4.5 h-4.5 flex-shrink-0 ${isActive ? "text-[#1a5f7a]" : "text-gray-400 group-hover:text-gray-600"}`} size={18} />
         <AnimatePresence initial={false}>
           {!collapsed && (
             <motion.span
@@ -113,7 +107,7 @@ function NavLink({
           )}
         </AnimatePresence>
         {collapsed && (
-          <div className="absolute left-14 z-50 hidden group-hover:block bg-[#0d1f2d] border border-white/10 text-white text-xs px-3 py-1.5 rounded-lg whitespace-nowrap shadow-xl">
+          <div className="absolute left-14 z-50 hidden group-hover:block bg-white border border-gray-200 text-gray-800 text-xs px-3 py-1.5 rounded-lg whitespace-nowrap shadow-xl">
             {label}
           </div>
         )}
@@ -142,10 +136,10 @@ export function AdminSidebar({
   };
 
   const sidebarContent = (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full bg-white">
       {/* Logo */}
-      <div className={`flex items-center gap-3 px-4 py-5 border-b border-white/5 ${collapsed ? "justify-center" : ""}`}>
-        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#1A5F7A] to-[#2a9d8f] flex items-center justify-center flex-shrink-0 shadow-lg">
+      <div className={`flex items-center gap-3 px-4 py-5 border-b border-gray-200 ${collapsed ? "justify-center" : ""}`}>
+        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#1A5F7A] to-[#2a9d8f] flex items-center justify-center flex-shrink-0 shadow-sm">
           <span className="text-white text-xs font-bold">CP</span>
         </div>
         <AnimatePresence initial={false}>
@@ -156,8 +150,8 @@ export function AdminSidebar({
               exit={{ opacity: 0, x: -8 }}
               transition={{ duration: 0.15 }}
             >
-              <p className="text-white font-semibold text-sm leading-tight">CPP Admin</p>
-              <p className="text-white/35 text-[10px]">Content Studio</p>
+              <p className="text-gray-900 font-semibold text-sm leading-tight">CPP Admin</p>
+              <p className="text-gray-500 text-[10px]">Content Studio</p>
             </motion.div>
           )}
         </AnimatePresence>
@@ -173,7 +167,7 @@ export function AdminSidebar({
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="text-[10px] font-semibold uppercase tracking-widest text-white/25 px-3 mb-2"
+                  className="text-[10px] font-bold uppercase tracking-widest text-gray-400 px-3 mb-2"
                 >
                   {section.label}
                 </motion.p>
@@ -194,10 +188,10 @@ export function AdminSidebar({
       </nav>
 
       {/* Footer */}
-      <div className="px-3 pb-4 border-t border-white/5 pt-4">
+      <div className="px-3 pb-4 border-t border-gray-200 pt-4">
         <button
           onClick={handleLogout}
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/40 hover:text-rose-400 hover:bg-rose-500/10 transition-all duration-200 ${collapsed ? "justify-center" : ""}`}
+          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-500 hover:text-red-600 hover:bg-red-50 transition-all duration-200 ${collapsed ? "justify-center" : ""}`}
         >
           <LogOut size={18} />
           {!collapsed && <span className="text-sm font-medium">Sign Out</span>}
@@ -207,7 +201,7 @@ export function AdminSidebar({
       {/* Collapse toggle — desktop only */}
       <button
         onClick={() => setCollapsed(!collapsed)}
-        className="hidden lg:flex absolute -right-3 top-20 w-6 h-6 rounded-full bg-[#0d1f2d] border border-white/10 items-center justify-center text-white/40 hover:text-white/80 transition-colors shadow-lg"
+        className="hidden lg:flex absolute -right-3 top-20 w-6 h-6 rounded-full bg-white border border-gray-200 items-center justify-center text-gray-400 hover:text-gray-700 transition-colors shadow-sm"
       >
         {collapsed ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
       </button>
@@ -220,7 +214,7 @@ export function AdminSidebar({
       <motion.aside
         animate={{ width: collapsed ? 64 : 224 }}
         transition={{ type: "spring", bounce: 0, duration: 0.35 }}
-        className="relative hidden lg:flex flex-col h-screen bg-[#060e14]/95 backdrop-blur-xl border-r border-white/[0.06] flex-shrink-0 overflow-visible"
+        className="relative hidden lg:flex flex-col h-screen bg-white border-r border-gray-200 flex-shrink-0 overflow-visible"
         style={{ position: "sticky", top: 0 }}
       >
         {sidebarContent}
@@ -234,7 +228,7 @@ export function AdminSidebar({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+              className="fixed inset-0 bg-gray-900/60 backdrop-blur-sm z-40 lg:hidden"
               onClick={() => setMobileOpen(false)}
             />
             <motion.aside
@@ -242,7 +236,7 @@ export function AdminSidebar({
               animate={{ x: 0 }}
               exit={{ x: -280 }}
               transition={{ type: "spring", bounce: 0, duration: 0.35 }}
-              className="fixed left-0 top-0 h-full w-64 bg-[#060e14]/98 backdrop-blur-xl border-r border-white/[0.06] z-50 lg:hidden"
+              className="fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200 z-50 lg:hidden"
             >
               {sidebarContent}
             </motion.aside>
@@ -263,7 +257,6 @@ export function AdminTopBar({
   setMobileOpen: (v: boolean) => void;
 }) {
   const pathname = usePathname();
-  const [darkMode, setDarkMode] = useState(true);
 
   const getPageTitle = () => {
     if (pathname === "/admin/dashboard") return "Dashboard";
@@ -274,38 +267,30 @@ export function AdminTopBar({
     if (pathname.startsWith("/admin/collections/gallery")) return "Gallery Manager";
     if (pathname.startsWith("/admin/collections/volunteers")) return "Volunteer Manager";
     if (pathname.startsWith("/admin/collections/testimonials")) return "Testimonials Manager";
-    if (pathname.startsWith("/admin/media")) return "Media Library";
     if (pathname.startsWith("/admin/settings/contact")) return "Contact Manager";
-    if (pathname.startsWith("/admin/settings/seo")) return "SEO Manager";
     return "Admin";
   };
 
   return (
-    <header className="sticky top-0 z-30 h-14 bg-[#060e14]/80 backdrop-blur-xl border-b border-white/[0.06] flex items-center px-4 gap-4">
+    <header className="sticky top-0 z-30 h-14 bg-white/90 backdrop-blur border-b border-gray-200 flex items-center px-4 gap-4">
       <button
         onClick={() => setMobileOpen(!mobileOpen)}
-        className="lg:hidden text-white/50 hover:text-white transition-colors"
+        className="lg:hidden text-gray-500 hover:text-gray-900 transition-colors"
       >
         {mobileOpen ? <X size={20} /> : <Menu size={20} />}
       </button>
 
       <div className="flex-1">
-        <h1 className="text-white font-semibold text-sm">{getPageTitle()}</h1>
-        <p className="text-white/30 text-[10px] hidden sm:block">Centre for Peace Praxis · Content Studio</p>
+        <h1 className="text-gray-900 font-bold text-sm">{getPageTitle()}</h1>
+        <p className="text-gray-500 text-[10px] hidden sm:block">Centre for Peace Praxis · Content Studio</p>
       </div>
 
       <div className="flex items-center gap-2">
-        <button
-          onClick={() => setDarkMode(!darkMode)}
-          className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:text-white/80 hover:bg-white/10 transition-all"
-        >
-          {darkMode ? <Sun size={14} /> : <Moon size={14} />}
-        </button>
-        <button className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:text-white/80 hover:bg-white/10 transition-all relative">
+        <button className="w-8 h-8 rounded-lg bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-all relative">
           <Bell size={14} />
-          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[#2a9d8f]" />
+          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[#e76f51]" />
         </button>
-        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#1A5F7A] to-[#2a9d8f] flex items-center justify-center text-white text-xs font-bold shadow">
+        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#1A5F7A] to-[#2a9d8f] flex items-center justify-center text-white text-xs font-bold shadow-sm">
           A
         </div>
       </div>

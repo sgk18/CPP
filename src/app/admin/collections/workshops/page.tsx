@@ -114,7 +114,7 @@ export default function WorkshopsManagerPage() {
     fetchWorkshops();
   }, []);
 
-  const fetchWorkshops = async () => {
+  async function fetchWorkshops() {
     setLoading(true);
     const { data } = await supabase.from("workshops").select("*").order("created_at", { ascending: false });
     if (data) setItems(data as Workshop[]);

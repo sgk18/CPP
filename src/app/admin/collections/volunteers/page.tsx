@@ -102,7 +102,7 @@ export default function VolunteersManagerPage() {
     fetchVolunteers();
   }, []);
 
-  const fetchVolunteers = async () => {
+  async function fetchVolunteers() {
     setLoading(true);
     const { data } = await supabase.from("volunteers").select("*").order("created_at", { ascending: false });
     if (data) setVolunteers(data as Volunteer[]);

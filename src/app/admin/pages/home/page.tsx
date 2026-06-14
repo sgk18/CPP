@@ -150,7 +150,7 @@ export default function HomepageManagerPage() {
     fetchContent();
   }, []);
 
-  const fetchContent = async () => {
+  async function fetchContent() {
     setLoading(true);
     const { data } = await supabase.from("pages").select("content").eq("slug", "home").single();
     if (data && data.content) {

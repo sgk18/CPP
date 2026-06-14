@@ -78,7 +78,7 @@ export default function FacultiesManagerPage() {
     fetchFaculties();
   }, []);
 
-  const fetchFaculties = async () => {
+  async function fetchFaculties() {
     setLoading(true);
     const { data } = await supabase.from("settings").select("value").eq("key", "faculties").single();
     if (data && data.value) {

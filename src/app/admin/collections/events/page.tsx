@@ -114,7 +114,7 @@ export default function EventsManagerPage() {
     fetchEvents();
   }, []);
 
-  const fetchEvents = async () => {
+  async function fetchEvents() {
     setLoading(true);
     const { data } = await supabase.from("events").select("*").order("date", { ascending: false });
     if (data) setEvents(data as Event[]);

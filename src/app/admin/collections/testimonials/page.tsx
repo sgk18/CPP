@@ -89,7 +89,7 @@ export default function TestimonialsManagerPage() {
     fetchTestimonials();
   }, []);
 
-  const fetchTestimonials = async () => {
+  async function fetchTestimonials() {
     setLoading(true);
     const { data } = await supabase.from("testimonials").select("*").order("created_at", { ascending: false });
     if (data) setItems(data as Testimonial[]);

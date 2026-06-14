@@ -64,7 +64,7 @@ export default function AboutManagerPage() {
     fetchContent();
   }, []);
 
-  const fetchContent = async () => {
+  async function fetchContent() {
     setLoading(true);
     const { data } = await supabase.from("pages").select("content").eq("slug", "about").single();
     if (data && data.content) {

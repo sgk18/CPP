@@ -35,7 +35,7 @@ export default function GalleryManagerPage() {
     fetchImages();
   }, []);
 
-  const fetchImages = async () => {
+  async function fetchImages() {
     setLoading(true);
     const { data } = await supabase.from("gallery").select("*").order("sort_order", { ascending: true });
     if (data) setImages(data as GalleryImage[]);

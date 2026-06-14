@@ -36,7 +36,7 @@ export default function ContactManagerPage() {
     fetchSettings();
   }, []);
 
-  const fetchSettings = async () => {
+  async function fetchSettings() {
     setLoading(true);
     const { data: res } = await supabase.from("settings").select("value").eq("key", "contact").single();
     if (res && res.value) {
