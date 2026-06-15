@@ -23,7 +23,7 @@ if (process.env.R2_PUBLIC_URL) {
   }
 }
 
-const nextConfig: any = {
+const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
