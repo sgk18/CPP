@@ -22,7 +22,7 @@ export default function AdminLoginPage() {
     const res = await loginAction(password);
 
     if (res.success) {
-      router.push("/admin/dashboard");
+      router.push("/admin/collections/events");
       router.refresh();
     } else {
       setError(res.error || "Invalid credentials");

@@ -28,6 +28,15 @@ async function verifySessionTokenInEdge(sessionValue: string, adminPasswordHash:
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const lowercasePath = pathname.toLowerCase();
+
+  // Redirect case-insensitive /admin routes to lowercase /admin
+  if (lowercasePath.startsWith("/admin")) {
+    if (pathname !== lowercasePath) {
+      const newUrl = new URL(lowercasePath + request.nextUrl.search, request.url);
+      return NextResponse.redirect(newUrl);
+    }
+  }
 
   // Protect /admin routes (except /admin/login)
   if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
@@ -64,5 +73,7 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/auth/:path*"],
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|assets).*)",
+  ],
 };

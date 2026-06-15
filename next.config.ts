@@ -30,7 +30,8 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns,
     dangerouslyAllowSVG: true,
-  }
+  },
+  serverExternalPackages: ["sharp"]
 };
 
 export default nextConfig;
