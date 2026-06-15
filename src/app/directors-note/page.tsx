@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Mail } from "lucide-react";
@@ -27,14 +28,19 @@ export default function DirectorsNote() {
             {/* Note Content */}
             <div className="prose max-w-none text-gray-text leading-relaxed text-[15px] sm:text-base flex flex-col gap-6 text-justify">
               
-              {/* Responsive photo grid */}
+              {/* Responsive photo */}
               <div className="w-full md:w-80 md:float-right md:ml-8 mb-6 mx-auto relative group">
                 <div className="absolute -inset-2 bg-secondary/5 rounded-2xl -z-10 group-hover:scale-[1.01] transition-transform duration-500" />
-                <img
-                  src="/assets/directors_photo.jpg"
-                  alt="Dr. Padmakumar MM"
-                  className="w-full h-auto rounded-xl shadow-lg border border-black/5"
-                />
+                <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden shadow-lg border border-black/5">
+                  <Image
+                    src="/assets/directors_photo.jpg"
+                    alt="Dr. Padmakumar MM"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 320px"
+                    className="object-cover object-top"
+                    priority
+                  />
+                </div>
                 <p className="text-xs text-center text-gray-text mt-3 font-semibold">Dr. Padmakumar MM</p>
               </div>
 

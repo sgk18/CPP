@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/Card";
@@ -211,11 +212,15 @@ export default function About() {
               </div>
               <div className="relative">
                 <div className="absolute -inset-4 bg-primary/5 rounded-3xl -z-10" />
-                <img
-                  src="/assets/peaceaxis_image1.jpg"
-                  alt="Community building and dialogue praxis"
-                  className="w-full h-auto rounded-2xl shadow-xl border border-black/5"
-                />
+                <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl border border-black/5">
+                  <Image
+                    src="/assets/peaceaxis_image1.jpg"
+                    alt="Community building and dialogue praxis"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </div>
               </div>
             </div>
 
@@ -332,12 +337,13 @@ export default function About() {
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                 {/* Large featured image */}
-                <div className="col-span-2 row-span-2 group relative overflow-hidden rounded-2xl shadow-md border border-black/5">
-                  <img
+                <div className="col-span-2 row-span-2 group relative overflow-hidden rounded-2xl shadow-md border border-black/5" style={{ minHeight: "240px" }}>
+                  <Image
                     src="/assets/inaugration/IMG-20230819-WA0025.jpg"
                     alt="Inauguration ceremony — Centre for Peace Praxis"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    style={{ minHeight: "240px" }}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                     <p className="text-white text-xs font-medium">Inauguration Ceremony</p>
@@ -353,11 +359,13 @@ export default function About() {
                   { src: "/assets/inaugration/IMG-20230819-WA0045.jpg", alt: "Inauguration — group photo" },
                   { src: "/assets/inaugration/IMG-20230819-WA0050.jpg", alt: "Inauguration — community gathering" },
                 ].map((img, i) => (
-                  <div key={i} className="group relative overflow-hidden rounded-2xl shadow-md border border-black/5">
-                    <img
+                  <div key={i} className="group relative overflow-hidden rounded-2xl shadow-md border border-black/5 h-40 md:h-44">
+                    <Image
                       src={img.src}
                       alt={img.alt}
-                      className="w-full h-40 md:h-44 object-cover transition-transform duration-500 group-hover:scale-105"
+                      fill
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
                       <p className="text-white text-[10px] font-medium leading-tight">{img.alt.replace("Inauguration — ", "")}</p>

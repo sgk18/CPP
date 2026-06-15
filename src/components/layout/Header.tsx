@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
@@ -57,10 +58,13 @@ export const Header: React.FC = () => {
         {/* Logo */}
         <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 group">
           <div className="w-14 h-14 relative flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
-            <img
+            <Image
               src="/assets/current_logo.png"
               alt="Centre for Peace Praxis Logo"
-              className="object-contain w-full h-full"
+              fill
+              sizes="56px"
+              className="object-contain"
+              priority
             />
           </div>
           <div className="font-serif text-2xl font-bold tracking-tight text-dark transition-colors duration-300">

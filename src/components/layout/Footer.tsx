@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { MapPin, Phone, Mail, Heart } from "lucide-react";
 import { Instagram, Linkedin } from "@/components/ui/BrandIcons";
 
@@ -131,10 +132,13 @@ export const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 pt-8 border-t border-white/5 flex flex-col items-center gap-6">
         {/* Christ Logo */}
         <div className="flex justify-center items-center">
-          <img
+          <Image
             src="/assets/CHRIST_LOGO1.png"
             alt="CHRIST Deemed to be University Logo"
-            className="h-20 object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
+            width={180}
+            height={80}
+            className="object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
+            style={{ width: "auto", height: "80px" }}
           />
         </div>
 
