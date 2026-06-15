@@ -10,13 +10,16 @@ generator client {
 model Event {
   id               String   @id @default(uuid()) @db.Uuid
   title            String
-  description      String?
+  slug             String   @unique
   date             DateTime @db.Date
+  description      String?
   venue            String?
   registrationLink String?  @map("registration_link")
+  imagePath        String?  @map("image_path")
   imageUrl         String?  @map("image_url")
   thumbnailUrl     String?  @map("thumbnail_url")
   mediumUrl        String?  @map("medium_url")
+  status           String   @default("upcoming")
   createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
 
   @@map("events")

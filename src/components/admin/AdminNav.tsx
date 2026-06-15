@@ -107,8 +107,12 @@ export function AdminSidebar({
     <div className="flex flex-col h-full bg-white">
       {/* Logo */}
       <div className={`flex items-center gap-3 px-4 py-5 border-b border-gray-200 ${collapsed ? "justify-center" : ""}`}>
-        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#1A5F7A] to-[#2a9d8f] flex items-center justify-center flex-shrink-0 shadow-sm">
-          <span className="text-white text-xs font-bold">CP</span>
+        <div className="w-8 h-8 relative flex-shrink-0">
+          <img
+            src="/assets/current_logo.png"
+            alt="Centre for Peace Praxis Logo"
+            className="w-full h-full object-contain"
+          />
         </div>
         <AnimatePresence initial={false}>
           {!collapsed && (
@@ -246,11 +250,6 @@ export function AdminTopBar({
         <p className="text-gray-500 text-[10px] hidden sm:block">Centre for Peace Praxis · Content Studio</p>
       </div>
 
-      <div className="flex items-center gap-2">
-        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#1A5F7A] to-[#2a9d8f] flex items-center justify-center text-white text-xs font-bold shadow-sm">
-          A
-        </div>
-      </div>
     </header>
   );
 }

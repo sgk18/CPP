@@ -403,26 +403,13 @@ export default function Home() {
               {sortedEvents.map((evt, idx) => (
                 <Card key={idx} className="flex flex-col h-full hover:-translate-y-2 transition-all duration-300">
                   <div className="h-48 relative overflow-hidden rounded-t-2xl bg-black/5">
-                    {/* Blurred backdrop */}
-                    <div className="absolute inset-0 -z-10">
-                      <Image
-                        src={evt.thumbnail_url || evt.image_url || "/assets/peaceaxis_image6.jpg"}
-                        alt=""
-                        fill
-                        className="object-cover blur-sm opacity-50 scale-105 transition-transform duration-500"
-                        aria-hidden
-                      />
-                    </div>
-                    {/* Contained foreground image */}
-                    <div className="absolute inset-0">
-                      <Image
-                        src={evt.thumbnail_url || evt.image_url || "/assets/peaceaxis_image6.jpg"}
-                        alt={evt.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-contain transition-transform duration-500 hover:scale-102"
-                      />
-                    </div>
+                    <Image
+                      src={evt.thumbnail_url || evt.image_url || "/assets/peaceaxis_image6.jpg"}
+                      alt={evt.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-500 hover:scale-[1.02]"
+                    />
                     <div className="absolute top-4 right-4 px-3 py-1 bg-primary text-white text-xs font-bold rounded-full z-10">
                       {evt.date}
                     </div>
@@ -476,26 +463,13 @@ export default function Home() {
                   <Link href={`/workshops/${w.slug}`} key={w.slug} className="block h-full group">
                     <Card className="flex flex-col h-full hover:-translate-y-2 transition-all duration-300 cursor-pointer">
                       <div className="h-52 relative overflow-hidden rounded-t-2xl bg-black/5">
-                        {/* Blurred backdrop */}
-                        <div className="absolute inset-0 -z-10">
-                          <Image
-                            src={galleryImg}
-                            alt=""
-                            fill
-                            className="object-cover blur-sm opacity-50 scale-105 transition-transform duration-700"
-                            aria-hidden
-                          />
-                        </div>
-                        {/* Contained foreground image */}
-                        <div className="absolute inset-0">
-                          <Image
-                            src={galleryImg}
-                            alt={w.title}
-                            fill
-                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                            className="object-contain transition-transform duration-700 hover:scale-102"
-                          />
-                        </div>
+                        <Image
+                          src={galleryImg}
+                          alt={w.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          className="object-cover transition-transform duration-700 hover:scale-[1.02]"
+                        />
                         {badge && (
                           <div className="absolute top-4 right-4 px-3 py-1 bg-gradient-to-r from-accent to-secondary text-white text-xs font-bold rounded-full shadow-md z-10">
                             {badge}

@@ -239,8 +239,15 @@ async function main() {
 
     console.log("Seeding Events...");
     for (const e of EVENTS) {
+      const slug = e.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+      const status = e.title.includes("Philippines") ? "upcoming" : "past";
       await prisma.event.create({
-        data: e,
+        data: {
+          ...e,
+          slug,
+          status,
+          imagePath: e.imageUrl,
+        },
       });
     }
 

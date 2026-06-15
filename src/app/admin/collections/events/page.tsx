@@ -37,11 +37,27 @@ function EventForm({ event, onSave, onCancel }: {
   const [form, setForm] = useState<Partial<Event>>({ status: "upcoming", ...event });
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [hasRegistration, setHasRegistration] = useState(!!form.registration_link);
+
+  useEffect(() => {
+    setForm({ status: "upcoming", ...event });
+    setHasRegistration(!!event.registration_link);
+  }, [event]);
 
   const handleSave = async () => {
-    if (!form.title || !form.date) return;
+    if (!form.title?.trim() || !form.date) {
+      alert("Event Title and Date are required fields.");
+      return;
+    }
+    if (hasRegistration && !form.registration_link?.trim()) {
+      alert("Registration Link is required when registration is enabled.");
+      return;
+    }
     setSaving(true);
-    await onSave(form);
+    await onSave({
+      ...form,
+      registration_link: hasRegistration ? form.registration_link : "",
+    });
     setSaving(false);
   };
 
@@ -79,14 +95,17 @@ function EventForm({ event, onSave, onCancel }: {
     }
   };
 
-  const field = (label: string, key: keyof Event, type = "text") => (
+  const field = (label: string, key: keyof Event, type = "text", required = false) => (
     <div>
-      <label className="block text-gray-700 text-xs font-medium mb-1.5">{label}</label>
+      <label className="block text-gray-700 text-xs font-medium mb-1.5">
+        {label} {required && <span className="text-rose-500 font-bold">*</span>}
+      </label>
       <input
         type={type}
         value={(form[key] as string) ?? ""}
         onChange={e => setForm(p => ({ ...p, [key]: e.target.value }))}
         className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-3 py-2.5 text-gray-900 text-sm outline-none focus:border-[#2a9d8f]/60 transition-all"
+        required={required}
       />
     </div>
   );
@@ -100,10 +119,51 @@ function EventForm({ event, onSave, onCancel }: {
     >
       <h3 className="text-gray-900 font-semibold text-sm mb-5">{event.id ? "Edit Event" : "New Event"}</h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {field("Event Title", "title")}
-        {field("Date", "date", "date")}
+        {field("Event Title", "title", "text", true)}
+        {field("Date", "date", "date", true)}
         {field("Venue", "venue")}
-        {field("Registration Link", "registration_link")}
+        
+        <div>
+          <label className="block text-gray-700 text-xs font-medium mb-1.5">Registration</label>
+          <div className="flex items-center gap-3 h-[42px]">
+            <button
+              type="button"
+              onClick={() => {
+                const val = !hasRegistration;
+                setHasRegistration(val);
+                if (!val) {
+                  setForm(p => ({ ...p, registration_link: "" }));
+                }
+              }}
+              className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                hasRegistration ? "bg-[#2a9d8f]" : "bg-gray-200"
+              }`}
+            >
+              <span
+                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
+                  hasRegistration ? "translate-x-5" : "translate-x-0"
+                }`}
+              />
+            </button>
+            <span className="text-gray-700 text-sm font-medium">Enable Registration Link</span>
+          </div>
+        </div>
+
+        {hasRegistration && (
+          <div className="sm:col-span-2">
+            <label className="block text-gray-700 text-xs font-medium mb-1.5">
+              Registration Link <span className="text-rose-500 font-bold">*</span>
+            </label>
+            <input
+              type="text"
+              value={form.registration_link ?? ""}
+              onChange={e => setForm(p => ({ ...p, registration_link: e.target.value }))}
+              placeholder="https://..."
+              className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-3 py-2.5 text-gray-900 text-sm outline-none focus:border-[#2a9d8f]/60 transition-all"
+              required
+            />
+          </div>
+        )}
         
         <div className="sm:col-span-2">
           <label className="block text-gray-700 text-xs font-medium mb-1.5">Description</label>
