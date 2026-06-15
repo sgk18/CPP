@@ -11,12 +11,14 @@ export async function POST(request: Request) {
   try {
     const formData = await request.formData();
     const file = formData.get("file") as File;
+    const folder = (formData.get("folder") as string) || "general";
+    
     if (!file) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    const metadata = await storageService.upload(buffer, file.name, file.type);
+    const metadata = await storageService.upload(buffer, file.name, file.type, folder);
 
     return NextResponse.json({ success: true, metadata });
   } catch (error: any) {

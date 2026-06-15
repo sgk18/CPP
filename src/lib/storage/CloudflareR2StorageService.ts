@@ -1,5 +1,8 @@
 import { StorageService } from "./StorageService";
 import { S3Client, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
+import sharp from "sharp";
+import crypto from "crypto";
+import path from "path";
 
 export class CloudflareR2StorageService implements StorageService {
   private s3: S3Client;
@@ -27,17 +30,11 @@ export class CloudflareR2StorageService implements StorageService {
     });
   }
 
-  private sanitizeFilename(filename: string): string {
-    return filename
-      .toLowerCase()
-      .replace(/[^a-z0-9.]/g, "-")
-      .replace(/-+/g, "-");
-  }
-
   async upload(
     fileBuffer: Buffer,
     filename: string,
-    mimeType: string
+    mimeType: string,
+    folder?: string
   ): Promise<{
     url: string;
     original: string;
@@ -47,9 +44,13 @@ export class CloudflareR2StorageService implements StorageService {
     mimeType: string;
   }> {
     // 1. Validate file type
-    const allowedMimeTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
-    if (!allowedMimeTypes.includes(mimeType)) {
-      throw new Error("Invalid file type. Only JPEG, PNG, WEBP, and GIF images are allowed.");
+    const cleanMime = mimeType.toLowerCase();
+    const cleanExt = path.extname(filename).toLowerCase();
+    const allowedMimeTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+    const allowedExtensions = [".jpg", ".jpeg", ".png", ".webp"];
+
+    if (!allowedMimeTypes.includes(cleanMime) && !allowedExtensions.includes(cleanExt)) {
+      throw new Error("Invalid file type. Only JPEG, PNG, and WEBP images are allowed.");
     }
 
     // 2. Validate file size (max 5MB)
@@ -58,28 +59,75 @@ export class CloudflareR2StorageService implements StorageService {
       throw new Error("File exceeds the maximum allowed size of 5MB.");
     }
 
-    const sanitized = this.sanitizeFilename(filename);
-    const uniqueKey = `${Date.now()}-${Math.round(Math.random() * 1e9)}-${sanitized}`;
+    // Determine subfolder and naming prefix
+    const cleanFolder = (folder || "general").toLowerCase().trim();
 
-    const command = new PutObjectCommand({
-      Bucket: this.bucketName,
-      Key: uniqueKey,
-      Body: fileBuffer,
-      ContentType: mimeType,
-    });
+    let prefix = "general";
+    if (cleanFolder === "events") {
+      prefix = "event";
+    } else if (cleanFolder === "gallery") {
+      prefix = "gallery";
+    } else if (cleanFolder === "team") {
+      prefix = "team";
+    } else {
+      prefix = cleanFolder;
+    }
 
-    await this.s3.send(command);
+    const randomHex = crypto.randomBytes(3).toString("hex");
 
-    // Compute the public URL
-    const url = `${this.publicUrl}/${uniqueKey}`;
+    // Output keys adhering to instructions
+    const originalKey = `${cleanFolder}/${prefix}_${randomHex}.webp`;
+    const mediumKey = `${cleanFolder}/medium_${prefix}_${randomHex}.webp`;
+    const thumbKey = `${cleanFolder}/thumb_${prefix}_${randomHex}.webp`;
+
+    // 3. Compress and generate buffers using sharp
+    // Original Version: WebP, quality 85, no resize
+    const originalBuffer = await sharp(fileBuffer)
+      .webp({ quality: 85 })
+      .toBuffer();
+
+    // Medium Version: WebP, quality 85, width 1200px (without enlargement)
+    const mediumBuffer = await sharp(fileBuffer)
+      .resize(1200, null, { withoutEnlargement: true })
+      .webp({ quality: 85 })
+      .toBuffer();
+
+    // Thumbnail Version: WebP, quality 80, width 400px (without enlargement)
+    const thumbBuffer = await sharp(fileBuffer)
+      .resize(400, null, { withoutEnlargement: true })
+      .webp({ quality: 80 })
+      .toBuffer();
+
+    // Upload all 3 versions to Cloudflare R2
+    const uploadVersion = async (key: string, buffer: Buffer) => {
+      const command = new PutObjectCommand({
+        Bucket: this.bucketName,
+        Key: key,
+        Body: buffer,
+        ContentType: "image/webp",
+      });
+      await this.s3.send(command);
+    };
+
+    await Promise.all([
+      uploadVersion(originalKey, originalBuffer),
+      uploadVersion(mediumKey, mediumBuffer),
+      uploadVersion(thumbKey, thumbBuffer),
+    ]);
+
+    // Compute the public URLs
+    const url = `${this.publicUrl}/${originalKey}`;
+    const originalUrl = `${this.publicUrl}/${originalKey}`;
+    const mediumUrl = `${this.publicUrl}/${mediumKey}`;
+    const thumbUrl = `${this.publicUrl}/${thumbKey}`;
 
     return {
       url,
-      original: url,
-      medium: url,
-      thumbnail: url,
-      size: fileBuffer.length,
-      mimeType,
+      original: originalUrl,
+      medium: mediumUrl,
+      thumbnail: thumbUrl,
+      size: originalBuffer.length,
+      mimeType: "image/webp",
     };
   }
 
@@ -87,18 +135,52 @@ export class CloudflareR2StorageService implements StorageService {
     if (!urlPath) return;
 
     try {
-      const url = new URL(urlPath);
-      // Remove leading slash to get the exact object key
-      const key = decodeURIComponent(url.pathname.substring(1));
+      let pathname = "";
+      if (urlPath.startsWith("http://") || urlPath.startsWith("https://")) {
+        const url = new URL(urlPath);
+        pathname = decodeURIComponent(url.pathname);
+      } else {
+        pathname = decodeURIComponent(urlPath);
+      }
 
-      const command = new DeleteObjectCommand({
-        Bucket: this.bucketName,
-        Key: key,
-      });
+      // Remove leading slash to get the key path
+      if (pathname.startsWith("/")) {
+        pathname = pathname.substring(1);
+      }
 
-      await this.s3.send(command);
+      const parts = pathname.split("/");
+      const filename = parts[parts.length - 1];
+      if (!filename) return;
+
+      const folderPath = parts.slice(0, -1).join("/");
+      
+      const ext = path.extname(filename);
+      const nameWithoutExt = path.basename(filename, ext);
+
+      const keysToDelete = [
+        pathname,
+        folderPath ? `${folderPath}/thumb_${filename}` : `thumb_${filename}`,
+        folderPath ? `${folderPath}/medium_${filename}` : `medium_${filename}`,
+        // Fallbacks for older naming convention
+        folderPath ? `${folderPath}/${nameWithoutExt}-medium${ext}` : `${nameWithoutExt}-medium${ext}`,
+        folderPath ? `${folderPath}/${nameWithoutExt}-thumb${ext}` : `${nameWithoutExt}-thumb${ext}`,
+      ];
+
+      const deleteKey = async (key: string) => {
+        try {
+          const command = new DeleteObjectCommand({
+            Bucket: this.bucketName,
+            Key: key,
+          });
+          await this.s3.send(command);
+        } catch (err) {
+          console.error(`Error deleting object key from R2: ${key}`, err);
+        }
+      };
+
+      await Promise.all(keysToDelete.map(deleteKey));
     } catch (err) {
-      console.error(`Error deleting from R2: ${urlPath}`, err);
+      console.error(`Error deleting from R2 for: ${urlPath}`, err);
     }
   }
 }

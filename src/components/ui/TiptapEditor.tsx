@@ -116,6 +116,7 @@ export const TiptapEditor: React.FC<TiptapEditorProps> = ({ value, onChange }) =
     setUploading(true);
     const formData = new FormData();
     formData.append("file", file);
+    formData.append("folder", "gallery");
 
     try {
       const res = await fetch("/api/upload", {

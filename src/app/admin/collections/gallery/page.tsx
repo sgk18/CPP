@@ -21,6 +21,8 @@ import {
 type GalleryImage = {
   id: string;
   url: string;
+  thumbnail_url?: string;
+  medium_url?: string;
   caption: string;
   album: string;
   is_featured: boolean;
@@ -163,6 +165,7 @@ export default function GalleryManagerPage() {
       const file = selectedFiles[i];
       const formData = new FormData();
       formData.append("file", file);
+      formData.append("folder", "gallery");
 
       try {
         const uploadRes = await fetch("/api/upload", {
@@ -175,6 +178,8 @@ export default function GalleryManagerPage() {
           // File uploaded, now create record in database
           const dbRes = await addGalleryImageAction({
             url: uploadData.metadata.url,
+            thumbnail_url: uploadData.metadata.thumbnail,
+            medium_url: uploadData.metadata.medium,
             caption: selectedFiles.length === 1 ? uploadCaption : `${uploadCaption} (${i + 1})`,
             album: uploadAlbum,
           });

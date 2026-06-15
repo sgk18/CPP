@@ -10,6 +10,8 @@ export function mapEvent(e: any) {
     registration_link: e.registrationLink,
     image_path: e.imagePath,
     image_url: e.imageUrl,
+    thumbnail_url: e.thumbnailUrl || e.imageUrl,
+    medium_url: e.mediumUrl || e.imageUrl,
     status: e.status,
     created_at: e.createdAt?.toISOString(),
   };

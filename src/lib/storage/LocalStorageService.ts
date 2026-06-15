@@ -2,6 +2,7 @@ import { StorageService } from "./StorageService";
 import fs from "fs";
 import path from "path";
 import sharp from "sharp";
+import crypto from "crypto";
 
 export class LocalStorageService implements StorageService {
   private uploadDir: string;
@@ -13,25 +14,18 @@ export class LocalStorageService implements StorageService {
     this.ensureUploadDirectoryExists();
   }
 
-  private ensureUploadDirectoryExists() {
-    if (!fs.existsSync(this.uploadDir)) {
-      fs.mkdirSync(this.uploadDir, { recursive: true });
+  private ensureUploadDirectoryExists(subfolder?: string) {
+    const targetDir = subfolder ? path.join(this.uploadDir, subfolder) : this.uploadDir;
+    if (!fs.existsSync(targetDir)) {
+      fs.mkdirSync(targetDir, { recursive: true });
     }
-  }
-
-  private sanitizeFilename(filename: string): string {
-    const parsed = path.parse(filename);
-    const safeName = parsed.name
-      .toLowerCase()
-      .replace(/[^a-z0-9]/g, "-")
-      .replace(/-+/g, "-");
-    return `${safeName}${parsed.ext}`;
   }
 
   async upload(
     fileBuffer: Buffer,
     filename: string,
-    mimeType: string
+    mimeType: string,
+    folder?: string
   ): Promise<{
     url: string;
     original: string;
@@ -41,9 +35,13 @@ export class LocalStorageService implements StorageService {
     mimeType: string;
   }> {
     // 1. Validate file type
-    const allowedMimeTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
-    if (!allowedMimeTypes.includes(mimeType)) {
-      throw new Error("Invalid file type. Only JPEG, PNG, WEBP, and GIF images are allowed.");
+    const cleanMime = mimeType.toLowerCase();
+    const cleanExt = path.extname(filename).toLowerCase();
+    const allowedMimeTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+    const allowedExtensions = [".jpg", ".jpeg", ".png", ".webp"];
+
+    if (!allowedMimeTypes.includes(cleanMime) && !allowedExtensions.includes(cleanExt)) {
+      throw new Error("Invalid file type. Only JPEG, PNG, and WEBP images are allowed.");
     }
 
     // 2. Validate file size (max 5MB)
@@ -52,81 +50,108 @@ export class LocalStorageService implements StorageService {
       throw new Error("File exceeds the maximum allowed size of 5MB.");
     }
 
-    this.ensureUploadDirectoryExists();
+    // Determine subfolder and naming prefix
+    const cleanFolder = (folder || "general").toLowerCase().trim();
+    this.ensureUploadDirectoryExists(cleanFolder);
 
-    const sanitized = this.sanitizeFilename(filename);
-    const uniquePrefix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-    const baseName = path.parse(sanitized).name;
+    let prefix = "general";
+    if (cleanFolder === "events") {
+      prefix = "event";
+    } else if (cleanFolder === "gallery") {
+      prefix = "gallery";
+    } else if (cleanFolder === "team") {
+      prefix = "team";
+    } else {
+      prefix = cleanFolder;
+    }
 
-    // Names for output images (saved as optimized WEBP)
-    const originalFilename = `${uniquePrefix}-${baseName}.webp`;
-    const mediumFilename = `${uniquePrefix}-${baseName}-medium.webp`;
-    const thumbnailFilename = `${uniquePrefix}-${baseName}-thumb.webp`;
+    const randomHex = crypto.randomBytes(3).toString("hex");
 
-    const originalDiskPath = path.join(this.uploadDir, originalFilename);
-    const mediumDiskPath = path.join(this.uploadDir, mediumFilename);
-    const thumbnailDiskPath = path.join(this.uploadDir, thumbnailFilename);
+    // Output filenames adhering to instructions
+    const originalFilename = `${prefix}_${randomHex}.webp`;
+    const mediumFilename = `medium_${prefix}_${randomHex}.webp`;
+    const thumbnailFilename = `thumb_${prefix}_${randomHex}.webp`;
+
+    const originalDiskPath = path.join(this.uploadDir, cleanFolder, originalFilename);
+    const mediumDiskPath = path.join(this.uploadDir, cleanFolder, mediumFilename);
+    const thumbnailDiskPath = path.join(this.uploadDir, cleanFolder, thumbnailFilename);
 
     // 3. Compress and generate images using sharp
-    const sharpInstance = sharp(fileBuffer);
-
-    // Write original compressed webp
-    await sharpInstance
+    // Original Version: WebP, quality 85, no resize
+    await sharp(fileBuffer)
       .webp({ quality: 85 })
       .toFile(originalDiskPath);
 
-    // Write medium copy (max width 600px)
-    await sharpInstance
-      .resize(600, null, { withoutEnlargement: true })
-      .webp({ quality: 80 })
+    // Medium Version: WebP, quality 85, width 1200px (without enlargement)
+    await sharp(fileBuffer)
+      .resize(1200, null, { withoutEnlargement: true })
+      .webp({ quality: 85 })
       .toFile(mediumDiskPath);
 
-    // Write thumbnail copy (max width 150px)
-    await sharpInstance
-      .resize(150, null, { withoutEnlargement: true })
-      .webp({ quality: 75 })
+    // Thumbnail Version: WebP, quality 80, width 400px (without enlargement)
+    await sharp(fileBuffer)
+      .resize(400, null, { withoutEnlargement: true })
+      .webp({ quality: 80 })
       .toFile(thumbnailDiskPath);
 
     const stats = fs.statSync(originalDiskPath);
 
     return {
-      url: `${this.publicPathPrefix}/${originalFilename}`,
-      original: `${this.publicPathPrefix}/${originalFilename}`,
-      medium: `${this.publicPathPrefix}/${mediumFilename}`,
-      thumbnail: `${this.publicPathPrefix}/${thumbnailFilename}`,
+      url: `${this.publicPathPrefix}/${cleanFolder}/${originalFilename}`,
+      original: `${this.publicPathPrefix}/${cleanFolder}/${originalFilename}`,
+      medium: `${this.publicPathPrefix}/${cleanFolder}/${mediumFilename}`,
+      thumbnail: `${this.publicPathPrefix}/${cleanFolder}/${thumbnailFilename}`,
       size: stats.size,
       mimeType: "image/webp",
     };
   }
 
   async delete(urlPath: string): Promise<void> {
-    if (!urlPath || !urlPath.startsWith(this.publicPathPrefix)) {
-      return;
-    }
+    if (!urlPath) return;
 
-    // Extract filename from public path
-    const filename = path.basename(urlPath);
-    if (!filename) return;
+    try {
+      let pathname = "";
+      if (urlPath.startsWith("http://") || urlPath.startsWith("https://")) {
+        const url = new URL(urlPath);
+        pathname = decodeURIComponent(url.pathname);
+      } else {
+        pathname = decodeURIComponent(urlPath);
+      }
 
-    // Resolve filenames for medium and thumbnail
-    const ext = path.extname(filename);
-    const nameWithoutExt = path.basename(filename, ext);
+      // Strip public path prefix
+      let relPath = pathname;
+      if (relPath.startsWith(this.publicPathPrefix)) {
+        relPath = relPath.substring(this.publicPathPrefix.length);
+      }
+      if (relPath.startsWith("/")) {
+        relPath = relPath.substring(1);
+      }
 
-    const filenamesToDelete = [
-      filename,
-      `${nameWithoutExt}-medium${ext}`,
-      `${nameWithoutExt}-thumb${ext}`,
-    ];
+      const parts = relPath.split("/");
+      const filename = parts[parts.length - 1];
+      if (!filename) return;
 
-    for (const f of filenamesToDelete) {
-      const fullDiskPath = path.join(this.uploadDir, f);
-      try {
+      const folderPath = parts.slice(0, -1).join("/");
+      
+      const ext = path.extname(filename);
+      const nameWithoutExt = path.basename(filename, ext);
+
+      const filesToDelete = [
+        path.join(this.uploadDir, folderPath, filename),
+        path.join(this.uploadDir, folderPath, `thumb_${filename}`),
+        path.join(this.uploadDir, folderPath, `medium_${filename}`),
+        // Fallbacks for older naming convention
+        path.join(this.uploadDir, folderPath, `${nameWithoutExt}-medium${ext}`),
+        path.join(this.uploadDir, folderPath, `${nameWithoutExt}-thumb${ext}`),
+      ];
+
+      for (const fullDiskPath of filesToDelete) {
         if (fs.existsSync(fullDiskPath)) {
           fs.unlinkSync(fullDiskPath);
         }
-      } catch (err) {
-        console.error(`Error deleting file: ${fullDiskPath}`, err);
       }
+    } catch (err) {
+      console.error(`Error deleting files for URL path: ${urlPath}`, err);
     }
   }
 }

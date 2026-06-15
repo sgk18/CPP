@@ -5,6 +5,8 @@ import { storageService } from "@/lib/storage";
 
 export type GalleryUploadData = {
   url: string;
+  thumbnail_url?: string;
+  medium_url?: string;
   caption: string;
   album: string;
   is_featured?: boolean;
@@ -16,6 +18,8 @@ function mapGallery(g: any) {
   return {
     id: g.id,
     url: g.imageUrl,
+    thumbnail_url: g.thumbnailUrl || g.imageUrl,
+    medium_url: g.mediumUrl || g.imageUrl,
     caption: g.caption,
     album: g.album,
     is_featured: g.isFeatured,
@@ -49,6 +53,8 @@ export async function addGalleryImageAction(data: GalleryUploadData) {
     const record = await prisma.gallery.create({
       data: {
         imageUrl: data.url,
+        thumbnailUrl: data.thumbnail_url,
+        mediumUrl: data.medium_url,
         caption: data.caption,
         album: data.album,
         sortOrder: data.sort_order ?? nextSortOrder,

@@ -10,6 +10,8 @@ export type EventData = {
   venue: string;
   registration_link: string;
   image_path: string;
+  thumbnail_url?: string;
+  medium_url?: string;
   status: "upcoming" | "past" | "ongoing";
 };
 
@@ -40,6 +42,8 @@ export async function createEventAction(data: EventData) {
         registrationLink: data.registration_link,
         imagePath: data.image_path,
         imageUrl: data.image_path, // Sync both for compatibility
+        thumbnailUrl: data.thumbnail_url,
+        mediumUrl: data.medium_url,
         status: data.status,
       },
     });
@@ -62,6 +66,12 @@ export async function updateEventAction(id: string, data: Partial<EventData>) {
     if (data.image_path !== undefined) {
       updateData.imagePath = data.image_path;
       updateData.imageUrl = data.image_path;
+    }
+    if (data.thumbnail_url !== undefined) {
+      updateData.thumbnailUrl = data.thumbnail_url;
+    }
+    if (data.medium_url !== undefined) {
+      updateData.mediumUrl = data.medium_url;
     }
     if (data.status !== undefined) updateData.status = data.status;
 

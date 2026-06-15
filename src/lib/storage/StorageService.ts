@@ -2,7 +2,8 @@ export interface StorageService {
   upload(
     fileBuffer: Buffer,
     filename: string,
-    mimeType: string
+    mimeType: string,
+    folder?: string
   ): Promise<{
     url: string;         // Primary URL for display (original)
     original: string;    // Path to original image

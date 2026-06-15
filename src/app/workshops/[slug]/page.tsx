@@ -19,6 +19,7 @@ import {
   Target
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -107,11 +108,13 @@ export default function WorkshopReport({ params }: PageProps) {
 
           {/* Image Divider (for Bridging Hearts inline poster) */}
           {workshop.slug === "bridging-hearts" && (
-            <div className="relative rounded-2xl overflow-hidden shadow-xl border border-black/5 max-w-2xl mx-auto">
-              <img
+            <div className="relative rounded-2xl overflow-hidden shadow-xl border border-black/5 max-w-2xl mx-auto h-[500px]">
+              <Image
                 src="/assets/bridging_hearts_poster.jpg"
                 alt="Bridging Hearts Workshop Poster"
-                className="w-full h-auto"
+                fill
+                sizes="(max-width: 768px) 100vw, 650px"
+                className="object-contain"
               />
             </div>
           )}
@@ -140,9 +143,15 @@ export default function WorkshopReport({ params }: PageProps) {
                 {workshop.speakers.map((spk: any, idx: number) => (
                   <Card key={idx} className="flex flex-col h-full bg-light/20 hover:-translate-y-1.5 transition-all duration-300">
                     <CardContent className="p-6 text-center flex flex-col items-center gap-4 flex-grow">
-                      <div className="w-20 h-20 rounded-full overflow-hidden bg-secondary/10 flex items-center justify-center border-2 border-secondary/25 shadow-inner">
+                      <div className="w-20 h-20 rounded-full overflow-hidden bg-secondary/10 flex items-center justify-center border-2 border-secondary/25 shadow-inner relative">
                         {spk.image ? (
-                          <img src={spk.image} alt={spk.name} className="w-full h-full object-cover" />
+                          <Image
+                            src={spk.image}
+                            alt={spk.name}
+                            fill
+                            sizes="80px"
+                            className="object-cover"
+                          />
                         ) : (
                           <span className="font-display font-extrabold text-lg text-secondary">
                             {getInitials(spk.name)}
@@ -234,7 +243,13 @@ export default function WorkshopReport({ params }: PageProps) {
                     onClick={() => setSelectedImage(imgSrc)}
                     className="group relative h-48 rounded-xl overflow-hidden shadow-md border border-black/5 bg-light/30 cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                   >
-                    <img src={imgSrc} alt={`Gallery ${idx + 1}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <Image
+                      src={imgSrc}
+                      alt={`Gallery ${idx + 1}`}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
                     <div className="absolute inset-0 bg-primary/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white">
                       <ZoomIn className="w-6 h-6" />
                     </div>
@@ -277,11 +292,16 @@ export default function WorkshopReport({ params }: PageProps) {
         >
           {selectedImage && (
             <div className="w-full flex justify-center items-center bg-black/5 rounded-2xl">
-              <img
-                src={selectedImage}
-                alt="Event Gallery Zoom"
-                className="max-w-full max-h-[70vh] object-contain rounded-xl"
-              />
+              <div className="relative w-full h-[60vh]">
+                <Image
+                  src={selectedImage}
+                  alt="Event Gallery Zoom"
+                  fill
+                  sizes="(max-width: 1200px) 100vw, 1200px"
+                  className="object-contain rounded-xl"
+                  priority
+                />
+              </div>
             </div>
           )}
         </Modal>

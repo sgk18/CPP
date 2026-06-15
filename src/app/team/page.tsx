@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/Card";
@@ -85,10 +86,12 @@ export default function TeamPage() {
                     <div>
                       <div className="h-64 bg-light flex items-center justify-center text-gray-300 overflow-hidden relative">
                         {f.image ? (
-                          <img
+                          <Image
                             src={f.image}
                             alt={f.name}
-                            className="w-full h-full object-cover object-top"
+                            fill
+                            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                            className="object-cover object-top"
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
@@ -148,10 +151,12 @@ export default function TeamPage() {
                         <Card className="border border-black/5 hover:-translate-y-2 transition-all duration-300">
                           <div className="h-80 relative overflow-hidden bg-primary/10">
                             {s.image ? (
-                              <img
+                              <Image
                                 src={s.image}
                                 alt={s.name}
-                                className="w-full h-full object-cover object-top"
+                                fill
+                                sizes="(max-width: 768px) 100vw, 50vw"
+                                className="object-cover object-top"
                               />
                             ) : (
                               <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
@@ -211,10 +216,12 @@ export default function TeamPage() {
                       <div>
                         <div className="h-56 bg-light flex items-center justify-center text-gray-300 overflow-hidden relative">
                           {s.image ? (
-                            <img
+                            <Image
                               src={s.image}
                               alt={s.name}
-                              className="w-full h-full object-cover"
+                              fill
+                              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                              className="object-cover"
                             />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
@@ -280,10 +287,12 @@ export default function TeamPage() {
                   <Card key={idx} className="hover:-translate-y-2 transition-all duration-300 border border-black/5">
                     <div className="h-56 bg-light flex items-center justify-center text-gray-300 overflow-hidden relative">
                       {a.image ? (
-                        <img
+                        <Image
                           src={a.image}
                           alt={a.name}
-                          className="w-full h-full object-cover"
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                          className="object-cover"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">

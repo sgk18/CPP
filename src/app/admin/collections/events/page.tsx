@@ -16,6 +16,8 @@ type Event = {
   description: string;
   image_url: string;
   image_path?: string;
+  thumbnail_url?: string;
+  medium_url?: string;
   registration_link: string;
   venue?: string;
   status: "upcoming" | "past" | "ongoing";
@@ -50,6 +52,7 @@ function EventForm({ event, onSave, onCancel }: {
     setUploading(true);
     const formData = new FormData();
     formData.append("file", file);
+    formData.append("folder", "events");
 
     try {
       const res = await fetch("/api/upload", {
@@ -61,7 +64,9 @@ function EventForm({ event, onSave, onCancel }: {
         setForm(p => ({
           ...p,
           image_path: resData.metadata.url,
-          image_url: resData.metadata.url
+          image_url: resData.metadata.url,
+          thumbnail_url: resData.metadata.thumbnail,
+          medium_url: resData.metadata.medium
         }));
       } else {
         alert("Upload failed: " + (resData.error || "Unknown error"));
@@ -199,6 +204,8 @@ export default function EventsManagerPage() {
       venue: formEvent.venue || "",
       registration_link: formEvent.registration_link || "",
       image_path: formEvent.image_path || formEvent.image_url || "",
+      thumbnail_url: formEvent.thumbnail_url || "",
+      medium_url: formEvent.medium_url || "",
       status: formEvent.status || "upcoming",
     };
 

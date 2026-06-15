@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
@@ -311,11 +312,15 @@ export default function Home() {
             </div>
             <div className="relative group">
               <div className="absolute -inset-4 bg-secondary/10 rounded-3xl -z-10 group-hover:scale-[1.02] transition-transform duration-500" />
-              <img
-                src="/assets/peaceaxis_image1.jpg"
-                alt="Community building praxis event"
-                className="w-full h-auto rounded-2xl shadow-xl border border-black/5"
-              />
+              <div className="relative w-full h-[350px] sm:h-[450px]">
+                <Image
+                  src="/assets/peaceaxis_image1.jpg"
+                  alt="Community building praxis event"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="rounded-2xl shadow-xl border border-black/5 object-cover"
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -376,10 +381,12 @@ export default function Home() {
               {sortedEvents.map((evt, idx) => (
                 <Card key={idx} className="flex flex-col h-full hover:-translate-y-2 transition-all duration-300">
                   <div className="h-48 relative overflow-hidden bg-primary/10">
-                    <img
-                      src={evt.image_url || "/assets/peaceaxis_image6.jpg"}
+                    <Image
+                      src={evt.thumbnail_url || evt.image_url || "/assets/peaceaxis_image6.jpg"}
                       alt={evt.title}
-                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-500 hover:scale-105"
                     />
                     <div className="absolute top-4 right-4 px-3 py-1 bg-primary text-white text-xs font-bold rounded-full">
                       {evt.date}
@@ -434,10 +441,12 @@ export default function Home() {
                   <Link href={`/workshops/${w.slug}`} key={w.slug} className="block h-full group">
                     <Card className="flex flex-col h-full hover:-translate-y-2 transition-all duration-300 cursor-pointer">
                       <div className="h-52 relative overflow-hidden bg-primary/10">
-                        <img
+                        <Image
                           src={galleryImg}
                           alt={w.title}
-                          className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          className="object-cover transition-transform duration-700 hover:scale-105"
                         />
                         {badge && (
                           <div className="absolute top-4 right-4 px-3 py-1 bg-gradient-to-r from-accent to-secondary text-white text-xs font-bold rounded-full shadow-md">
@@ -493,8 +502,14 @@ export default function Home() {
               
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center justify-between border-t border-white/10 pt-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full overflow-hidden bg-white/20">
-                    <img src={content.coordinator1Image} alt={content.coordinator1Name} className="w-full h-full object-cover" />
+                  <div className="w-12 h-12 rounded-full overflow-hidden bg-white/20 relative flex-shrink-0">
+                    <Image
+                      src={content.coordinator1Image}
+                      alt={content.coordinator1Name}
+                      fill
+                      sizes="48px"
+                      className="object-cover"
+                    />
                   </div>
                   <div>
                     <h4 className="font-semibold text-sm">{content.coordinator1Name}</h4>
@@ -509,8 +524,14 @@ export default function Home() {
               </div>
 
               <div className="flex items-center gap-3 border-t border-white/10 pt-4">
-                <div className="w-12 h-12 rounded-full overflow-hidden bg-white/20">
-                  <img src={content.coordinator2Image} alt={content.coordinator2Name} className="w-full h-full object-cover" />
+                <div className="w-12 h-12 rounded-full overflow-hidden bg-white/20 relative flex-shrink-0">
+                  <Image
+                    src={content.coordinator2Image}
+                    alt={content.coordinator2Name}
+                    fill
+                    sizes="48px"
+                    className="object-cover"
+                  />
                 </div>
                 <div>
                   <h4 className="font-semibold text-sm">{content.coordinator2Name}</h4>

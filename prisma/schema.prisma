@@ -15,6 +15,8 @@ model Event {
   venue            String?
   registrationLink String?  @map("registration_link")
   imageUrl         String?  @map("image_url")
+  thumbnailUrl     String?  @map("thumbnail_url")
+  mediumUrl        String?  @map("medium_url")
   createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
 
   @@map("events")
@@ -23,6 +25,8 @@ model Event {
 model Gallery {
   id         String   @id @default(uuid()) @db.Uuid
   imageUrl   String   @map("image_url")
+  thumbnailUrl String?  @map("thumbnail_url")
+  mediumUrl    String?  @map("medium_url")
   caption    String?
   album      String   @default("General")
   isFeatured Boolean  @default(false) @map("is_featured")
@@ -37,6 +41,8 @@ model TeamMember {
   name      String
   role      String?
   imageUrl  String?  @map("image_url")
+  thumbnailUrl String?  @map("thumbnail_url")
+  mediumUrl    String?  @map("medium_url")
   linkedin  String?
   github    String?
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)

@@ -6,10 +6,13 @@ import { Footer } from "@/components/layout/Footer";
 import { Modal } from "@/components/ui/Modal";
 import { getGalleryAction } from "@/lib/actions/gallery";
 import { ZoomIn, Loader2 } from "lucide-react";
+import Image from "next/image";
 
 type GalleryItem = {
   id: string;
   url: string;
+  thumbnail_url?: string;
+  medium_url?: string;
   caption: string;
   album: string;
   is_featured: boolean;
@@ -98,11 +101,12 @@ export default function Gallery() {
                   onClick={() => setSelectedImage(item)}
                   className="group relative h-80 rounded-2xl overflow-hidden shadow-md shadow-black/[0.03] border border-black/5 bg-light/30 cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-black/[0.08]"
                 >
-                  <img
-                    src={item.url}
+                  <Image
+                    src={item.thumbnail_url || item.url}
                     alt={item.caption}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    loading="lazy"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
 
                   {item.is_featured && (
@@ -135,13 +139,18 @@ export default function Gallery() {
         >
           {selectedImage && (
             <div className="w-full flex flex-col items-center gap-3 rounded-2xl overflow-hidden bg-black/5">
-              <img
-                src={selectedImage.url}
-                alt={selectedImage.caption}
-                className="max-w-full max-h-[70vh] object-contain rounded-2xl"
-              />
+              <div className="relative w-full h-[60vh]">
+                <Image
+                  src={selectedImage.medium_url || selectedImage.url}
+                  alt={selectedImage.caption}
+                  fill
+                  sizes="(max-width: 1200px) 100vw, 1200px"
+                  className="object-contain rounded-2xl"
+                  priority
+                />
+              </div>
               {selectedImage.album && (
-                <span className="text-xs text-gray-400 font-medium px-3 py-1 bg-gray-100 rounded-full">
+                <span className="text-xs text-gray-400 font-medium px-3 py-1 bg-gray-100 rounded-full mt-2">
                   {selectedImage.album}
                 </span>
               )}
