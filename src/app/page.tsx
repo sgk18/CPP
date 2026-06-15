@@ -502,13 +502,13 @@ export default function Home() {
               
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center justify-between border-t border-white/10 pt-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full overflow-hidden bg-white/20 relative flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full overflow-hidden bg-white/20 flex-shrink-0">
                     <Image
                       src={content.coordinator1Image}
                       alt={content.coordinator1Name}
-                      fill
-                      sizes="48px"
-                      className="object-cover"
+                      width={48}
+                      height={48}
+                      className="w-full h-full object-cover"
                     />
                   </div>
                   <div>
@@ -524,13 +524,13 @@ export default function Home() {
               </div>
 
               <div className="flex items-center gap-3 border-t border-white/10 pt-4">
-                <div className="w-12 h-12 rounded-full overflow-hidden bg-white/20 relative flex-shrink-0">
+                <div className="w-12 h-12 rounded-full overflow-hidden bg-white/20 flex-shrink-0">
                   <Image
                     src={content.coordinator2Image}
                     alt={content.coordinator2Name}
-                    fill
-                    sizes="48px"
-                    className="object-cover"
+                    width={48}
+                    height={48}
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <div>

@@ -138,17 +138,17 @@ export default function Gallery() {
           size="lg"
         >
           {selectedImage && (
-            <div className="w-full flex flex-col items-center gap-3 rounded-2xl overflow-hidden bg-black/5">
-              <div className="relative w-full h-[60vh]">
-                <Image
-                  src={selectedImage.medium_url || selectedImage.url}
-                  alt={selectedImage.caption}
-                  fill
-                  sizes="(max-width: 1200px) 100vw, 1200px"
-                  className="object-contain rounded-2xl"
-                  priority
-                />
-              </div>
+            <div className="w-full flex flex-col items-center gap-3 rounded-2xl overflow-hidden bg-black/5 p-2">
+              <Image
+                src={selectedImage.medium_url || selectedImage.url}
+                alt={selectedImage.caption}
+                width={1200}
+                height={800}
+                sizes="(max-width: 1200px) 100vw, 1200px"
+                style={{ width: "100%", height: "auto", maxHeight: "70vh" }}
+                className="object-contain rounded-2xl"
+                priority
+              />
               {selectedImage.album && (
                 <span className="text-xs text-gray-400 font-medium px-3 py-1 bg-gray-100 rounded-full mt-2">
                   {selectedImage.album}

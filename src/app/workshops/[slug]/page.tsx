@@ -108,13 +108,15 @@ export default function WorkshopReport({ params }: PageProps) {
 
           {/* Image Divider (for Bridging Hearts inline poster) */}
           {workshop.slug === "bridging-hearts" && (
-            <div className="relative rounded-2xl overflow-hidden shadow-xl border border-black/5 max-w-2xl mx-auto h-[500px]">
+            <div className="relative rounded-2xl overflow-hidden shadow-xl border border-black/5 max-w-2xl mx-auto">
               <Image
                 src="/assets/bridging_hearts_poster.jpg"
                 alt="Bridging Hearts Workshop Poster"
-                fill
+                width={800}
+                height={1200}
                 sizes="(max-width: 768px) 100vw, 650px"
-                className="object-contain"
+                style={{ width: "100%", height: "auto" }}
+                className="rounded-2xl"
               />
             </div>
           )}
@@ -143,14 +145,14 @@ export default function WorkshopReport({ params }: PageProps) {
                 {workshop.speakers.map((spk: any, idx: number) => (
                   <Card key={idx} className="flex flex-col h-full bg-light/20 hover:-translate-y-1.5 transition-all duration-300">
                     <CardContent className="p-6 text-center flex flex-col items-center gap-4 flex-grow">
-                      <div className="w-20 h-20 rounded-full overflow-hidden bg-secondary/10 flex items-center justify-center border-2 border-secondary/25 shadow-inner relative">
+                      <div className="w-20 h-20 rounded-full overflow-hidden bg-secondary/10 flex items-center justify-center border-2 border-secondary/25 shadow-inner">
                         {spk.image ? (
                           <Image
                             src={spk.image}
                             alt={spk.name}
-                            fill
-                            sizes="80px"
-                            className="object-cover"
+                            width={80}
+                            height={80}
+                            className="w-full h-full object-cover"
                           />
                         ) : (
                           <span className="font-display font-extrabold text-lg text-secondary">
@@ -291,17 +293,17 @@ export default function WorkshopReport({ params }: PageProps) {
           size="lg"
         >
           {selectedImage && (
-            <div className="w-full flex justify-center items-center bg-black/5 rounded-2xl">
-              <div className="relative w-full h-[60vh]">
-                <Image
-                  src={selectedImage}
-                  alt="Event Gallery Zoom"
-                  fill
-                  sizes="(max-width: 1200px) 100vw, 1200px"
-                  className="object-contain rounded-xl"
-                  priority
-                />
-              </div>
+            <div className="w-full flex justify-center items-center bg-black/5 rounded-2xl p-2">
+              <Image
+                src={selectedImage}
+                alt="Event Gallery Zoom"
+                width={1200}
+                height={800}
+                sizes="(max-width: 1200px) 100vw, 1200px"
+                style={{ width: "100%", height: "auto", maxHeight: "70vh" }}
+                className="object-contain rounded-xl"
+                priority
+              />
             </div>
           )}
         </Modal>
