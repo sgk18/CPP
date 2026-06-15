@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { Card, CardContent } from "@/components/ui/Card";
 import { getEventsAction } from "@/lib/actions/events";
 import { workshops as staticWorkshops } from "@/constants/workshops";
+import { Modal } from "@/components/ui/Modal";
 
 import {
   HeartHandshake,
@@ -18,7 +19,11 @@ import {
   Newspaper,
   Leaf,
   ArrowRight,
-  Send
+  Send,
+  Calendar,
+  Clock,
+  MapPin,
+  Users
 } from "lucide-react";
 
 // Default content for Site Builder
@@ -133,6 +138,7 @@ export default function Home() {
   const [content] = useState(DEFAULT_CONTENT);
   const [events, setEvents] = useState<any[]>([]);
   const [workshops] = useState<any[]>(staticWorkshops);
+  const [selectedWorkshop, setSelectedWorkshop] = useState<any | null>(null);
 
   useEffect(() => {
     // Record page visit
@@ -425,31 +431,38 @@ export default function Home() {
                 const tag = w.tag || w.category || "Workshop";
                 const summary = w.summary || "";
                 return (
-                  <Card key={w.slug} className="flex flex-col h-full hover:-translate-y-2 transition-all duration-300">
-                    <div className="h-52 relative overflow-hidden bg-primary/10">
-                      <img
-                        src={galleryImg}
-                        alt={w.title}
-                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                      />
-                      {badge && (
-                        <div className="absolute top-4 right-4 px-3 py-1 bg-gradient-to-r from-accent to-secondary text-white text-xs font-bold rounded-full shadow-md">
-                          {badge}
-                        </div>
-                      )}
-                    </div>
-                    <CardContent className="p-6 flex-grow flex flex-col justify-between gap-6">
-                      <div className="flex flex-col gap-2">
-                        <span className="text-xs font-bold text-accent uppercase tracking-wider">{tag}</span>
-                        <h3 className="text-xl font-display font-bold text-dark">
-                          {w.title}
-                        </h3>
-                        <p className="text-gray-text text-sm leading-relaxed line-clamp-4">
-                          {summary}
-                        </p>
+                  <Link href={`/workshops/${w.slug}`} key={w.slug} className="block h-full group">
+                    <Card className="flex flex-col h-full hover:-translate-y-2 transition-all duration-300 cursor-pointer">
+                      <div className="h-52 relative overflow-hidden bg-primary/10">
+                        <img
+                          src={galleryImg}
+                          alt={w.title}
+                          className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                        />
+                        {badge && (
+                          <div className="absolute top-4 right-4 px-3 py-1 bg-gradient-to-r from-accent to-secondary text-white text-xs font-bold rounded-full shadow-md">
+                            {badge}
+                          </div>
+                        )}
                       </div>
-                    </CardContent>
-                  </Card>
+                      <CardContent className="p-6 flex-grow flex flex-col justify-between gap-6">
+                        <div className="flex flex-col gap-2">
+                          <span className="text-xs font-bold text-accent uppercase tracking-wider">{tag}</span>
+                          <h3 className="text-xl font-display font-bold text-dark group-hover:text-primary transition-colors">
+                            {w.title}
+                          </h3>
+                          <p className="text-gray-text text-sm leading-relaxed line-clamp-4">
+                            {summary}
+                          </p>
+                        </div>
+                        <div className="mt-auto pt-4 border-t border-black/5 flex justify-end">
+                          <span className="text-sm font-bold text-primary hover:text-accent transition-colors flex items-center gap-1">
+                            View Details <ArrowRight className="w-3.5 h-3.5" />
+                          </span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
                 );
               })}
             </div>

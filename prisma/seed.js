@@ -60,7 +60,7 @@ const TEAM_MEMBERS = [
     role: "Student Coordinator",
     imageUrl: "/assets/studentcoordinator.jpg",
     linkedin: "https://linkedin.com/in/ravi-ranjan",
-    github: "https://github.com/ravi-ranjan"
+    github: ""
   },
 ];
 

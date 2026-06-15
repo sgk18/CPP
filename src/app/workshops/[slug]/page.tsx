@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, use, useEffect } from "react";
+import React, { useState, use } from "react";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Modal } from "@/components/ui/Modal";
-import { createClient } from "@/lib/supabase/client";
+import { workshops } from "@/constants/workshops";
 import {
   Calendar,
   Clock,
@@ -16,8 +16,7 @@ import {
   ZoomIn,
   ArrowLeft,
   Award,
-  Target,
-  Loader2
+  Target
 } from "lucide-react";
 import Link from "next/link";
 
@@ -27,21 +26,11 @@ interface PageProps {
 
 export default function WorkshopReport({ params }: PageProps) {
   const { slug } = use(params);
-  const [workshop, setWorkshop] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchWorkshop = async () => {
-      const supabase = createClient();
-      const { data } = await supabase.from("workshops").select("*").eq("slug", slug).single();
-      setWorkshop(data);
-      setLoading(false);
-    };
-    fetchWorkshop();
-  }, [slug]);
+  const workshop = workshops.find((w) => w.slug === slug);
 
-  if (!loading && !workshop) {
+  if (!workshop) {
     notFound();
   }
 
@@ -59,28 +48,21 @@ export default function WorkshopReport({ params }: PageProps) {
     <>
       <Header />
       <main className="flex-grow pt-[97px] bg-[#fcfcfc]">
-        {loading ? (
-          <div className="min-h-[60vh] flex flex-col items-center justify-center text-gray-400">
-            <Loader2 className="w-8 h-8 animate-spin mb-3 text-primary" />
-            <p>Loading workshop details...</p>
-          </div>
-        ) : workshop && (
-          <>
         {/* Event Hero */}
         <section
           className="relative min-h-[50vh] flex flex-col justify-center py-20 px-6 text-center text-white bg-cover bg-center"
           style={{
-            backgroundImage: `linear-gradient(rgba(26, 95, 122, 0.85), rgba(42, 157, 143, 0.8)), url('${workshop.content?.gallery?.[0] || workshop.image_url || "/assets/peaceaxis_image1.jpg"}')`
+            backgroundImage: `linear-gradient(rgba(26, 95, 122, 0.85), rgba(42, 157, 143, 0.8)), url('${workshop.gallery?.[0] || "/assets/peaceaxis_image1.jpg"}')`
           }}
         >
           <div className="max-w-4xl mx-auto flex flex-col items-center gap-6 animate-fade-in-up">
             <span className="px-4 py-1.5 bg-accent text-white text-xs font-bold uppercase tracking-widest rounded-full shadow-md">
-              {workshop.content?.tag || workshop.category || "Workshop"}
+              {workshop.tag || "Workshop"}
             </span>
             <h1 className="text-3xl sm:text-5xl font-display font-bold text-white tracking-tight">
               {workshop.title}
             </h1>
-            {workshop.content?.subtitle && (
+            {workshop.subtitle && (
               <h2 className="text-xl sm:text-2xl font-display font-light text-light-blue">
                 {workshop.subtitle}
               </h2>
@@ -94,11 +76,11 @@ export default function WorkshopReport({ params }: PageProps) {
               </div>
               <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-xl backdrop-blur-sm text-sm">
                 <Clock className="w-4 h-4 text-accent" />
-                <span>{workshop.duration || workshop.content?.time || "N/A"}</span>
+                <span>{workshop.time || "N/A"}</span>
               </div>
               <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-xl backdrop-blur-sm text-sm">
                 <MapPin className="w-4 h-4 text-accent" />
-                <span>{workshop.content?.location || "N/A"}</span>
+                <span>{workshop.location || "N/A"}</span>
               </div>
             </div>
           </div>
@@ -106,7 +88,6 @@ export default function WorkshopReport({ params }: PageProps) {
 
         {/* Report Content */}
         <section className="py-20 px-6 max-w-4xl mx-auto flex flex-col gap-16">
-          
           {/* Back to Home Link */}
           <div>
             <Link href="/#activities" className="inline-flex items-center gap-2 text-xs font-bold tracking-wide uppercase text-gray-text hover:text-primary transition-colors">
@@ -120,11 +101,11 @@ export default function WorkshopReport({ params }: PageProps) {
               Summary of the Activity
             </h3>
             <p className="text-gray-text text-base sm:text-lg leading-relaxed text-justify mt-2">
-              {workshop.content?.summary || workshop.description || "No summary provided."}
+              {workshop.summary || "No summary provided."}
             </p>
           </div>
 
-          {/* Image Divider (if Bridging Hearts or similar has an inline poster) */}
+          {/* Image Divider (for Bridging Hearts inline poster) */}
           {workshop.slug === "bridging-hearts" && (
             <div className="relative rounded-2xl overflow-hidden shadow-xl border border-black/5 max-w-2xl mx-auto">
               <img
@@ -141,22 +122,22 @@ export default function WorkshopReport({ params }: PageProps) {
               Highlights of the Activity
             </h3>
             <p className="text-gray-text text-base sm:text-lg leading-relaxed text-justify mt-2 whitespace-pre-line">
-              {workshop.content?.highlights || "No highlights provided."}
+              {workshop.highlights || "No highlights provided."}
             </p>
           </div>
 
           {/* Speakers Section */}
-          {workshop.content?.speakers?.length > 0 && (
+          {workshop.speakers && workshop.speakers.length > 0 && (
             <div className="py-6 border-y border-black/5">
               <div className="text-center mb-10">
                 <h3 className="text-2xl font-display font-bold text-dark">
-                  {workshop.content.speakers.length === 1 ? "Featured Speaker" : "Distinguished Panelists"}
+                  {workshop.speakers.length === 1 ? "Featured Speaker" : "Distinguished Panelists"}
                 </h3>
                 <p className="text-sm text-gray-text mt-1">Guiding the conversations and peace praxis models</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center">
-                {workshop.content.speakers.map((spk: any, idx: number) => (
+                {workshop.speakers.map((spk: any, idx: number) => (
                   <Card key={idx} className="flex flex-col h-full bg-light/20 hover:-translate-y-1.5 transition-all duration-300">
                     <CardContent className="p-6 text-center flex flex-col items-center gap-4 flex-grow">
                       <div className="w-20 h-20 rounded-full overflow-hidden bg-secondary/10 flex items-center justify-center border-2 border-secondary/25 shadow-inner">
@@ -197,28 +178,30 @@ export default function WorkshopReport({ params }: PageProps) {
           )}
 
           {/* Key Takeaways */}
-          <div className="flex flex-col gap-4">
-            <h3 className="text-2xl font-display font-bold text-primary relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-10 after:h-0.5 after:bg-accent">
-              Key Takeaways
-            </h3>
-            <div className="bg-primary/5 border-l-4 border-primary rounded-r-2xl p-6 flex flex-col gap-4 mt-2">
-              <ul className="flex flex-col gap-4 list-none p-0 m-0 text-gray-text">
-                {workshop.content?.takeaways?.map((takeaway: string, idx: number) => (
-                  <li key={idx} className="flex gap-3 items-start">
-                    <CheckCircle2 className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
-                    <span className="text-sm sm:text-base leading-relaxed text-justify text-dark/95">
-                      {takeaway}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+          {workshop.takeaways && workshop.takeaways.length > 0 && (
+            <div className="flex flex-col gap-4">
+              <h3 className="text-2xl font-display font-bold text-primary relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-10 after:h-0.5 after:bg-accent">
+                Key Takeaways
+              </h3>
+              <div className="bg-primary/5 border-l-4 border-primary rounded-r-2xl p-6 flex flex-col gap-4 mt-2">
+                <ul className="flex flex-col gap-4 list-none p-0 m-0 text-gray-text">
+                  {workshop.takeaways.map((takeaway: string, idx: number) => (
+                    <li key={idx} className="flex gap-3 items-start">
+                      <CheckCircle2 className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
+                      <span className="text-sm sm:text-base leading-relaxed text-justify text-dark/95">
+                        {takeaway}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Impact Stats Section */}
-          {workshop.content?.stats && workshop.content.stats.length > 0 ? (
+          {workshop.stats && workshop.stats.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full">
-              {workshop.content.stats.map((stat: any, idx: number) => {
+              {workshop.stats.map((stat: any, idx: number) => {
                 const IconComponent = idx === 0 ? Users : idx === 1 ? Award : Target;
                 return (
                   <div key={idx} className="py-12 bg-primary text-white rounded-3xl text-center px-6 flex flex-col items-center gap-1 shadow-lg shadow-primary/20">
@@ -229,23 +212,23 @@ export default function WorkshopReport({ params }: PageProps) {
                 );
               })}
             </div>
-          ) : workshop.content?.participants ? (
+          ) : workshop.participants ? (
             <div className="py-12 bg-primary text-white rounded-3xl text-center px-6 flex flex-col items-center gap-1 shadow-lg shadow-primary/20">
               <Users className="w-8 h-8 text-light-blue mb-2" />
-              <h3 className="text-4xl font-extrabold text-light-blue">{workshop.content.participants}</h3>
+              <h3 className="text-4xl font-extrabold text-light-blue">{workshop.participants}</h3>
               <p className="text-xs sm:text-sm font-semibold tracking-wider uppercase text-white/80">Active Participants</p>
             </div>
           ) : null}
 
           {/* Event Gallery */}
-          {workshop.content?.gallery?.length > 0 && (
+          {workshop.gallery && workshop.gallery.length > 0 && (
             <div className="flex flex-col gap-4">
               <h3 className="text-2xl font-display font-bold text-primary relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-10 after:h-0.5 after:bg-accent text-center mb-6">
                 Event Gallery
               </h3>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {workshop.content.gallery.map((imgSrc: string, idx: number) => (
+                {workshop.gallery.map((imgSrc: string, idx: number) => (
                   <div
                     key={idx}
                     onClick={() => setSelectedImage(imgSrc)}
@@ -262,11 +245,11 @@ export default function WorkshopReport({ params }: PageProps) {
           )}
 
           {/* SDG Alignments */}
-          {workshop.content?.sdgs?.length > 0 && (
+          {workshop.sdgs && workshop.sdgs.length > 0 && (
             <div className="pt-10 border-t border-black/5 flex flex-col items-center gap-6">
               <span className="text-[10px] font-bold text-gray-text uppercase tracking-widest">Alignment with UN SDGs</span>
               <div className="flex flex-col sm:flex-row gap-6 items-center justify-center w-full max-w-2xl">
-                {workshop.content.sdgs.map((sdg: any, idx: number) => (
+                {workshop.sdgs.map((sdg: any, idx: number) => (
                   <div
                     key={idx}
                     className="flex items-center gap-4 bg-white border border-black/5 rounded-2xl px-6 py-4 shadow-sm w-full sm:w-auto flex-grow justify-center"
@@ -283,10 +266,7 @@ export default function WorkshopReport({ params }: PageProps) {
               </div>
             </div>
           )}
-
         </section>
-        </>
-        )}
 
         {/* Lightbox Modal */}
         <Modal
