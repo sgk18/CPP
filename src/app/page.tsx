@@ -6,7 +6,8 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent } from "@/components/ui/Card";
-import { createClient } from "@/lib/supabase/client";
+import { getEventsAction } from "@/lib/actions/events";
+import { workshops as staticWorkshops } from "@/constants/workshops";
 
 import {
   HeartHandshake,
@@ -129,30 +130,23 @@ const parseEventDate = (dateStr: string): Date => {
 };
 
 export default function Home() {
-  const [content, setContent] = useState(DEFAULT_CONTENT);
+  const [content] = useState(DEFAULT_CONTENT);
   const [events, setEvents] = useState<any[]>([]);
-  const [workshops, setWorkshops] = useState<any[]>([]);
+  const [workshops] = useState<any[]>(staticWorkshops);
 
   useEffect(() => {
-    const fetchContent = async () => {
-      const supabase = createClient();
-      const [pagesRes, eventsRes, workshopsRes] = await Promise.all([
-        supabase.from("pages").select("content").eq("slug", "home").single(),
-        supabase.from("events").select("*").eq("status", "upcoming").order("date", { ascending: true }).limit(5),
-        supabase.from("workshops").select("*").eq("status", "active").order("created_at", { ascending: false }).limit(6)
-      ]);
-      
-      if (pagesRes.data && pagesRes.data.content) {
-        setContent(pagesRes.data.content);
-      }
-      if (eventsRes.data) {
-        setEvents(eventsRes.data);
-      }
-      if (workshopsRes.data) {
-        setWorkshops(workshopsRes.data);
+    // Record page visit
+    fetch("/api/visits", { method: "POST" }).catch(err => console.error(err));
+
+    const fetchEvents = async () => {
+      const res = await getEventsAction();
+      if (res.success && res.records) {
+        const now = new Date();
+        const upcoming = res.records.filter((e: any) => new Date(e.date) >= now);
+        setEvents(upcoming);
       }
     };
-    fetchContent();
+    fetchEvents();
   }, []);
 
   const features = [
@@ -425,11 +419,11 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {workshops.map((w) => {
-                const galleryImg = w.content?.gallery?.[0] || w.image_url || "/assets/peaceaxis_image1.jpg";
-                const badge = w.content?.badge || "";
-                const tag = w.content?.tag || w.category || "Workshop";
-                const summary = w.content?.summary || w.description || "";
+              {workshops.slice(0, 6).map((w) => {
+                const galleryImg = w.gallery?.[0] || "/assets/peaceaxis_image1.jpg";
+                const badge = w.badge || "";
+                const tag = w.tag || w.category || "Workshop";
+                const summary = w.summary || "";
                 return (
                   <Card key={w.slug} className="flex flex-col h-full hover:-translate-y-2 transition-all duration-300">
                     <div className="h-52 relative overflow-hidden bg-primary/10">
@@ -450,16 +444,9 @@ export default function Home() {
                         <h3 className="text-xl font-display font-bold text-dark">
                           {w.title}
                         </h3>
-                        <p className="text-gray-text text-sm leading-relaxed line-clamp-3">
+                        <p className="text-gray-text text-sm leading-relaxed line-clamp-4">
                           {summary}
                         </p>
-                      </div>
-                      <div>
-                        <Link href={`/workshops/${w.slug}`}>
-                          <Button variant="outline" className="w-full justify-center gap-2">
-                            View Activity Details <ArrowRight className="w-4 h-4" />
-                          </Button>
-                        </Link>
                       </div>
                     </CardContent>
                   </Card>

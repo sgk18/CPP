@@ -3,8 +3,7 @@ export const dynamic = "force-dynamic";
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
-import { isFeatureEnabled } from "@/lib/featureFlags";
+import { loginAction } from "@/lib/auth-actions";
 import { motion } from "framer-motion";
 import { Lock, Eye, EyeOff, AlertCircle, Loader2 } from "lucide-react";
 
@@ -20,40 +19,19 @@ export default function AdminLoginPage() {
     setLoading(true);
     setError("");
 
-    const hardcodedEmail = "admin@gmail.com";
+    const res = await loginAction(password);
 
-    // If mockAuth feature is enabled, allow local test credentials.
-    if (isFeatureEnabled('mockAuth')) {
-      const mockPassword = process.env.NEXT_PUBLIC_MOCK_ADMIN_PASSWORD || '0123456789';
-      // Local test credentials (for development only)
-      if (password === mockPassword) {
-        router.push('/admin/dashboard');
-        router.refresh();
-        return;
-      } else {
-        setError('Invalid credentials');
-        setLoading(false);
-        return;
-      }
-    }
-
-    const supabase = createClient();
-    const { error: authError } = await supabase.auth.signInWithPassword({ 
-      email: hardcodedEmail, 
-      password 
-    });
-
-    if (authError) {
-      setError(authError.message);
-      setLoading(false);
-    } else {
+    if (res.success) {
       router.push("/admin/dashboard");
       router.refresh();
+    } else {
+      setError(res.error || "Invalid credentials");
+      setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#fcfcfc] flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-white flex items-center justify-center p-4 relative overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}

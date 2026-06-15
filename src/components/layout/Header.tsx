@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 export const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -26,15 +26,10 @@ export const Header: React.FC = () => {
   const navLinks = [
     { label: "Home", href: pathname === "/" ? "#home" : "/" },
     { label: "About", href: "/about" },
+    { label: "Team", href: "/team" },
     { label: "Activities", href: pathname === "/" ? "#activities" : "/#activities" },
     { label: "Volunteer", href: pathname === "/" ? "#volunteer" : "/#volunteer" },
     { label: "Gallery", href: "/gallery" }
-  ];
-
-  const communityLinks = [
-    { label: "Faculties", href: "/community/faculties" },
-    { label: "Students", href: "/community/students" },
-    { label: "Alumni", href: "/community/alumni" }
   ];
 
   const handleLinkClick = (href: string) => {
@@ -92,35 +87,7 @@ export const Header: React.FC = () => {
               </li>
             ))}
 
-            {/* Dropdown Community */}
-            <li className="relative group/dropdown">
-              <button
-                className={`flex items-center gap-1 font-display text-[13px] font-semibold tracking-wider uppercase py-1.5 transition-colors duration-300 cursor-pointer ${
-                  pathname.startsWith("/community") ? "text-primary" : "text-dark/85 hover:text-primary"
-                }`}
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Community <ChevronDown className="w-4 h-4 transition-transform duration-300 group-hover/dropdown:rotate-180" />
-              </button>
-              <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-black/5 shadow-xl shadow-black/[0.08] rounded-2xl overflow-hidden hidden group-hover/dropdown:block animate-fade-in-up origin-top-left">
-                <div className="h-1 bg-accent w-full" />
-                <ul className="list-none p-1 m-0">
-                  {communityLinks.map((link) => (
-                    <li key={link.label}>
-                      <Link
-                        href={link.href}
-                        className={`block px-5 py-3 text-[14px] font-medium text-dark transition-colors duration-200 hover:bg-light/60 hover:text-primary ${
-                          pathname === link.href ? "bg-light/40 text-primary font-semibold" : ""
-                        }`}
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </li>
+
 
             <li>
               <Link
@@ -169,25 +136,7 @@ export const Header: React.FC = () => {
               </li>
             ))}
 
-            {/* Mobile Community Submenu */}
-            <li className="pt-2 border-t border-black/5">
-              <span className="block text-xs font-bold text-gray-text uppercase tracking-widest mb-3">Community</span>
-              <ul className="flex flex-col gap-2 pl-3 list-none p-0 m-0">
-                {communityLinks.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className={`block py-1.5 text-sm font-medium text-dark transition-colors ${
-                        pathname === link.href ? "text-primary font-semibold" : "hover:text-primary"
-                      }`}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </li>
+
 
             <li className="pt-2 border-t border-black/5">
               <Link

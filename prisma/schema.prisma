@@ -1,0 +1,53 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Event {
+  id               String   @id @default(uuid()) @db.Uuid
+  title            String
+  description      String?
+  date             DateTime @db.Date
+  venue            String?
+  registrationLink String?  @map("registration_link")
+  imageUrl         String?  @map("image_url")
+  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("events")
+}
+
+model Gallery {
+  id         String   @id @default(uuid()) @db.Uuid
+  imageUrl   String   @map("image_url")
+  caption    String?
+  album      String   @default("General")
+  isFeatured Boolean  @default(false) @map("is_featured")
+  sortOrder  Int      @default(0) @map("sort_order")
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("gallery")
+}
+
+model TeamMember {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String
+  role      String?
+  imageUrl  String?  @map("image_url")
+  linkedin  String?
+  github    String?
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("team_members")
+}
+
+model Setting {
+  id    String @id @default(uuid()) @db.Uuid
+  key   String @unique
+  value Json
+
+  @@map("settings")
+}

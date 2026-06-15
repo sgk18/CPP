@@ -1,59 +1,27 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { createClient } from "@/lib/supabase/client";
+import { logoutAction } from "@/lib/auth-actions";
 import {
-  LayoutDashboard,
-  FileText,
   Calendar,
-  BookOpen,
   ImageIcon,
-  Users,
-  Quote,
-  Mail,
   ChevronLeft,
   ChevronRight,
   LogOut,
-  Bell,
   Menu,
   X,
-  Globe,
   type LucideIcon,
 } from "lucide-react";
 
 const NAV_ITEMS = [
   {
-    label: "Overview",
-    items: [
-      { href: "/admin/dashboard", icon: LayoutDashboard, label: "Dashboard" },
-    ],
-  },
-  {
-    label: "Pages",
-    items: [
-      { href: "/admin/pages/home", icon: Globe, label: "Homepage" },
-      { href: "/admin/pages/about", icon: FileText, label: "About Page" },
-    ],
-  },
-  {
     label: "Collections",
     items: [
       { href: "/admin/collections/events", icon: Calendar, label: "Events" },
-      { href: "/admin/collections/workshops", icon: BookOpen, label: "Workshops" },
       { href: "/admin/collections/gallery", icon: ImageIcon, label: "Gallery" },
-      { href: "/admin/collections/volunteers", icon: Users, label: "Volunteers" },
-      { href: "/admin/collections/faculties", icon: BookOpen, label: "Faculties" },
-      { href: "/admin/collections/alumni", icon: Users, label: "Alumni" },
-      { href: "/admin/collections/testimonials", icon: Quote, label: "Testimonials" },
-    ],
-  },
-  {
-    label: "Settings",
-    items: [
-      { href: "/admin/settings/contact", icon: Mail, label: "Contact Info" },
     ],
   },
 ];
@@ -130,9 +98,9 @@ export function AdminSidebar({
   const router = useRouter();
 
   const handleLogout = async () => {
-    const supabase = createClient();
-    await supabase.auth.signOut();
+    await logoutAction();
     router.push("/admin/login");
+    router.refresh();
   };
 
   const sidebarContent = (
@@ -248,7 +216,7 @@ export function AdminSidebar({
 }
 
 export function AdminTopBar({
-  collapsed,
+  collapsed: _collapsed,
   mobileOpen,
   setMobileOpen,
 }: {
@@ -259,16 +227,9 @@ export function AdminTopBar({
   const pathname = usePathname();
 
   const getPageTitle = () => {
-    if (pathname === "/admin/dashboard") return "Dashboard";
-    if (pathname.startsWith("/admin/pages/home")) return "Homepage Manager";
-    if (pathname.startsWith("/admin/pages/about")) return "About Page Manager";
     if (pathname.startsWith("/admin/collections/events")) return "Events Manager";
-    if (pathname.startsWith("/admin/collections/workshops")) return "Workshop Manager";
     if (pathname.startsWith("/admin/collections/gallery")) return "Gallery Manager";
-    if (pathname.startsWith("/admin/collections/volunteers")) return "Volunteer Manager";
-    if (pathname.startsWith("/admin/collections/testimonials")) return "Testimonials Manager";
-    if (pathname.startsWith("/admin/settings/contact")) return "Contact Manager";
-    return "Admin";
+    return "Admin Content Studio";
   };
 
   return (
@@ -286,10 +247,6 @@ export function AdminTopBar({
       </div>
 
       <div className="flex items-center gap-2">
-        <button className="w-8 h-8 rounded-lg bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-all relative">
-          <Bell size={14} />
-          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[#e76f51]" />
-        </button>
         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#1A5F7A] to-[#2a9d8f] flex items-center justify-center text-white text-xs font-bold shadow-sm">
           A
         </div>

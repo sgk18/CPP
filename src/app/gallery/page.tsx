@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Modal } from "@/components/ui/Modal";
-import { createClient } from "@/lib/supabase/client";
+import { getGalleryAction } from "@/lib/actions/gallery";
 import { ZoomIn, Loader2 } from "lucide-react";
 
 type GalleryItem = {
@@ -26,12 +26,10 @@ export default function Gallery() {
 
   useEffect(() => {
     const fetchGallery = async () => {
-      const supabase = createClient();
-      const { data } = await supabase
-        .from("gallery")
-        .select("*")
-        .order("sort_order", { ascending: true });
-      if (data) setItems(data as GalleryItem[]);
+      const res = await getGalleryAction();
+      if (res.success && res.records) {
+        setItems(res.records as GalleryItem[]);
+      }
       setLoading(false);
     };
     fetchGallery();

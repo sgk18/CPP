@@ -2,13 +2,20 @@
 
 import React, { useState } from "react";
 import { AdminSidebar, AdminTopBar } from "@/components/admin/AdminNav";
+import { usePathname } from "next/navigation";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+  const isLoginPage = pathname === "/admin/login";
+
+  if (isLoginPage) {
+    return <>{children}</>;
+  }
 
   return (
-    <div className="flex min-h-screen bg-[#fcfcfc] text-[#333] font-sans antialiased">
+    <div className="flex min-h-screen bg-white text-[#333] font-sans antialiased">
       <AdminSidebar
         collapsed={collapsed}
         setCollapsed={setCollapsed}
