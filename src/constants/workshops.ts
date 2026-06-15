@@ -234,7 +234,7 @@ export const workshops: Workshop[] = [
         role: "Programme Director",
         org: "Foundation for Ecological Society (FES)",
         presentation: "Co-existence and Urban Biodiversity",
-        image: "/assets/speaker_image.jpg"
+        image: "/assets/dr_ravi_chellam.png"
       }
     ],
     gallery: [
