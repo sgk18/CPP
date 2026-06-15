@@ -29,6 +29,7 @@ const nextConfig: NextConfig = {
   },
   images: {
     remotePatterns,
+    dangerouslyAllowSVG: true,
   }
 };
 

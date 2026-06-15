@@ -140,6 +140,8 @@ export default function Home() {
   const [events, setEvents] = useState<any[]>([]);
   const [workshops] = useState<any[]>(staticWorkshops);
   const [selectedWorkshop, setSelectedWorkshop] = useState<any | null>(null);
+  const [heroAspectRatio, setHeroAspectRatio] = useState<number>(1024 / 664);
+  const [volunteerAspectRatio, setVolunteerAspectRatio] = useState<number>(1024 / 664);
 
   useEffect(() => {
     // Record page visit
@@ -206,12 +208,32 @@ export default function Home() {
         {/* Hero Section */}
         <section
           id="home"
-          className="relative min-h-[85vh] flex items-center justify-center text-center py-20 px-6 overflow-hidden bg-cover bg-center"
-          style={{
-            backgroundImage: `linear-gradient(135deg, rgba(26, 95, 122, 0.9), rgba(42, 157, 143, 0.85)), url('/assets/volunteer_bg.jpg')`,
-            backgroundAttachment: "fixed"
-          }}
+          className="relative w-full flex flex-col justify-center items-center px-6 text-center text-white overflow-hidden isolate min-h-[500px]"
+          style={{ aspectRatio: heroAspectRatio }}
         >
+          {/* Main image: resizes dynamically to fit aspect ratio */}
+          <div className="absolute inset-0 -z-10">
+            <Image
+              src="/assets/volunteer_bg.jpg"
+              alt={content.heroTitle}
+              fill
+              className="object-cover object-center"
+              priority
+              onLoad={(e) => {
+                const img = e.target as HTMLImageElement;
+                if (img.naturalWidth && img.naturalHeight) {
+                  setHeroAspectRatio(img.naturalWidth / img.naturalHeight);
+                }
+              }}
+            />
+          </div>
+          {/* Gradient overlay for text contrast */}
+          <div 
+            className="absolute inset-0 -z-[5]"
+            style={{
+              backgroundImage: `linear-gradient(135deg, rgba(26, 95, 122, 0.9), rgba(42, 157, 143, 0.85))`
+            }}
+          />
           <div className="max-w-4xl mx-auto flex flex-col items-center gap-6 animate-fade-in-up">
             <span className="font-display text-xs sm:text-sm font-bold tracking-widest uppercase text-light-blue bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-sm">
               Welcome To
@@ -380,15 +402,28 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {sortedEvents.map((evt, idx) => (
                 <Card key={idx} className="flex flex-col h-full hover:-translate-y-2 transition-all duration-300">
-                  <div className="h-48 relative overflow-hidden rounded-t-2xl">
-                    <Image
-                      src={evt.thumbnail_url || evt.image_url || "/assets/peaceaxis_image6.jpg"}
-                      alt={evt.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-500 hover:scale-105"
-                    />
-                    <div className="absolute top-4 right-4 px-3 py-1 bg-primary text-white text-xs font-bold rounded-full">
+                  <div className="h-48 relative overflow-hidden rounded-t-2xl bg-black/5">
+                    {/* Blurred backdrop */}
+                    <div className="absolute inset-0 -z-10">
+                      <Image
+                        src={evt.thumbnail_url || evt.image_url || "/assets/peaceaxis_image6.jpg"}
+                        alt=""
+                        fill
+                        className="object-cover blur-sm opacity-50 scale-105 transition-transform duration-500"
+                        aria-hidden
+                      />
+                    </div>
+                    {/* Contained foreground image */}
+                    <div className="absolute inset-0">
+                      <Image
+                        src={evt.thumbnail_url || evt.image_url || "/assets/peaceaxis_image6.jpg"}
+                        alt={evt.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-contain transition-transform duration-500 hover:scale-102"
+                      />
+                    </div>
+                    <div className="absolute top-4 right-4 px-3 py-1 bg-primary text-white text-xs font-bold rounded-full z-10">
                       {evt.date}
                     </div>
                   </div>
@@ -440,16 +475,29 @@ export default function Home() {
                 return (
                   <Link href={`/workshops/${w.slug}`} key={w.slug} className="block h-full group">
                     <Card className="flex flex-col h-full hover:-translate-y-2 transition-all duration-300 cursor-pointer">
-                      <div className="h-52 relative overflow-hidden rounded-t-2xl">
-                        <Image
-                          src={galleryImg}
-                          alt={w.title}
-                          fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          className="object-cover transition-transform duration-700 hover:scale-105"
-                        />
+                      <div className="h-52 relative overflow-hidden rounded-t-2xl bg-black/5">
+                        {/* Blurred backdrop */}
+                        <div className="absolute inset-0 -z-10">
+                          <Image
+                            src={galleryImg}
+                            alt=""
+                            fill
+                            className="object-cover blur-sm opacity-50 scale-105 transition-transform duration-700"
+                            aria-hidden
+                          />
+                        </div>
+                        {/* Contained foreground image */}
+                        <div className="absolute inset-0">
+                          <Image
+                            src={galleryImg}
+                            alt={w.title}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            className="object-contain transition-transform duration-700 hover:scale-102"
+                          />
+                        </div>
                         {badge && (
-                          <div className="absolute top-4 right-4 px-3 py-1 bg-gradient-to-r from-accent to-secondary text-white text-xs font-bold rounded-full shadow-md">
+                          <div className="absolute top-4 right-4 px-3 py-1 bg-gradient-to-r from-accent to-secondary text-white text-xs font-bold rounded-full shadow-md z-10">
                             {badge}
                           </div>
                         )}
@@ -481,11 +529,31 @@ export default function Home() {
         {/* Volunteer Section */}
         <section
           id="volunteer"
-          className="py-24 px-6 bg-cover bg-center text-white text-center relative"
-          style={{
-            backgroundImage: `linear-gradient(135deg, rgba(26, 95, 122, 0.95), rgba(38, 70, 83, 0.9)), url('/assets/volunteer_bg.jpg')`
-          }}
+          className="relative w-full flex flex-col justify-center items-center px-6 text-white text-center overflow-hidden isolate min-h-[400px]"
+          style={{ aspectRatio: volunteerAspectRatio }}
         >
+          {/* Main image: resizes dynamically to fit aspect ratio */}
+          <div className="absolute inset-0 -z-10">
+            <Image
+              src="/assets/volunteer_bg.jpg"
+              alt="Volunteer with us"
+              fill
+              className="object-cover object-center"
+              onLoad={(e) => {
+                const img = e.target as HTMLImageElement;
+                if (img.naturalWidth && img.naturalHeight) {
+                  setVolunteerAspectRatio(img.naturalWidth / img.naturalHeight);
+                }
+              }}
+            />
+          </div>
+          {/* Gradient overlay for text contrast */}
+          <div 
+            className="absolute inset-0 -z-[5]"
+            style={{
+              backgroundImage: `linear-gradient(135deg, rgba(26, 95, 122, 0.95), rgba(38, 70, 83, 0.9))`
+            }}
+          />
           <div className="max-w-4xl mx-auto flex flex-col items-center gap-8">
             <h2 className="text-3xl sm:text-4xl font-display font-bold text-white relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-0.5 after:bg-accent">
               {content.volunteerTitle}

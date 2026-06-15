@@ -9,18 +9,47 @@ import { Menu, X } from "lucide-react";
 export const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 40) {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > 40) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
       }
+
+      if (isMobileMenuOpen) {
+        setIsVisible(true);
+      } else if (currentScrollY <= 40) {
+        setIsVisible(true);
+      } else if (currentScrollY > lastScrollY) {
+        // Scrolling down -> hide
+        setIsVisible(false);
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up -> show
+        setIsVisible(true);
+      }
+      setLastScrollY(currentScrollY);
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY, isMobileMenuOpen]);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      // If cursor is within 30px of the top of the viewport
+      if (e.clientY <= 30) {
+        setIsVisible(true);
+      }
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
 
@@ -50,9 +79,15 @@ export const Header: React.FC = () => {
 
   return (
     <header
+      onMouseEnter={() => setIsVisible(true)}
+      onMouseLeave={() => {
+        if (window.scrollY > 40 && !isMobileMenuOpen) {
+          setIsVisible(false);
+        }
+      }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-black/5 ${
         isScrolled ? "py-3 bg-white/95 shadow-md shadow-black/[0.03] backdrop-blur-md" : "py-5 bg-white/80 backdrop-blur-sm"
-      }`}
+      } ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"}`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo */}

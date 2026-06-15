@@ -17,6 +17,7 @@ const CATEGORIES = [
 
 export default function TeamPage() {
   const [activeCategory, setActiveCategory] = useState("Faculty Advisors");
+  const [aspectRatio, setAspectRatio] = useState<number>(4 / 3);
 
   // Get initial letters for fallback avatar
   const getInitials = (name: string) => {
@@ -34,11 +35,32 @@ export default function TeamPage() {
       <main className="flex-grow pt-[97px] bg-[#fcfcfc]">
         {/* Page Header */}
         <section
-          className="relative py-24 px-6 text-center text-white bg-cover bg-center"
-          style={{
-            backgroundImage: `linear-gradient(135deg, rgba(26, 95, 122, 0.9), rgba(42, 157, 143, 0.85)), url('/assets/volunteer_group.jpg')`,
-          }}
+          className="relative w-full flex flex-col justify-center items-center px-6 text-center text-white overflow-hidden isolate min-h-[300px]"
+          style={{ aspectRatio: aspectRatio }}
         >
+          {/* Main image: resizes dynamically to fit aspect ratio */}
+          <div className="absolute inset-0 -z-10">
+            <Image
+              src="/assets/volunteer_group.jpg"
+              alt="Our Team"
+              fill
+              className="object-cover object-center"
+              priority
+              onLoad={(e) => {
+                const img = e.target as HTMLImageElement;
+                if (img.naturalWidth && img.naturalHeight) {
+                  setAspectRatio(img.naturalWidth / img.naturalHeight);
+                }
+              }}
+            />
+          </div>
+          {/* Gradient overlay for text contrast */}
+          <div 
+            className="absolute inset-0 -z-[5]"
+            style={{
+              backgroundImage: `linear-gradient(135deg, rgba(26, 95, 122, 0.9), rgba(42, 157, 143, 0.85))`
+            }}
+          />
           <div className="max-w-4xl mx-auto flex flex-col gap-4">
             <h1 className="text-4xl sm:text-5xl font-display font-bold text-white tracking-tight">
               Our Team

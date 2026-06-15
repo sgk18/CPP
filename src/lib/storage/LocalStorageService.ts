@@ -1,7 +1,6 @@
 import { StorageService } from "./StorageService";
 import fs from "fs";
 import path from "path";
-import sharp from "sharp";
 import crypto from "crypto";
 
 export class LocalStorageService implements StorageService {
@@ -34,6 +33,7 @@ export class LocalStorageService implements StorageService {
     size: number;
     mimeType: string;
   }> {
+    const sharp = require("sharp");
     // 1. Validate file type
     const cleanMime = mimeType.toLowerCase();
     const cleanExt = path.extname(filename).toLowerCase();

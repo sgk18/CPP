@@ -28,6 +28,7 @@ interface PageProps {
 export default function WorkshopReport({ params }: PageProps) {
   const { slug } = use(params);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [aspectRatio, setAspectRatio] = useState<number>(16 / 9);
 
   const workshop = workshops.find((w) => w.slug === slug);
 
@@ -50,12 +51,33 @@ export default function WorkshopReport({ params }: PageProps) {
       <Header />
       <main className="flex-grow pt-[97px] bg-[#fcfcfc]">
         {/* Event Hero */}
-        <section
-          className="relative min-h-[50vh] flex flex-col justify-center py-20 px-6 text-center text-white bg-cover bg-center"
-          style={{
-            backgroundImage: `linear-gradient(rgba(26, 95, 122, 0.85), rgba(42, 157, 143, 0.8)), url('${workshop.gallery?.[0] || "/assets/peaceaxis_image1.jpg"}')`
-          }}
+        <section 
+          className="relative w-full flex flex-col justify-center items-center px-6 text-center text-white overflow-hidden isolate min-h-[300px]"
+          style={{ aspectRatio: aspectRatio }}
         >
+          {/* Main image: resizes dynamically to fit aspect ratio */}
+          <div className="absolute inset-0 -z-10">
+            <Image
+              src={workshop.gallery?.[0] || "/assets/peaceaxis_image1.jpg"}
+              alt={workshop.title}
+              fill
+              className="object-cover object-center"
+              priority
+              onLoad={(e) => {
+                const img = e.target as HTMLImageElement;
+                if (img.naturalWidth && img.naturalHeight) {
+                  setAspectRatio(img.naturalWidth / img.naturalHeight);
+                }
+              }}
+            />
+          </div>
+          {/* Gradient overlay for text contrast */}
+          <div 
+            className="absolute inset-0 -z-[5]"
+            style={{
+              backgroundImage: `linear-gradient(rgba(26, 95, 122, 0.85), rgba(42, 157, 143, 0.8))`
+            }}
+          />
           <div className="max-w-4xl mx-auto flex flex-col items-center gap-6 animate-fade-in-up">
             <span className="px-4 py-1.5 bg-accent text-white text-xs font-bold uppercase tracking-widest rounded-full shadow-md">
               {workshop.tag || "Workshop"}

@@ -1,6 +1,5 @@
 import { StorageService } from "./StorageService";
 import { S3Client, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
-import sharp from "sharp";
 import crypto from "crypto";
 import path from "path";
 
@@ -43,6 +42,7 @@ export class CloudflareR2StorageService implements StorageService {
     size: number;
     mimeType: string;
   }> {
+    const sharp = require("sharp");
     // 1. Validate file type
     const cleanMime = mimeType.toLowerCase();
     const cleanExt = path.extname(filename).toLowerCase();
