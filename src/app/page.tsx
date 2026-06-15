@@ -380,7 +380,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {sortedEvents.map((evt, idx) => (
                 <Card key={idx} className="flex flex-col h-full hover:-translate-y-2 transition-all duration-300">
-                  <div className="h-48 relative overflow-hidden bg-primary/10">
+                  <div className="h-48 relative overflow-hidden rounded-t-2xl">
                     <Image
                       src={evt.thumbnail_url || evt.image_url || "/assets/peaceaxis_image6.jpg"}
                       alt={evt.title}
@@ -440,7 +440,7 @@ export default function Home() {
                 return (
                   <Link href={`/workshops/${w.slug}`} key={w.slug} className="block h-full group">
                     <Card className="flex flex-col h-full hover:-translate-y-2 transition-all duration-300 cursor-pointer">
-                      <div className="h-52 relative overflow-hidden bg-primary/10">
+                      <div className="h-52 relative overflow-hidden rounded-t-2xl">
                         <Image
                           src={galleryImg}
                           alt={w.title}
@@ -502,13 +502,13 @@ export default function Home() {
               
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center justify-between border-t border-white/10 pt-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full overflow-hidden bg-white/20 flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full overflow-hidden bg-white/20 flex-shrink-0 relative">
                     <Image
                       src={content.coordinator1Image}
                       alt={content.coordinator1Name}
-                      width={48}
-                      height={48}
-                      className="w-full h-full object-cover"
+                      fill
+                      sizes="48px"
+                      className="object-cover"
                     />
                   </div>
                   <div>
@@ -524,13 +524,13 @@ export default function Home() {
               </div>
 
               <div className="flex items-center gap-3 border-t border-white/10 pt-4">
-                <div className="w-12 h-12 rounded-full overflow-hidden bg-white/20 flex-shrink-0">
+                <div className="w-12 h-12 rounded-full overflow-hidden bg-white/20 flex-shrink-0 relative">
                   <Image
                     src={content.coordinator2Image}
                     alt={content.coordinator2Name}
-                    width={48}
-                    height={48}
-                    className="w-full h-full object-cover"
+                    fill
+                    sizes="48px"
+                    className="object-cover"
                   />
                 </div>
                 <div>

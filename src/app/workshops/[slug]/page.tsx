@@ -145,14 +145,14 @@ export default function WorkshopReport({ params }: PageProps) {
                 {workshop.speakers.map((spk: any, idx: number) => (
                   <Card key={idx} className="flex flex-col h-full bg-light/20 hover:-translate-y-1.5 transition-all duration-300">
                     <CardContent className="p-6 text-center flex flex-col items-center gap-4 flex-grow">
-                      <div className="w-20 h-20 rounded-full overflow-hidden bg-secondary/10 flex items-center justify-center border-2 border-secondary/25 shadow-inner">
+                      <div className="w-20 h-20 rounded-full overflow-hidden bg-secondary/10 flex-shrink-0 flex items-center justify-center border-2 border-secondary/25 shadow-inner relative">
                         {spk.image ? (
                           <Image
                             src={spk.image}
                             alt={spk.name}
-                            width={80}
-                            height={80}
-                            className="w-full h-full object-cover"
+                            fill
+                            sizes="80px"
+                            className="object-cover"
                           />
                         ) : (
                           <span className="font-display font-extrabold text-lg text-secondary">

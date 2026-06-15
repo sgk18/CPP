@@ -135,8 +135,8 @@ export const Footer: React.FC = () => {
           <Image
             src="/assets/CHRIST_LOGO1.png"
             alt="CHRIST Deemed to be University Logo"
-            width={180}
-            height={80}
+            width={360}
+            height={160}
             className="object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
             style={{ width: "auto", height: "80px" }}
           />

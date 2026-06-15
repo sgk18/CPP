@@ -84,7 +84,7 @@ export default function TeamPage() {
                 {faculties.map((f, idx) => (
                   <Card key={idx} className="hover:-translate-y-2 transition-all duration-300 flex flex-col h-full justify-between border border-black/5">
                     <div>
-                      <div className="h-64 bg-light flex items-center justify-center text-gray-300 overflow-hidden relative">
+                      <div className="h-64 bg-light overflow-hidden relative">
                         {f.image ? (
                           <Image
                             src={f.image}
@@ -214,7 +214,7 @@ export default function TeamPage() {
                   {students.filter(s => !s.isCoordinator).map((s, idx) => (
                     <Card key={idx} className="hover:-translate-y-2 transition-all duration-300 flex flex-col h-full justify-between border border-black/5">
                       <div>
-                        <div className="h-56 bg-light flex items-center justify-center text-gray-300 overflow-hidden relative">
+                        <div className="h-56 bg-light overflow-hidden relative">
                           {s.image ? (
                             <Image
                               src={s.image}
@@ -285,7 +285,7 @@ export default function TeamPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                 {alumni.map((a, idx) => (
                   <Card key={idx} className="hover:-translate-y-2 transition-all duration-300 border border-black/5">
-                    <div className="h-56 bg-light flex items-center justify-center text-gray-300 overflow-hidden relative">
+                    <div className="h-56 bg-light overflow-hidden relative">
                       {a.image ? (
                         <Image
                           src={a.image}

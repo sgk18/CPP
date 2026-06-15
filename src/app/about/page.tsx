@@ -337,14 +337,16 @@ export default function About() {
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                 {/* Large featured image */}
-                <div className="col-span-2 row-span-2 group relative overflow-hidden rounded-2xl shadow-md border border-black/5" style={{ minHeight: "240px" }}>
-                  <Image
-                    src="/assets/inaugration/IMG-20230819-WA0025.jpg"
-                    alt="Inauguration ceremony — Centre for Peace Praxis"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
+                <div className="col-span-2 row-span-2 group relative overflow-hidden rounded-2xl shadow-md border border-black/5">
+                  <div className="relative w-full h-full" style={{ minHeight: "340px" }}>
+                    <Image
+                      src="/assets/inaugration/IMG-20230819-WA0025.jpg"
+                      alt="Inauguration ceremony — Centre for Peace Praxis"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                     <p className="text-white text-xs font-medium">Inauguration Ceremony</p>
                   </div>
