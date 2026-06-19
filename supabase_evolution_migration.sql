@@ -42,8 +42,22 @@ CREATE TABLE IF NOT EXISTS page_sections (
 -- 5. Evolve events Table
 ALTER TABLE events ADD COLUMN IF NOT EXISTS venue TEXT;
 ALTER TABLE events ADD COLUMN IF NOT EXISTS image_path TEXT;
+ALTER TABLE events ADD COLUMN IF NOT EXISTS thumbnail_url TEXT;
+ALTER TABLE events ADD COLUMN IF NOT EXISTS medium_url TEXT;
 
--- 6. Evolve volunteers Table (Team Members)
+-- 6. Evolve gallery Table
+ALTER TABLE gallery ADD COLUMN IF NOT EXISTS image_url TEXT;
+-- Safely copy data from legacy url column if it exists
+DO $$ 
+BEGIN 
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='gallery' AND column_name='url') THEN
+    UPDATE gallery SET image_url = url WHERE image_url IS NULL;
+  END IF;
+END $$;
+ALTER TABLE gallery ADD COLUMN IF NOT EXISTS thumbnail_url TEXT;
+ALTER TABLE gallery ADD COLUMN IF NOT EXISTS medium_url TEXT;
+
+-- 7. Evolve volunteers Table (Team Members - Legacy)
 ALTER TABLE volunteers ADD COLUMN IF NOT EXISTS bio TEXT;
 ALTER TABLE volunteers ADD COLUMN IF NOT EXISTS linkedin TEXT;
 ALTER TABLE volunteers ADD COLUMN IF NOT EXISTS github TEXT;
@@ -51,10 +65,24 @@ ALTER TABLE volunteers ADD COLUMN IF NOT EXISTS class TEXT;
 ALTER TABLE volunteers ADD COLUMN IF NOT EXISTS is_coordinator BOOLEAN DEFAULT false;
 ALTER TABLE volunteers ADD COLUMN IF NOT EXISTS image_path TEXT;
 
--- 7. RLS Policies Configuration for New Tables
+-- 8. Create team_members Table (Prisma-aligned)
+CREATE TABLE IF NOT EXISTS team_members (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  name TEXT NOT NULL,
+  role TEXT,
+  image_url TEXT,
+  thumbnail_url TEXT,
+  medium_url TEXT,
+  linkedin TEXT,
+  github TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now())
+);
+
+-- 9. RLS Policies Configuration for New/Evolved Tables
 ALTER TABLE activity_logs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE announcements ENABLE ROW LEVEL SECURITY;
 ALTER TABLE page_sections ENABLE ROW LEVEL SECURITY;
+ALTER TABLE team_members ENABLE ROW LEVEL SECURITY;
 
 -- Drop if exist and recreate Select policies
 DROP POLICY IF EXISTS "Public read access for activity_logs" ON activity_logs;
@@ -66,4 +94,8 @@ CREATE POLICY "Public read access for announcements" ON announcements FOR SELECT
 DROP POLICY IF EXISTS "Public read access for page_sections" ON page_sections;
 CREATE POLICY "Public read access for page_sections" ON page_sections FOR SELECT USING (true);
 
--- Bypass RLS for admin modifications happens naturally using Service Role client on server.
+DROP POLICY IF EXISTS "Public read access for team_members" ON team_members;
+CREATE POLICY "Public read access for team_members" ON team_members FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Admin full access to team_members" ON team_members;
+CREATE POLICY "Admin full access to team_members" ON team_members FOR ALL USING (auth.role() = 'authenticated');
