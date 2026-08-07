@@ -29,9 +29,9 @@ export default function DirectorsNote() {
             <div className="prose max-w-none text-gray-text leading-relaxed text-[15px] sm:text-base flex flex-col gap-6 text-justify">
               
               {/* Responsive photo */}
-              <div className="w-full md:w-80 md:float-right md:ml-8 mb-6 mx-auto relative group">
+              <div className="w-full max-w-[320px] mb-6 mx-auto self-center relative group">
                 <div className="absolute -inset-2 bg-secondary/5 rounded-2xl -z-10 group-hover:scale-[1.01] transition-transform duration-500" />
-                <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden shadow-lg border border-black/5">
+                <div className="relative w-full aspect-[2/3] rounded-xl overflow-hidden shadow-lg border border-black/5">
                   <Image
                     src="/assets/directors_photo.jpg"
                     alt="Dr. Padmakumar MM"
