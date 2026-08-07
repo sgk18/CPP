@@ -1,7 +1,7 @@
 "use client";
 export const dynamic = "force-dynamic";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, startTransition } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Plus, Pencil, Trash2, Search, Filter, Calendar,
@@ -40,9 +40,12 @@ function EventForm({ event, onSave, onCancel }: {
   const [hasRegistration, setHasRegistration] = useState(!!form.registration_link);
 
   useEffect(() => {
-    setForm({ status: "upcoming", ...event });
-    setHasRegistration(!!event.registration_link);
+    startTransition(() => {
+      setForm({ status: "upcoming", ...event });
+      setHasRegistration(!!event.registration_link);
+    });
   }, [event]);
+
 
   const handleSave = async () => {
     if (!form.title?.trim() || !form.date) {

@@ -2,6 +2,7 @@ import { StorageService } from "./StorageService";
 import fs from "fs";
 import path from "path";
 import crypto from "crypto";
+import sharp from "sharp";
 
 export class LocalStorageService implements StorageService {
   private uploadDir: string;
@@ -33,7 +34,7 @@ export class LocalStorageService implements StorageService {
     size: number;
     mimeType: string;
   }> {
-    const sharp = require("sharp");
+    // sharp is imported at the top of the file
     // 1. Validate file type
     const cleanMime = mimeType.toLowerCase();
     const cleanExt = path.extname(filename).toLowerCase();
