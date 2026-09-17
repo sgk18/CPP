@@ -4,12 +4,15 @@ import React, { useState, useEffect } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Modal } from "@/components/ui/Modal";
-import { createClient } from "@/lib/supabase/client";
+import { getGalleryAction } from "@/lib/actions/gallery";
 import { ZoomIn, Loader2 } from "lucide-react";
+import Image from "next/image";
 
 type GalleryItem = {
   id: string;
   url: string;
+  thumbnail_url?: string;
+  medium_url?: string;
   caption: string;
   album: string;
   is_featured: boolean;
@@ -23,15 +26,14 @@ export default function Gallery() {
   const [loading, setLoading] = useState(true);
   const [albumFilter, setAlbumFilter] = useState("All");
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
+  const [aspectRatio, setAspectRatio] = useState<number>(1024 / 683);
 
   useEffect(() => {
     const fetchGallery = async () => {
-      const supabase = createClient();
-      const { data } = await supabase
-        .from("gallery")
-        .select("*")
-        .order("sort_order", { ascending: true });
-      if (data) setItems(data as GalleryItem[]);
+      const res = await getGalleryAction();
+      if (res.success && res.records) {
+        setItems(res.records as GalleryItem[]);
+      }
       setLoading(false);
     };
     fetchGallery();
@@ -47,11 +49,32 @@ export default function Gallery() {
       <main className="flex-grow pt-[97px] bg-[#fcfcfc]">
         {/* Page Header */}
         <section
-          className="relative py-24 px-6 text-center text-white bg-cover bg-center"
-          style={{
-            backgroundImage: `linear-gradient(135deg, rgba(26, 95, 122, 0.9), rgba(42, 157, 143, 0.85)), url('/assets/role_of_religious_bg.jpg')`
-          }}
+          className="relative w-full flex flex-col justify-center items-center px-6 text-center text-white overflow-hidden isolate min-h-[300px]"
+          style={{ aspectRatio: aspectRatio }}
         >
+          {/* Main image: resizes dynamically to fit aspect ratio */}
+          <div className="absolute inset-0 -z-10">
+            <Image
+              src="/assets/role_of_religious_bg.jpg"
+              alt="Our Gallery"
+              fill
+              className="object-cover object-center"
+              priority
+              onLoad={(e) => {
+                const img = e.target as HTMLImageElement;
+                if (img.naturalWidth && img.naturalHeight) {
+                  setAspectRatio(img.naturalWidth / img.naturalHeight);
+                }
+              }}
+            />
+          </div>
+          {/* Gradient overlay for text contrast */}
+          <div 
+            className="absolute inset-0 -z-[5]"
+            style={{
+              backgroundImage: `linear-gradient(135deg, rgba(26, 95, 122, 0.9), rgba(42, 157, 143, 0.85))`
+            }}
+          />
           <div className="max-w-4xl mx-auto flex flex-col gap-4">
             <h1 className="text-4xl sm:text-5xl font-display font-bold text-white tracking-tight">
               Our Gallery
@@ -100,11 +123,12 @@ export default function Gallery() {
                   onClick={() => setSelectedImage(item)}
                   className="group relative h-80 rounded-2xl overflow-hidden shadow-md shadow-black/[0.03] border border-black/5 bg-light/30 cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-black/[0.08]"
                 >
-                  <img
-                    src={item.url}
+                  <Image
+                    src={item.thumbnail_url || item.url}
                     alt={item.caption}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    loading="lazy"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
 
                   {item.is_featured && (
@@ -136,14 +160,19 @@ export default function Gallery() {
           size="lg"
         >
           {selectedImage && (
-            <div className="w-full flex flex-col items-center gap-3 rounded-2xl overflow-hidden bg-black/5">
-              <img
-                src={selectedImage.url}
+            <div className="w-full flex flex-col items-center gap-3 rounded-2xl overflow-hidden bg-black/5 p-2">
+              <Image
+                src={selectedImage.medium_url || selectedImage.url}
                 alt={selectedImage.caption}
-                className="max-w-full max-h-[70vh] object-contain rounded-2xl"
+                width={1200}
+                height={800}
+                sizes="(max-width: 1200px) 100vw, 1200px"
+                style={{ width: "100%", height: "auto", maxHeight: "70vh" }}
+                className="object-contain rounded-2xl"
+                priority
               />
               {selectedImage.album && (
-                <span className="text-xs text-gray-400 font-medium px-3 py-1 bg-gray-100 rounded-full">
+                <span className="text-xs text-gray-400 font-medium px-3 py-1 bg-gray-100 rounded-full mt-2">
                   {selectedImage.album}
                 </span>
               )}

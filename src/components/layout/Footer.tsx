@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { MapPin, Phone, Mail, Heart } from "lucide-react";
 import { Instagram, Linkedin } from "@/components/ui/BrandIcons";
 
@@ -12,7 +13,7 @@ export const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
         {/* Brand Column */}
         <div className="flex flex-col gap-6">
-          <div className="font-serif text-3xl sm:text-4xl font-bold tracking-tight">
+          <div className="font-serif text-2xl sm:text-3xl xl:text-4xl font-bold tracking-tight whitespace-nowrap">
             Centre for <span className="text-secondary">Peace Praxis</span>
           </div>
           <p className="text-white/60 text-sm leading-relaxed max-w-sm">
@@ -55,6 +56,11 @@ export const Footer: React.FC = () => {
             <li>
               <Link href="/about" className="text-white/70 hover:text-secondary text-sm transition-all hover:translate-x-1 inline-block">
                 About Us
+              </Link>
+            </li>
+            <li>
+              <Link href="/team" className="text-white/70 hover:text-secondary text-sm transition-all hover:translate-x-1 inline-block">
+                Our Team
               </Link>
             </li>
             <li>
@@ -126,10 +132,13 @@ export const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 pt-8 border-t border-white/5 flex flex-col items-center gap-6">
         {/* Christ Logo */}
         <div className="flex justify-center items-center">
-          <img
+          <Image
             src="/assets/CHRIST_LOGO1.png"
             alt="CHRIST Deemed to be University Logo"
-            className="h-20 object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
+            width={360}
+            height={160}
+            className="object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
+            style={{ width: "auto", height: "80px" }}
           />
         </div>
 

@@ -29,12 +29,12 @@ const TESTIMONIALS = [
 ];
 
 const GALLERY = [
-  { url: "/assets/peaceaxis_image5.jpg", caption: "Director addressing participants", album: "Leadership", is_featured: true, sort_order: 1 },
-  { url: "/assets/peaceaxis_image6.jpg", caption: "SDG Week NGO Stalls", album: "Events", is_featured: false, sort_order: 2 },
-  { url: "/assets/peaceaxis_image9.jpg", caption: "Film Festival Panel", album: "Events", is_featured: true, sort_order: 3 },
-  { url: "/assets/peaceaxis_image11.jpg", caption: "Inter-Religious Visit", album: "Events", is_featured: false, sort_order: 4 },
-  { url: "/assets/peaceaxis_image12.jpg", caption: "Psychosocial Workshop", album: "Events", is_featured: false, sort_order: 5 },
-  { url: "/assets/volunteer_philippines.jpg", caption: "Philippines Volunteering Program", album: "Volunteers", is_featured: true, sort_order: 6 },
+  { image_url: "/assets/peaceaxis_image5.jpg", caption: "Director addressing participants", album: "Leadership", is_featured: true, sort_order: 1 },
+  { image_url: "/assets/peaceaxis_image6.jpg", caption: "SDG Week NGO Stalls", album: "Events", is_featured: false, sort_order: 2 },
+  { image_url: "/assets/peaceaxis_image9.jpg", caption: "Film Festival Panel", album: "Events", is_featured: true, sort_order: 3 },
+  { image_url: "/assets/peaceaxis_image11.jpg", caption: "Inter-Religious Visit", album: "Events", is_featured: false, sort_order: 4 },
+  { image_url: "/assets/peaceaxis_image12.jpg", caption: "Psychosocial Workshop", album: "Events", is_featured: false, sort_order: 5 },
+  { image_url: "/assets/volunteer_philippines.jpg", caption: "Philippines Volunteering Program", album: "Volunteers", is_featured: true, sort_order: 6 },
 ];
 
 const PAGES = [
@@ -125,6 +125,16 @@ async function seed() {
     
     console.log("Seeding Volunteers...");
     await supabase.from("volunteers").insert(VOLUNTEERS);
+
+    console.log("Seeding Team Members...");
+    const teamMembersData = VOLUNTEERS.map(v => ({
+      name: v.name,
+      role: v.role,
+      image_url: v.image_url,
+      linkedin: v.linkedin || "",
+      github: v.github || ""
+    }));
+    await supabase.from("team_members").insert(teamMembersData);
     
     console.log("Seeding Testimonials...");
     await supabase.from("testimonials").insert(TESTIMONIALS);

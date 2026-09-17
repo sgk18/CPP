@@ -2,11 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent } from "@/components/ui/Card";
-import { createClient } from "@/lib/supabase/client";
+import { getEventsAction } from "@/lib/actions/events";
+import { workshops as staticWorkshops } from "@/constants/workshops";
+import { Modal } from "@/components/ui/Modal";
 
 import {
   HeartHandshake,
@@ -17,7 +20,11 @@ import {
   Newspaper,
   Leaf,
   ArrowRight,
-  Send
+  Send,
+  Calendar,
+  Clock,
+  MapPin,
+  Users
 } from "lucide-react";
 
 // Default content for Site Builder
@@ -131,12 +138,18 @@ const parseEventDate = (dateStr: string): Date => {
 import { workshops as defaultWorkshops } from "@/constants/workshops";
 
 export default function Home() {
-  const [content, setContent] = useState(DEFAULT_CONTENT);
+  const [content] = useState(DEFAULT_CONTENT);
   const [events, setEvents] = useState<any[]>([]);
-  const [workshops, setWorkshops] = useState<any[]>([]);
+  const [workshops] = useState<any[]>(staticWorkshops);
+  const [selectedWorkshop, setSelectedWorkshop] = useState<any | null>(null);
+  const [heroAspectRatio, setHeroAspectRatio] = useState<number>(1024 / 664);
+  const [volunteerAspectRatio, setVolunteerAspectRatio] = useState<number>(1024 / 664);
 
   useEffect(() => {
-    const fetchContent = async () => {
+    // Record page visit
+    fetch("/api/visits", { method: "POST" }).catch(err => console.error(err));
+
+    const fetchEvents = async () => {
       const supabase = createClient();
       const [pagesRes, eventsRes, workshopsRes] = await Promise.all([
         supabase.from("pages").select("content").eq("slug", "home").single(),
@@ -166,7 +179,7 @@ export default function Home() {
         setWorkshops(defaultWorkshops.slice(0, 6));
       }
     };
-    fetchContent();
+    fetchEvents();
   }, []);
 
   const features = [
@@ -219,12 +232,32 @@ export default function Home() {
         {/* Hero Section */}
         <section
           id="home"
-          className="relative min-h-[85vh] flex items-center justify-center text-center py-20 px-6 overflow-hidden bg-cover bg-center"
-          style={{
-            backgroundImage: `linear-gradient(135deg, rgba(26, 95, 122, 0.9), rgba(42, 157, 143, 0.85)), url('/assets/volunteer_bg.jpg')`,
-            backgroundAttachment: "fixed"
-          }}
+          className="relative w-full flex flex-col justify-center items-center px-6 text-center text-white overflow-hidden isolate min-h-[500px]"
+          style={{ aspectRatio: heroAspectRatio }}
         >
+          {/* Main image: resizes dynamically to fit aspect ratio */}
+          <div className="absolute inset-0 -z-10">
+            <Image
+              src="/assets/volunteer_bg.jpg"
+              alt={content.heroTitle}
+              fill
+              className="object-cover object-center"
+              priority
+              onLoad={(e) => {
+                const img = e.target as HTMLImageElement;
+                if (img.naturalWidth && img.naturalHeight) {
+                  setHeroAspectRatio(img.naturalWidth / img.naturalHeight);
+                }
+              }}
+            />
+          </div>
+          {/* Gradient overlay for text contrast */}
+          <div 
+            className="absolute inset-0 -z-[5]"
+            style={{
+              backgroundImage: `linear-gradient(135deg, rgba(26, 95, 122, 0.9), rgba(42, 157, 143, 0.85))`
+            }}
+          />
           <div className="max-w-4xl mx-auto flex flex-col items-center gap-6 animate-fade-in-up">
             <span className="font-display text-xs sm:text-sm font-bold tracking-widest uppercase text-light-blue bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-sm">
               Welcome To
@@ -325,11 +358,15 @@ export default function Home() {
             </div>
             <div className="relative group">
               <div className="absolute -inset-4 bg-secondary/10 rounded-3xl -z-10 group-hover:scale-[1.02] transition-transform duration-500" />
-              <img
-                src="/assets/peaceaxis_image1.jpg"
-                alt="Community building praxis event"
-                className="w-full h-auto rounded-2xl shadow-xl border border-black/5"
-              />
+              <div className="relative w-full h-[350px] sm:h-[450px]">
+                <Image
+                  src="/assets/peaceaxis_image1.jpg"
+                  alt="Community building praxis event"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="rounded-2xl shadow-xl border border-black/5 object-cover"
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -389,13 +426,15 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {sortedEvents.map((evt, idx) => (
                 <Card key={idx} className="flex flex-col h-full hover:-translate-y-2 transition-all duration-300">
-                  <div className="h-48 relative overflow-hidden bg-primary/10">
-                    <img
-                      src={evt.image_url || "/assets/peaceaxis_image6.jpg"}
+                  <div className="h-48 relative overflow-hidden rounded-t-2xl bg-black/5">
+                    <Image
+                      src={evt.thumbnail_url || evt.image_url || "/assets/peaceaxis_image6.jpg"}
                       alt={evt.title}
-                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-500 hover:scale-[1.02]"
                     />
-                    <div className="absolute top-4 right-4 px-3 py-1 bg-primary text-white text-xs font-bold rounded-full">
+                    <div className="absolute top-4 right-4 px-3 py-1 bg-primary text-white text-xs font-bold rounded-full z-10">
                       {evt.date}
                     </div>
                   </div>
@@ -439,44 +478,46 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {workshops.map((w) => {
-                const galleryImg = w.content?.gallery?.[0] || w.image_url || "/assets/peaceaxis_image1.jpg";
-                const badge = w.content?.badge || "";
-                const tag = w.content?.tag || w.category || "Workshop";
-                const summary = w.content?.summary || w.description || "";
+              {workshops.slice(0, 6).map((w) => {
+                const galleryImg = w.gallery?.[0] || "/assets/peaceaxis_image1.jpg";
+                const badge = w.badge || "";
+                const tag = w.tag || w.category || "Workshop";
+                const summary = w.summary || "";
                 return (
-                  <Card key={w.slug} className="flex flex-col h-full hover:-translate-y-2 transition-all duration-300">
-                    <div className="h-52 relative overflow-hidden bg-primary/10">
-                      <img
-                        src={galleryImg}
-                        alt={w.title}
-                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                      />
-                      {badge && (
-                        <div className="absolute top-4 right-4 px-3 py-1 bg-gradient-to-r from-accent to-secondary text-white text-xs font-bold rounded-full shadow-md">
-                          {badge}
+                  <Link href={`/workshops/${w.slug}`} key={w.slug} className="block h-full group">
+                    <Card className="flex flex-col h-full hover:-translate-y-2 transition-all duration-300 cursor-pointer">
+                      <div className="h-52 relative overflow-hidden rounded-t-2xl bg-black/5">
+                        <Image
+                          src={galleryImg}
+                          alt={w.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          className="object-cover transition-transform duration-700 hover:scale-[1.02]"
+                        />
+                        {badge && (
+                          <div className="absolute top-4 right-4 px-3 py-1 bg-gradient-to-r from-accent to-secondary text-white text-xs font-bold rounded-full shadow-md z-10">
+                            {badge}
+                          </div>
+                        )}
+                      </div>
+                      <CardContent className="p-6 flex-grow flex flex-col justify-between gap-6">
+                        <div className="flex flex-col gap-2">
+                          <span className="text-xs font-bold text-accent uppercase tracking-wider">{tag}</span>
+                          <h3 className="text-xl font-display font-bold text-dark group-hover:text-primary transition-colors">
+                            {w.title}
+                          </h3>
+                          <p className="text-gray-text text-sm leading-relaxed line-clamp-4">
+                            {summary}
+                          </p>
                         </div>
-                      )}
-                    </div>
-                    <CardContent className="p-6 flex-grow flex flex-col justify-between gap-6">
-                      <div className="flex flex-col gap-2">
-                        <span className="text-xs font-bold text-accent uppercase tracking-wider">{tag}</span>
-                        <h3 className="text-xl font-display font-bold text-dark">
-                          {w.title}
-                        </h3>
-                        <p className="text-gray-text text-sm leading-relaxed line-clamp-3">
-                          {summary}
-                        </p>
-                      </div>
-                      <div>
-                        <Link href={`/workshops/${w.slug}`}>
-                          <Button variant="outline" className="w-full justify-center gap-2">
-                            View Activity Details <ArrowRight className="w-4 h-4" />
-                          </Button>
-                        </Link>
-                      </div>
-                    </CardContent>
-                  </Card>
+                        <div className="mt-auto pt-4 border-t border-black/5 flex justify-end">
+                          <span className="text-sm font-bold text-primary hover:text-accent transition-colors flex items-center gap-1">
+                            View Details <ArrowRight className="w-3.5 h-3.5" />
+                          </span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
                 );
               })}
             </div>
@@ -486,11 +527,31 @@ export default function Home() {
         {/* Volunteer Section */}
         <section
           id="volunteer"
-          className="py-24 px-6 bg-cover bg-center text-white text-center relative"
-          style={{
-            backgroundImage: `linear-gradient(135deg, rgba(26, 95, 122, 0.95), rgba(38, 70, 83, 0.9)), url('/assets/volunteer_bg.jpg')`
-          }}
+          className="relative w-full flex flex-col justify-center items-center px-6 text-white text-center overflow-hidden isolate min-h-[400px]"
+          style={{ aspectRatio: volunteerAspectRatio }}
         >
+          {/* Main image: resizes dynamically to fit aspect ratio */}
+          <div className="absolute inset-0 -z-10">
+            <Image
+              src="/assets/volunteer_bg.jpg"
+              alt="Volunteer with us"
+              fill
+              className="object-cover object-center"
+              onLoad={(e) => {
+                const img = e.target as HTMLImageElement;
+                if (img.naturalWidth && img.naturalHeight) {
+                  setVolunteerAspectRatio(img.naturalWidth / img.naturalHeight);
+                }
+              }}
+            />
+          </div>
+          {/* Gradient overlay for text contrast */}
+          <div 
+            className="absolute inset-0 -z-[5]"
+            style={{
+              backgroundImage: `linear-gradient(135deg, rgba(26, 95, 122, 0.95), rgba(38, 70, 83, 0.9))`
+            }}
+          />
           <div className="max-w-4xl mx-auto flex flex-col items-center gap-8">
             <h2 className="text-3xl sm:text-4xl font-display font-bold text-white relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-0.5 after:bg-accent">
               {content.volunteerTitle}
@@ -507,8 +568,14 @@ export default function Home() {
               
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center justify-between border-t border-white/10 pt-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full overflow-hidden bg-white/20">
-                    <img src={content.coordinator1Image} alt={content.coordinator1Name} className="w-full h-full object-cover" />
+                  <div className="w-12 h-12 rounded-full overflow-hidden bg-white/20 flex-shrink-0 relative">
+                    <Image
+                      src={content.coordinator1Image}
+                      alt={content.coordinator1Name}
+                      fill
+                      sizes="48px"
+                      className="object-cover"
+                    />
                   </div>
                   <div>
                     <h4 className="font-semibold text-sm">{content.coordinator1Name}</h4>
@@ -523,8 +590,14 @@ export default function Home() {
               </div>
 
               <div className="flex items-center gap-3 border-t border-white/10 pt-4">
-                <div className="w-12 h-12 rounded-full overflow-hidden bg-white/20">
-                  <img src={content.coordinator2Image} alt={content.coordinator2Name} className="w-full h-full object-cover" />
+                <div className="w-12 h-12 rounded-full overflow-hidden bg-white/20 flex-shrink-0 relative">
+                  <Image
+                    src={content.coordinator2Image}
+                    alt={content.coordinator2Name}
+                    fill
+                    sizes="48px"
+                    className="object-cover"
+                  />
                 </div>
                 <div>
                   <h4 className="font-semibold text-sm">{content.coordinator2Name}</h4>

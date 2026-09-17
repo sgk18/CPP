@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Globe, Heart, Compass, Shield, Newspaper, Leaf, Mail } from "lucide-react";
-import { createClient } from "@/lib/supabase/client";
 
 const DEFAULT = {
   missionTitle: "Our Mission",
@@ -30,19 +30,122 @@ const DEFAULT = {
   teamDesc: "A dedicated team of educators, students, and community partners committed to peacebuilding.",
 };
 
-export default function About() {
-  const [content, setContent] = useState(DEFAULT);
-
-  useEffect(() => {
-    const fetchContent = async () => {
-      const supabase = createClient();
-      const { data } = await supabase.from("pages").select("content").eq("slug", "about").single();
-      if (data && data.content) {
-        setContent(data.content as typeof DEFAULT);
+const STRATEGIC_PLAN = [
+  {
+    title: "Focus Area I: Impactful Research, Innovation and Enterprise",
+    subsections: [
+      {
+        title: "a. Enhancing Research Excellence",
+        goals: [
+          {
+            title: "Goal 1: Foster and support high-quality research initiatives.",
+            actionPlan: "Collaborate with International Peace Research Institute, NIAS",
+            indicators: "Joint publications (write for Conflict Weekly), Exchange visits between researchers",
+            target: "1 Joint Publication & 1 Exchange visit by April '25 | 2 Joint Publications & 2 Exchange visits by Sept '26"
+          },
+          {
+            title: "Goal 2: Revenue generation through research and consultancy",
+            actionPlan: "Network with Social Sector units and corporates",
+            indicators: "No. of Workshops on Crucial Conversations, Crisis Resolution, and Promoting Cultures of Peace",
+            target: "1 Workshop of each type by April '25 | 2 Workshops of each type by Sept '26"
+          },
+          {
+            title: "Goal 3: National and International partnerships for research publications, projects, conferences/seminars, other activities.",
+            actionPlan: "Collaborate with IPRI, MPI, Solutions Journalism Network (conduct workshops, enable internships)",
+            indicators: "Number of student-led mini workshops with IPRI (twice in a semester), internships with MPI leading to field-based projects",
+            target: "1 Event with IPRI/MPI, SJN formation, 1 workshop/internship by April '25 | 2 Events with IPRI/MPI, 1 Solutions Journalism Networking Event, 2 workshops/internships by Sept '26"
+          }
+        ]
+      },
+      {
+        title: "b. Cultivating a Research and Innovation Culture",
+        goals: [
+          {
+            title: "Goal 1: Advancement of academic research culture",
+            actionPlan: "Enable a Book project with IPRI (Johan Galtung reader)",
+            indicators: "Book Project",
+            target: "1 Book Project in collaboration with IPRI"
+          }
+        ]
       }
-    };
-    fetchContent();
-  }, []);
+    ]
+  },
+  {
+    title: "Focus Area II: Meaningful Societal Engagement",
+    subsections: [
+      {
+        title: "a. Sustainable Development Goals (SDG)",
+        goals: [
+          {
+            title: "Goal 1: Collaboration / extension / outreach activities for SDGs",
+            actionPlan: "Collaborate with WCS, WWF (Sensitisation events related to Human-Animal coexistence)",
+            indicators: "Sensitisation events organised on Human-Animal Coexistence",
+            target: "4 Sensitisation events (2 WCS, 2 WWF) by the end of 2026"
+          }
+        ]
+      },
+      {
+        title: "b. Policy recommendations to Government and external agencies",
+        goals: [
+          {
+            title: "Goal 1: Establish research hubs, advocacy committees, and advisory panels.",
+            actionPlan: "Work on Climate Solutions, Media Literacy, and Human-Animal Coexistence policies",
+            indicators: "Bring about / Submit Policies to think tanks, government agencies, or forest officials",
+            target: "Submit Policies on Climate Solutions to thinktank, Media Literacy to Government Agencies, and Coexistence to Forest Officials by end of 2026"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    title: "Focus Area III: Positive Organizational Culture for Gainful Campus Life",
+    subsections: [
+      {
+        title: "a. Staff Development and Well-being",
+        goals: [
+          {
+            title: "Goal 1: Creating a positive and productive work environment",
+            actionPlan: "Capacity-building events to promote positive organisational culture for Centres and Departments",
+            indicators: "Workshops conducted",
+            target: "1 workshop by April 2025 | 2 workshops by April 2026"
+          },
+          {
+            title: "Goal 2: Promote well-being of staff",
+            actionPlan: "Conduct workshops on crucial conversations, crisis resolution, and psychosocial wellbeing",
+            indicators: "Workshops conducted for security staff (crucial conversations) and students (crisis & psychosocial)",
+            target: "1 of each workshop by April 2025 | 2 of each workshop by April 2026"
+          }
+        ]
+      },
+      {
+        title: "b. Governance and Leadership",
+        goals: [
+          {
+            title: "Goal 1: Advisory board engagement",
+            actionPlan: "Establish Advisory Board (Siddharth - Fireflies, Christine Vertucci - MPI)",
+            indicators: "Advisory meetings conducted & implementation of inputs",
+            target: "Advisory board in place, regular meetings conducted, implement 3 big-item inputs shared by board"
+          },
+          {
+            title: "Goal 2: Visibility and Communication",
+            actionPlan: "Collaborate with other peace networks, activate LinkedIn and Instagram, hold workshops/field visits",
+            indicators: "Number of followers, peace impact events",
+            target: "Reach 100 followers by end of 2025 (250 by end of 2026), 3 Peace impact events"
+          },
+          {
+            title: "Goal 3: Resource Planning & Resource Utilisation",
+            actionPlan: "Recruit Faculty members (core team), present man-power & financial budget, train interested faculty",
+            indicators: "Faculty team size, budget analysis",
+            target: "At least 4 faculty members in the core team, present man-power & financial budget, have annual budget analysis"
+          }
+        ]
+      }
+    ]
+  }
+];export default function About() {
+  const [content] = useState(DEFAULT);
+  const [activeTab, setActiveTab] = useState(0);
+  const [aspectRatio, setAspectRatio] = useState<number>(1024 / 664);
 
   const values = [
     {
@@ -73,11 +176,33 @@ export default function About() {
       <main className="flex-grow pt-[97px]">
         {/* Page Header */}
         <section
-          className="relative py-24 px-6 text-center text-white bg-cover bg-center"
-          style={{
-            backgroundImage: `linear-gradient(135deg, rgba(26, 95, 122, 0.9), rgba(42, 157, 143, 0.85)), url('/assets/volunteer_bg.jpg')`
-          }}
+          className="relative w-full flex flex-col justify-center items-center px-6 text-center text-white overflow-hidden isolate min-h-[300px]"
+          style={{ aspectRatio: aspectRatio }}
         >
+          {/* Main image: resizes dynamically to fit aspect ratio */}
+          <div className="absolute inset-0 -z-10">
+            <Image
+              src="/assets/volunteer_bg.jpg"
+              alt="About Us"
+              fill
+              className="object-cover object-center"
+              priority
+              onLoad={(e) => {
+                const img = e.target as HTMLImageElement;
+                if (img.naturalWidth && img.naturalHeight) {
+                  setAspectRatio(img.naturalWidth / img.naturalHeight);
+                }
+              }}
+            />
+          </div>
+          {/* Gradient overlay for text contrast */}
+          <div 
+            className="absolute inset-0 -z-[5]"
+            style={{
+              backgroundImage: `linear-gradient(135deg, rgba(26, 95, 122, 0.9), rgba(42, 157, 143, 0.85))`
+            }}
+          />
+
           <div className="max-w-4xl mx-auto flex flex-col gap-4">
             <h1 className="text-4xl sm:text-5xl font-display font-bold text-white tracking-tight">
               About Us
@@ -108,11 +233,15 @@ export default function About() {
               </div>
               <div className="relative">
                 <div className="absolute -inset-4 bg-primary/5 rounded-3xl -z-10" />
-                <img
-                  src="/assets/peaceaxis_image1.jpg"
-                  alt="Community building and dialogue praxis"
-                  className="w-full h-auto rounded-2xl shadow-xl border border-black/5"
-                />
+                <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl border border-black/5">
+                  <Image
+                    src="/assets/peaceaxis_image1.jpg"
+                    alt="Community building and dialogue praxis"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </div>
               </div>
             </div>
 
@@ -214,6 +343,61 @@ export default function About() {
               </div>
             </div>
 
+            {/* Inauguration Gallery */}
+            <div className="mt-4">
+              <div className="text-center mb-10">
+                <span className="text-xs font-bold uppercase tracking-wider text-accent">16th August 2023</span>
+                <h3 className="text-2xl font-display font-bold text-dark mt-2">
+                  Inauguration Gallery
+                </h3>
+                <div className="h-1 bg-accent w-12 mx-auto mt-4" />
+                <p className="text-sm text-gray-text mt-3 max-w-lg mx-auto">
+                  Glimpses from the inauguration of the Centre for Peace Praxis and the launch of the Christites for Peace program.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                {/* Large featured image */}
+                <div className="col-span-2 row-span-2 group relative overflow-hidden rounded-2xl shadow-md border border-black/5">
+                  <div className="relative w-full h-full" style={{ minHeight: "340px" }}>
+                    <Image
+                      src="/assets/inaugration/IMG-20230819-WA0025.jpg"
+                      alt="Inauguration ceremony — Centre for Peace Praxis"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    <p className="text-white text-xs font-medium">Inauguration Ceremony</p>
+                  </div>
+                </div>
+
+                {/* Remaining images */}
+                {[
+                  { src: "/assets/inaugration/IMG-20230819-WA0007.jpg", alt: "Inauguration — dignitaries gathering" },
+                  { src: "/assets/inaugration/IMG-20230819-WA0013.jpg", alt: "Inauguration — address to students" },
+                  { src: "/assets/inaugration/IMG-20230819-WA0014.jpg", alt: "Inauguration — ceremonial lamp lighting" },
+                  { src: "/assets/inaugration/IMG-20230819-WA0028.jpg", alt: "Inauguration — student representatives" },
+                  { src: "/assets/inaugration/IMG-20230819-WA0045.jpg", alt: "Inauguration — group photo" },
+                  { src: "/assets/inaugration/IMG-20230819-WA0050.jpg", alt: "Inauguration — community gathering" },
+                ].map((img, i) => (
+                  <div key={i} className="group relative overflow-hidden rounded-2xl shadow-md border border-black/5 h-40 md:h-44">
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      fill
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                      <p className="text-white text-[10px] font-medium leading-tight">{img.alt.replace("Inauguration — ", "")}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Focus Areas Grid */}
             <div className="mt-8">
               <div className="text-center mb-12">
@@ -282,6 +466,82 @@ export default function About() {
               </a>
             </div>
 
+          </div>
+        </section>
+
+        {/* Strategic Plan Section */}
+        <section id="strategic-plan" className="py-24 px-6 bg-white border-t border-black/5 animate-fade-in-up">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-xs font-bold uppercase tracking-wider text-accent">Roadmaps & Goals</span>
+              <h2 className="text-3xl sm:text-4xl font-display font-bold text-dark mt-2">
+                Strategic Plan 2025-2026
+              </h2>
+              <div className="h-1 bg-accent w-12 mx-auto mt-4" />
+              <p className="text-sm text-gray-text mt-3">
+                Our vision in action: targets, performance metrics, and tactical initiatives mapping our course for the next two years.
+              </p>
+            </div>
+
+            {/* Tabs selector */}
+            <div className="flex flex-wrap gap-2 justify-center mb-12 border-b border-black/5 pb-6">
+              {STRATEGIC_PLAN.map((area, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveTab(idx)}
+                  className={`text-xs px-5 py-3 rounded-xl border font-bold tracking-wider uppercase transition-all duration-300 cursor-pointer ${
+                    activeTab === idx
+                      ? "bg-primary text-white border-primary shadow-lg shadow-primary/15"
+                      : "bg-white border-black/5 text-gray-500 hover:border-primary/40 hover:text-primary"
+                  }`}
+                >
+                  Focus Area {idx + 1}
+                </button>
+              ))}
+            </div>
+
+            {/* Active Tab Content */}
+            <div className="space-y-8">
+              <div className="bg-[#1A5F7A]/5 border border-[#1A5F7A]/10 rounded-2xl p-4 mb-8">
+                <h3 className="text-sm sm:text-base font-display font-bold text-primary flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-accent" />
+                  {STRATEGIC_PLAN[activeTab].title}
+                </h3>
+              </div>
+              
+              <div className="flex flex-col gap-8">
+                {STRATEGIC_PLAN[activeTab].subsections.map((sub, sIdx) => (
+                  <div key={sIdx} className="bg-light/15 border border-black/5 rounded-2xl p-6 md:p-8 shadow-sm">
+                    <h4 className="text-sm sm:text-md font-display font-bold text-accent mb-6 border-b border-black/5 pb-2">
+                      {sub.title}
+                    </h4>
+                    
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left border-collapse text-xs md:text-sm">
+                        <thead>
+                          <tr className="border-b border-black/10 text-dark font-bold">
+                            <th className="pb-3 pr-4 w-1/4 uppercase tracking-wider font-display text-[10px]">Goal</th>
+                            <th className="pb-3 pr-4 w-1/4 uppercase tracking-wider font-display text-[10px]">Action Plan</th>
+                            <th className="pb-3 pr-4 w-1/4 uppercase tracking-wider font-display text-[10px]">Performance Indicators</th>
+                            <th className="pb-3 w-1/4 uppercase tracking-wider font-display text-[10px]">Targets</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-black/[0.03] text-gray-text">
+                          {sub.goals.map((goal, gIdx) => (
+                            <tr key={gIdx} className="hover:bg-white/[0.4] transition-colors">
+                              <td className="py-4 pr-4 align-top font-semibold text-dark">{goal.title}</td>
+                              <td className="py-4 pr-4 align-top leading-relaxed">{goal.actionPlan}</td>
+                              <td className="py-4 pr-4 align-top leading-relaxed">{goal.indicators}</td>
+                              <td className="py-4 align-top leading-relaxed font-semibold text-primary">{goal.target}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
       </main>

@@ -41,6 +41,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${cormorant.variable} ${montserrat.variable} ${openSans.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans bg-[#fcfcfc] text-[#333]">

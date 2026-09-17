@@ -25,7 +25,11 @@ CREATE TABLE events (
   date DATE NOT NULL,
   description TEXT,
   image_url TEXT,
+  image_path TEXT,
+  thumbnail_url TEXT,
+  medium_url TEXT,
   registration_link TEXT,
+  venue TEXT,
   status TEXT DEFAULT 'upcoming', -- upcoming, ongoing, past
   created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now())
 );
@@ -48,7 +52,9 @@ CREATE TABLE workshops (
 -- Gallery
 CREATE TABLE gallery (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  url TEXT NOT NULL,
+  image_url TEXT NOT NULL,
+  thumbnail_url TEXT,
+  medium_url TEXT,
   caption TEXT,
   album TEXT DEFAULT 'General',
   is_featured BOOLEAN DEFAULT false,
@@ -56,7 +62,7 @@ CREATE TABLE gallery (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now())
 );
 
--- Volunteers
+-- Volunteers (Legacy / Friend's table)
 CREATE TABLE volunteers (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   name TEXT NOT NULL,
@@ -67,6 +73,19 @@ CREATE TABLE volunteers (
   image_url TEXT,
   status TEXT DEFAULT 'active', -- active, pending, inactive
   joined_date DATE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now())
+);
+
+-- Team Members (Prisma-aligned)
+CREATE TABLE team_members (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  name TEXT NOT NULL,
+  role TEXT,
+  image_url TEXT,
+  thumbnail_url TEXT,
+  medium_url TEXT,
+  linkedin TEXT,
+  github TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now())
 );
 
@@ -104,6 +123,7 @@ ALTER TABLE events ENABLE ROW LEVEL SECURITY;
 ALTER TABLE workshops ENABLE ROW LEVEL SECURITY;
 ALTER TABLE gallery ENABLE ROW LEVEL SECURITY;
 ALTER TABLE volunteers ENABLE ROW LEVEL SECURITY;
+ALTER TABLE team_members ENABLE ROW LEVEL SECURITY;
 ALTER TABLE testimonials ENABLE ROW LEVEL SECURITY;
 ALTER TABLE settings ENABLE ROW LEVEL SECURITY;
 
@@ -113,6 +133,7 @@ CREATE POLICY "Public read access for events" ON events FOR SELECT USING (true);
 CREATE POLICY "Public read access for workshops" ON workshops FOR SELECT USING (true);
 CREATE POLICY "Public read access for gallery" ON gallery FOR SELECT USING (true);
 CREATE POLICY "Public read access for volunteers" ON volunteers FOR SELECT USING (true);
+CREATE POLICY "Public read access for team_members" ON team_members FOR SELECT USING (true);
 CREATE POLICY "Public read access for testimonials" ON testimonials FOR SELECT USING (status = 'approved');
 CREATE POLICY "Public read access for settings" ON settings FOR SELECT USING (true);
 
@@ -122,6 +143,7 @@ CREATE POLICY "Admin full access to events" ON events FOR ALL USING (auth.role()
 CREATE POLICY "Admin full access to workshops" ON workshops FOR ALL USING (auth.role() = 'authenticated');
 CREATE POLICY "Admin full access to gallery" ON gallery FOR ALL USING (auth.role() = 'authenticated');
 CREATE POLICY "Admin full access to volunteers" ON volunteers FOR ALL USING (auth.role() = 'authenticated');
+CREATE POLICY "Admin full access to team_members" ON team_members FOR ALL USING (auth.role() = 'authenticated');
 CREATE POLICY "Admin full access to testimonials" ON testimonials FOR ALL USING (auth.role() = 'authenticated');
 CREATE POLICY "Admin full access to settings" ON settings FOR ALL USING (auth.role() = 'authenticated');
 

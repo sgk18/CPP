@@ -2,39 +2,64 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 export const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 40) {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > 40) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
       }
+
+      if (isMobileMenuOpen) {
+        setIsVisible(true);
+      } else if (currentScrollY <= 40) {
+        setIsVisible(true);
+      } else if (currentScrollY > lastScrollY) {
+        // Scrolling down -> hide
+        setIsVisible(false);
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up -> show
+        setIsVisible(true);
+      }
+      setLastScrollY(currentScrollY);
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY, isMobileMenuOpen]);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      // If cursor is within 30px of the top of the viewport
+      if (e.clientY <= 30) {
+        setIsVisible(true);
+      }
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
 
   const navLinks = [
     { label: "Home", href: pathname === "/" ? "#home" : "/" },
     { label: "About", href: "/about" },
+    { label: "Team", href: "/team" },
     { label: "Activities", href: pathname === "/" ? "#activities" : "/#activities" },
     { label: "Volunteer", href: pathname === "/" ? "#volunteer" : "/#volunteer" },
     { label: "Gallery", href: "/gallery" }
-  ];
-
-  const communityLinks = [
-    { label: "Faculties", href: "/community/faculties" },
-    { label: "Students", href: "/community/students" },
-    { label: "Alumni", href: "/community/alumni" }
   ];
 
   const handleLinkClick = (href: string) => {
@@ -54,18 +79,27 @@ export const Header: React.FC = () => {
 
   return (
     <header
+      onMouseEnter={() => setIsVisible(true)}
+      onMouseLeave={() => {
+        if (window.scrollY > 40 && !isMobileMenuOpen) {
+          setIsVisible(false);
+        }
+      }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-black/5 ${
         isScrolled ? "py-3 bg-white/95 shadow-md shadow-black/[0.03] backdrop-blur-md" : "py-5 bg-white/80 backdrop-blur-sm"
-      }`}
+      } ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"}`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 group">
           <div className="w-14 h-14 relative flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
-            <img
+            <Image
               src="/assets/current_logo.png"
               alt="Centre for Peace Praxis Logo"
-              className="object-contain w-full h-full"
+              fill
+              sizes="56px"
+              className="object-contain"
+              priority
             />
           </div>
           <div className="font-serif text-2xl font-bold tracking-tight text-dark transition-colors duration-300">
@@ -92,35 +126,7 @@ export const Header: React.FC = () => {
               </li>
             ))}
 
-            {/* Dropdown Community */}
-            <li className="relative group/dropdown">
-              <button
-                className={`flex items-center gap-1 font-display text-[13px] font-semibold tracking-wider uppercase py-1.5 transition-colors duration-300 cursor-pointer ${
-                  pathname.startsWith("/community") ? "text-primary" : "text-dark/85 hover:text-primary"
-                }`}
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Community <ChevronDown className="w-4 h-4 transition-transform duration-300 group-hover/dropdown:rotate-180" />
-              </button>
-              <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-black/5 shadow-xl shadow-black/[0.08] rounded-2xl overflow-hidden hidden group-hover/dropdown:block animate-fade-in-up origin-top-left">
-                <div className="h-1 bg-accent w-full" />
-                <ul className="list-none p-1 m-0">
-                  {communityLinks.map((link) => (
-                    <li key={link.label}>
-                      <Link
-                        href={link.href}
-                        className={`block px-5 py-3 text-[14px] font-medium text-dark transition-colors duration-200 hover:bg-light/60 hover:text-primary ${
-                          pathname === link.href ? "bg-light/40 text-primary font-semibold" : ""
-                        }`}
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </li>
+
 
             <li>
               <Link
@@ -169,25 +175,7 @@ export const Header: React.FC = () => {
               </li>
             ))}
 
-            {/* Mobile Community Submenu */}
-            <li className="pt-2 border-t border-black/5">
-              <span className="block text-xs font-bold text-gray-text uppercase tracking-widest mb-3">Community</span>
-              <ul className="flex flex-col gap-2 pl-3 list-none p-0 m-0">
-                {communityLinks.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className={`block py-1.5 text-sm font-medium text-dark transition-colors ${
-                        pathname === link.href ? "text-primary font-semibold" : "hover:text-primary"
-                      }`}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </li>
+
 
             <li className="pt-2 border-t border-black/5">
               <Link
