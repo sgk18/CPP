@@ -128,6 +128,8 @@ const parseEventDate = (dateStr: string): Date => {
   return new Date(9999, 11, 31); // Place unparseable dates at the end
 };
 
+import { workshops as defaultWorkshops } from "@/constants/workshops";
+
 export default function Home() {
   const [content, setContent] = useState(DEFAULT_CONTENT);
   const [events, setEvents] = useState<any[]>([]);
@@ -143,13 +145,25 @@ export default function Home() {
       ]);
       
       if (pagesRes.data && pagesRes.data.content) {
-        setContent(pagesRes.data.content);
+        setContent(prev => ({ ...prev, ...pagesRes.data.content }));
       }
-      if (eventsRes.data) {
+      
+      if (eventsRes.data && eventsRes.data.length > 0) {
         setEvents(eventsRes.data);
+      } else {
+        setEvents([
+          { title: DEFAULT_CONTENT.event1Title, date: DEFAULT_CONTENT.event1Date, description: DEFAULT_CONTENT.event1Desc, image_url: DEFAULT_CONTENT.event1Image },
+          { title: DEFAULT_CONTENT.event2Title, date: DEFAULT_CONTENT.event2Date, description: DEFAULT_CONTENT.event2Desc, image_url: DEFAULT_CONTENT.event2Image },
+          { title: DEFAULT_CONTENT.event3Title, date: DEFAULT_CONTENT.event3Date, description: DEFAULT_CONTENT.event3Desc, image_url: DEFAULT_CONTENT.event3Image },
+          { title: DEFAULT_CONTENT.event4Title, date: DEFAULT_CONTENT.event4Date, description: DEFAULT_CONTENT.event4Desc, image_url: DEFAULT_CONTENT.event4Image },
+          { title: DEFAULT_CONTENT.event5Title, date: DEFAULT_CONTENT.event5Date, description: DEFAULT_CONTENT.event5Desc, image_url: DEFAULT_CONTENT.event5Image }
+        ]);
       }
-      if (workshopsRes.data) {
+      
+      if (workshopsRes.data && workshopsRes.data.length > 0) {
         setWorkshops(workshopsRes.data);
+      } else {
+        setWorkshops(defaultWorkshops.slice(0, 6));
       }
     };
     fetchContent();
